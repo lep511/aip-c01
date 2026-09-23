@@ -137,26 +137,15 @@ El exam guide publica una lista de servicios *in scope*. Los que se usan directa
 
 ### 3.2 La taxonomía de capas (usar siempre esta escalera)
 
-```
-                ┌───────────────────────────────────────────────┐
-   Capa 6       │ Resultado de negocio: CSAT, resolución, deflexión,
-                │ costo por tarea resuelta, ingresos
-                ├───────────────────────────────────────────────┤
-   Capa 5       │ Agente: goal success rate, tool selection/param accuracy,
-                │ pasos por tarea, trayectoria esperada
-                ├───────────────────────────────────────────────┤
-   Capa 4       │ Respuesta: correctness, completeness, relevancia,
-                │ coherencia, formato/instrucciones, concisión
-                ├───────────────────────────────────────────────┤
-   Capa 3       │ Grounding: faithfulness, citation precision/coverage,
-                │ grounding score, tasas de alucinación
-                ├───────────────────────────────────────────────┤
-   Capa 2       │ Recuperación (RAG): context relevance, context coverage,
-                │ hit rate, MRR, precision/recall@k, latencia de retrieval
-                ├───────────────────────────────────────────────┤
-   Capa 1       │ Seguridad y cumplimiento: harmfulness, stereotyping,
-                │ refusal, PII, prompt attacks, intervenciones de guardrail
-                └───────────────────────────────────────────────┘
+```mermaid
+graph TD
+    C6["Capa 6 - Resultado de negocio: CSAT, resolución, deflexión, costo por tarea, ingresos"]
+    C5["Capa 5 - Agente: goal success rate, tool selection/param accuracy, pasos por tarea"]
+    C4["Capa 4 - Respuesta: correctness, completeness, relevancia, coherencia, formato, concisión"]
+    C3["Capa 3 - Grounding: faithfulness, citation precision/coverage, tasas de alucinación"]
+    C2["Capa 2 - Recuperación RAG: context relevance, hit rate, MRR, precision/recall@k"]
+    C1["Capa 1 - Seguridad y cumplimiento: harmfulness, PII, prompt attacks, guardrail"]
+    C6 --- C5 --- C4 --- C3 --- C2 --- C1
 ```
 
 **Regla diagnóstica fundamental:** cuando la respuesta es mala, **primero se verifica si el contexto era malo** (capa 2) antes de culpar al modelo (capa 4). El patrón de "huella" es:
@@ -347,16 +336,19 @@ El cambio de un modelo o de un prompt **es un cambio de comportamiento de todas 
 
 #### 4.4.2 Anatomía de un quality gate
 
-```
-      commit  ──▶  lint/unit  ──▶  smoke (10-20 casos)  ──▶  eval estratificada
-                                        │                          │
-                                        ▼                          ▼
-                                  ¿falla duro?               delta vs. baseline
-                                        │                          │
-                                    BLOQUEA  ◀─────────────  ¿supera umbral (-2 %/-5 %)?
-                                                                   │
-                                                                   ▼
-                                                       Aprueba deploy → canary → online eval
+```mermaid
+graph LR
+    A["commit"] --> B["lint/unit"]
+    B --> C["smoke (10-20 casos)"]
+    C --> D["eval estratificada"]
+    C --> E{"¿falla duro?"}
+    D --> F{"delta vs. baseline"}
+    F --> G{"¿supera umbral -2%/-5%?"}
+    E --> H["BLOQUEA"]
+    G -->|Si| H
+    G -->|No| I["Aprueba deploy"]
+    I --> J["canary"]
+    J --> K["online eval"]
 ```
 
 **Elementos que el examen suele premiar:**
@@ -542,23 +534,15 @@ Tres preguntas de verificación que conviene implementar como pruebas automatiza
 
 #### 4.7.2 El loop de optimización de agentes (AgentCore Optimization)
 
-```
-  Producción ──▶ Trazas + resultados de evaluación
-                        │
-                        ▼
-                 Insights (análisis de fallas, intención, trayectoria)
-                        │
-                        ▼
-              Recommendations (system prompt y descripciones de tools optimizados)
-                        │
-            ┌───────────┴────────────┐
-            ▼                        ▼
-   Batch evaluation          A/B test sobre tráfico real
-   (offline, dataset)        (sticky por sessionId, p-valor, IC)
-            │                        │
-            └───────────┬────────────┘
-                        ▼
-              Promoción (con aprobación humana)
+```mermaid
+graph TD
+    A["Producción"] --> B["Trazas + resultados de evaluación"]
+    B --> C["Insights: análisis de fallas, intención, trayectoria"]
+    C --> D["Recommendations: system prompt y tools optimizados"]
+    D --> E["Batch evaluation (offline, dataset)"]
+    D --> F["A/B test sobre tráfico real (sticky por sessionId)"]
+    E --> G["Promoción (con aprobación humana)"]
+    F --> G
 ```
 
 Puntos que el examen puede convertir en pregunta: **toda recomendación requiere aprobación antes de publicarse**; el A/B test usa **asignación sticky por ID de sesión** y reporta **significancia estadística** antes de promover; los experimentos se cobran por los recursos subyacentes consumidos (Runtime, Gateway, Evaluations).
@@ -666,13 +650,14 @@ Buenas prácticas de diseño de escenarios:
 
 #### 5.1.2 Presupuesto de contexto (hacer el cálculo explícito)
 
-```
-Ventana del modelo                                   (p. ej. 200 000 tokens)
- − saltos de razonamiento / thinking budget          (si aplica)
- − reserva de salida (maxTokens)                     (p. ej. 4 000)
- − buffer de seguridad                               (5–10 %)
- ─────────────────────────────────────────────────
- = PRESUPUESTO DISPONIBLE para system + historial + RAG + tools
+```mermaid
+graph TD
+    A["Ventana del modelo (ej. 200K tokens)"]
+    B["- Thinking budget (si aplica)"]
+    C["- Reserva de salida / maxTokens (ej. 4K)"]
+    D["- Buffer de seguridad (5-10%)"]
+    E["= PRESUPUESTO DISPONIBLE para system + historial + RAG + tools"]
+    A --> B --> C --> D --> E
 ```
 
 Errores frecuentes que este cálculo previene: no reservar espacio para el *thinking budget*, no contar las definiciones de tools (que consumen tokens en cada request), no deduplicar contexto inyectado dos veces.
@@ -717,15 +702,17 @@ Si no entra: aplicar la estrategia de la tabla **antes** de llamar al modelo, y 
 
 #### 5.2.2 Patrón de robustez (lo que el examen suele querer escuchar)
 
-```
-Request ──▶ Validación de esquema + conteo de tokens ──▶ Invocación (timeout explícito)
-                                        │                         │
-                                        │                    ¿error?
-                                        │                         │
-                        (rechazo temprano con mensaje)     clasificar → reintentar (429/5xx, backoff+jitter)
-                                                                   → fallback (modelo/región alterno)
-                                                                   → degradar con gracia (respuesta cacheada/mensaje)
-                                                                   → dead-letter + alerta
+```mermaid
+graph LR
+    A["Request"] --> B["Validación de esquema + conteo de tokens"]
+    B -->|válido| C["Invocación (timeout explícito)"]
+    B -->|inválido| D["Rechazo temprano con mensaje"]
+    C --> E{"¿error?"}
+    E -->|429/5xx| F["Reintentar (backoff + jitter)"]
+    E -->|no| G["Respuesta OK"]
+    F -->|falla| H["Fallback (modelo/región alterno)"]
+    H -->|falla| I["Degradar con gracia (cache/mensaje)"]
+    I -->|falla| J["Dead-letter + alerta"]
 ```
 
 **Reglas:**
@@ -778,20 +765,21 @@ Request ──▶ Validación de esquema + conteo de tokens ──▶ Invocació
 
 #### 5.4.1 Árbol de diagnóstico
 
-```
-¿La respuesta es mala?
-├─ ¿El contexto recuperado contiene la evidencia?
-│   ├─ SÍ → problema de GENERACIÓN
-│   │        → prompt de grounding, modelo, temperatura, tamaño de contexto (ruido), formato de citas
-│   └─ NO → problema de RECUPERACIÓN
-│            ├─ ¿Devuelve 0 resultados? → filtros de metadata mal formados, índice mal / no existe,
-│            │                            dimensión incorrecta, permisos IAM del collection, sync fallido
-│            ├─ ¿El pasaje correcto está pero bajo? → problema de RANKING → reranking, hybrid search
-│            ├─ ¿No está en el top-50? → problema de RECALL → chunking, hybrid search, filtros,
-│            │                          embeddings (modelo/dimensiones), enriquecimiento de chunks
-│            └─ ¿Está en otro idioma / otra partición? → filtros, embeddings multilingües, metadata
-└─ ¿La latencia de retrieval es alta? → tamaño del índice, tipo de búsqueda, dimensiones,
-                                        filtros que reducen espacio, caché de embeddings de consulta
+```mermaid
+graph TD
+    A{"¿La respuesta es mala?"} --> B{"¿El contexto contiene la evidencia?"}
+    A --> L{"¿Latencia de retrieval alta?"}
+    B -->|SÍ| C["Problema de GENERACIÓN: prompt, modelo, temperatura, formato de citas"]
+    B -->|NO| D["Problema de RECUPERACIÓN"]
+    D --> E{"¿Devuelve 0 resultados?"}
+    D --> F{"¿Pasaje correcto pero bajo?"}
+    D --> G{"¿No está en el top-50?"}
+    D --> H{"¿Otro idioma / partición?"}
+    E -->|Sí| E1["Filtros mal formados, índice inexistente, dimensión incorrecta, permisos IAM"]
+    F -->|Sí| F1["Problema de RANKING: reranking, hybrid search"]
+    G -->|Sí| G1["Problema de RECALL: chunking, hybrid search, embeddings, enriquecimiento"]
+    H -->|Sí| H1["Filtros, embeddings multilingües, metadata"]
+    L --> L1["Tamaño del índice, tipo de búsqueda, dimensiones, filtros, caché"]
 ```
 
 #### 5.4.2 Los fallos concretos que hay que saber nombrar
@@ -851,56 +839,61 @@ El prompt no es un string: es un artefacto con **ciclo de vida**. Los problemas 
 
 #### 5.5.3 Workflow de refinamiento sistemático
 
-```
-Detectar (alarma / feedback / evaluación continua)
-   └─▶ Reproducir con el prompt renderizado exacto + parámetros + versión de modelo
-        └─▶ Clasificar la falla (contenido | contexto | formato | instrucción | modelo)
-             └─▶ Proponer cambio mínimo (una variable)
-                  └─▶ Correr suite dorada + robustez (delta vs. baseline)
-                       └─▶ Gate: ¿mejora sin regresión? ¿costo/latencia dentro de presupuesto?
-                            └─▶ Nueva versión en Prompt Management → canary → online eval
-                                 └─▶ Post-mortem: añadir el caso al dataset dorado
+```mermaid
+graph TD
+    A["Detectar: alarma / feedback / evaluación continua"] --> B["Reproducir con prompt exacto + parámetros + versión"]
+    B --> C["Clasificar falla: contenido | contexto | formato | instrucción | modelo"]
+    C --> D["Proponer cambio mínimo (una variable)"]
+    D --> E["Correr suite dorada + robustez (delta vs. baseline)"]
+    E --> F{"¿Mejora sin regresión? ¿Costo/latencia OK?"}
+    F -->|Sí| G["Nueva versión en Prompt Management"]
+    G --> H["Canary → online eval"]
+    H --> I["Post-mortem: añadir caso al dataset dorado"]
+    F -->|No| D
 ```
 
 ---
 
 ## 6. Arquitectura de referencia: el ciclo de calidad GenAI end-to-end
 
-```
-┌────────────────────────────────────────────────────────────────────────────────┐
-│ 1. DATOS Y ARTEFACTOS DORADOS (versionados junto al código)                    │
-│    golden dataset · rúbricas · prompts · policies de Automated Reasoning       │
-└───────────────┬────────────────────────────────────────────────────────────────┘
-                │
-┌───────────────▼────────────────┐      ┌────────────────────────────────────────┐
-│ 2. EVALUACIÓN OFFLINE (CI/CD)  │      │ 3. VALIDACIÓN SINTÉTICA                │
-│  · Bedrock Evaluations (LLMaaJ │─────▶│  · usuarios simulados (actor profiles) │
-│    + programáticas)            │      │  · adversarial / red-team              │
-│  · RAG eval (retrieval/gen)    │      │  · assertions de comportamiento        │
-│  · AgentCore on-demand         │      └───────────────┬────────────────────────┘
-│  · Quality gate (umbral+delta) │                      │
-└───────────────┬────────────────┘                      │
-                │  PASA                                 │
-┌───────────────▼───────────────────────────────────────▼────────────────────────┐
-│ 4. DESPLIEGUE CONTROLADO                                                       │
-│   AppConfig / alias ponderado / Step Functions  →  canary 5%→10%→50%           │
-│   A/B test con significancia estadística (AgentCore Gateway, sticky session)    │
-│   → rollback automático ante alarma                                            │
-└───────────────┬────────────────────────────────────────────────────────────────┘
-                │  100%
-┌───────────────▼────────────────────────────────────────────────────────────────┐
-│ 5. PRODUCCIÓN: OBSERVAR Y EVALUAR CONTINUAMENTE                                │
-│  · CloudWatch GenAI Observability + Invocation Logging + X-Ray/ADOT            │
-│  · Guardrails (grounding, Automated Reasoning) → intervenciones y scores       │
-│  · AgentCore Evaluations online (muestreo) + alarmas de calidad                │
-│  · Feedback de usuario (implícito y explícito)                                 │
-└───────────────┬────────────────────────────────────────────────────────────────┘
-                │
-┌───────────────▼────────────────────────────────────────────────────────────────┐
-│ 6. MEJORA (loop cerrado)                                                       │
-│  Insights → Recommendations → Batch eval / A/B → Promoción (con aprobación)     │
-│  Fallos nuevos ⇒ nuevos casos dorados ⇒ vuelve al paso 1                       │
-└────────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+graph TD
+    subgraph "1. Datos y Artefactos Dorados"
+        A1["Golden dataset, rúbricas, prompts, policies de Automated Reasoning (versionados junto al código)"]
+    end
+    subgraph "2. Evaluación Offline (CI/CD)"
+        B1["Bedrock Evaluations (LLM-as-Judge + programáticas)"]
+        B2["RAG eval (retrieval/gen)"]
+        B3["AgentCore on-demand"]
+        B4["Quality gate (umbral + delta)"]
+    end
+    subgraph "3. Validación Sintética"
+        C1["Usuarios simulados (actor profiles)"]
+        C2["Adversarial / red-team"]
+        C3["Assertions de comportamiento"]
+    end
+    subgraph "4. Despliegue Controlado"
+        D1["Canary 5% → 10% → 50%"]
+        D2["A/B test con significancia estadística"]
+        D3["Rollback automático ante alarma"]
+    end
+    subgraph "5. Producción: Observar y Evaluar"
+        E1["CloudWatch GenAI + Invocation Logging + X-Ray"]
+        E2["Guardrails: grounding, Automated Reasoning"]
+        E3["AgentCore Evaluations online (muestreo)"]
+        E4["Feedback de usuario"]
+    end
+    subgraph "6. Mejora (loop cerrado)"
+        F1["Insights → Recommendations → Batch eval / A/B → Promoción"]
+        F2["Fallos nuevos → nuevos casos dorados"]
+    end
+    A1 --> B1
+    B1 --> C1
+    B4 -->|PASA| D1
+    C3 --> D1
+    D1 -->|100%| E1
+    E4 --> F1
+    F2 -->|Vuelve al paso 1| A1
 ```
 
 **Cómo se reporta cada capa:**

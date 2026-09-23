@@ -126,9 +126,15 @@ Tres observaciones que casi todo el mundo descubre tarde:
 3. **La infraestructura alrededor puede superar a la inferencia**: un vector store administrado con piso mensual, re-ranking, guardrails, logging y transiciones de Flows se suman como líneas propias.
 
 **Latencia (percibida por el usuario):**
-```
-Latencia total = Latencia de red + TTFT + (n_tokens_salida ÷ OTPS) + overhead de post-proceso
-                 └─ visible ─┘   └──────── generación ────────┘
+```mermaid
+graph LR
+    A["Latencia total"] --> B["Latencia de red"]
+    A --> C["TTFT"]
+    A --> D["n_tokens_salida / OTPS"]
+    A --> E["Overhead post-proceso"]
+    B -.- F["visible"]
+    C -.- G["generacion"]
+    D -.- G
 ```
 - **TTFT (Time To First Token)** es lo que siente el usuario en una app de streaming; se ataca con caching de prefijo, modelo más chico, CRIS y conexiones reutilizadas.
 - **OTPS** domina cuando la respuesta es larga; se ataca limitando la salida y eligiendo un modelo con mejor velocidad de generación.
@@ -156,12 +162,16 @@ Consecuencia: **`maxTokens` desproporcionado y picos de concurrencia causan thro
 
 ### 3.3 El árbol de decisión que conviene tener memorizado
 
-```
-¿La latencia importa (usuario esperando)?
-├─ SÍ → ¿Es interactivo y crítico?      → Priority + streaming + modelo pequeño/rápido + prompt caching
-│        ¿Es interactivo y normal?      → Standard + streaming + prompt caching + CRIS
-└─ NO → ¿Puede esperar hasta 24 h?      → Batch (−50 %)  ·  ¿Tolera latencia variable? → Flex (−50 %)
-         ¿Es carga sostenida y predecible? → Reserved (modelos estándar) o PT (modelos custom/fine-tuned)
+```mermaid
+graph TD
+    A{"La latencia importa?<br>(usuario esperando)"} -->|SI| B{"Es interactivo<br>y critico?"}
+    A -->|NO| C{"Puede esperar<br>hasta 24 h?"}
+    B -->|Critico| D["Priority + streaming +<br>modelo rapido + prompt caching"]
+    B -->|Normal| E["Standard + streaming +<br>prompt caching + CRIS"]
+    C -->|Si| F{"Tolera latencia<br>variable?"}
+    C -->|Carga sostenida| G["Reserved o PT<br>(modelos custom/fine-tuned)"]
+    F -->|Si| H["Flex (-50%)"]
+    F -->|No| I["Batch (-50%)"]
 ```
 
 ---
@@ -203,14 +213,14 @@ Consecuencia: **`maxTokens` desproporcionado y picos de concurrencia causan thro
 
 El presupuesto debe ser **explícito y calculado**, no implícito:
 
-```
-Ventana del modelo
- − definiciones de tools (se pagan en cada request)
- − presupuesto de razonamiento (si el modelo usa thinking)
- − maxTokens de salida reservado
- − buffer de seguridad (5–10 %)
- ─────────────────────────────────────────
- = presupuesto para system + historial + contexto RAG + mensaje de usuario
+```mermaid
+graph TD
+    A["Ventana del modelo"] --> B["- Definiciones de tools"]
+    A --> C["- Presupuesto de razonamiento"]
+    A --> D["- maxTokens de salida reservado"]
+    A --> E["- Buffer de seguridad (5-10%)"]
+    A --> F["= Presupuesto disponible para:<br>system + historial + contexto RAG + mensaje usuario"]
+    style F fill:#1f6feb,color:#fff,stroke:#58a6ff
 ```
 
 Técnicas de **poda y compresión de contexto**:
@@ -265,11 +275,11 @@ Disponible desde **febrero de 2026** vía `outputConfig.textFormat` con `type: j
 
 #### 4.2.1 El marco de decisión en cuatro pasos
 
-```
-1. Definir el piso de calidad   → métrica ancla + umbral (p. ej. correctness ≥ 0,90 en el dataset dorado)
-2. Medir candidatos             → mismo dataset, mismas condiciones, un juez fijo
-3. Comparar en tres ejes        → calidad | costo por tarea resuelta | p95 de latencia (TTFT y total)
-4. Elegir el más barato que PASA el piso, no el mejor absoluto
+```mermaid
+graph LR
+    A["1. Definir piso de calidad<br>metrica ancla + umbral"] --> B["2. Medir candidatos<br>mismo dataset, juez fijo"]
+    B --> C["3. Comparar en tres ejes<br>calidad | costo | p95 latencia"]
+    C --> D["4. Elegir el mas barato<br>que PASA el piso"]
 ```
 
 **Ratio precio–rendimiento (una forma útil de tabularlo):**
@@ -357,16 +367,16 @@ La última fila es la conclusión típica: **la combinación gana a la elección
 
 #### 4.3.2 Planificación de capacidad
 
-```
-Paso 1. Inventariar: por workflow → tokens in/out P50 y P95, requests/día, estacionalidad
-Paso 2. Convertir a cuota: TPM pico = requests_pico/min × (tokens_in_p95 + maxTokens_reservado)
-Paso 3. Comparar con la cuota del modelo/región (Service Quotas) y con los picos de concurrencia
-Paso 4. Decidir por capa:
-        · base estable        → Reserved (estándar) o PT (custom)
-        · picos                → Standard on-demand / CRIS
-        · críticos             → Priority
-        · no interactivo       → Batch / Flex
-Paso 5. Instrumentar utilización (invocaciones vs. capacidad reservada) y revisar mensualmente
+```mermaid
+graph TD
+    A["Paso 1: Inventariar<br>tokens in/out P50/P95, requests/dia"] --> B["Paso 2: Convertir a cuota<br>TPM pico = requests_pico/min x tokens"]
+    B --> C["Paso 3: Comparar con cuota<br>del modelo/region (Service Quotas)"]
+    C --> D["Paso 4: Decidir por capa"]
+    D --> E["Base estable → Reserved / PT"]
+    D --> F["Picos → Standard on-demand / CRIS"]
+    D --> G["Criticos → Priority"]
+    D --> H["No interactivo → Batch / Flex"]
+    D --> I["Paso 5: Instrumentar utilizacion<br>y revisar mensualmente"]
 ```
 
 **Errores clásicos de capacidad:**
@@ -405,24 +415,21 @@ Paso 5. Instrumentar utilización (invocaciones vs. capacidad reservada) y revis
 
 #### 4.4.1 Las cuatro capas de caché (y qué resuelve cada una)
 
-```
-┌──────────────────────────────────────────────────────────────────────────┐
-│ Capa 4 · CACHÉ SEMÁNTICA (a nivel aplicación)                            │
-│   "Ya respondí una pregunta equivalente" → devuelve respuesta guardada    │
-│   Latencia ~10–80 ms · Evita 100 % de la llamada al modelo               │
-├──────────────────────────────────────────────────────────────────────────┤
-│ Capa 3 · CACHÉ DE RESPUESTA EXACTA (hashing determinista)                │
-│   Fingerprint de (modelo, parámetros, versión de prompt, input normalizado)│
-│   Latencia <1–5 ms · Captura reintentos, jobs duplicados, refrescos       │
-├──────────────────────────────────────────────────────────────────────────┤
-│ Capa 2 · PROMPT CACHING (nativo de Bedrock)                              │
-│   Reutiliza el cómputo del PREFIJO estable → descuenta tokens de entrada  │
-│   hasta −90 % costo / −85 % latencia en la porción cacheada               │
-├──────────────────────────────────────────────────────────────────────────┤
-│ Capa 1 · CACHÉ EN EL BORDE / HTTP (CloudFront, API Gateway, ALB)          │
-│   Respuestas estáticas o deterministas sin personalización                │
-│   Elimina la llamada antes de entrar a la aplicación                      │
-└──────────────────────────────────────────────────────────────────────────┘
+```mermaid
+graph TD
+    subgraph C4["Capa 4 - CACHE SEMANTICA"]
+        C4D["Pregunta equivalente → respuesta guardada<br>Latencia ~10-80 ms · Evita 100% de la llamada"]
+    end
+    subgraph C3["Capa 3 - CACHE RESPUESTA EXACTA"]
+        C3D["Fingerprint: modelo + params + prompt version + input<br>Latencia 1-5 ms · Captura reintentos y duplicados"]
+    end
+    subgraph C2["Capa 2 - PROMPT CACHING (Bedrock)"]
+        C2D["Reutiliza computo del prefijo estable<br>Hasta -90% costo / -85% latencia"]
+    end
+    subgraph C1["Capa 1 - CACHE EN EL BORDE / HTTP"]
+        C1D["CloudFront / API Gateway / ALB<br>Respuestas estaticas sin personalizacion"]
+    end
+    C4 --> C3 --> C2 --> C1
 ```
 
 #### 4.4.2 Prompt caching (Bedrock) — el detalle que se pregunta
@@ -447,11 +454,15 @@ Paso 5. Instrumentar utilización (invocaciones vs. capacidad reservada) y revis
 #### 4.4.3 Caché de respuesta exacta y hashing determinista
 
 **Fingerprint recomendado:**
-```
-key = sha256(
-   model_id + "|" + inference_params_canónicos + "|" + prompt_template_version +
-   "|" + tools_version + "|" + normalizar(input_usuario) + "|" + tenant_id
-)
+```mermaid
+graph LR
+    A["model_id"] --> H["sha256( )"]
+    B["inference_params"] --> H
+    C["prompt_template_version"] --> H
+    D["tools_version"] --> H
+    E["normalizar(input_usuario)"] --> H
+    F["tenant_id"] --> H
+    H --> K["cache key"]
 ```
 Reglas:
 - **Normalizar** el input (espacios, mayúsculas si el caso de uso no es case-sensitive, emojis).
@@ -619,23 +630,32 @@ Un benchmark útil es **repetible** y **representativo**:
 | **Excepción útil** | En algunos modelos, los tokens leídos de caché **no cuentan** contra TPM |
 
 **Diagnóstico de un `ThrottlingException` (429):**
-```
-1. ¿Es RPM o TPM? → comparar Invocations y tokens vs. cuota del modelo en Service Quotas
-2. ¿Es un pico de concurrencia? → buscar simultaneidad de starts, no volumen del minuto
-3. ¿maxTokens sobredimensionado? → la reserva por request infla el TPM efectivo
-4. ¿Respuestas largas? → burndown ×5 sobre salida
-5. ¿Región con cuota baja? → CRIS o cambio de región
-6. ¿Sostenido? → aumento de cuota, Reserved o PT
+```mermaid
+graph TD
+    A["ThrottlingException (429)"] --> B{"Es RPM o TPM?"}
+    B -->|RPM| C["Comparar Invocations vs cuota"]
+    B -->|TPM| D["Comparar tokens vs cuota"]
+    A --> E{"Pico de concurrencia?"}
+    E -->|Si| F["Buscar simultaneidad de starts"]
+    A --> G{"maxTokens sobredimensionado?"}
+    G -->|Si| H["Reserva por request infla TPM"]
+    A --> I{"Respuestas largas?"}
+    I -->|Si| J["Burndown x5 sobre salida"]
+    A --> K{"Region con cuota baja?"}
+    K -->|Si| L["CRIS o cambio de region"]
+    A --> M{"Sostenido?"}
+    M -->|Si| N["Aumento de cuota / Reserved / PT"]
 ```
 
 #### 5.3.2 Gestión de concurrencia (patrón recomendado)
 
-```
-Cola (SQS)  →  Workers con semáforo por modelo (p. ej. N=8)  →  Bedrock
-                    │
-                    ├─ retry adaptativo (backoff + jitter) sobre 429/5xx
-                    ├─ fallback: modelo alterno de la misma familia / otra región
-                    └─ dead-letter queue + alerta para fallos persistentes
+```mermaid
+graph LR
+    A["Cola SQS"] --> B["Workers con semaforo<br>por modelo (N=8)"]
+    B --> C["Bedrock"]
+    B --> D["Retry adaptativo<br>backoff + jitter<br>sobre 429/5xx"]
+    B --> E["Fallback: modelo alterno<br>misma familia / otra region"]
+    B --> F["Dead-letter queue<br>+ alerta para fallos"]
 ```
 Reglas prácticas:
 - **Limitar la concurrencia por modelo**, no la global (los modelos tienen cuotas distintas).
@@ -738,16 +758,16 @@ Reglas que se derivan de los patrones de tokens:
 
 Objetivo: saber **dónde se va el tiempo y el dinero** en un workflow de N pasos.
 
-```
-Traza (CloudWatch Transaction Search / X-Ray)
-└─ span: request_usuario                      2.480 ms
-   ├─ span: retrieve_context (Knowledge Base)   260 ms   ← 10 % tiempo
-   ├─ span: rerank                               90 ms
-   ├─ span: llm_planificación (tool selection)  610 ms   ← 25 % tiempo
-   ├─ span: tool_1 (Lambda)                     180 ms
-   ├─ span: tool_2 (API externa, timeout 3 s)  1.050 ms  ← 42 % tiempo  ⚠
-   ├─ span: llm_síntesis                        430 ms
-   └─ span: guardrail_check                      60 ms
+```mermaid
+graph TD
+    A["Traza: request_usuario<br>2.480 ms total"] --> B["retrieve_context<br>(Knowledge Base)<br>260 ms - 10%"]
+    A --> C["rerank<br>90 ms"]
+    A --> D["llm_planificacion<br>(tool selection)<br>610 ms - 25%"]
+    A --> E["tool_1 (Lambda)<br>180 ms"]
+    A --> F["tool_2 (API externa)<br>1.050 ms - 42% ⚠"]
+    A --> G["llm_sintesis<br>430 ms"]
+    A --> H["guardrail_check<br>60 ms"]
+    style F fill:#f85149,color:#fff,stroke:#f85149
 ```
 El profiling revela los dos patrones clásicos: **una herramienta externa lenta** que domina la latencia y **una llamada de planificación** cuya necesidad se puede eliminar (por ejemplo, con un prompt que seleccione la herramienta directamente).
 
@@ -1035,45 +1055,27 @@ Combinar: Model Invocation Logging → S3 (retención) → Athena (análisis) co
 
 ## 7. Arquitectura de referencia
 
-```
-┌────────────────────────────────────────────────────────────────────────────────────┐
-│ CAPA 0 · CONTROL DE COSTO Y ATRIBUCIÓN                                             │
-│  · Application inference profiles + cost allocation tags (Team/App/Env)            │
-│  · IAM principal cost allocation (CUR 2.0) para atribución por rol/usuario SSO     │
-│  · AWS Budgets (80 %/100 %) + Cost Anomaly Detection acotado a Bedrock             │
-└────────────────────────────────────────────────────────────────────────────────────┘
-                                     ▲
-┌────────────────────────────────────────────────────────────────────────────────────┐
-│ CAPA 1 · ENTRADA: caché y routing (antes de gastar tokens)                         │
-│  CloudFront / API Gateway cache → Caché exacta (hash determinista) →               │
-│  Caché semántica (ElastiCache vectorial, umbral 0.92–0.97, por tenant) →           │
-│  Clasificador de complejidad → IPR / cascade / tier estático                       │
-└────────────────────────────────────────────────────────────────────────────────────┘
-                                     │
-┌────────────────────────────────────────────────────────────────────────────────────┐
-│ CAPA 2 · CONTEXTO: recuperación eficiente                                          │
-│  Preprocesamiento de consulta (reescritura, filtros, descomposición) →             │
-│  Búsqueda híbrida (RRF / scoring propio) → Reranking selectivo →                   │
-│  Presupuesto de contexto explícito (poda, dedupe, proyección de campos)            │
-└────────────────────────────────────────────────────────────────────────────────────┘
-                                     │
-┌────────────────────────────────────────────────────────────────────────────────────┐
-│ CAPA 3 · GENERACIÓN: tokens bajo control                                           │
-│  Prompt caching (prefijo estable primero) · Structured outputs · maxTokens/stop    │
-│  Streaming · paralelización acotada · CRIS/Reserved/PT según carga                 │
-└────────────────────────────────────────────────────────────────────────────────────┘
-                                     │
-┌────────────────────────────────────────────────────────────────────────────────────┐
-│ CAPA 4 · OBSERVABILIDAD (4 señales)                                                │
-│  Métricas (CloudWatch/Bedrock, AgentCore, KB, Guardrails) + Logs (invocation       │
-│  logging) + Trazas (X-Ray/ADOT/Transaction Search) + Evaluaciones (online/dorado)  │
-└────────────────────────────────────────────────────────────────────────────────────┘
-                                     │
-┌────────────────────────────────────────────────────────────────────────────────────┐
-│ CAPA 5 · MEJORA CONTINUA                                                           │
-│  Anomalías de costo/tokens → Insights → Recommendations → batch eval / A-B →       │
-│  promoción con aprobación · Los fallos vuelven al dataset dorado                   │
-└────────────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+graph TD
+    subgraph L0["CAPA 0 - CONTROL DE COSTO Y ATRIBUCION"]
+        L0D["App inference profiles + cost allocation tags<br>IAM principal cost allocation (CUR 2.0)<br>AWS Budgets + Cost Anomaly Detection"]
+    end
+    subgraph L1["CAPA 1 - ENTRADA: cache y routing"]
+        L1D["CloudFront/API GW cache → Cache exacta →<br>Cache semantica (umbral 0.92-0.97) →<br>Clasificador de complejidad → IPR / cascade"]
+    end
+    subgraph L2["CAPA 2 - CONTEXTO: recuperacion eficiente"]
+        L2D["Preprocesamiento de consulta →<br>Busqueda hibrida (RRF) → Reranking →<br>Presupuesto de contexto (poda, dedupe)"]
+    end
+    subgraph L3["CAPA 3 - GENERACION: tokens bajo control"]
+        L3D["Prompt caching · Structured outputs · maxTokens/stop<br>Streaming · CRIS/Reserved/PT segun carga"]
+    end
+    subgraph L4["CAPA 4 - OBSERVABILIDAD (4 senales)"]
+        L4D["Metricas (CloudWatch) + Logs (invocation logging)<br>Trazas (X-Ray/ADOT) + Evaluaciones (online/dorado)"]
+    end
+    subgraph L5["CAPA 5 - MEJORA CONTINUA"]
+        L5D["Anomalias → Insights → Recommendations →<br>batch eval / A-B → promocion con aprobacion"]
+    end
+    L5 --> L4 --> L3 --> L2 --> L1 --> L0
 ```
 
 **Cómo se cierra el ciclo (una vuelta completa):**

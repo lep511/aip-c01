@@ -128,16 +128,24 @@ Las siete ideas fuerza:
 
 ### 3.1 El modelo de responsabilidad compartida aplicado a la IA
 
-```
-AWS  → seguridad DE la nube: infraestructura, pesos de los modelos administrados,
-       cifrado base, certificaciones (SOC, ISO, HIPAA, FedRAMP), Artifact.
-VOS  → seguridad EN la nube y en TU sistema:
-       · quién puede invocar qué modelo (IAM/SCP)
-       · qué contenido entra y sale (Guardrails, moderación)
-       · qué datos se indexan y dónde (Macie, Comprehend, Lake Formation)
-       · qué acciones puede tomar el agente (autorización de herramientas)
-       · qué evidencia queda (CloudTrail, invocation logging, Model Cards)
-       · cómo se mide y corrige el sesgo y la deriva
+```mermaid
+graph TD
+    subgraph AWS["AWS - Seguridad DE la nube"]
+        A1["Infraestructura"]
+        A2["Pesos de modelos administrados"]
+        A3["Cifrado base"]
+        A4["Certificaciones: SOC, ISO, HIPAA, FedRAMP"]
+        A5["AWS Artifact"]
+    end
+    subgraph Cliente["VOS - Seguridad EN la nube y en TU sistema"]
+        C1["IAM/SCP: quién invoca qué modelo"]
+        C2["Guardrails: qué contenido entra y sale"]
+        C3["Macie/Comprehend/Lake Formation: datos indexados"]
+        C4["Autorización de herramientas del agente"]
+        C5["CloudTrail, invocation logging, Model Cards"]
+        C6["Medición y corrección de sesgo y deriva"]
+    end
+    AWS --- Cliente
 ```
 
 **Frontera que conviene memorizar:** AWS certifica la **plataforma**; vos certificás **tu sistema de IA** (intención de uso, datos, prompts, agentes, herramientas y decisiones). ISO 42001 lo dice explícitamente: AWS no gestiona el AIMS del cliente.
@@ -227,13 +235,15 @@ VOS  → seguridad EN la nube y en TU sistema:
 | **Detect** | No interfiere; solo reporta scores (**`InvokeGuardrailChecks`**, detect-only) | Fase de calibración, o cuando querés escribir tu propia lógica de decisión |
 
 **Flujo de despliegue seguro de un guardrail (memorizarlo):**
-```
-1. Crear guardrail → queda como DRAFT (borrador de trabajo)
-2. Probar en el playground / con tu suite, en modo DETECT para medir falsos positivos
-3. CreateGuardrailVersion → versión numerada e INMUTABLE (1, 2, 3…)
-4. Producción apunta a la VERSIÓN NUMERADA (nunca a DRAFT)
-5. Cambios posteriores: se editan en el DRAFT y se publican como nueva versión
-6. Diagnóstico: activar trace y leer `assessments` para saber qué política disparó
+```mermaid
+graph LR
+    A["Crear guardrail"] --> B["DRAFT"]
+    B --> C["Probar en DETECT"]
+    C --> D["CreateGuardrailVersion"]
+    D --> E["Version INMUTABLE 1, 2, 3..."]
+    E --> F["Produccion apunta a VERSION"]
+    F --> G["Editar DRAFT → nueva version"]
+    G --> D
 ```
 ⚠️ **Dos detalles finos:** (a) mientras el DRAFT se está actualizando, el guardrail pasa a estado `UPDATING` y las invocaciones fijadas al DRAFT pueden fallar con `ValidationException`; (b) si un guardrail está **impuesto centralmente** por la organización, ajustar tus propios umbrales no lo relaja.
 
@@ -300,12 +310,15 @@ Cuando necesitás **medir** la seguridad de tus salidas (no solo filtrarlas), la
 
 El patrón: **el modelo no calcula, el modelo escribe la consulta**.
 
-```
-Pregunta del usuario
-  → LLM genera SQL (con esquema restringido, sin credenciales de escritura)
-  → validación de la consulta (allowlist de tablas/columnas, sin DDL/DML, límite de filas, timeout)
-  → ejecución en la base (el número sale de la base de datos, no del modelo)
-  → el LLM redacta la respuesta usando SOLO el resultado devuelto
+```mermaid
+graph TD
+    A["Pregunta del usuario"] --> B["LLM genera SQL"]
+    B --> C["Validacion de consulta"]
+    C --> D["Ejecucion en la base"]
+    D --> E["LLM redacta respuesta con resultado"]
+    B -.- B1["Esquema restringido, sin credenciales de escritura"]
+    C -.- C1["Allowlist tablas/columnas, sin DDL/DML, limite filas, timeout"]
+    D -.- D1["El numero sale de la DB, no del modelo"]
 ```
 
 **Por qué es un control de seguridad y no solo de calidad:**
@@ -363,13 +376,18 @@ Tres familias de técnicas, con usos distintos:
 
 #### 4.3.4 Fact-checking: la arquitectura mínima
 
-```
-RESPUESTA GENERADA
-   ├─ ¿Tiene citas?            → si no, degradar/regenerar (política por caso de uso)
-   ├─ ¿Cada cita existe?       → validar contra retrievedReferences (id, documento, pasaje)
-   ├─ ¿La afirmación está en el pasaje citado?  → grounding check / juez con el pasaje
-   ├─ ¿Contradice una política de negocio?      → Automated Reasoning
-   └─ ¿Contradice otra respuesta del sistema?   → comparación con la base de conocimiento verificada
+```mermaid
+graph TD
+    A["RESPUESTA GENERADA"] --> B{"Tiene citas?"}
+    B -- No --> B1["Degradar/regenerar"]
+    B -- Si --> C{"Cada cita existe?"}
+    C --> C1["Validar contra retrievedReferences"]
+    C1 --> D{"Afirmacion en el pasaje citado?"}
+    D --> D1["Grounding check / juez con pasaje"]
+    D1 --> E{"Contradice politica de negocio?"}
+    E --> E1["Automated Reasoning"]
+    E1 --> F{"Contradice otra respuesta?"}
+    F --> F1["Comparar con base de conocimiento verificada"]
 ```
 
 ---
@@ -380,29 +398,32 @@ RESPUESTA GENERADA
 
 #### 4.4.1 La tubería de cuatro capas (memorizar)
 
-```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│ CAPA 1 · PREPROCESAMIENTO (barato, antes de gastar tokens)                   │
-│  · Lambda: validación de esquema, longitud, idioma, rate limit por usuario   │
-│  · Comprehend: toxicidad (DetectToxicContent) y PII                            │
-│  · Sanitización: normalizar, desescapar, strip de control chars, anti-homoglifos│
-│  · Allowlist de fuentes / URLs; detección de payloads codificados            │
-├──────────────────────────────────────────────────────────────────────────────┤
-│ CAPA 2 · GUARDRAIL DE ENTRADA (en el borde del modelo)                       │
-│  · Filtros de contenido + prompt attack · Denied topics · PII (mask en entrada)│
-│  · Word filters (determinístico)                                             │
-├──────────────────────────────────────────────────────────────────────────────┤
-│ CAPA 3 · MODELO + CONTEXTO                                                   │
-│  · System prompt endurecido + separación de instrucciones confiables/datos no confiables│
-│  · Structured outputs para respuestas con contrato de datos                  │
-│  · Grounding vía Knowledge Bases con citas                                   │
-├──────────────────────────────────────────────────────────────────────────────┤
-│ CAPA 4 · GUARDRAIL DE SALIDA + VALIDACIÓN POST-PROCESO                       │
-│  · Guardrails: contenido, PII (mask), grounding, Automated Reasoning         │
-│  · Lambda: validar esquema, coherencia, reglas de negocio, límites de dominio│
-│  · API Gateway: response filtering, headers de seguridad, límite de tamaño   │
-│  · Registro de intervenciones + métrica para el dashboard                    │
-└──────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+graph TD
+    subgraph C1["CAPA 1 - PREPROCESAMIENTO"]
+        C1a["Lambda: validacion esquema, longitud, idioma, rate limit"]
+        C1b["Comprehend: toxicidad y PII"]
+        C1c["Sanitizacion: normalizar, strip control chars"]
+        C1d["Allowlist de fuentes/URLs"]
+    end
+    subgraph C2["CAPA 2 - GUARDRAIL DE ENTRADA"]
+        C2a["Filtros de contenido + prompt attack"]
+        C2b["Denied topics"]
+        C2c["PII mask en entrada"]
+        C2d["Word filters deterministico"]
+    end
+    subgraph C3["CAPA 3 - MODELO + CONTEXTO"]
+        C3a["System prompt endurecido"]
+        C3b["Structured outputs"]
+        C3c["Grounding via Knowledge Bases con citas"]
+    end
+    subgraph C4["CAPA 4 - GUARDRAIL SALIDA + POST-PROCESO"]
+        C4a["Guardrails: contenido, PII, grounding, Automated Reasoning"]
+        C4b["Lambda: validar esquema, reglas de negocio"]
+        C4c["API Gateway: response filtering, headers seguridad"]
+        C4d["Registro de intervenciones + metricas"]
+    end
+    C1 --> C2 --> C3 --> C4
 ```
 
 #### 4.4.2 Rol de cada servicio (la parte que el examen pregunta)
@@ -453,20 +474,19 @@ Tres arquitecturas válidas, en orden creciente de costo y precisión:
 
 **El cambio de mentalidad:** en seguridad tradicional el resultado es binario (vulnerable o no). En LLM los resultados son **estadísticos**: se mide **Attack Success Rate (ASR)** por categoría.
 
-```
-Suite de ataques (prompts con resultado esperado: refuse | no_leak | safe_completion)
-   ├─ Inyección directa
-   ├─ Inyección indirecta (documentos simulados, resultados de herramientas envenenados)
-   ├─ Jailbreaks (role-play, crescendo, many-shot, codificaciones)
-   ├─ Fuga de system prompt
-   ├─ Fuga de PII / cross-tenant
-   └─ Abuso de herramientas y escalada de privilegios
-         ↓
-   Ejecución con repeticiones (para estimar ASR, no un solo intento)
-         ↓
-   Gate de release: si ASR > umbral en categorías de alto riesgo → BLOQUEAR el despliegue
-         ↓
-   Los ataques exitosos pasan a ser tests de regresión permanentes
+```mermaid
+graph TD
+    A["Suite de ataques"] --> A1["Inyeccion directa"]
+    A --> A2["Inyeccion indirecta"]
+    A --> A3["Jailbreaks"]
+    A --> A4["Fuga de system prompt"]
+    A --> A5["Fuga de PII / cross-tenant"]
+    A --> A6["Abuso de herramientas"]
+    A1 & A2 & A3 & A4 & A5 & A6 --> B["Ejecucion con repeticiones para estimar ASR"]
+    B --> C{"ASR > umbral?"}
+    C -- Si --> D["BLOQUEAR despliegue"]
+    C -- No --> E["Release aprobado"]
+    D --> F["Ataques exitosos → tests de regresion permanentes"]
 ```
 
 **Frameworks de referencia para diseñar la suite:** OWASP Top 10 for LLM Applications, NIST AI RMF, MITRE ATLAS. **Herramientas del ecosistema** (útiles para el mundo real, no específicas de AWS): Garak (NVIDIA), PyRIT (Microsoft), Promptfoo, DeepTeam, además de los escenarios de inyección indirecta que hay que escribir a medida para tu RAG.
@@ -563,29 +583,20 @@ Suite de ataques (prompts con resultado esperado: refuse | no_leak | safe_comple
 
 #### 5.2.3 La arquitectura de PII en capas (el diagrama que hay que poder dibujar)
 
-```
-   FUENTES (S3, bases, APIs)
-        │
-        │  1) CLASIFICAR: Macie inventaría y clasifica PII en S3
-        │     → findings a EventBridge → gate de ingesta (prefijo con PII inesperada = retener, no indexar)
-        ▼
-   PREPROCESAMIENTO
-        │  2) REDACTAR ANTES DE INDEXAR: Comprehend PII job
-        │     (MaskMode = REPLACE_WITH_PII_ENTITY_TYPE, no MASK: conserva la semántica y no degrada el retrieval)
-        │     → verificación secundaria con Macie sobre el corpus ya redactado
-        ▼
-   INGESTA / ÍNDICE (vector store con metadata de rol)
-        │  3) AISLAR EN RECUPERACIÓN: metadata filtering por rol del usuario (RBAC)
-        ▼
-   BORDE DEL MODELO
-        │  4) GUARDRAIL por request: detectar y enmascarar PII residual en la entrada
-        │  5) Guardrail sobre la SALIDA: bloquear/enmascarar PII generada
-        │     + reglas de negocio por rol (Cognito + ApplyGuardrail)
-        ▼
-   RESPUESTA AL USUARIO
-        │  6) AUDITAR: CloudWatch/CloudTrail (accesos), métricas de intervención de guardrail
-        ▼
-   RETENCIÓN: S3 Lifecycle + Object Lock + retención de logs por política
+```mermaid
+graph TD
+    A["FUENTES: S3, bases, APIs"] --> B["1. CLASIFICAR: Macie inventaria PII en S3"]
+    B --> B1["Findings → EventBridge → gate de ingesta"]
+    B1 --> C["2. PREPROCESAMIENTO: Comprehend PII job"]
+    C --> C1["MaskMode = REPLACE_WITH_PII_ENTITY_TYPE"]
+    C1 --> D["INGESTA / INDICE: vector store con metadata de rol"]
+    D --> D1["3. AISLAR: metadata filtering por rol RBAC"]
+    D1 --> E["BORDE DEL MODELO"]
+    E --> E1["4. Guardrail entrada: detectar PII residual"]
+    E1 --> E2["5. Guardrail salida: bloquear/enmascarar PII generada"]
+    E2 --> F["RESPUESTA AL USUARIO"]
+    F --> G["6. AUDITAR: CloudWatch/CloudTrail"]
+    G --> H["RETENCION: S3 Lifecycle + Object Lock"]
 ```
 
 **Cuatro reglas de oro de esta arquitectura:**
@@ -626,13 +637,15 @@ Suite de ataques (prompts con resultado esperado: refuse | no_leak | safe_comple
 
 #### 5.3.2 El patrón de "privacy proxy" (útil y muy preguntable)
 
-```
-Usuario → App → [PROXY DE PRIVACIDAD]
-                   ├─ Detecta PII en la entrada           (Comprehend / Guardrails)
-                   ├─ Sustituye por tokens reversibles    (bóveda: DynamoDB/Secrets Manager cifrados)
-                   ├─ Llama al modelo con texto tokenizado (el modelo nunca ve PII real)
-                   ├─ Re-hidrata SOLO para el usuario autorizado
-                   └─ Registra la operación sin payload sensible
+```mermaid
+graph LR
+    A["Usuario"] --> B["App"] --> C["PROXY DE PRIVACIDAD"]
+    C --> D["Detecta PII: Comprehend/Guardrails"]
+    D --> E["Sustituye por tokens reversibles"]
+    E --> F["Llama al modelo con texto tokenizado"]
+    F --> G["Re-hidrata para usuario autorizado"]
+    G --> H["Registra operacion sin payload sensible"]
+    E -.- V["Boveda: DynamoDB/Secrets Manager cifrados"]
 ```
 **Ventajas:** el modelo (y cualquier registro de la llamada) nunca contiene datos personales; la utilidad se conserva porque el texto mantiene estructura y coherencia; el mapeo queda centralizado y auditable.
 **Riesgos a controlar:** la bóveda se vuelve objetivo crítico (cifrado + acceso mínimo + rotación); si el modelo debe razonar sobre un dato real (dirección exacta, número de cuenta), la tokenización puede degradar el resultado (ahí va enmascarado parcial: últimos 4 dígitos).
@@ -703,14 +716,15 @@ Los "decision logs" (el registro de **por qué** el sistema hizo lo que hizo) se
 
 #### 6.2.1 La cadena de trazabilidad completa
 
-```
-FUENTE                          →  Data Catalog (registro + linaje + tags)
-  ↓ ingesta/ETL (Glue)          →  linaje de columnas, jobs y versiones
-  ↓ indexado (Knowledge Base)   →  metadata por documento (fuente, fecha, dueño, rol, sensibilidad)
-  ↓ recuperación                →  retrievedReferences (IDs de pasajes)
-  ↓ generación                  →  CITAS en la respuesta (atribución)
-  ↓ decisión                    →  agent trace + invocation log + guardrail trace
-  ↓ auditoría                   →  CloudTrail (quién preguntó) + S3 con Object Lock (evidencia)
+```mermaid
+graph TD
+    A["FUENTE"] --> B["Data Catalog: registro + linaje + tags"]
+    B --> C["Ingesta/ETL Glue: linaje de columnas, jobs, versiones"]
+    C --> D["Indexado Knowledge Base: metadata por documento"]
+    D --> E["Recuperacion: retrievedReferences"]
+    E --> F["Generacion: CITAS en la respuesta"]
+    F --> G["Decision: agent trace + invocation log + guardrail trace"]
+    G --> H["Auditoria: CloudTrail + S3 Object Lock"]
 ```
 
 **Los tres niveles de atribución de fuentes (de menor a mayor rigor):**
@@ -818,18 +832,14 @@ Mapeo que AWS documenta en su guía de implementación:
 
 #### 6.4.3 El bucle de gobernanza continua
 
-```
-MEDIR (métricas + evaluaciones + fairness + drift)
-   ↓
-DETECTAR (alarmas, anomalías, Config no conforme, findings)
-   ↓
-TRIAGE (¿es un cambio de modelo? ¿de prompt? ¿de datos? ¿de comportamiento de usuario?)
-   ↓
-REMEDIAR (automático si es reversible y de bajo riesgo; humano si toca producción o personas)
-   ↓
-DOCUMENTAR (decisión, evidencia, responsable, fecha → expediente de auditoría)
-   ↓
-MEJORAR (el caso fallido entra al dataset dorado y a la suite de red teaming)
+```mermaid
+graph TD
+    A["MEDIR: metricas + evaluaciones + fairness + drift"] --> B["DETECTAR: alarmas, anomalias, Config no conforme"]
+    B --> C["TRIAGE: modelo? prompt? datos? usuario?"]
+    C --> D["REMEDIAR: automatico o humano"]
+    D --> E["DOCUMENTAR: decision, evidencia, responsable"]
+    E --> F["MEJORAR: caso fallido → dataset dorado + red teaming"]
+    F --> A
 ```
 
 ---
@@ -851,15 +861,15 @@ MEJORAR (el caso fallido entra al dataset dorado y a la suite de red teaming)
 
 #### 7.1.2 Trazabilidad técnica de las trazas de razonamiento
 
-```
-trace_id
- └─ sesión / turno
-     ├─ span: recuperación (fuentes, scores, filtros aplicados)
-     ├─ span: selección de herramienta (alternativas consideradas)
-     ├─ span: llamada de herramienta (parámetros, resultado)
-     ├─ span: generación (modelo, versión, prompt_version, tokens)
-     ├─ span: guardrail (políticas evaluadas, intervención o no, scores)
-     └─ span: validación post-proceso (resultado de la regla)
+```mermaid
+graph TD
+    A["trace_id"] --> B["Sesion / turno"]
+    B --> C["Span: recuperacion - fuentes, scores, filtros"]
+    B --> D["Span: seleccion de herramienta"]
+    B --> E["Span: llamada de herramienta - parametros, resultado"]
+    B --> F["Span: generacion - modelo, version, prompt_version, tokens"]
+    B --> G["Span: guardrail - politicas evaluadas, scores"]
+    B --> H["Span: validacion post-proceso"]
 ```
 Esta estructura permite responder, en una investigación: **qué evidencia vio el sistema, qué eligió hacer, con qué versión de prompt/modelo, y qué control lo aprobó o lo bloqueó**.
 
@@ -898,18 +908,15 @@ Esta estructura permite responder, en una investigación: **qué evidencia vio e
 
 **Bedrock Prompt Management** (versionado de prompts, con variables) + **Prompt Flows** (orquestación visual) permiten tratar los prompts como artefactos gobernados:
 
-```
-Prompt v1 (producción) ─┐
-                        ├─ mismo dataset dorado + mismas métricas + mismo juez
-Prompt v2 (candidato) ──┘
-        ↓
-   Comparación por: calidad · seguridad · fairness · costo · latencia
-        ↓
-   Regla de promoción: mejora la métrica objetivo, no empeora ninguna crítica (seguridad/fairness)
-        ↓
-   Canary (Lambda alias ponderado / porcentaje de tráfico) → 100 %
-        ↓
-   El prompt v1 queda versionado y auditable
+```mermaid
+graph TD
+    V1["Prompt v1 produccion"] --> EVAL["Mismo dataset dorado + metricas + juez"]
+    V2["Prompt v2 candidato"] --> EVAL
+    EVAL --> CMP["Comparacion: calidad, seguridad, fairness, costo, latencia"]
+    CMP --> RULE{"Mejora objetivo sin empeorar criticas?"}
+    RULE -- Si --> CANARY["Canary: Lambda alias ponderado → 100%"]
+    RULE -- No --> REJECT["Rechazado"]
+    CANARY --> ARCHIVE["Prompt v1 queda versionado y auditable"]
 ```
 
 **Buenas prácticas de A/B en GenAI (distintas del A/B web clásico):**
@@ -988,36 +995,35 @@ assert iam_policies_have_no_wildcard_on_invoke()      # Resource: "*" prohibido
 
 ## 8. Arquitectura de referencia
 
-```
-┌───────────────────────────────────────────────────────────────────────────────────────┐
-│ PLANO 5 · ORGANIZACIÓN Y GOBERNANZA                                                   │
-│  Organizations + SCP · Control Tower · IAM/ABAC · Config conformance packs ·          │
-│  Security Hub · CloudFormation StackSets + Guard (baseline y validación) ·            │
-│  Model Cards + Model Registry · Data Catalog + linaje · Artifact · ISO 42001          │
-├───────────────────────────────────────────────────────────────────────────────────────┤
-│ PLANO 4 · AUDITORÍA Y EVIDENCIA                                                       │
-│  CloudTrail (management + data events de agentes/KB) · Model Invocation Logging       │
-│  (opt-in, S3 con CMK y Object Lock) · guardrail traces · agent traces · evaluaciones  │
-│  · dashboards de cumplimiento · Data Protection en logs (redacción de PII)            │
-├───────────────────────────────────────────────────────────────────────────────────────┤
-│ PLANO 3 · BORDE DEL MODELO                                                            │
-│  Guardrail de ENTRADA: contenido + prompt attack + denied topics + PII(mask)          │
-│  Modelo + contexto (KB con citas, metadata filtering por rol) + structured outputs    │
-│  Guardrail de SALIDA: contenido + PII(mask) + contextual grounding + Automated Reasoning│
-├───────────────────────────────────────────────────────────────────────────────────────┤
-│ PLANO 2 · DATOS Y CONOCIMIENTO                                                        │
-│  Macie (clasificación) → Comprehend (redacción en ingesta) → índice vectorial con     │
-│  metadata de rol y sensibilidad → Lake Formation (acceso granular) → S3 Lifecycle      │
-├───────────────────────────────────────────────────────────────────────────────────────┤
-│ PLANO 1 · RED E IDENTIDAD                                                             │
-│  VPC + PrivateLink (bedrock, bedrock-runtime, S3, KMS, CW) + endpoint policies        │
-│  IAM mínimo privilegio + bedrock:GuardrailIdentifier + Cognito/Identity Center        │
-├───────────────────────────────────────────────────────────────────────────────────────┤
-│ PLANO 0 · AGENTE Y HERRAMIENTAS                                                       │
-│  Autorización por herramienta · validación de parámetros · guardrail sobre salidas de │
-│  herramientas · human-in-the-loop en acciones destructivas · aislamiento de sesión ·   │
-│  límites de iteraciones y de gasto                                                    │
-└───────────────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+graph TD
+    subgraph P5["PLANO 5 - ORGANIZACION Y GOBERNANZA"]
+        P5a["Organizations + SCP, Control Tower, IAM/ABAC"]
+        P5b["Config conformance packs, Security Hub"]
+        P5c["Model Cards + Registry, Data Catalog + linaje, ISO 42001"]
+    end
+    subgraph P4["PLANO 4 - AUDITORIA Y EVIDENCIA"]
+        P4a["CloudTrail: management + data events"]
+        P4b["Model Invocation Logging: S3 + CMK + Object Lock"]
+        P4c["Guardrail traces, agent traces, evaluaciones"]
+    end
+    subgraph P3["PLANO 3 - BORDE DEL MODELO"]
+        P3a["Guardrail ENTRADA: contenido, prompt attack, denied topics, PII"]
+        P3b["Modelo + contexto: KB con citas, metadata filtering, structured outputs"]
+        P3c["Guardrail SALIDA: contenido, PII, grounding, Automated Reasoning"]
+    end
+    subgraph P2["PLANO 2 - DATOS Y CONOCIMIENTO"]
+        P2a["Macie → Comprehend → indice vectorial → Lake Formation → S3 Lifecycle"]
+    end
+    subgraph P1["PLANO 1 - RED E IDENTIDAD"]
+        P1a["VPC + PrivateLink + endpoint policies"]
+        P1b["IAM minimo privilegio + Cognito/Identity Center"]
+    end
+    subgraph P0["PLANO 0 - AGENTE Y HERRAMIENTAS"]
+        P0a["Autorizacion por herramienta, validacion parametros"]
+        P0b["Human-in-the-loop, aislamiento de sesion, limites"]
+    end
+    P5 --> P4 --> P3 --> P2 --> P1 --> P0
 ```
 
 **Flujo de una petición "que pasa todos los controles":**

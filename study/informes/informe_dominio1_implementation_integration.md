@@ -68,31 +68,45 @@ El **Dominio 1: Foundation Model Integration, Data Management, and Compliance** 
 5. **Recuperación Semántica Avanzada (RAG):** Segmentación (*chunking*) contextual y jerárquica, búsqueda híbrida, modelos de reclasificación (*reranking*), reescritura de consultas y adopción del estándar *Model Context Protocol* (MCP).
 6. **Ingeniería de Prompts y Gobernanza Responsable:** Control de alucinaciones mediante *Amazon Bedrock Guardrails*, gestión centralizada de plantillas, pipelines de regresión de prompts y flujos de ejecución declarativos con *Prompt Flows*.
 
-```
-+----------------------------------------------------------------------------------------------------+
-|                         ARQUITECTURA CONCEPTUAL DEL DOMINIO 1 (AWS GenAI)                          |
-+----------------------------------------------------------------------------------------------------+
-|                                                                                                    |
-|  [ Fuentes de Datos ] -----> [ Pipelines de Validación y ETL ] -----> [ Vector Store & Knowledge ] |
-|  - S3 / Docs / Wikis         - AWS Glue Data Quality                   - OpenSearch Serverless     |
-|  - Relational / NoSQL        - SageMaker Processing / Transcribe       - Aurora PostgreSQL (pgvect)|
-|                              - Amazon Textract / Comprehend            - Bedrock Knowledge Bases   |
-|                                                                                                    |
-|                                                    |                                               |
-|                                                    v                                               |
-|  [ Cliente / API ] --------> [ Capa de Orquestación & Enrutamiento ]                               |
-|  - API Gateway / Lambda      - Bedrock Prompt Flows / Step Functions                               |
-|  - AppConfig Router          - Model Context Protocol (MCP) / Bedrock Converse API                 |
-|                                                    |                                               |
-|                     +------------------------------+-------------------------------+               |
-|                     |                                                              |               |
-|                     v                                                              v               |
-|  [ Gobernanza & Prompt Mgmt ]                                      [ Inferencia de Modelos (FMs) ] |
-|  - Bedrock Prompt Management                                       - Bedrock Cross-Region Profile  |
-|  - Bedrock Guardrails (PII/Topics)                                 - Claude / Titan / Llama / etc. |
-|  - CloudWatch & CloudTrail Logs                                    - SageMaker Endpoints (LoRA)    |
-|                                                                                                    |
-+----------------------------------------------------------------------------------------------------+
+```mermaid
+graph TD
+    subgraph "Fuentes de Datos"
+        A1["S3 / Docs / Wikis"]
+        A2["Relational / NoSQL"]
+    end
+    subgraph "Pipelines de Validacion y ETL"
+        B1["AWS Glue Data Quality"]
+        B2["SageMaker Processing / Transcribe"]
+        B3["Amazon Textract / Comprehend"]
+    end
+    subgraph "Vector Store & Knowledge"
+        C1["OpenSearch Serverless"]
+        C2["Aurora PostgreSQL pgvector"]
+        C3["Bedrock Knowledge Bases"]
+    end
+    subgraph "Cliente / API"
+        D1["API Gateway / Lambda"]
+        D2["AppConfig Router"]
+    end
+    subgraph "Orquestacion & Enrutamiento"
+        E1["Bedrock Prompt Flows / Step Functions"]
+        E2["MCP / Bedrock Converse API"]
+    end
+    subgraph "Gobernanza & Prompt Mgmt"
+        F1["Bedrock Prompt Management"]
+        F2["Bedrock Guardrails PII/Topics"]
+        F3["CloudWatch & CloudTrail Logs"]
+    end
+    subgraph "Inferencia de Modelos FMs"
+        G1["Bedrock Cross-Region Profile"]
+        G2["Claude / Titan / Llama"]
+        G3["SageMaker Endpoints LoRA"]
+    end
+    A1 & A2 --> B1 & B2 & B3 --> C1 & C2 & C3
+    C1 & C2 & C3 --> E1 & E2
+    D1 & D2 --> E1 & E2
+    E1 & E2 --> F1 & F2 & F3
+    E1 & E2 --> G1 & G2 & G3
 ```
 
 ---
@@ -118,14 +132,18 @@ El diseño de soluciones GenAI en AWS exige un desacoplamiento estricto entre el
    - **Rendimiento Provisionado (Bedrock Provisioned Throughput):** Reserva de Unidades de Modelo (Model Units - MU) para garantizar rendimiento sostenido, compromiso de latencia y soporte para modelos personalizados (fine-tuned) que requieren MUs obligatoriamente.
    - **Endpoints Dedicados en Amazon SageMaker AI:** Para modelos de código abierto altamente modificados (e.g., DeepSeek, Mistral fine-tuned), arquitecturas de inferencia multi-modelo (MME) o hardware personalizado (instancias AWS Inferentia2 con AWS Neuron SDK).
 
-```
-   [Patrón Streaming Síncrono]
-   Cliente <== SSE (Tokens) === API Gateway (WebSocket/HTTP) <== Boto3 Stream === AWS Lambda <== InvokeModelWithResponseStream == Bedrock
-
-   [Patrón Asíncrono Batch]
-   S3 (Documentos) ---> EventBridge ---> SQS ---> Step Functions ---> Bedrock Batch Inference Job ---> S3 (Resultados)
-                                                      |
-                                                   CloudWatch Alarms / EventBridge SNS
+```mermaid
+graph LR
+    subgraph "Patron Streaming Sincrono"
+        S1["Cliente"] <-.->|"SSE Tokens"| S2["API Gateway WebSocket/HTTP"]
+        S2 <-.->|"Boto3 Stream"| S3["AWS Lambda"]
+        S3 <-.->|"InvokeModelWithResponseStream"| S4["Bedrock"]
+    end
+    subgraph "Patron Asincrono Batch"
+        B1["S3 Documentos"] --> B2["EventBridge"] --> B3["SQS"] --> B4["Step Functions"]
+        B4 --> B5["Bedrock Batch Inference Job"] --> B6["S3 Resultados"]
+        B4 --> B7["CloudWatch Alarms / EventBridge SNS"]
+    end
 ```
 
 ---
@@ -198,23 +216,13 @@ La selección del modelo debe guiarse por una matriz multidimensional entre capa
 ## Skill 1.2.2: Arquitecturas Desacopladas para Selección Dinámica de Modelos
 Un error crítico en GenAI es acoplar rígidamente el código de la aplicación a los parámetros específicos de un proveedor (vendor lock-in). Se implementa el patrón **Model Router** desacoplado:
 
-```
-                                  [ Patrón Dynamic Model Router ]
-                                  
-                                    +-----------------------+
-                                    | AWS AppConfig         |
-                                    | (Model Routing Rules) |
-                                    +-----------+-----------+
-                                                |
-                                                v
-Cliente ---> API Gateway ---> Lambda (Model Router & Normalizer)
-                                    |
-            +-----------------------+-----------------------+
-            | (Baja Complejidad)    | (Alta Complejidad)    | (Código / Razonamiento)
-            v                       v                       v
-     [ Claude 3.5 Haiku ]    [ Claude 3.5 Sonnet ]     [ Llama 3.3 70B ]
-     - Latencia: < 400ms     - Razonamiento profundo   - Formateo JSON / SQL
-     - Costo: $              - Costo: $$$              - Costo: $$
+```mermaid
+graph TD
+    AC["AWS AppConfig<br/>Model Routing Rules"] --> LR["Lambda<br/>Model Router & Normalizer"]
+    CL["Cliente"] --> AG["API Gateway"] --> LR
+    LR -->|"Baja Complejidad"| M1["Claude 3.5 Haiku<br/>Latencia < 400ms | Costo $"]
+    LR -->|"Alta Complejidad"| M2["Claude 3.5 Sonnet<br/>Razonamiento profundo | Costo $$$"]
+    LR -->|"Codigo / Razonamiento"| M3["Llama 3.3 70B<br/>Formateo JSON/SQL | Costo $$"]
 ```
 
 ### Implementación Arquitectural con AWS AppConfig y Bedrock Converse API:
@@ -261,14 +269,13 @@ Permite enrutar dinámicamente el tráfico de inferencia a través de múltiples
 - **Perfiles de Inferencia Geográficos del Sistema (System Inference Profiles):** Agrupan capacidades en regiones como US (`us.anthropic.claude-3-5-sonnet-20241022-v2:0`) o EU (`eu.anthropic.claude-3-5-sonnet-20241022-v2:0`).
 - **Application Inference Profiles:** Permiten definir políticas personalizadas de enrutamiento cross-region asociando métricas de CloudWatch y presupuestos por aplicación.
 
-```
-Petición Inferencia ---> [ us.anthropic.claude-3-5-sonnet ]
-                                    |
-          +-------------------------+-------------------------+
-          | (Enrutamiento dinámico automático gestionado por AWS)
-          v                                                   v
-   [ us-east-1 (N. Virginia) ]                         [ us-west-2 (Oregon) ]
-   - Si se satura cuota TPM...   ====== Failover ======> - Inferencia procesada
+```mermaid
+graph TD
+    REQ["Peticion Inferencia"] --> PROFILE["us.anthropic.claude-3-5-sonnet"]
+    PROFILE -->|"Enrutamiento dinamico automatico"| R1["us-east-1 N. Virginia"]
+    PROFILE -->|"Enrutamiento dinamico automatico"| R2["us-west-2 Oregon"]
+    R1 -->|"Failover si se satura cuota TPM"| R2
+    R2 --> RES["Inferencia procesada"]
 ```
 
 ### 2. Patrón Circuit Breaker con AWS Step Functions y DynamoDB:
@@ -376,10 +383,11 @@ Cuando un modelo sufre errores 5xx persistentes o degradación extrema de latenc
 ## Skill 1.2.4: Personalización, PEFT (LoRA), SageMaker Model Registry y Ciclo de Vida
 
 ### Espectro de Adaptación de Modelos:
-```
-Costo & Complejidad: 
-Bajo  --------------------------------------------------------------------> Alto
-[Prompt Engineering] ---> [RAG] ---> [PEFT / LoRA Adapters] ---> [Full Fine-Tuning] ---> [Continued Pre-training]
+```mermaid
+graph LR
+    PE["Prompt Engineering"] --> RAG["RAG"] --> PEFT["PEFT / LoRA Adapters"] --> FT["Full Fine-Tuning"] --> CP["Continued Pre-training"]
+    style PE fill:#1a3a1a,stroke:#3fb950
+    style CP fill:#3a1a1a,stroke:#f85149
 ```
 
 ### 1. Parámetros Eficientes: Low-Rank Adaptation (LoRA) y QLoRA:
@@ -426,30 +434,16 @@ Rules = [
 
 ## Skill 1.3.2: Procesamiento de Tipos de Datos Complejos y Multimodales
 
-```
-                                  [ Pipeline de Ingesta Multimodal ]
-
-      +---------------------------------------------------------------------------------+
-      |                                Amazon S3 (Raw Documents)                       |
-      +--------+-------------------------------+--------------------------------+-------+
-               |                               |                                |
-        [PDF / Imágenes]                   [Audio MP3/WAV]                [Tablas CSV/Parquet]
-               |                               |                                |
-               v                               v                                v
-      [ Amazon Textract ]              [ AWS Transcribe ]             [ AWS Glue ETL Job ]
-      - OCR estructural                - Speech-to-Text               - Normalización tabular
-      - Tablas / Forms Key-Value       - Speaker Diarization          - Conversión a Markdown
-               |                               |                                |
-               +-------------------------------+--------------------------------+
-                                               |
-                                               v
-                                [ SageMaker Processing Job ]
-                                - Fusión de contextos
-                                - Limpieza semántica & chunking
-                                               |
-                                               v
-                                [ Amazon Titan Multimodal ]
-                                - Embeddings unificados texto-imagen
+```mermaid
+graph TD
+    S3["Amazon S3<br/>Raw Documents"]
+    S3 -->|"PDF / Imagenes"| TX["Amazon Textract<br/>OCR estructural<br/>Tablas / Forms Key-Value"]
+    S3 -->|"Audio MP3/WAV"| TR["AWS Transcribe<br/>Speech-to-Text<br/>Speaker Diarization"]
+    S3 -->|"Tablas CSV/Parquet"| GL["AWS Glue ETL Job<br/>Normalizacion tabular<br/>Conversion a Markdown"]
+    TX --> SM["SageMaker Processing Job<br/>Fusion de contextos<br/>Limpieza semantica & chunking"]
+    TR --> SM
+    GL --> SM
+    SM --> TM["Amazon Titan Multimodal<br/>Embeddings unificados texto-imagen"]
 ```
 
 1. **Documentos Complejos e Imágenes:**
@@ -529,29 +523,12 @@ Requiere empaquetado del script de servicio `inference.py`:
 | **Caso de Uso Ideal** | Implementación ágil de RAG sin gestión de infra | Búsqueda a escala masiva, híbrida y logs | Aplicaciones corporativas con datos ACID relacionales | Búsqueda por clave de alta concurrencia |
 | **Capacidades Híbridas** | Automáticas (BM25 + Dense) | Nativo altamente personalizable | Requiere joins relacionales + filtros vectoriales | Limitado a filtrado de atributos clave |
 
-```
-                       [ Arquitectura Multi-Capa de Vector Store ]
-
-                   +------------------------------------------------+
-                   |             Amazon S3 (Data Lake)              |
-                   | - Repositorio canónico inmutable (PDF, Docs)   |
-                   +-----------------------+------------------------+
-                                           |
-                                           v
-                             +-----------------------------+
-                             | Pipeline de Embeddings      |
-                             | (Amazon Titan Embeddings v2)|
-                             +--------------+--------------+
-                                            |
-                    +-----------------------+-----------------------+
-                    |                                               |
-                    v                                               v
-    +----------------------------------+            +----------------------------------+
-    |  Amazon OpenSearch Serverless    |            |   Amazon DynamoDB (Cache/Meta)   |
-    |  - Índice Vectorial (Embeddings) |            |  - Metadatos de documento        |
-    |  - Índice Léxico (BM25 Sparse)   |            |  - Contexto de sesión de usuario |
-    |  - Segmentación por tópicos      |            |  - Permisos y ACLs a nivel fila  |
-    +----------------------------------+            +----------------------------------+
+```mermaid
+graph TD
+    S3["Amazon S3 Data Lake<br/>Repositorio canonico inmutable"]
+    S3 --> EMB["Pipeline de Embeddings<br/>Amazon Titan Embeddings v2"]
+    EMB --> OS["Amazon OpenSearch Serverless<br/>Indice Vectorial Embeddings<br/>Indice Lexico BM25 Sparse<br/>Segmentacion por topicos"]
+    EMB --> DDB["Amazon DynamoDB Cache/Meta<br/>Metadatos de documento<br/>Contexto de sesion de usuario<br/>Permisos y ACLs a nivel fila"]
 ```
 
 ---
@@ -659,23 +636,12 @@ Amazon Bedrock Knowledge Bases provee conectores nativos gestionados:
 ## Skill 1.4.5: Mantenimiento, Sincronización Incremental y Manejo de Tombstones
 Una base vectorial desactualizada induce a alucinaciones críticas.
 
-```
-                           [ Pipeline de Sincronización Continua ]
-
-  S3 Bucket (Data Source)
-       |
-  (S3 ObjectCreated / ObjectRemoved Events)
-       |
-       v
-  Amazon EventBridge ---> AWS Lambda (Change Evaluator)
-                                |
-          +---------------------+---------------------+
-          | (Nuevo / Modificado)                      | (Eliminado / Tombstone)
-          v                                           v
-   AWS Step Functions                         OpenSearch / Aurora
-   - Extracción & Chunking                    - Purga inmediata del vector ID
-   - Batch Embeddings (Titan)                 - Invalidación de Caché Semántica
-   - Upsert en Vector Store
+```mermaid
+graph TD
+    S3["S3 Bucket Data Source"] -->|"ObjectCreated / ObjectRemoved"| EB["Amazon EventBridge"]
+    EB --> LE["AWS Lambda<br/>Change Evaluator"]
+    LE -->|"Nuevo / Modificado"| SF["AWS Step Functions<br/>Extraccion & Chunking<br/>Batch Embeddings Titan<br/>Upsert en Vector Store"]
+    LE -->|"Eliminado / Tombstone"| PU["OpenSearch / Aurora<br/>Purga inmediata del vector ID<br/>Invalidacion de Cache Semantica"]
 ```
 
 - **Manejo de Tombstones (Borrado Suave y Purga Dura):** Cuando un documento de origen se borra en S3, se emite un evento que dispara un proceso de purga inmediata en el almacén vectorial para eliminar todos los fragmentos (*chunks*) asociados al `document_id`.
@@ -686,25 +652,17 @@ Una base vectorial desactualizada induce a alucinaciones críticas.
 
 ## Skill 1.5.1: Estrategias Avanzadas de Segmentación de Documentos (Chunking)
 
-```
-Estrategia: Fixed-Size vs Hierarchical (Parent-Child)
-
-[Fixed-Size Chunking (500 tokens, 10% overlap)]
-+--------------------+  +--------------------+  +--------------------+
-| Chunk 1 (Tokens)   |  | Chunk 2 (Tokens)   |  | Chunk 3 (Tokens)   |
-| [ overlap 50 tok ]<-->| [ overlap 50 tok ]<-->|                    |
-+--------------------+  +--------------------+  +--------------------+
-
-[Hierarchical / Parent-Child Chunking]
-+-------------------------------------------------------------------+
-| Parent Chunk (2000 tokens) -> Provee Contexto Completo al LLM     |
-|  +--------------------+  +--------------------+                   |
-|  | Child Chunk 1      |  | Child Chunk 2      |                   |
-|  | (300 tokens)       |  | (300 tokens)       |                   |
-|  | -> Se indexa como  |  | -> Se indexa como  |                   |
-|  |    vector search   |  |    vector search   |                   |
-|  +--------------------+  +--------------------+                   |
-+-------------------------------------------------------------------+
+```mermaid
+graph TD
+    subgraph "Fixed-Size Chunking - 500 tokens, 10% overlap"
+        C1["Chunk 1<br/>500 tokens"] <-->|"overlap 50 tok"| C2["Chunk 2<br/>500 tokens"]
+        C2 <-->|"overlap 50 tok"| C3["Chunk 3<br/>500 tokens"]
+    end
+    subgraph "Hierarchical / Parent-Child Chunking"
+        P["Parent Chunk 2000 tokens<br/>Provee contexto completo al LLM"]
+        P --- CH1["Child Chunk 1<br/>300 tokens<br/>Se indexa como vector search"]
+        P --- CH2["Child Chunk 2<br/>300 tokens<br/>Se indexa como vector search"]
+    end
 ```
 
 ### Clasificación Técnica de Chunking:
@@ -767,31 +725,15 @@ LIMIT 5;
 
 ## Skill 1.5.4: Búsqueda Híbrida (Lexical + Semantic) y Reranking
 
-```
-                                  [ Patrón RAG Híbrido con Reranking ]
-
- Consulta de Usuario
-         |
-         +---------------------------------------+
-         |                                       |
-         v                                       v
-[ Búsqueda Densa (Vectorial) ]         [ Búsqueda Dispersa (Léxica BM25) ]
-- Embeddings Titan V2                   - Coincidencia exacta de palabras clave
-- Similitud semántica y sinónimos       - Números de pieza, códigos de error, nombres
-         |                                       |
-         +-------------------+-------------------+
-                             |
-                             v
-           [ Reciprocal Rank Fusion (RRF) ]
-           - Fusión de listas ordenadas (Top 50 resultados)
-                             |
-                             v
-           [ Amazon Bedrock Rerank Model ]
-           - Reordenamiento por atención cruzada (Cohere Rerank)
-           - Filtrado a Top 5 fragmentos hiper-relevantes
-                             |
-                             v
-               [ Contexto Final inyectado al FM ]
+```mermaid
+graph TD
+    Q["Consulta de Usuario"]
+    Q --> DENSE["Busqueda Densa Vectorial<br/>Embeddings Titan V2<br/>Similitud semantica y sinonimos"]
+    Q --> SPARSE["Busqueda Dispersa Lexica BM25<br/>Coincidencia exacta de palabras clave<br/>Numeros de pieza, codigos de error"]
+    DENSE --> RRF["Reciprocal Rank Fusion RRF<br/>Fusion de listas ordenadas Top 50"]
+    SPARSE --> RRF
+    RRF --> RERANK["Amazon Bedrock Rerank Model<br/>Reordenamiento por atencion cruzada Cohere Rerank<br/>Filtrado a Top 5 fragmentos hiper-relevantes"]
+    RERANK --> CTX["Contexto Final inyectado al FM"]
 ```
 
 ### Algoritmo Reciprocal Rank Fusion (RRF):
@@ -906,25 +848,15 @@ Permite que el modelo invoque APIs externas o ejecute consultas en vector stores
 
 ## Skill 1.6.1: Frameworks de Instrucción y Amazon Bedrock Guardrails
 
-```
-                                  [ Arquitectura de Inferencia Segura ]
-
- Consulta Usuario ===> [ Bedrock Guardrail (Input) ] ===============================+
-                             - Denied Topics Filter                                  |
-                             - PII Masking / Redaction                               | (Si viola política:
-                             - Prompt Attack / Jailbreak Detection                   |  Bloqueo inmediato)
-                                     | (Pasa validación)                             |
-                                     v                                               v
-                          [ Amazon Bedrock FM ]                      [ Mensaje de Bloqueo Estándar ]
-                                     |
-                                     v
-                       [ Bedrock Guardrail (Output) ] ===============================+
-                             - Contextual Grounding (Hallucination)                  |
-                             - Relevance Check                                       |
-                             - Toxicity & Hate Speech Filter                         |
-                                     | (Pasa validación)                             |
-                                     v                                               |
-                          [ Respuesta al Usuario ] <================================-+
+```mermaid
+graph TD
+    Q["Consulta Usuario"] --> GI["Bedrock Guardrail Input<br/>Denied Topics Filter<br/>PII Masking / Redaction<br/>Prompt Attack / Jailbreak Detection"]
+    GI -->|"Pasa validacion"| FM["Amazon Bedrock FM"]
+    GI -->|"Viola politica"| BLK["Mensaje de Bloqueo Estandar"]
+    FM --> GO["Bedrock Guardrail Output<br/>Contextual Grounding Hallucination<br/>Relevance Check<br/>Toxicity & Hate Speech Filter"]
+    GO -->|"Pasa validacion"| RESP["Respuesta al Usuario"]
+    GO -->|"Viola politica"| BLK
+    style BLK fill:#3a1a1a,stroke:#f85149
 ```
 
 ### Amazon Bedrock Guardrails:
@@ -1092,18 +1024,14 @@ Herramienta visual y declarativa para orquestar pipelines de IA Generativa compl
 
 # 9. Seguridad, Cifrado y Cumplimiento Normativo
 
-```
-                                  [ Capas de Seguridad y Cumplimiento ]
-
-     [ Perímetro de Red ]         AWS PrivateLink / VPC Endpoints (Sin tráfico por Internet)
-              |
-     [ Identidad & Acceso ]       IAM Roles con Mínimo Privilegio + Tags de Gobernanza ABAC
-              |
-     [ Cifrado de Datos ]         AWS KMS Customer Managed Keys (CMK) en Reposo y TLS 1.3 en Tránsito
-              |
-     [ Protección de IA ]         Amazon Bedrock Guardrails (Filtro PII, Alucinaciones, Jailbreaks)
-              |
-     [ Auditoría Continua ]       AWS CloudTrail + Bedrock Model Invocation Logs + CloudWatch Alarms
+```mermaid
+graph TD
+    L1["Perimetro de Red<br/>AWS PrivateLink / VPC Endpoints"]
+    L2["Identidad & Acceso<br/>IAM Roles Minimo Privilegio + ABAC"]
+    L3["Cifrado de Datos<br/>AWS KMS CMK en Reposo + TLS 1.3 en Transito"]
+    L4["Proteccion de IA<br/>Bedrock Guardrails: PII, Alucinaciones, Jailbreaks"]
+    L5["Auditoria Continua<br/>CloudTrail + Model Invocation Logs + CloudWatch"]
+    L1 --> L2 --> L3 --> L4 --> L5
 ```
 
 1. **Aislamiento Criptográfico:** Claves CMK dedicadas con rotación anual automática para buckets S3, índices de OpenSearch y registros de invocación.

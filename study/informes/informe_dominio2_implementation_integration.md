@@ -130,21 +130,24 @@ Las ocho ideas fuerza:
 
 ### 3.1 Separar el "qué" del "quién lo corre"
 
-```
-PLANO A · INTELIGENCIA (no determinístico)
-   Agente: modelo + herramientas + prompt + loop + memoria
-   Quién lo ejecuta: Strands (tu proceso) | AgentCore Runtime (administrado)
-   Riesgo dominante: el modelo decide mal o en bucle
-
-PLANO B · ORQUESTACIÓN (determinístico)
-   Workflows: validación, aprobación humana, fan-out, retries, compensaciones
-   Quién lo ejecuta: Step Functions | Lambda durable functions | código propio
-   Riesgo dominante: side effects duplicados, timeouts, costos de espera
-
-PLANO C · PLATAFORMA (transversal)
-   Gateway, identidad, red, despliegue, observabilidad, CI/CD, gobernanza
-   Quién lo ejecuta: API Gateway/GenAI Gateway, AgentCore Gateway, IAM, CodePipeline
-   Riesgo dominante: fragmentación, cuotas, costo oculto, falta de auditoría
+```mermaid
+graph TD
+    subgraph A["PLANO A - INTELIGENCIA (no determinístico)"]
+        A1["Agente: modelo + herramientas + prompt + loop + memoria"]
+        A2["Ejecuta: Strands | AgentCore Runtime"]
+        A3["Riesgo: el modelo decide mal o en bucle"]
+    end
+    subgraph B["PLANO B - ORQUESTACIÓN (determinístico)"]
+        B1["Workflows: validación, aprobación, fan-out, retries"]
+        B2["Ejecuta: Step Functions | Lambda durable | código propio"]
+        B3["Riesgo: side effects duplicados, timeouts, costos"]
+    end
+    subgraph C["PLANO C - PLATAFORMA (transversal)"]
+        C1["Gateway, identidad, red, despliegue, observabilidad"]
+        C2["Ejecuta: API GW, GenAI GW, AgentCore GW, IAM, CodePipeline"]
+        C3["Riesgo: fragmentación, cuotas, costo oculto"]
+    end
+    A --> B --> C
 ```
 
 **La regla de oro del dominio:** *si el resultado puede estar mal, alguien más tiene que validarlo; si la espera es larga, la ejecución debe pausarse; si el acceso es compartido, debe pasar por un gateway.*
@@ -176,19 +179,20 @@ PLANO C · PLATAFORMA (transversal)
 
 ### 3.4 El patrón que resume el dominio
 
-```
-Usuario → GenAI Gateway (auth, cuotas, routing, guardrails, costo)
-              │
-              ├─ Caché (exacta/semántica) ──► respuesta
-              ▼
-     Orquestador determinístico (Step Functions)
-              │
-              ├─ Agente (AgentCore Runtime) ── propone ──┐
-              │      ├─ herramientas vía Gateway (MCP)   │
-              │      └─ memoria (AgentCore Memory)       │
-              ├─ Validación determinística ◄─────────────┘
-              ├─ Humano (waitForTaskToken) si hace falta
-              └─ Acción (con idempotencia) → evento → notificación
+```mermaid
+graph TD
+    U["Usuario"] --> GW["GenAI Gateway<br/>auth, cuotas, routing, guardrails, costo"]
+    GW --> Cache{"Cache<br/>exacta/semantica"}
+    Cache -->|hit| Resp["Respuesta"]
+    Cache -->|miss| SF["Step Functions<br/>Orquestador determinístico"]
+    SF --> Agent["Agente - AgentCore Runtime"]
+    Agent --> Tools["Herramientas via Gateway MCP"]
+    Agent --> Mem["AgentCore Memory"]
+    Agent -->|propone| Val["Validación determinística"]
+    Val -->|aprobado| Action["Acción con idempotencia"]
+    Val -->|dudoso| Human["Humano - waitForTaskToken"]
+    Human --> Action
+    Action --> Event["Evento → Notificación"]
 ```
 
 ---
@@ -308,18 +312,18 @@ result = agent("¿Dónde está mi pedido 4412?")
 
 #### 4.2.3 El patrón "agente propone, código valida" (el más importante de 2026)
 
-```
-Step Functions (STANDARD)
- ├─ 1. Preparar contexto (Lambda / retrieve)
- ├─ 2. Fan-out de propuestas  ── Parallel / Map ──►  Agentes especializados (AgentCore)
- │                                                    (proponen, NO ejecutan)
- ├─ 3. Validación determinística (Lambda: reglas, límites, políticas, presupuesto)
- ├─ 4. Choice: ¿auto-confirmar o requiere humano?
- │        ├─ auto  ─────────────► 5a. Ejecutar acción idempotente
- │        └─ humano ──► 5b. Task.waitForTaskToken (SQS/SNS/ITS)
- │                          (la ejecución queda pausada SIN costo de cómputo)
- ├─ 6. Ejecutar (con idempotency key) + registrar traza
- └─ 7. Notificar (EventBridge → WebSocket/SSE/email)
+```mermaid
+graph TD
+    SF["Step Functions STANDARD"] --> P1["1. Preparar contexto<br/>Lambda / retrieve"]
+    P1 --> P2["2. Fan-out de propuestas<br/>Parallel / Map"]
+    P2 --> Agents["Agentes especializados<br/>AgentCore - proponen, NO ejecutan"]
+    Agents --> P3["3. Validación determinística<br/>Lambda: reglas, limites, politicas"]
+    P3 --> P4{"4. Choice:<br/>auto o humano?"}
+    P4 -->|auto| P5a["5a. Ejecutar acción idempotente"]
+    P4 -->|humano| P5b["5b. waitForTaskToken<br/>pausado SIN costo de cómputo"]
+    P5b --> P6["6. Ejecutar + registrar traza"]
+    P5a --> P6
+    P6 --> P7["7. Notificar<br/>EventBridge → WebSocket/SSE/email"]
 ```
 
 **Los tres principios que el examen premia:**
@@ -390,14 +394,17 @@ Step Functions (STANDARD)
 | 4 | **Debate / verificación cruzada** | Un modelo responde y otro critica/verifica; el de verificación **debe ser de otra familia** | 2× | Dominios regulados, cuando importa la explicabilidad |
 
 **Lógica de agregación propia (lo que pide la skill):** definir explícitamente la función de agregación y sus reglas de desempate:
-```
-Aggregate(respuestas):
- 1. Filtrar por validación estructural (esquema, campos obligatorios)
- 2. Filtrar por validación de política (guardrail, citas presentes)
- 3. Si hay mayoría simple → adoptar la mayoritaria
- 4. Si hay empate → desempatar por score de confianza calibrado, luego por modelo con mejor desempeño medido
- 5. Si ninguna pasa → degradar (respuesta conservadora) o escalar a humano
- 6. Registrar la decisión y las alternativas consideradas (auditoría)
+```mermaid
+graph TD
+    R["Respuestas de modelos"] --> F1["1. Filtrar por validación estructural<br/>esquema, campos obligatorios"]
+    F1 --> F2["2. Filtrar por validación de política<br/>guardrail, citas presentes"]
+    F2 --> M{"3. Mayoría simple?"}
+    M -->|si| Adopt["Adoptar la mayoritaria"]
+    M -->|empate| Tie["4. Desempatar por score<br/>de confianza calibrado"]
+    Tie --> Adopt
+    F2 -->|ninguna pasa| Degrade["5. Degradar o escalar a humano"]
+    Adopt --> Log["6. Registrar decisión y alternativas"]
+    Degrade --> Log
 ```
 
 #### 4.4.2 Marcos de selección de modelos
@@ -574,12 +581,15 @@ def create_support_ticket(
 
 #### 5.1.2 La decisión económica (memorizar la forma de la curva)
 
-```
-Costo Bedrock        = tokens × precio  → 0 en reposo, lineal con el volumen
-Costo SageMaker      = horas-instancia  → línea plana 24/7, "gratis" en el pico
-                                   ▲
-                        punto de cruce
-                   (volumen sostenido alto)
+```mermaid
+graph LR
+    subgraph Bedrock
+        B1["tokens x precio"] --> B2["0 en reposo, lineal con volumen"]
+    end
+    subgraph SageMaker
+        S1["horas-instancia"] --> S2["linea plana 24/7"]
+    end
+    B2 -.->|"punto de cruce<br/>volumen sostenido alto"| S2
 ```
 - Un caso medido públicamente: **USD 3.432/mes en Bedrock** vs **USD 5.176/mes** en un endpoint único (y 10.351 con HA) para una carga *bursty* que queda ociosa ~70 % del tiempo. Con esa forma de tráfico, **Bedrock gana**.
 - Regla gruesa de la industria: por debajo de decenas de millones de tokens diarios, Bedrock suele ser más barato; por encima de ~200 M tokens/día sostenidos (o ~USD 10 k/mes), el endpoint dedicado empieza a ganar. **El número exacto depende del modelo, la GPU y la utilización** — el examen evalúa el *criterio*, no la cifra.
@@ -626,17 +636,15 @@ Memoria GPU necesaria =
 
 #### 5.2.2 Carga de modelo (la parte que explica los cold starts de 30–80 s)
 
-```
-Cold start de SageMaker Serverless (real):
- 0s   llega el request
- 0-2s detecta que no hay instancia caliente
- 5-15s aprovisiona EC2
- 2-3s  asigna GPU
- 5-20s descarga y extrae la imagen del contenedor (desde ECR)
-10-30s inicializa contenedor y CARGA EL MODELO
- 2-5s  primera inferencia
-──────────────────────────────────────────
-30-80 s en total (los modelos >10 GB van al extremo alto)
+```mermaid
+graph LR
+    A["Request llega<br/>0s"] --> B["Detecta sin instancia<br/>0-2s"]
+    B --> C["Aprovisiona EC2<br/>5-15s"]
+    C --> D["Asigna GPU<br/>2-3s"]
+    D --> E["Descarga imagen ECR<br/>5-20s"]
+    E --> F["Inicializa + CARGA MODELO<br/>10-30s"]
+    F --> G["Primera inferencia<br/>2-5s"]
+    G --> H["Total: 30-80s"]
 ```
 
 **Cómo se acorta:**
@@ -680,13 +688,16 @@ Cold start de SageMaker Serverless (real):
 | Embeddings + similitud en lugar de generación | Bajo | Preguntas frecuentes con respuestas fijas |
 
 **3) Cascading basado en API (routing en cascada).** El patrón:
-```
-1. Chequeo de caché (exacta → semántica)
-2. Modelo chico/barato responde
-3. Chequeo de confianza/validez (reglas, esquema, score del juez barato, similitud con la fuente)
-   ├─ PASA  → devolver (≈70–85 % de las consultas)
-   └─ FALLA → escalar al modelo grande
-4. Registrar qué camino tomó cada request (para medir la tasa de escalado y ajustar umbrales)
+```mermaid
+graph TD
+    Q["Request"] --> C1["1. Chequeo de cache<br/>exacta → semantica"]
+    C1 -->|hit| Resp["Respuesta"]
+    C1 -->|miss| M1["2. Modelo chico/barato responde"]
+    M1 --> Check{"3. Chequeo de confianza<br/>reglas, esquema, score"}
+    Check -->|"PASA (70-85%)"| Resp
+    Check -->|FALLA| M2["Escalar al modelo grande"]
+    M2 --> Resp
+    Resp --> Log["4. Registrar camino tomado"]
 ```
 **Ventaja real:** el 80 % del tráfico es rutinario; el ahorro del cascade es del orden de **40–60 %** del costo mezclado, siempre que el **chequeo de confianza** sea bueno. Si el chequeo deja pasar errores, el ahorro se paga en calidad.
 
@@ -782,19 +793,20 @@ Cold start de SageMaker Serverless (real):
 
 #### 6.2.3 El patrón asíncrono de referencia (2026)
 
-```
-UI ──POST──► API Gateway ──► Lambda: escribe el job (PENDING) en DynamoDB
-   ◄── 202 Accepted + jobId ─┘   (responde en milisegundos)
-                                   │
-                   DynamoDB Stream ─┴─► EventBridge Pipe ──► Step Functions
-                                                                  │
-                                              InvokeModel / InvokeAgent (asíncrono)
-                                                                  │
-                                          actualiza el job (DONE) + publica evento
-                                                                  │
-                            EventBridge ──► Lambda ──► WebSocket / IoT Core / SSE
-                                                                  │
-                                                        UI recibe la respuesta
+```mermaid
+graph TD
+    UI["UI"] -->|POST| APIGW["API Gateway"]
+    APIGW --> Lambda1["Lambda: escribe job PENDING"]
+    Lambda1 --> DDB["DynamoDB"]
+    APIGW -->|"202 Accepted + jobId"| UI
+    DDB -->|Stream| EBPipe["EventBridge Pipe"]
+    EBPipe --> SF["Step Functions"]
+    SF --> Invoke["InvokeModel / InvokeAgent"]
+    Invoke --> Update["Actualiza job DONE + publica evento"]
+    Update --> EB["EventBridge"]
+    EB --> Lambda2["Lambda"]
+    Lambda2 --> WS["WebSocket / IoT Core / SSE"]
+    WS --> UI2["UI recibe la respuesta"]
 ```
 **Por qué es el patrón correcto:** el usuario no espera a un modelo; no hay timeouts del borde; el trabajo es reintentable y auditable; y la notificación llega cuando está lista. **Requisitos técnicos:** propagar el **Trace ID** de X-Ray desde el API inicial hasta el workflow (si no, depurar en un sistema asíncrono es imposible) e **implementar idempotencia** (la entrega es at-least-once).
 
@@ -812,12 +824,13 @@ UI ──POST──► API Gateway ──► Lambda: escribe el job (PENDING) en
 | **Identidad de workload / agente** | El agente actuando en nombre del usuario | **AgentCore Identity** (credential brokering), roles IAM por agente, roles de ejecución de Lambda | El agente obtiene credenciales **de corta duración y alcance mínimo** para llamar sistemas, sin secretos en el código |
 
 **Flujo típico de una acción del agente en nombre del usuario:**
-```
-Usuario (SSO) → token → Gateway/AgentCore valida (inbound auth)
-   → el agente necesita llamar al CRM
-   → AgentCore Identity canjea/obtiene credencial de salida (OAuth token exchange, SigV4, API key del Secrets Manager)
-   → llama al CRM con el alcance mínimo necesario
-   → la acción queda auditada (quién, en nombre de quién, qué herramienta, qué parámetros)
+```mermaid
+graph LR
+    U["Usuario SSO"] -->|token| GW["Gateway / AgentCore<br/>valida inbound auth"]
+    GW --> Agent["Agente necesita llamar CRM"]
+    Agent --> ID["AgentCore Identity<br/>canjea credencial de salida<br/>OAuth / SigV4 / API key"]
+    ID --> CRM["Llama al CRM<br/>alcance minimo"]
+    CRM --> Audit["Acción auditada<br/>quien, en nombre de quien, herramienta, params"]
 ```
 
 #### 6.3.2 RBAC para modelos y datos
@@ -891,12 +904,12 @@ Usuario (SSO) → token → Gateway/AgentCore valida (inbound auth)
 | **Evaluación** | **Gate obligatorio**: dataset dorado + métricas de calidad, seguridad y costo |
 
 **Pipeline de 5 gates (patrón que el examen puede describir):**
-```
-1. LINT/ESTÁTICO        validación de esquemas, prompts con formato, OpenAPI válido
-2. EVAL OFFLINE         Bedrock Evaluations / juez sobre dataset dorado → BLOQUEA si baja el umbral
-3. PRESUPUESTO          estimación de costo por 1.000 requests vs. umbral → BLOQUEA si excede
-4. SHADOW / CANARY      tráfico espejado o porcentual contra la versión anterior
-5. ROLLBACK AUTOMÁTICO  si las métricas de calidad/latencia/errores se degradan en la ventana
+```mermaid
+graph LR
+    G1["1. LINT/ESTÁTICO<br/>esquemas, prompts, OpenAPI"] --> G2["2. EVAL OFFLINE<br/>Bedrock Evaluations<br/>BLOQUEA si baja umbral"]
+    G2 --> G3["3. PRESUPUESTO<br/>costo por 1K requests<br/>BLOQUEA si excede"]
+    G3 --> G4["4. SHADOW/CANARY<br/>trafico espejado o porcentual"]
+    G4 --> G5["5. ROLLBACK AUTOMÁTICO<br/>si metricas se degradan"]
 ```
 **Herramientas AWS:** CodePipeline (orquestación), CodeBuild (build + evaluación + escaneos), CodeDeploy (despliegue), **Lambda alias con routing ponderado** (canary), **SageMaker deployment guardrails** (all-at-once, canary, linear con auto-rollback), CloudWatch (métricas que disparan el rollback), CloudFormation/CDK (infraestructura como código), Inspector/Guard (seguridad).
 
@@ -981,9 +994,14 @@ Usuario (SSO) → token → Gateway/AgentCore valida (inbound auth)
 #### 7.2.1 El lado del modelo: `ConverseStream`
 
 **Secuencia de eventos (memorizar el orden):**
-```
-messageStart → contentBlockStart → contentBlockDelta (×N) → contentBlockStop
-             → [más bloques, p. ej. tool use] → messageStop → metadata
+```mermaid
+graph LR
+    A["messageStart"] --> B["contentBlockStart"]
+    B --> C["contentBlockDelta x N"]
+    C --> D["contentBlockStop"]
+    D --> E["mas bloques<br/>ej. tool use"]
+    E --> F["messageStop"]
+    F --> G["metadata"]
 ```
 - **Solo los `contentBlockDelta` con `text`** son lo que se muestra al usuario.
 - **`messageStop.stopReason`** distingue fin natural (`end_turn`) de truncamiento (`max_tokens`): hay que mirarlo siempre.
@@ -1017,21 +1035,24 @@ messageStart → contentBlockStart → contentBlockDelta (×N) → contentBlockS
 
 #### 7.3.1 La jerarquía de resiliencia (de barata a costosa)
 
-```
-1. Clasificación de errores      (costo: lógica)          transitorio | permanente | semántico
-2. Reintentos con backoff+jitter (costo: tiempo)          solo transitorios; cap de intentos
-3. Circuit breaker               (costo: estado)          corta cuando el proveedor está caído
-4. Bulkhead (aislamiento)        (costo: recursos)        pool separado por dependencia
-5. Fallback de modelo/proveedor  (costo: capacidad)       modelo alterno, otra región, otra familia
-6. Buffering por colas           (costo: infraestructura) SQS amortigua picos
-7. Escalado a humano             (costo: personas)        cuando nada más aplica
+```mermaid
+graph TD
+    R1["1. Clasificación de errores<br/>costo: lógica"] --> R2["2. Reintentos backoff+jitter<br/>costo: tiempo"]
+    R2 --> R3["3. Circuit breaker<br/>costo: estado"]
+    R3 --> R4["4. Bulkhead - aislamiento<br/>costo: recursos"]
+    R4 --> R5["5. Fallback modelo/proveedor<br/>costo: capacidad"]
+    R5 --> R6["6. Buffering por colas SQS<br/>costo: infraestructura"]
+    R6 --> R7["7. Escalado a humano<br/>costo: personas"]
 ```
 
 #### 7.3.2 Circuit breaker: el detalle que se pregunta
 
-```
-CLOSED ──(fallos > umbral)──► OPEN ──(cooldown)──► HALF-OPEN ──(prueba OK)──► CLOSED
-                                                        └──(prueba falla)──► OPEN
+```mermaid
+graph LR
+    CLOSED["CLOSED"] -->|"fallos > umbral"| OPEN["OPEN"]
+    OPEN -->|cooldown| HALF["HALF-OPEN"]
+    HALF -->|"prueba OK"| CLOSED
+    HALF -->|"prueba falla"| OPEN
 ```
 | Parámetro | Valor típico |
 |---|---|
@@ -1080,27 +1101,33 @@ CLOSED ──(fallos > umbral)──► OPEN ──(cooldown)──► HALF-OPEN
 
 #### 7.4.2 Routing basado en métricas (lo más "inteligente")
 
-```
-Bucle de decisión:
- 1. Recolectar (CloudWatch/GenAI Observability): calidad por modelo, p95 de latencia, costo por tarea, tasa de error/throttling
- 2. Evaluar políticas: p. ej. "si p95 > 3 s → mover 20 % del tráfico al modelo rápido"
- 3. Aplicar en la capa de configuración o en el gateway (no en el código)
- 4. Medir el efecto y revertir si la calidad cae
+```mermaid
+graph TD
+    R["1. Recolectar<br/>CloudWatch / GenAI Observability<br/>calidad, p95 latencia, costo, errores"] --> E["2. Evaluar politicas<br/>ej: si p95 > 3s → mover 20% trafico"]
+    E --> A["3. Aplicar en config o gateway<br/>no en el código"]
+    A --> M["4. Medir efecto<br/>revertir si calidad cae"]
+    M --> R
 ```
 **Fuentes de señal:** métricas propias por modelo, evaluaciones continuas, canary suite, y (a nivel organización) el análisis de costo por modelo desde CUR.
 
 #### 7.4.3 Patrón completo de routing + fallback
 
-```
-Request
-  ├─ 1. Caché exacta/semántica ──► hit? responder
-  ├─ 2. Clasificador de complejidad (reglas o modelo chico)
-  │      ├─ simple   → modelo chico / Flex / Batch si no es interactivo
-  │      ├─ media    → modelo mediano (o IPR dentro de la familia)
-  │      └─ compleja → modelo grande / reasoning
-  ├─ 3. Verificación de salida (esquema, citas, reglas)
-  │      └─ falla → escalar un nivel y reintentar UNA vez (cascade)
-  └─ 4. Si el proveedor falla → breaker → fallback (región/modelo/caché/cola)
+```mermaid
+graph TD
+    Req["Request"] --> Cache{"1. Cache<br/>exacta/semantica"}
+    Cache -->|hit| Resp["Responder"]
+    Cache -->|miss| Clf["2. Clasificador de complejidad"]
+    Clf -->|simple| Small["Modelo chico / Flex / Batch"]
+    Clf -->|media| Med["Modelo mediano / IPR"]
+    Clf -->|compleja| Large["Modelo grande / reasoning"]
+    Small --> Verify{"3. Verificación de salida<br/>esquema, citas, reglas"}
+    Med --> Verify
+    Large --> Verify
+    Verify -->|OK| Resp
+    Verify -->|falla| Cascade["Escalar un nivel<br/>reintentar UNA vez"]
+    Cascade --> Verify
+    Req --> Breaker{"4. Proveedor falla?"}
+    Breaker -->|si| Fallback["Breaker → fallback<br/>region/modelo/cache/cola"]
 ```
 
 ---
@@ -1201,10 +1228,10 @@ Cada endpoint con: autenticación, validación de esquema, cuota por cliente, `X
 **Los patrones de diseño de agentes que Step Functions puede orquestar:** ReAct (loop con límite), *prompt chaining*, *routing* por especialista, *parallel fan-out + agregación*, *reflection* (un paso critica al anterior antes de continuar), *human-in-the-loop*, y *saga* con compensaciones.
 
 **Ejemplo de reparto correcto:**
-```
-Step Functions  →  "¿qué pasos, en qué orden, con qué validación y quién aprueba"
-Strands/Agent   →  "cómo resuelvo este paso con las herramientas disponibles"
-Prompt Mgmt     →  "con qué instrucciones exactas y qué versión"
+```mermaid
+graph LR
+    SF["Step Functions<br/>que pasos, en que orden,<br/>validación y aprobación"] --> SA["Strands / Agent<br/>como resuelvo este paso<br/>con las herramientas"]
+    SA --> PM["Prompt Management<br/>con que instrucciones<br/>exactas y que version"]
 ```
 
 #### 8.5.2 Prompt chaining bien hecho
@@ -1247,39 +1274,43 @@ Prompt Mgmt     →  "con qué instrucciones exactas y qué versión"
 
 ## 9. Arquitectura de referencia
 
-```
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│ CAPA 6 · ENTREGA Y GOBERNANZA DE PLATAFORMA                                            │
-│  CI/CD (CodePipeline+CodeBuild+CodeDeploy) con 5 gates · GenAI Gateway (routing,       │
-│  cuotas, costo, guardrails) · Prompt Management + AppConfig · Model Registry ·         │
-│  Evaluations como gate · CloudFormation/CDK · Config conformance                       │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ CAPA 5 · OBSERVABILIDAD Y OPERACIÓN                                                    │
-│  X-Ray/Transaction Search (trazas end-to-end) · CloudWatch (métricas, alarmas,         │
-│  Logs Insights) · Model Invocation Logging · agent traces · dashboards por audiencia    │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ CAPA 4 · EXPERIENCIA (clientes)                                                        │
-│  Web/Móvil (Amplify AI Kit, AppSync) · API Gateway (REST/HTTP/WS + MCP Proxy) ·        │
-│  SSE/WebSocket/streaming · notificaciones push · feedback loop                         │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ CAPA 3 · ORQUESTACIÓN DETERMINÍSTICA                                                   │
-│  Step Functions (Standard: waits/callbacks/humano) · Express (alto volumen) ·          │
-│  Lambda durable functions · EventBridge (+ Pipes) · SQS/SNS · Map/Parallel · límites   │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ CAPA 2 · INTELIGENCIA (agentes y modelos)                                              │
-│  AgentCore Runtime (microVM/sesión, 8 h, 100 MB) + Harness · Strands/Agent Squad ·     │
-│  AgentCore Memory (short+long term) · Bedrock models (routing/cascada) ·                │
-│  SageMaker endpoints (habilidades especializadas) · Code Interpreter / Browser         │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ CAPA 1 · HERRAMIENTAS Y DATOS                                                          │
-│  AgentCore Gateway (Lambda/OpenAPI/MCP → MCP tools + Policy Cedar) · MCP servers       │
-│  (Lambda stateless / ECS complejos) · Knowledge Bases + vector store · Lambdas de      │
-│  dominio · APIs internas (OpenAPI/Smithy) · SaaS (CRM/ERP/ticketing)                   │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ CAPA 0 · IDENTIDAD, RED Y SECRETOS                                                     │
-│  IAM Identity Center (usuarios) · AgentCore Identity (workloads, credential brokering) │
-│  · Cognito · VPC endpoints/PrivateLink · KMS · Secrets Manager · SCP como techo         │
-└────────────────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+graph TD
+    subgraph C6["CAPA 6 - ENTREGA Y GOBERNANZA"]
+        C6a["CI/CD: CodePipeline + CodeBuild + CodeDeploy con 5 gates"]
+        C6b["GenAI Gateway: routing, cuotas, costo, guardrails"]
+        C6c["Prompt Management + AppConfig + Model Registry"]
+    end
+    subgraph C5["CAPA 5 - OBSERVABILIDAD Y OPERACIÓN"]
+        C5a["X-Ray / Transaction Search: trazas end-to-end"]
+        C5b["CloudWatch: metricas, alarmas, Logs Insights"]
+        C5c["Model Invocation Logging + agent traces"]
+    end
+    subgraph C4["CAPA 4 - EXPERIENCIA"]
+        C4a["Web/Movil: Amplify AI Kit, AppSync"]
+        C4b["API Gateway: REST/HTTP/WS + MCP Proxy"]
+        C4c["SSE/WebSocket/streaming + feedback loop"]
+    end
+    subgraph C3["CAPA 3 - ORQUESTACIÓN DETERMINÍSTICA"]
+        C3a["Step Functions Standard: waits/callbacks/humano"]
+        C3b["Lambda durable + EventBridge + SQS/SNS"]
+        C3c["Map/Parallel + limites"]
+    end
+    subgraph C2["CAPA 2 - INTELIGENCIA"]
+        C2a["AgentCore Runtime + Harness + Strands/Agent Squad"]
+        C2b["AgentCore Memory: short + long term"]
+        C2c["Bedrock models + SageMaker endpoints"]
+    end
+    subgraph C1["CAPA 1 - HERRAMIENTAS Y DATOS"]
+        C1a["AgentCore Gateway: MCP tools + Policy Cedar"]
+        C1b["Knowledge Bases + vector store"]
+        C1c["APIs internas + SaaS: CRM/ERP/ticketing"]
+    end
+    subgraph C0["CAPA 0 - IDENTIDAD, RED Y SECRETOS"]
+        C0a["IAM Identity Center + AgentCore Identity + Cognito"]
+        C0b["VPC endpoints / PrivateLink + KMS + Secrets Manager"]
+    end
+    C6 --> C5 --> C4 --> C3 --> C2 --> C1 --> C0
 ```
 
 **Recorrido de una petición "bien integrada":**

@@ -6,9 +6,9 @@
   - [Guia del Examen (PDF)](/study/official-page/pdfs-aws-certification-latest-ai-professional-01-ai-professional-01-pdf.md)
 
 - Detalle por Dominio
-  - [Dominio 1 -- Detalle Oficial](/study/official-page/aws-certification-latest-ai-professional-01-ai-professional-01-domain1-html.md)
-  - [Dominio 2 -- Detalle Oficial](/study/official-page/aws-certification-latest-ai-professional-01-ai-professional-01-domain2-html.md)
-  - [Dominio 3 -- Detalle Oficial](/study/official-page/aws-certification-latest-ai-professional-01-ai-professional-01-domain3-html.md)
+  - [Dominio 1 - Detalle Oficial](/study/official-page/aws-certification-latest-ai-professional-01-ai-professional-01-domain1-html.md)
+  - [Dominio 2 - Detalle Oficial](/study/official-page/aws-certification-latest-ai-professional-01-ai-professional-01-domain2-html.md)
+  - [Dominio 3 - Detalle Oficial](/study/official-page/aws-certification-latest-ai-professional-01-ai-professional-01-domain3-html.md)
 
 - Servicios y Tecnologias
   - [Servicios en Scope](/study/official-page/aws-certification-latest-ai-professional-01-aip-01-in-scope-services-html.md)

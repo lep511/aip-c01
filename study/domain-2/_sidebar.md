@@ -1,10 +1,15 @@
 - [Inicio](/study/)
 
-- [Domain 2 -- Implementation & Integration](/study/domain-2/)
-  - [Task 2.1 -- Agentic AI y Herramientas](/study/domain-2/task-2-1-agentic-ai-y-herramientas.md)
-  - [Task 2.2 -- Despliegue de Modelos](/study/domain-2/task-2-2-despliegue-de-modelos.md)
-  - [Task 2.3 -- Integracion Empresarial](/study/domain-2/task-2-3-integracion-empresarial.md)
-  - [Task 2.4 -- Integraciones API FM](/study/domain-2/task-2-4-integraciones-api-fm.md)
-  - [Task 2.5 -- Patrones de Aplicacion y Tooling](/study/domain-2/task-2-5-patrones-de-aplicacion-y-tooling.md)
-  - [Referencias Oficiales](/study/domain-2/referencias-oficiales.md)
-  - [Informe Completo](/study/informes/informe_dominio2_implementation_integration.md)
+<div class="sidebar-domain-title">
+  <strong>Domain 2</strong>
+  <span>Implementation & Integration - 26%</span>
+</div>
+
+- [Resumen del Dominio](/study/domain-2/)
+- [Task 2.1 - Agentic AI y Herramientas](/study/domain-2/task-2-1-agentic-ai-y-herramientas.md)
+- [Task 2.2 - Despliegue de Modelos](/study/domain-2/task-2-2-despliegue-de-modelos.md)
+- [Task 2.3 - Integracion Empresarial](/study/domain-2/task-2-3-integracion-empresarial.md)
+- [Task 2.4 - Integraciones API FM](/study/domain-2/task-2-4-integraciones-api-fm.md)
+- [Task 2.5 - Patrones de Aplicacion y Tooling](/study/domain-2/task-2-5-patrones-de-aplicacion-y-tooling.md)
+- [Referencias Oficiales](/study/domain-2/referencias-oficiales.md)
+- [Informe Completo](/study/informes/informe_dominio2_implementation_integration.md)
