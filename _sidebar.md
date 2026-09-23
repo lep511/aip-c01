@@ -1,46 +1,54 @@
-<!-- Sidebar Principal -->
+- [Inicio](/study/)
 
-- **[Inicio](study/)**
+- [Domain 1 -- Foundation Model Integration (31%)](/study/domain-1/)
+  - [Task 1.1 -- Analisis y Diseno](/study/domain-1/task-1-1-analisis-y-diseno.md)
+  - [Task 1.2 -- Seleccion y Configuracion FM](/study/domain-1/task-1-2-seleccion-y-configuracion-fm.md)
+  - [Task 1.3 -- Datos para Consumo FM](/study/domain-1/task-1-3-datos-para-consumo-fm.md)
+  - [Task 1.4 -- Vector Stores](/study/domain-1/task-1-4-vector-stores.md)
+  - [Task 1.5 -- Retrieval](/study/domain-1/task-1-5-retrieval.md)
+  - [Task 1.6 -- Prompt Engineering & Governance](/study/domain-1/task-1-6-prompt-engineering-governance.md)
+  - [Referencias Oficiales](/study/domain-1/referencias-oficiales.md)
 
----
+- [Domain 2 -- Implementation & Integration (26%)](/study/domain-2/)
+  - [Task 2.1 -- Agentic AI y Herramientas](/study/domain-2/task-2-1-agentic-ai-y-herramientas.md)
+  - [Task 2.2 -- Despliegue de Modelos](/study/domain-2/task-2-2-despliegue-de-modelos.md)
+  - [Task 2.3 -- Integracion Empresarial](/study/domain-2/task-2-3-integracion-empresarial.md)
+  - [Task 2.4 -- Integraciones API FM](/study/domain-2/task-2-4-integraciones-api-fm.md)
+  - [Task 2.5 -- Patrones de Aplicacion y Tooling](/study/domain-2/task-2-5-patrones-de-aplicacion-y-tooling.md)
+  - [Referencias Oficiales](/study/domain-2/referencias-oficiales.md)
 
-- **Dominios del Examen**
+- [Domain 3 -- AI Safety & Security (20%)](/study/domain-3/)
+  - [Task 3.1 -- Controles de Seguridad Entrada/Salida](/study/domain-3/task-3-1-controles-de-seguridad-entrada-salida.md)
+  - [Task 3.2 -- Seguridad y Privacidad de Datos](/study/domain-3/task-3-2-seguridad-y-privacidad-de-datos.md)
+  - [Task 3.3 -- Governance y Compliance](/study/domain-3/task-3-3-governance-y-compliance.md)
+  - [Task 3.4 -- IA Responsable](/study/domain-3/task-3-4-ia-responsable.md)
+  - [Referencias Oficiales](/study/domain-3/referencias-oficiales.md)
 
-  - [Domain 1 -- Foundation Model Integration](study/domain-1/)
-  - [Domain 2 -- Implementation & Integration](study/domain-2/)
-  - [Domain 3 -- AI Safety & Security](study/domain-3/)
-  - [Domain 4 -- Operational Efficiency](study/domain-4/)
-  - [Domain 5 -- Testing & Validation](study/domain-5/)
+- [Domain 4 -- Operational Efficiency (12%)](/study/domain-4/)
+  - [Task 4.1 -- Costes y Eficiencia de Recursos](/study/domain-4/task-4-1-costes-y-eficiencia-de-recursos.md)
+  - [Task 4.2 -- Latencia y Throughput](/study/domain-4/task-4-2-latencia-y-throughput.md)
+  - [Task 4.2b -- Retrieval y Parametros](/study/domain-4/task-4-2-retrieval-y-parametros.md)
+  - [Task 4.3 -- Observabilidad y Metricas](/study/domain-4/task-4-3-observabilidad-y-metricas.md)
+  - [Task 4.3b -- Herramientas, Vector Stores y Fallos](/study/domain-4/task-4-3-herramientas-vector-stores-y-fallos.md)
+  - [Referencias Oficiales](/study/domain-4/referencias-oficiales.md)
 
----
+- [Domain 5 -- Testing & Validation (11%)](/study/domain-5/)
+  - [Task 5.1 -- Frameworks y Herramientas](/study/domain-5/task-5-1-frameworks-y-herramientas.md)
+  - [Task 5.1b -- Retrieval y Agentes](/study/domain-5/task-5-1-retrieval-y-agentes.md)
+  - [Task 5.2 -- Monitoreo, Troubleshooting, Optimizacion](/study/domain-5/task-5-2-monitoreo-troubleshooting-optimizacion.md)
+  - [Referencias Oficiales](/study/domain-5/referencias-oficiales.md)
 
-- **Informes Completos**
+- Informes Completos
+  - [Informe Domain 1](/study/informes/informe_dominio1_implementation_integration.md)
+  - [Informe Domain 2](/study/informes/informe_dominio2_implementation_integration.md)
+  - [Informe Domain 3](/study/informes/informe_dominio3_ai_safety_security_governance.md)
+  - [Informe Domain 4](/study/informes/informe_dominio4_operational_efficiency_optimization.md)
+  - [Informe Domain 5](/study/informes/informe_dominio5_testing_validation_troubleshooting.md)
 
-  - [Informe Domain 1 -- Foundation Model Integration](study/informes/informe_dominio1_implementation_integration.md)
-  - [Informe Domain 2 -- Implementation & Integration](study/informes/informe_dominio2_implementation_integration.md)
-  - [Informe Domain 3 -- AI Safety, Security & Governance](study/informes/informe_dominio3_ai_safety_security_governance.md)
-  - [Informe Domain 4 -- Operational Efficiency & Optimization](study/informes/informe_dominio4_operational_efficiency_optimization.md)
-  - [Informe Domain 5 -- Testing, Validation & Troubleshooting](study/informes/informe_dominio5_testing_validation_troubleshooting.md)
-
----
-
-- **Recursos Oficiales**
-
-  - [Resumen del Examen AIP-C01](study/official-page/aws-certification-latest-ai-professional-01-ai-professional-01-html.md)
-  - [Guia del Examen (Markdown)](study/official-page/aws-certification-latest-ai-professional-01-ai-professional-01-md.md)
-  - [Guia del Examen (PDF)](study/official-page/pdfs-aws-certification-latest-ai-professional-01-ai-professional-01-pdf.md)
-  - [Servicios en Scope](study/official-page/aws-certification-latest-ai-professional-01-aip-01-in-scope-services-html.md)
-  - [Servicios Fuera de Scope](study/official-page/aws-certification-latest-ai-professional-01-aip-01-out-of-scope-services-html.md)
-
-- **Detalle Oficial por Dominio**
-
-  - [Dominio 1 -- Detalle Oficial](study/official-page/aws-certification-latest-ai-professional-01-ai-professional-01-domain1-html.md)
-  - [Dominio 2 -- Detalle Oficial](study/official-page/aws-certification-latest-ai-professional-01-ai-professional-01-domain2-html.md)
-  - [Dominio 3 -- Detalle Oficial](study/official-page/aws-certification-latest-ai-professional-01-ai-professional-01-domain3-html.md)
-
-- **Referencia Adicional**
-
-  - [Servicios AWS Mencionados](study/official-page/aws-certification-latest-ai-professional-01-ai-professional-01-service-mentions-html.md)
-  - [Tecnologias y Conceptos](study/official-page/aws-certification-latest-ai-professional-01-ai-professional-01-technologies-concepts-html.md)
-  - [Convenciones de Documentacion AWS](study/official-page/general-latest-gr-docconventions-html.md)
-  - [Pagina de Inicio AWS Certification](study/official-page/index-html.md)
+- Recursos Oficiales
+  - [Resumen del Examen AIP-C01](/study/official-page/aws-certification-latest-ai-professional-01-ai-professional-01-html.md)
+  - [Guia del Examen (PDF)](/study/official-page/pdfs-aws-certification-latest-ai-professional-01-ai-professional-01-pdf.md)
+  - [Servicios en Scope](/study/official-page/aws-certification-latest-ai-professional-01-aip-01-in-scope-services-html.md)
+  - [Servicios Fuera de Scope](/study/official-page/aws-certification-latest-ai-professional-01-aip-01-out-of-scope-services-html.md)
+  - [Tecnologias y Conceptos](/study/official-page/aws-certification-latest-ai-professional-01-ai-professional-01-technologies-concepts-html.md)
+  - [Servicios AWS Mencionados](/study/official-page/aws-certification-latest-ai-professional-01-ai-professional-01-service-mentions-html.md)
