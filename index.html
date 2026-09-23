@@ -235,6 +235,37 @@
       line-height: 1.4;
     }
 
+    /* Mermaid diagram containers */
+    .markdown-section .mermaid {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 1.5rem 1rem;
+      margin: 1.5rem 0;
+      text-align: center;
+      overflow-x: auto;
+    }
+    .markdown-section .mermaid svg {
+      max-width: 100%;
+      height: auto;
+    }
+    .markdown-section .mermaid .node rect,
+    .markdown-section .mermaid .node polygon,
+    .markdown-section .mermaid .node circle {
+      stroke-width: 1.5px;
+    }
+    .markdown-section .mermaid .edgeLabel {
+      background-color: #161b22;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+    .markdown-section .mermaid .cluster rect {
+      rx: 8;
+      ry: 8;
+      stroke-dasharray: none;
+    }
+
     /* Heading styles */
     .markdown-section h1 {
       letter-spacing: -0.025em;
@@ -517,7 +548,53 @@
       },
 
       mermaid: {
-        dark: true
+        dark: true,
+        mermaidConfig: {
+          theme: 'base',
+          themeVariables: {
+            darkMode: true,
+            background: '#161b22',
+            primaryColor: '#1f6feb',
+            primaryTextColor: '#f0f6fc',
+            primaryBorderColor: '#388bfd',
+            secondaryColor: '#21262d',
+            secondaryTextColor: '#c9d1d9',
+            secondaryBorderColor: '#30363d',
+            tertiaryColor: '#0d1117',
+            tertiaryTextColor: '#8b949e',
+            tertiaryBorderColor: '#21262d',
+            noteBkgColor: '#161b22',
+            noteTextColor: '#c9d1d9',
+            noteBorderColor: '#30363d',
+            lineColor: '#8b949e',
+            textColor: '#c9d1d9',
+            mainBkg: '#1f6feb',
+            nodeBorder: '#388bfd',
+            clusterBkg: '#0d1117',
+            clusterBorder: '#30363d',
+            titleColor: '#f0f6fc',
+            edgeLabelBackground: '#161b22',
+            nodeTextColor: '#f0f6fc',
+            actorBkg: '#1f6feb',
+            actorTextColor: '#f0f6fc',
+            actorLineColor: '#8b949e',
+            signalColor: '#c9d1d9',
+            labelBoxBkgColor: '#161b22',
+            labelBoxBorderColor: '#30363d',
+            labelTextColor: '#c9d1d9',
+            loopTextColor: '#c9d1d9',
+            activationBorderColor: '#388bfd',
+            activationBkgColor: '#1f6feb',
+            sequenceNumberColor: '#f0f6fc'
+          },
+          flowchart: {
+            curve: 'basis',
+            padding: 16,
+            nodeSpacing: 50,
+            rankSpacing: 60,
+            htmlLabels: true
+          }
+        }
       },
 
       pagination: {
@@ -541,6 +618,44 @@
   <!-- Mermaid diagrams -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@12/dist/mermaid.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify-mermaid@2/dist/docsify-mermaid.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'base',
+      themeVariables: {
+        darkMode: true,
+        background: '#161b22',
+        primaryColor: '#1f6feb',
+        primaryTextColor: '#f0f6fc',
+        primaryBorderColor: '#388bfd',
+        secondaryColor: '#21262d',
+        secondaryTextColor: '#c9d1d9',
+        secondaryBorderColor: '#30363d',
+        tertiaryColor: '#0d1117',
+        tertiaryTextColor: '#8b949e',
+        tertiaryBorderColor: '#21262d',
+        noteBkgColor: '#161b22',
+        noteTextColor: '#c9d1d9',
+        noteBorderColor: '#30363d',
+        lineColor: '#8b949e',
+        textColor: '#c9d1d9',
+        mainBkg: '#1f6feb',
+        nodeBorder: '#388bfd',
+        clusterBkg: '#0d1117',
+        clusterBorder: '#30363d',
+        titleColor: '#f0f6fc',
+        edgeLabelBackground: '#161b22',
+        nodeTextColor: '#f0f6fc'
+      },
+      flowchart: {
+        curve: 'basis',
+        padding: 16,
+        nodeSpacing: 50,
+        rankSpacing: 60,
+        htmlLabels: true
+      }
+    });
+  </script>
 
   <!-- Syntax highlighting -->
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
