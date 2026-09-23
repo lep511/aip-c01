@@ -1,0 +1,46 @@
+# Python environment
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Development
+.git/
+.gitignore
+*.md.backup
+*.swp
+*.swo
+*~
+
+# Project specific
+scripts/
+src/
+markdown_output/
+domain-4.md
+domain-5.md
+pyproject.toml
+uv.lock
+.python-version
+
+# IDEs
+.vscode/
+.idea/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
