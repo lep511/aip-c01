@@ -1,0 +1,62 @@
+[
+  {
+    "label": "5.2.1 stopReason valores validos",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html", "max_length": 4000, "start_index": 20000 }
+  },
+  {
+    "label": "5.2.1 conversation inference guia",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference.html", "max_length": 6000 }
+  },
+  {
+    "label": "5.1.1 GENOPS01-BP01",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops01-bp01.html", "max_length": 7000 }
+  },
+  {
+    "label": "5.1.4 AGENTOPS06-BP02",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentops06-bp02.html", "max_length": 8000 }
+  },
+  {
+    "label": "5.1.6 resultados de RAG eval en consola",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-eval-llm-results.html", "max_length": 6000 }
+  },
+  {
+    "label": "5.1.9 RAIER01 system evaluation",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/wellarchitected/latest/responsible-ai-lens/raier01.html", "max_length": 7000 }
+  },
+  {
+    "label": "5.1.2 prompt routing",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-routing.html", "max_length": 5000 }
+  },
+  {
+    "label": "5.1.6 metricas de OpenSearch para latencia",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-cloudwatchmetrics.html", "max_length": 4000 }
+  },
+  {
+    "label": "5.1.7 resultados y salida de evaluaciones",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/results-and-output.html", "max_length": 7000 }
+  },
+  {
+    "label": "5.1.7 tipos de evaluacion de AgentCore",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations-types.html", "max_length": 7000 }
+  },
+  {
+    "label": "5.2.2 model invocation logging",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html", "max_length": 6000 }
+  },
+  {
+    "label": "5.2.5 metricas de anomalias en logs",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/LogsAnomalyDetection.html", "max_length": 6000 }
+  }
+]

@@ -1,0 +1,21 @@
+[project]
+name = "aip-c01"
+version = "0.1.0"
+description = "CLI that converts a website into a Markdown file using MarkItDown"
+readme = "README.md"
+authors = [
+    { name = "Esteban Perez", email = "estebanpbuday@outlook.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "beautifulsoup4>=4.12.3",
+    "markitdown[pdf]>=0.1.8",
+    "requests>=2.32.3",
+]
+
+[project.scripts]
+aip-c01 = "aip_c01:main"
+
+[build-system]
+requires = ["uv_build>=0.12.10,<0.13.0"]
+build-backend = "uv_build"

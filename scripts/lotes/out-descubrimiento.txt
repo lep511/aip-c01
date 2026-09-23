@@ -1,0 +1,3114 @@
+
+====================================================================================================
+### [1/18] search_documentation :: 5.1.1 metricas de evaluacion de modelo
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-tasks-general-text.html",
+      "title": "General text generation",
+      "context": "A model evaluation task type in Amazon Bedrock that assesses a model's ability to generate text using metrics such as accuracy, robustness, and toxicity",
+      "recommended_sections": [
+        "General text generation for model evaluation in Amazon Bedrock"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/model-evaluation-report.html",
+      "title": "model evaluation job",
+      "context": "An offline process that tests a base or trained Amazon Nova model against fixed benchmarks or custom datasets to produce quantitative performance metrics",
+      "recommended_sections": [
+        "Review a model model evaluation job in Amazon Bedrock",
+        "Understanding a model evaluation report"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/model-evaluation-tasks-general-text.html",
+      "title": "General text generation",
+      "context": "A model evaluation task type in Amazon Bedrock that assesses a model's ability to generate text using metrics such as accuracy, robustness, and toxicity",
+      "recommended_sections": [
+        "General text generation for model evaluation in Amazon Bedrock"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/model-evaluation-tasks-question-answer.html",
+      "title": "question and answer task type",
+      "context": "An Amazon Bedrock model evaluation task type that measures accuracy via F1 score, robustness via Delta F1 percentage, and toxicity via the detoxify algorithm",
+      "recommended_sections": [
+        "Question and answer for model evaluation in Amazon Bedrock"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-tasks-text-summary.html",
+      "title": "text summarization task type",
+      "context": "An Amazon Bedrock model evaluation task type that measures accuracy via BERT Score, robustness via Delta BERTScore percentage, and toxicity via the detoxify algorithm",
+      "recommended_sections": [
+        "Text summarization for model evaluation in Amazon Bedrock"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-tasks.html",
+      "title": "Question and answer",
+      "context": "A model evaluation task type in Amazon Bedrock that evaluates a model's ability to answer questions using accuracy, robustness, and toxicity metrics",
+      "recommended_sections": [
+        "Model evaluation task types in Amazon Bedrock"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-report-programmatic.html",
+      "title": "question and answer task type",
+      "context": "An Amazon Bedrock model evaluation task type that measures accuracy via F1 score, robustness via Delta F1 percentage, and toxicity via the detoxify algorithm",
+      "recommended_sections": [
+        "Review metrics for an automated model evaluation job in Amazon Bedrock (console)"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/model-evaluation-tasks.html",
+      "title": "Question and answer",
+      "context": "A model evaluation task type in Amazon Bedrock that evaluates a model's ability to answer questions using accuracy, robustness, and toxicity metrics",
+      "recommended_sections": [
+        "Model evaluation task types in Amazon Bedrock"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "ce627e5c-47aa-4811-96a3-3cd0ea83cca5",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "relatesTo",
+        "to": "evaluation task type",
+        "to_description": "A category of task that a model is asked to perform during an Amazon Bedrock model evaluation job, with one task type allowed per job",
+        "from": "Question and answer"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "model evaluation task type",
+        "to_description": "A category of evaluation task in Amazon Bedrock that determines which metrics and built-in datasets are recommended for an automatic model evaluation job",
+        "from": "Question and answer"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "NLP-F1",
+        "to_description": "A computed accuracy metric used in Amazon Bedrock question and answer evaluation that measures token-level overlap between predicted and reference answers",
+        "from": "Question and answer"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "General text generation",
+        "to_description": "A model evaluation task type in Amazon Bedrock that assesses a model's ability to generate text using metrics such as accuracy, robustness, and toxicity",
+        "from": "Question and answer"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "built-in dataset",
+        "to_description": "A pre-provided dataset in Amazon Bedrock used to benchmark model performance for a given evaluation task type and metric",
+        "from": "Question and answer"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [2/18] search_documentation :: 5.1.1 metricas builtin del juez
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-judge-prompt-llama.html",
+      "title": "Faithfulness judge prompt",
+      "context": "A judge prompt template that instructs a model to evaluate whether a candidate answer is faithful to the task description and context, returning a JSON object with reasoning and an answer enum.",
+      "recommended_sections": [
+        "Faithfulness",
+        "Correctness with ground truth"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-metrics.html",
+      "title": "built-in metrics",
+      "context": "Predefined evaluation criteria such as Correctness and Completeness used by a judge model to score generator model responses in Amazon Bedrock",
+      "recommended_sections": [
+        "Use metrics to understand model performance"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-judge-prompt-nova.html",
+      "title": "Faithfulness judge prompt",
+      "context": "A judge prompt template that instructs a model to evaluate whether a candidate answer is faithful to the task description and context, returning a JSON object with reasoning and an answer enum.",
+      "recommended_sections": [
+        "Faithfulness"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-judge-prompt-mistral.html",
+      "title": "faithfulness",
+      "context": "An evaluation metric that measures whether a model response contains information not found in or easily inferred from the provided prompt passages, graded on a 5-point Likert scale",
+      "recommended_sections": [
+        "Faithfulness"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-judge-prompt-nova-2-lite.html",
+      "title": "faithfulness",
+      "context": "An evaluation metric that measures whether a model response contains information not found in or easily inferred from the provided prompt passages, graded on a 5-point Likert scale",
+      "recommended_sections": [
+        "Faithfulness"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-judge-prompt-haiku.html",
+      "title": "faithfulness",
+      "context": "An evaluation metric that measures whether a model response contains information not found in or easily inferred from the provided prompt passages, graded on a 5-point Likert scale",
+      "recommended_sections": [
+        "Faithfulness"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-judge-prompt-claude-sonnet-4-6.html",
+      "title": "readability prompt judge template",
+      "context": "Prompt template instructing a judge model to assess LLM response readability on a 5-point scale and return a JSON object with reasoning and answer fields",
+      "recommended_sections": null,
+      "sections": [
+        "Anthropic Claude Sonnet 4.6",
+        "Logical coherence",
+        "Score mapping",
+        "Faithfulness",
+        "Following instructions",
+        "Completeness with ground truth",
+        "Completeness without ground truth",
+        "Correctness with ground truth",
+        "Correctness with no ground truth",
+        "Helpfulness",
+        "Professional style and tone",
+        "Readability",
+        "Relevance",
+        "Stereotyping",
+        "Harmfulness",
+        "Refusal"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/ground-truth-evaluations.html",
+      "title": "Builtin.Correctness",
+      "context": "A trace-level built-in evaluator that measures how accurately the agent's response matches an expected answer using LLM-as-a-Judge scoring",
+      "recommended_sections": [
+        "Correctness with expected response"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 9,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-judge-prompt-claude-opus-4-5.html",
+      "title": "Faithfulness judge prompt",
+      "context": "A judge prompt template that instructs a model to evaluate whether a candidate answer is faithful to the task description and context, returning a JSON object with reasoning and an answer enum.",
+      "recommended_sections": [
+        "Faithfulness"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 10,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-judge-prompt-claude-haiku-4-5.html",
+      "title": "Faithfulness judge prompt",
+      "context": "A judge prompt template that instructs a model to evaluate whether a candidate answer is faithful to the task description and context, returning a JSON object with reasoning and an answer enum.",
+      "recommended_sections": [
+        "Faithfulness"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "7c1ac4df-5369-4701-86b4-e79bbeefeec5",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "relatesTo",
+        "to": "Relevance (Builtin.Relevance)",
+        "to_description": "A built-in Amazon Bedrock evaluation metric that measures how relevant a model's answer is to the prompt",
+        "from": "built-in metrics"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "Correctness (Builtin.Correctness)",
+        "to_description": "A built-in metric that measures whether a model's response to a prompt is correct, optionally considering a reference response",
+        "from": "built-in metrics"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "Faithfulness (Builtin.Faithfulness)",
+        "to_description": "A built-in metric that identifies whether a response contains information not found in the prompt to measure faithfulness to available context",
+        "from": "built-in metrics"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "model evaluation job",
+        "to_description": "An offline process that tests a base or trained Amazon Nova model against fixed benchmarks or custom datasets to produce quantitative performance metrics",
+        "from": "built-in metrics"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "Following instructions (Builtin.FollowingInstructions)",
+        "to_description": "A built-in Amazon Bedrock evaluation metric that measures how well a model's response respects the exact directions in the prompt",
+        "from": "built-in metrics"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [3/18] search_documentation :: 5.1.2 tipos de job de evaluacion
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/agents-supported.html",
+      "title": "Amazon Bedrock supported foundation models",
+      "context": "The set of foundation models available in Amazon Bedrock, identified by model IDs and associated with supported Regions and features",
+      "recommended_sections": [
+        "Supported Regions for Amazon Bedrock Agents"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/MAP/latest/userguide/FAQs.html",
+            "section_title": "What are the supported foundation models in Amazon Bedrock?",
+            "section_anchor": "bedrock-supported-foundation-models"
+          },
+          {
+            "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters.html",
+            "section_title": "Inference request parameters and response fields for foundation models",
+            "section_anchor": "model-parameters"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html",
+      "title": "Amazon Bedrock model region availability",
+      "context": "The set of AWS regions where a given Amazon Bedrock foundation model supports in-region, geo, or global inference",
+      "recommended_sections": [
+        "NVIDIA",
+        "Z.AI"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/custom-model-fine-tuning.html",
+      "title": "fine-tuning supported models and Regions",
+      "context": "The set of foundation models and AWS Regions where Amazon Bedrock fine-tuning is available",
+      "recommended_sections": [
+        "Supported models and Regions for fine-tuning"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/copy-model-support.html",
+      "title": "Supported foundation models in Amazon Bedrock",
+      "context": "Reference documentation listing all foundation models available in Amazon Bedrock along with their IDs, modalities, features, and regional availability",
+      "recommended_sections": [
+        "Supported Regions and models for model copy"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/inference-supported.html",
+            "section_title": "Supported Regions and models for running model inference",
+            "section_anchor": "inference-supported"
+          },
+          {
+            "url": "https://docs.aws.amazon.com/MAP/latest/userguide/full.html",
+            "section_title": "What are the supported foundation models in Amazon Bedrock?",
+            "section_anchor": "bedrock-supported-foundation-models"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/batch-inference-supported.html",
+      "title": "single-region model support",
+      "context": "Amazon Bedrock capability that allows sending inference requests to a foundation model within a single AWS Region",
+      "recommended_sections": [
+        "Supported Regions and models for batch inference"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/share-model-support.html",
+            "section_title": "Supported Regions and models for model sharing",
+            "section_anchor": "share-model-support"
+          },
+          {
+            "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/copy-model-support.html",
+            "section_title": "Supported Regions and models for model copy",
+            "section_anchor": "copy-model-support"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/responsible-ai-lens/rairc02-bp02.html",
+      "title": "Amazon Bedrock model evaluation",
+      "context": "Amazon Bedrock feature that helps evaluate, compare, and select the most appropriate foundation models for specific use cases by measuring performance on custom evaluation sets.",
+      "recommended_sections": [
+        "Resources"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+            "section_title": "Task Statement 3.4: Describe methods to evaluate FM performance.",
+            "section_anchor": "ai-practitioner-01-task3.4"
+          },
+          {
+            "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-ug-doc-history.html",
+            "section_title": null,
+            "section_anchor": null
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-support.html",
+      "title": "models at a glance",
+      "context": "Amazon Bedrock reference page listing all available foundation models with their details including model IDs, supported Regions, modalities, and inference parameters",
+      "recommended_sections": [
+        "Supported Regions and models for model evaluation"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html",
+            "section_title": "Supported foundation models in Amazon Bedrock",
+            "section_anchor": "models-supported"
+          },
+          {
+            "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-regions.html",
+            "section_title": "Model support by AWS Region in Amazon Bedrock",
+            "section_anchor": "models-regions"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/full.html",
+      "title": "Amazon Bedrock model evaluation job",
+      "context": "An Amazon Bedrock job that evaluates model performance using configuration data including inference settings, IAM roles, and S3 bucket references.",
+      "recommended_sections": [
+        "Export-controlled content"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/general/latest/gr/bedrock.html",
+            "section_title": null,
+            "section_anchor": null
+          },
+          {
+            "url": "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_EvaluationModelConfigSummary.html",
+            "section_title": "EvaluationModelConfigSummary",
+            "section_anchor": "API_EvaluationModelConfigSummary"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 9,
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-foundation-model-evaluate-auto-lib.html",
+      "title": "BedrockModelRunner",
+      "context": "An FMEval ModelRunner implementation that connects to Amazon Bedrock-hosted models for evaluation",
+      "recommended_sections": [
+        "Use an Amazon Bedrock model"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-foundation-model-evaluate-auto-tutorial-two.html",
+            "section_title": "Set up your environment",
+            "section_anchor": "clarify-foundation-model-evaluate-auto-tutorial-two-setup"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 10,
+      "url": "https://docs.aws.amazon.com/solutions/latest/generative-ai-application-builder-on-aws/supported-llm-providers.html",
+      "title": "Amazon Bedrock inference profiles",
+      "context": "Amazon Bedrock feature that enables use of certain models such as Claude v3.7 Sonnet, Deepseek-R1, and Llama 3.2 through cross-region inference",
+      "recommended_sections": [
+        "Supported LLM providers"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/solutions/latest/generative-ai-application-builder-on-aws/full.html",
+            "section_title": "Supported LLM providers",
+            "section_anchor": "supported-llm-providers"
+          },
+          {
+            "url": "https://docs.aws.amazon.com/appsync/latest/eventapi/bedrock-function-reference.html",
+            "section_title": "AWS AppSync JavaScript function reference for Amazon Bedrock",
+            "section_anchor": "bedrock-function-reference"
+          }
+        ]
+      }
+    }
+  ],
+  "facets": null,
+  "query_id": "8910a4bd-de46-47b9-94bd-b610d7ad910b",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": [
+      {
+        "name": "create Amazon Bedrock inference profiles",
+        "description": "Create and tag Amazon Bedrock inference profiles to use supported foundation models and track generative AI cost and usage",
+        "urls": [
+          {
+            "url_name": "/MAP/latest/userguide/FAQs.html#bedrock-inference-profiles",
+            "url_description": "How to create and tag Amazon Bedrock inference profiles to use supported foundation models and track generative AI cost and usage for MAP 2.0 credits"
+          },
+          {
+            "url_name": "/MAP/latest/userguide/full.html#bedrock-inference-profiles",
+            "url_description": "How to create Amazon Bedrock inference profiles to use supported foundation models by tagging the inference profile with the map-migrated tag for cost tracking"
+          }
+        ]
+      },
+      {
+        "name": "Task Statement 3.4: Describe methods to evaluate FM performance.",
+        "description": "Exam task covering FM evaluation approaches, metrics, business objective alignment, and application-level evaluation.",
+        "urls": [
+          {
+            "url_name": "/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html#ai-practitioner-01-task3.4",
+            "url_description": "How to evaluate foundation model performance using metrics like ROUGE, BLEU, and BERTScore, Amazon Bedrock Model Evaluation, and business alignment metrics such as task completion rate and user satisfaction."
+          },
+          {
+            "url_name": "/aws-certification/latest/ai-practitioner-01/full.html#ai-practitioner-01-task3.4",
+            "url_description": "How to evaluate foundation model performance using approaches like Amazon Bedrock Model Evaluation, metrics such as ROUGE and BERTScore, and business objective alignment metrics like task completion rate."
+          }
+        ]
+      },
+      {
+        "name": "Define an Amazon Bedrock model and configure a ModelRunner",
+        "description": "Define an Amazon Bedrock model, configure BedrockModelRunner with output and content_template parameters, and test it",
+        "urls": [
+          {
+            "url_name": "/sagemaker/latest/dg/clarify-foundation-model-evaluate-auto-lib.html#clarify-foundation-model-evaluate-auto-lib-modelrunner-br",
+            "url_description": "How to configure a BedrockModelRunner to evaluate an Amazon Bedrock foundation model using the fmeval library, including content_template setup and running evaluation algorithms"
+          }
+        ]
+      },
+      {
+        "name": "Customize a model with fine-tuning in Amazon Bedrock",
+        "description": "A procedure for training a foundation model in Amazon Bedrock to improve performance on specific tasks using fine-tuning",
+        "urls": [
+          {
+            "url_name": "/bedrock/latest/userguide/custom-models.html#custom-models",
+            "url_description": "Overview of Amazon Bedrock model customization methods including supervised fine-tuning, reinforcement fine-tuning, and distillation to improve foundation model performance for specific use cases"
+          },
+          {
+            "url_name": "/bedrock/latest/userguide/custom-model-fine-tuning.html#custom-model-fine-tuning",
+            "url_description": "How to use fine-tuning in Amazon Bedrock to train foundation models for improved performance on specific tasks"
+          }
+        ]
+      },
+      {
+        "name": "Run your model evaluation",
+        "description": "Define and execute the SummarizationAccuracy evaluation algorithm against the Bedrock model using the configured dataset and prompt template",
+        "urls": [
+          {
+            "url_name": "/sagemaker/latest/dg/clarify-foundation-model-evaluate-auto-tutorial-two.html#clarify-foundation-model-evaluate-auto-tutorial-two",
+            "url_description": "Tutorial showing how to load the Anthropic Claude 2 model from Amazon Bedrock and evaluate its text summarization accuracy using the FMEval SummarizationAccuracy algorithm with Rouge-L, Meteor, and BERTScore metrics"
+          },
+          {
+            "url_name": "/sagemaker/latest/dg/clarify-foundation-model-evaluate-auto-tutorial-two.html#clarify-foundation-model-evaluate-auto-tutorial-two-run",
+            "url_description": "How to define and run a SummarizationAccuracy evaluation algorithm in FMEval against an Amazon Bedrock Anthropic Claude 2 model using a configured dataset and prompt template"
+          }
+        ]
+      },
+      {
+        "name": "Set up your environment",
+        "description": "Procedure to clone the AWS Samples repository, configure a Python virtual environment, and install Boto3 dependencies for running the bulk policy migrator scripts",
+        "urls": [
+          {
+            "url_name": "/sagemaker/latest/dg/clarify-foundation-model-evaluate-auto-tutorial-two.html#clarify-foundation-model-evaluate-auto-tutorial-two",
+            "url_description": "Tutorial showing how to load the Anthropic Claude 2 model from Amazon Bedrock and evaluate its text summarization accuracy using the FMEval SummarizationAccuracy algorithm with Rouge-L, Meteor, and BERTScore metrics"
+          },
+          {
+            "url_name": "/sagemaker/latest/dg/clarify-foundation-model-evaluate-auto-tutorial-two.html#clarify-foundation-model-evaluate-auto-tutorial-two-setup",
+            "url_description": "How to configure a Python environment, request Amazon Bedrock model access, install fmeval and boto3 libraries, and set up DataConfig and BedrockModelRunner for text summarization evaluation"
+          }
+        ]
+      },
+      {
+        "name": "Writer AI foundation model inference",
+        "description": "Make inference calls to Writer AI Palmyra models using Amazon Bedrock operations",
+        "urls": [
+          {
+            "url_name": "/bedrock/latest/userguide/model-parameters-writer-palmyra.html#model-parameters-writer-palmyra",
+            "url_description": "How to use Writer AI Palmyra X4 and Palmyra X5 models in Amazon Bedrock for inference via InvokeModel and InvokeModelWithResponseStream, including model IDs, context window sizes, and enterprise-grade features like advanced reasoning and built-in RAG"
+          }
+        ]
+      },
+      {
+        "name": "Delete a project",
+        "description": "Permanently and irrevocably removes an Amazon SageMaker Unified Studio project and all its contents including compute instances, data sources, and queries",
+        "urls": [
+          {
+            "url_name": "/sagemaker-unified-studio/latest/userguide/delete-project.html#delete-project",
+            "url_description": "Step-by-step procedure to delete an Amazon SageMaker Unified Studio project as a project owner, including confirmation requirements and guidance on separately deleting associated AWS resources such as Amazon Bedrock model evaluation jobs"
+          },
+          {
+            "url_name": "/sagemaker-unified-studio/latest/userguide/projects.html#projects",
+            "url_description": "How Amazon SageMaker Unified Studio projects work as collaboration boundaries within a domain, including project profiles, membership, and links to tasks for creating, editing, and managing projects"
+          }
+        ]
+      },
+      {
+        "name": "evaluate and validate AI models",
+        "description": "Assess foundation model behavior against security requirements using Bedrock model evaluation, adversarial datasets, SageMaker Clarify, and continuous CloudWatch monitoring",
+        "urls": [
+          {
+            "url_name": "/prescriptive-guidance/latest/security-reference-architecture-generative-ai/gen-ai-model-inference.html",
+            "url_description": "How to securely provide developers and data scientists access to generative AI foundation models on Amazon Bedrock using a multi-account architecture with defense-in-depth controls across application, data, and network layers"
+          },
+          {
+            "url_name": "/prescriptive-guidance/latest/security-reference-architecture-generative-ai/full.html",
+            "url_description": "How to implement security controls for generative AI workloads in AWS including foundation model inference, model customization, RAG with Amazon Bedrock knowledge bases, tool integration with AgentCore Gateway, autonomous agents with AgentCore Runtime, and end-user AI applications"
+          }
+        ]
+      },
+      {
+        "name": "FSIOPS05-BP03 Implement comprehensive generative AI observability",
+        "description": "Deploy specialized monitoring for generative AI workloads covering model performance, output quality, token usage, latency, cost, and security using AWS services",
+        "urls": [
+          {
+            "url_name": "/wellarchitected/latest/financial-services-industry-lens/fsiops5.html#fsiops05-bp03",
+            "url_description": "How to implement comprehensive generative AI observability for financial services workloads by monitoring model performance, token usage, hallucinations, bias, drift, and security using Amazon CloudWatch, Amazon Bedrock, AWS Lambda, and Amazon SageMaker AI Model Monitor."
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "relation": "relatesTo",
+        "to": "Amazon Bedrock inference profile",
+        "to_description": "A deployment configuration for Amazon Bedrock foundation models that determines whether requests are served from a single region (In-Region), a geographic cluster (Geo), or globally (Global)",
+        "from": "Amazon Bedrock supported foundation models"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "Amazon Bedrock Converse API",
+        "to_description": "Amazon Bedrock API that mediates multi-turn conversations between applications and generative AI models with optional tool integration",
+        "from": "Amazon Bedrock supported foundation models"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "Amazon Bedrock Agents supported Regions",
+        "to_description": "The set of AWS Regions where Amazon Bedrock Agents is available for use",
+        "from": "Amazon Bedrock supported foundation models"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "NVIDIA Nemotron 3 Super 120B",
+        "to_description": "NVIDIA foundation model available in Amazon Bedrock with in-region support across a broad set of AWS regions including GovCloud and additional European and Asia-Pacific regions",
+        "from": "Amazon Bedrock model region availability"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "model copy",
+        "to_description": "A single instance of an imported custom model in Amazon Bedrock that is ready to serve inference requests",
+        "from": "single-region model support"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [4/18] search_documentation :: 5.1.2 canary y A/B testing en AWS
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/shadow-tests.html",
+      "title": "Create a shadow test",
+      "context": "Set up a shadow test in Amazon SageMaker AI to compare a new model serving variant against the production variant using live inference traffic",
+      "recommended_sections": [
+        "Shadow tests"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/shadow-tests-complete.html",
+      "title": "shadow test",
+      "context": "A SageMaker AI feature that deploys a new model variant in shadow mode to receive a copy of live inference traffic for comparison without affecting production responses",
+      "recommended_sections": [
+        "Complete a shadow test",
+        "Promote a shadow variant"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-validation.html",
+      "title": "shadow variant",
+      "context": "A SageMaker AI endpoint variant that receives replicated inference requests from a production variant but whose responses are only logged and not returned to the caller",
+      "recommended_sections": [
+        "Validation of models in production"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/ml-operations-planning/deployment.html",
+      "title": "Choose a deployment strategy",
+      "context": "Select an appropriate MLOps deployment strategy — blue/green, canary, shadow, or A/B testing — for safely releasing ML models to production",
+      "recommended_sections": [
+        "Choose a deployment strategy"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-shadow-deployment.html",
+      "title": "Deploy shadow variants",
+      "context": "Programmatically deploy a SageMaker AI endpoint with both production and shadow variants using the SageMaker SDK",
+      "recommended_sections": [
+        "Deploy shadow variants"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/deployment-guardrails-blue-green-canary.html",
+      "title": "If any of the alarms trip during the baking period, then SageMaker AI initiates a rollback and all traffic returns to the blue fleet.",
+      "context": "Describes the automatic rollback behavior when a CloudWatch alarm trips during a canary deployment baking period",
+      "recommended_sections": [
+        "Use canary traffic shifting"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/machine-learning-lens/mlrel04-bp02.html",
+      "title": "deployment strategy selection guidance",
+      "context": "Guidance on choosing a deployment strategy based on availability requirements, risk tolerance, and application criticality",
+      "recommended_sections": null,
+      "sections": [
+        "MLREL04-BP02 Use an appropriate deployment and testing strategy",
+        "Implementation guidance",
+        "Implementation steps",
+        "Resources"
+      ],
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "08335f8d-cf02-4b44-a68f-cc65ad32900e",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "hasChild",
+        "to": "Prerequisites",
+        "to_description": "Setup steps required before starting the AWS Mainframe Modernization Rocket Software managed runtime tutorial, including obtaining a 3270 emulator, downloading the CardDemo application, and identifying a VPC",
+        "from": "Create a shadow test"
+      },
+      {
+        "relation": "references",
+        "to": "SageMaker AI Inference endpoint",
+        "to_description": "A managed inference environment for deploying foundation models and ML models at scale with control over underlying instances and inference engines.",
+        "from": "Create a shadow test"
+      },
+      {
+        "relation": "references",
+        "to": "shadow test",
+        "to_description": "A SageMaker AI feature that deploys a new model variant in shadow mode to receive a copy of live inference traffic for comparison without affecting production responses",
+        "from": "Create a shadow test"
+      },
+      {
+        "relation": "references",
+        "to": "production variant",
+        "to_description": "A configuration entry within a SageMaker AI endpoint configuration that specifies a model, instance type, and instance count for deployment",
+        "from": "Create a shadow test"
+      },
+      {
+        "relation": "references",
+        "to": "shadow test incompatibility",
+        "to_description": "Endpoint features that prevent the use of shadow tests, including serverless inference, asynchronous inference, marketplace containers, multiple-container endpoints, multi-model endpoints, and Inf1 instances",
+        "from": "Create a shadow test"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [5/18] search_documentation :: 5.1.3 evaluacion con human workers
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-report-human-customer.html",
+      "title": "Thumbs up/down rating method",
+      "context": "A rating method where human evaluators mark each model response as acceptable or unacceptable, with results shown as a percentage of thumbs-up ratings per model",
+      "recommended_sections": [
+        "Thumbs up/down",
+        "Likert scale, evaluation of a single model response",
+        "Likert scale, comparison of multiple model outputs",
+        "Ordinal rank"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-foundation-model-evaluate-overview.html",
+      "title": "Thumbs up/down rating",
+      "context": "An individual human evaluation rating mechanism that allows an evaluator to rate each model response as acceptable or unacceptable",
+      "recommended_sections": [
+        "Human evaluations"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-judge-prompt-claude-sonnet-4.html",
+      "title": "Helpfulness",
+      "context": "A 7-point Likert scale evaluation metric that measures how helpful a generator model's responses are across multiple factors such as coherence, task completion, and audience appropriateness.",
+      "recommended_sections": null,
+      "sections": [
+        "Anthropic Claude Sonnet 4.0",
+        "Logical coherence",
+        "Score mapping",
+        "Faithfulness",
+        "Following instructions",
+        "Completeness with ground truth",
+        "Completeness without ground truth",
+        "Correctness with ground truth",
+        "Correctness with no ground truth",
+        "Helpfulness",
+        "Professional style and tone",
+        "Readability",
+        "Relevance",
+        "Stereotyping",
+        "Harmfulness",
+        "Refusal"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-report-s3.html",
+      "title": "rating method",
+      "context": "The method selected in the Amazon Bedrock console for scoring model responses in human evaluation jobs, saved as a specific key in S3 output",
+      "recommended_sections": [
+        "Output data from model evaluation jobs that use human workers."
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/console/full.html",
+      "title": "correctness",
+      "context": "An evaluation metric that measures whether a model's response is correct, optionally using a ground truth reference, scored on a 3-point Likert scale",
+      "recommended_sections": [
+        "Evaluate Amazon Bedrock resources",
+        "Human worker model evaluation"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/human-worker-evaluations.html",
+      "title": "Create instructions for human workers",
+      "context": "A procedure for writing and providing evaluation instructions to human workers completing Amazon Bedrock model evaluation tasks",
+      "recommended_sections": [
+        "Create instructions for human workers"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-judge-prompt-haiku35.html",
+      "title": "Correctness",
+      "context": "An evaluation metric that measures whether a model's response is correct, optionally using a ground truth reference, scored on a 3-point Likert scale",
+      "recommended_sections": null,
+      "sections": [
+        "Anthropic Claude 3.5 Haiku",
+        "Logical coherence",
+        "Score mapping",
+        "Faithfulness",
+        "Following instructions",
+        "Completeness with ground truth",
+        "Completeness without ground truth",
+        "Correctness with ground truth",
+        "Correctness with no ground truth",
+        "Helpfulness",
+        "Professional style and tone",
+        "Readability",
+        "Relevance",
+        "Stereotyping",
+        "Harmfulness",
+        "Refusal"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_HumanEvaluationCustomMetric.html",
+      "title": "ratingMethod",
+      "context": "A required field in HumanEvaluationCustomMetric that specifies how human workers rate model outputs, with valid values including ThumbsUpDown, IndividualLikertScale, ComparisonLikertScale, ComparisonChoice, and ComparisonRank.",
+      "recommended_sections": [
+        "HumanEvaluationCustomMetric"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 9,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-human.html",
+      "title": "human-based model evaluation IAM policy",
+      "context": "The minimum IAM policy granting permissions across Amazon Bedrock, SageMaker AI, Cognito, and S3 required to create a human-based model evaluation job",
+      "recommended_sections": null,
+      "sections": [
+        "Creating your first model evaluation that uses human workers",
+        "Required console permissions to create a human-based model evaluation job"
+      ],
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "cfc4a62f-8f22-4289-b664-c36857a2fb0e",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "relatesTo",
+        "to": "evaluationResults",
+        "to_description": "An object in the GetBatchEvaluation response containing aggregate session counts and per-evaluator summaries for a completed or in-progress batch evaluation job",
+        "from": "Thumbs up/down rating method"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "thumbsUpDown",
+        "to_description": "An evaluation metric type where workers give a thumbs up or thumbs down to indicate approval of a model response",
+        "from": "Thumbs up/down rating method"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "Choice buttons rating method",
+        "to_description": "A radio button rating method where human evaluators select one preferred response over another, with results shown as a percentage per model",
+        "from": "Thumbs up/down rating method"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "HumanEvaluationCustomMetric description field",
+        "to_description": "An optional string field in HumanEvaluationCustomMetric that provides additional details about the custom metric, with a length between 1 and 63 characters.",
+        "from": "ratingMethod"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "human evaluation",
+        "to_description": "Manual assessment by users or experts used to measure criteria that automated metrics or LLM judges cannot capture, such as interface intuitiveness",
+        "from": "Thumbs up/down rating"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [6/18] search_documentation :: 5.1.3 annotation workflows Ground Truth
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-management-public.html",
+      "title": "Ground Truth labeling job",
+      "context": "A configured workflow in Amazon SageMaker Ground Truth that assigns data labeling tasks to a workforce and produces a labeled dataset",
+      "recommended_sections": [
+        "Using the Amazon Mechanical Turk Workforce",
+        "Use Mechanical Turk with Ground Truth"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/data-label.html",
+      "title": "data labeling with a human-in-the-loop",
+      "context": "Process of labeling training data using Amazon SageMaker Ground Truth with human annotators and automated features to improve accuracy and reduce cost",
+      "recommended_sections": [
+        "Data labeling with a human-in-the-loop"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-create-private.html",
+      "title": "Ground Truth labeling job",
+      "context": "A configured workflow in Amazon SageMaker Ground Truth that assigns data labeling tasks to a workforce and produces a labeled dataset",
+      "recommended_sections": [
+        "Create a Private Workforce (Amazon Cognito)"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/sms-video-overview.html",
+      "title": "vendor workforce",
+      "context": "A third-party workforce available through AWS Marketplace that can be selected to complete Ground Truth labeling tasks",
+      "recommended_sections": [
+        "Workforces",
+        "Worker user interface (UI)"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/sms-batching.html",
+      "title": "streaming labeling job",
+      "context": "A Ground Truth labeling job type that receives data objects in real time via Amazon SNS and uses an Amazon SQS queue to buffer objects when the worker queue is full",
+      "recommended_sections": [
+        "Control the flow of data objects sent to workers"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/sms-point-cloud-general-information.html",
+      "title": "vendor workforce",
+      "context": "A third-party workforce available through AWS Marketplace that can be selected to complete Ground Truth labeling tasks",
+      "recommended_sections": [
+        "Workforces"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/sms-custom-templates.html",
+      "title": "Set up your workforce",
+      "context": "A procedure to select and configure a worker type for a custom labeling task in Amazon SageMaker Ground Truth",
+      "recommended_sections": [
+        "Overview"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "356c69b9-a23c-4529-a9dc-e9afce35c295",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "references",
+        "to": "custom labeling workflow",
+        "to_description": "A Ground Truth labeling workflow using custom templates that interacts with pre-annotation and post-annotation Lambda functions via AWS PrivateLink",
+        "from": "data labeling with a human-in-the-loop"
+      },
+      {
+        "relation": "references",
+        "to": "labeled dataset",
+        "to_description": "A large, high-quality collection of annotated data required to train a machine learning model",
+        "from": "data labeling with a human-in-the-loop"
+      },
+      {
+        "relation": "references",
+        "to": "Ground Truth built-in task types",
+        "to_description": "Pre-configured labeling task categories in Ground Truth that enable workers to generate specific types of labels for training data",
+        "from": "data labeling with a human-in-the-loop"
+      },
+      {
+        "relation": "references",
+        "to": "annotation consolidation",
+        "to_description": "A Ground Truth feature that combines results from multiple workers' annotation tasks into one high-fidelity label to improve accuracy",
+        "from": "data labeling with a human-in-the-loop"
+      },
+      {
+        "relation": "references",
+        "to": "automated data labeling",
+        "to_description": "A Ground Truth feature that uses machine learning models to automatically label data objects, requiring activelearning, inference, and training output directories.",
+        "from": "data labeling with a human-in-the-loop"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [7/18] search_documentation :: 5.1.5 RAG evaluation y custom metrics
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation.html",
+      "title": "RAG evaluation using Large Language Models",
+      "context": "An LLM-based Amazon Bedrock evaluation that computes performance metrics for knowledge base retrieval and response generation",
+      "recommended_sections": [
+        "Evaluate the performance of Amazon Bedrock resources"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-evaluation-create-ro.html",
+      "title": "Builtin.ContextRelevance",
+      "context": "A built-in Amazon Bedrock RAG evaluation metric that measures how relevant the retrieved context is to the query",
+      "recommended_sections": [
+        "Creating a retrieve-only RAG evaluation job"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_EvaluationPrecomputedRetrieveSourceConfig.html",
+      "title": "retrieve-only Knowledge Base evaluation job",
+      "context": "An Amazon Bedrock evaluation job that assesses RAG retrieval quality using precomputed inference response data provided by the user",
+      "recommended_sections": [
+        "Contents",
+        "EvaluationPrecomputedRetrieveSourceConfig"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_EvaluationRagConfigSummary.html",
+      "title": "Amazon Bedrock Knowledge Base evaluation job",
+      "context": "An evaluation job in Amazon Bedrock that assesses the performance of Knowledge Base or RAG-based retrieval configurations",
+      "recommended_sections": [
+        "EvaluationRagConfigSummary"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_EvaluationInferenceConfigSummary.html",
+            "section_title": "Contents",
+            "section_anchor": "API_EvaluationInferenceConfigSummary_Contents"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-evaluation-report.html",
+      "title": "knowledge base evaluation report",
+      "context": "A report containing key metrics and data from a RAG evaluation job available via the Amazon Bedrock console or an S3 bucket",
+      "recommended_sections": [
+        "Review RAG evaluation job reports and metrics"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_EvaluationPrecomputedRetrieveAndGenerateSourceConfig.html",
+      "title": "retrieve-and-generate Knowledge Base evaluation job",
+      "context": "An Amazon Bedrock evaluation job that assesses RAG pipeline quality using precomputed inference response data provided by the user",
+      "recommended_sections": [
+        "EvaluationPrecomputedRetrieveAndGenerateSourceConfig",
+        "Contents"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-evaluation-metrics.html",
+      "title": "retrieve-only RAG evaluation job",
+      "context": "An Amazon Bedrock evaluation job that assesses only the retrieval component of a RAG pipeline using custom or built-in metrics",
+      "recommended_sections": [
+        "Use metrics to understand RAG system performance"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-kb.html",
+            "section_title": "Evaluate the performance of RAG sources using Amazon Bedrock evaluations",
+            "section_anchor": "evaluation-kb"
+          },
+          {
+            "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-evaluation-create-ro-custom.html",
+            "section_title": "Creating a retrieve-only RAG evaluation job using custom metrics",
+            "section_anchor": "knowledge-base-evaluation-create-ro-custom"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-eval-llm-results.html",
+      "title": "retrieval only evaluation type",
+      "context": "A RAG evaluation type that assesses only the knowledge base's ability to retrieve relevant information",
+      "recommended_sections": [
+        "Review metrics for RAG evaluations that use LLMs (console)",
+        "Report card for RAG evaluations that use LLMs"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 9,
+      "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/rag-healthcare-use-cases/full.html",
+      "title": "RAG solution evaluation with multiple retrievers",
+      "context": "An approach to assess how well a RAG system retrieves relevant information and generates accurate, contextually appropriate responses using multiple metrics.",
+      "recommended_sections": [
+        "Evaluating RAG solutions with multiple retrievers",
+        "Evaluating a solution by using an LLM"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/rag-healthcare-use-cases/evaluation.html",
+            "section_title": "Evaluating RAG solutions with multiple retrievers",
+            "section_anchor": "evaluation-multi-retrievers"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 10,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentperf03-bp03.html",
+      "title": "RAG triad",
+      "context": "An evaluation framework measuring context relevance, answer relevance, and groundedness to assess whether retrieved context supported the generated answer",
+      "recommended_sections": [
+        "Implementation steps",
+        "Implementation guidance"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "458fee00-3980-4156-9eb8-18e8334a65f1",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": [
+      {
+        "name": "Evaluate the performance of RAG sources using Amazon Bedrock evaluations",
+        "description": "A procedure for assessing the retrieval and response quality of RAG sources and Amazon Bedrock Knowledge Bases using LLM-based evaluations",
+        "urls": [
+          {
+            "url_name": "/bedrock/latest/userguide/evaluation-kb.html#evaluation-kb",
+            "url_description": "How to use Amazon Bedrock computed metrics to evaluate RAG system retrieval and generation quality, comparing Knowledge Bases and external RAG sources with retrieve-only and retrieve-and-generate job types"
+          }
+        ]
+      },
+      {
+        "name": "Review metrics for RAG evaluations that use LLMs",
+        "description": "A procedure for reviewing LLM-computed evaluation metrics in the Amazon Bedrock console for a RAG evaluation job",
+        "urls": [
+          {
+            "url_name": "/bedrock/latest/userguide/knowledge-base-eval-llm-results.html#knowledge-base-eval-llm-results",
+            "url_description": "How to review LLM-computed evaluation metrics in the Amazon Bedrock console for RAG evaluation jobs assessing knowledge base retrieval and response generation quality"
+          }
+        ]
+      },
+      {
+        "name": "Create a prompt dataset for a RAG evaluation in Amazon Bedrock",
+        "description": "Prepare and store a JSONL prompt dataset in Amazon S3 to evaluate retrieval and generation for an Amazon Bedrock Knowledge Base or custom RAG system",
+        "urls": [
+          {
+            "url_name": "/bedrock/latest/userguide/knowledge-base-evaluation-create-randg.html#knowledge-base-evaluation-create-randg",
+            "url_description": "How to create a retrieve-and-generate RAG evaluation job in Amazon Bedrock by configuring an evaluator model, inference source, built-in metrics, prompt dataset, IAM role, and optional KMS encryption"
+          },
+          {
+            "url_name": "/bedrock/latest/userguide/knowledge-base-evaluation-create-randg-custom.html#knowledge-base-evaluation-create-randg-custom",
+            "url_description": "Creating a retrieve-and-generate RAG evaluation job using custom metrics in Amazon Bedrock by supplying a judge model prompt, evaluator model, and optional rating scale through the console or AWS CLI create-evaluation-job command"
+          }
+        ]
+      },
+      {
+        "name": "Review metrics for RAG evaluations that use LLMs (console)",
+        "description": "A procedure for reviewing knowledge base evaluation reports and metrics for RAG evaluations that use LLMs via the Amazon Bedrock console",
+        "urls": [
+          {
+            "url_name": "/bedrock/latest/userguide/knowledge-base-evaluation-report.html#knowledge-base-evaluation-report",
+            "url_description": "How to access and review RAG evaluation job reports, key metrics, and custom metric JSON definitions for Amazon Bedrock knowledge base evaluations via the console or Amazon S3"
+          }
+        ]
+      },
+      {
+        "name": "Evaluate the performance of Amazon Bedrock resources",
+        "description": "A procedure for assessing the performance and effectiveness of Amazon Bedrock models and knowledge bases using automatic, human, or LLM-judge evaluation methods",
+        "urls": [
+          {
+            "url_name": "/bedrock/latest/userguide/evaluation.html#evaluation",
+            "url_description": "How to use Amazon Bedrock evaluations to measure the performance and effectiveness of Amazon Bedrock models, knowledge bases, and RAG sources using automatic, human, and LLM-judge evaluation methods"
+          }
+        ]
+      },
+      {
+        "name": "Creating a retrieve-only RAG evaluation job using custom metrics",
+        "description": "A multi-step procedure to configure and launch a retrieve-only RAG evaluation job in Amazon Bedrock using custom metrics via the console or AWS CLI",
+        "urls": [
+          {
+            "url_name": "/bedrock/latest/userguide/knowledge-base-evaluation-create-ro-custom.html#knowledge-base-evaluation-create-ro-custom",
+            "url_description": "Step-by-step instructions to create a retrieve-only RAG evaluation job in Amazon Bedrock using custom metrics, including console and AWS CLI create-evaluation-job examples for both Amazon Bedrock Knowledge Bases and bring-your-own inference response data"
+          }
+        ]
+      },
+      {
+        "name": "Report card for RAG evaluations that use LLMs",
+        "description": "Open the RAG evaluation report card in the Amazon Bedrock console to view metrics for retrieval only or retrieval with response generation evaluation types",
+        "urls": [
+          {
+            "url_name": "/bedrock/latest/userguide/knowledge-base-eval-llm-results.html#kb-eval-llm-report",
+            "url_description": "How to open and navigate the Amazon Bedrock console report card for RAG evaluation jobs that use LLMs to compute retrieval and response generation metrics"
+          }
+        ]
+      },
+      {
+        "name": "Evaluating RAG solutions with multiple retrievers",
+        "description": "Assess retrieval quality and response generation accuracy of RAG systems using response relevancy, context precision, and faithfulness metrics.",
+        "urls": [
+          {
+            "url_name": "/prescriptive-guidance/latest/rag-healthcare-use-cases/full.html#evaluation-multi-retrievers",
+            "url_description": "How to evaluate RAG solutions with multiple retrievers using response relevancy, context precision, and faithfulness metrics to assess retrieval quality and response accuracy"
+          },
+          {
+            "url_name": "/prescriptive-guidance/latest/rag-healthcare-use-cases/evaluation.html#evaluation-multi-retrievers",
+            "url_description": "How to evaluate RAG solutions with multiple retrievers using response relevancy, context precision, and faithfulness metrics to assess retrieval and generation quality"
+          }
+        ]
+      },
+      {
+        "name": "Stop a RAG evaluation job in Amazon Bedrock",
+        "description": "Procedure to halt a currently processing RAG evaluation job in Amazon Bedrock using the AWS CLI",
+        "urls": [
+          {
+            "url_name": "/bedrock/latest/userguide/knowledge-base-evaluation-stop.html#knowledge-base-evaluation-stop",
+            "url_description": "Stop a RAG evaluation job in Amazon Bedrock using the AWS CLI stop-evaluation-job command with a job ARN identifier"
+          }
+        ]
+      },
+      {
+        "name": "create a knowledge base evaluation job",
+        "description": "Procedure to set up and launch an Amazon Bedrock knowledge base evaluation job with a properly configured service role",
+        "urls": [
+          {
+            "url_name": "/bedrock/latest/userguide/rag-eval-service-roles.html#rag-eval-service-roles",
+            "url_description": "IAM service role requirements including S3 access policies, Amazon Bedrock model invocation permissions, and trust policy configuration needed to create Amazon Bedrock knowledge base evaluation jobs"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "relation": "relatesTo",
+        "to": "Amazon Bedrock evaluation",
+        "to_description": "Amazon Bedrock capability for evaluating the performance and effectiveness of models and knowledge bases",
+        "from": "RAG evaluation using Large Language Models"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "ragSourceIdentifier",
+        "to_description": "A label that identifies the RAG source used for a retrieve-and-generate Knowledge Base evaluation job with user-provided inference response data",
+        "from": "retrieve-only Knowledge Base evaluation job"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "RAG evaluation job",
+        "to_description": "An automated evaluation job in Amazon Bedrock that assesses the performance of a RAG (Retrieval-Augmented Generation) system using built-in or custom metrics",
+        "from": "knowledge base evaluation report"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "ragSourceIdentifier",
+        "to_description": "A label that identifies the RAG source used for a retrieve-and-generate Knowledge Base evaluation job with user-provided inference response data",
+        "from": "retrieve-and-generate Knowledge Base evaluation job"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "EvaluationPrecomputedRetrieveAndGenerateSourceConfig",
+        "to_description": "A configuration object summarizing a RAG source used for a retrieve-and-generate Knowledge Base evaluation job with user-provided inference response data",
+        "from": "retrieve-and-generate Knowledge Base evaluation job"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [8/18] search_documentation :: 5.1.4 quality gates y evaluacion continua
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/full.html",
+      "title": "automated rollback",
+      "context": "A mechanism that automatically reverts prompts, tools, models, or agent versions when quality thresholds are violated, triggered through deployment alarms and pipeline triggers.",
+      "recommended_sections": [
+        "OPS06-BP04 Automate testing and rollback"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/awssupport/latest/user/operational-excellence-checks.html",
+      "title": "configure automatic rollback and alarms for CodeDeploy deployment group",
+      "context": "Set up a CodeDeploy deployment group with automatic rollback triggers and CloudWatch alarm monitoring",
+      "recommended_sections": [
+        "AWS CodeDeploy Auto Rollback and Monitor Enabled"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/operational-readiness-reviews/full.html",
+      "title": "ORR question categories",
+      "context": "The three source categories — real incidents, near-misses, and anticipated failure modes — used to generate ORR checklist questions and best practices.",
+      "recommended_sections": [
+        "Release quality"
+      ],
+      "sections": [
+        "Operational Readiness Reviews (ORR)",
+        "Introduction",
+        "Are you Well-Architected?",
+        "Building mechanisms",
+        "The ORR mechanism",
+        "The ORR tool",
+        "Customer recommendations",
+        "Gaining adoption",
+        "Inspect the process",
+        "Iteration",
+        "Conclusion",
+        "Appendix A: Creating ORR guidance from an incident",
+        "Scenario",
+        "Mitigation",
+        "Post-incident analysis",
+        "ORR guidance generation",
+        "Summary",
+        "Appendix B: Example ORR questions",
+        "Architecture",
+        "Release quality",
+        "Event management",
+        "Contributors",
+        "Further reading",
+        "Document history",
+        "Notices",
+        "AWS Glossary"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/operational-readiness-reviews/appendix-b-example-orr-questions.html",
+      "title": "automatic rollback",
+      "context": "An AWS AppConfig feature that automatically reverts configuration data to the previous version when a CloudWatch alarm enters the ALARM state during a deployment",
+      "recommended_sections": [
+        "Release quality"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-steps-server.html",
+      "title": "Redeployments and deployment rollbacks",
+      "context": "Describes how CodeDeploy implements rollbacks by redeploying a previously deployed revision as a new deployment with its own deployment ID",
+      "recommended_sections": [
+        "Redeployments and deployment rollbacks"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/whitepapers/latest/blue-green-deployments/full.html",
+      "title": "CloudWatch alarms for deployment monitoring",
+      "context": "CloudWatch alarms used to monitor the state of a CodeDeploy deployment",
+      "recommended_sections": [
+        "AWS CodeDeploy"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/config/latest/developerguide/codedeploy-auto-rollback-monitor-enabled.html",
+      "title": "codedeploy-auto-rollback-monitor-enabled",
+      "context": "AWS Config managed rule that checks whether a CodeDeploy deployment group is configured with automatic rollback and alarm-based deployment monitoring",
+      "recommended_sections": [
+        "codedeploy-auto-rollback-monitor-enabled"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/rel_tracking_change_management_automated_changemgmt.html",
+      "title": "automated deployment pipeline",
+      "context": "The Nitro System's automated process for building, signing, testing, and deploying software and firmware binaries to the EC2 fleet with staged rollouts and automatic rollback.",
+      "recommended_sections": [
+        "Implementation guidance"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 9,
+      "url": "https://docs.aws.amazon.com/codedeploy/latest/userguide/monitoring.html",
+      "title": "CodeDeploy service role",
+      "context": "An IAM role that grants CodeDeploy permissions to access AWS resources needed for deployments, including EC2 instances, Auto Scaling groups, load balancers, SNS topics, and CloudWatch alarms",
+      "recommended_sections": [
+        "Automated monitoring tools"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 10,
+      "url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-codepipeline-pipeline.html",
+      "title": "Pipeline with source stage and a stage configured for automatic rollback on failure",
+      "context": "Create a CodePipeline pipeline with an S3 source stage and a CodeDeploy release stage configured to automatically roll back on failure",
+      "recommended_sections": [
+        "Pipeline with source stage and a stage configured for automatic rollback on failure",
+        "YAML"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "3189289b-ded0-4b89-8b45-e06fc53efd36",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "references",
+        "to": "AWS CodeDeploy Auto Rollback and Monitor Enabled check",
+        "to_description": "A Trusted Advisor check that verifies whether CodeDeploy deployment groups are configured with automatic rollback and alarm-based deployment monitoring",
+        "from": "configure automatic rollback and alarms for CodeDeploy deployment group"
+      },
+      {
+        "relation": "references",
+        "to": "CodeDeploy deployment group automatic rollback",
+        "to_description": "CodeDeploy configuration that automatically rolls back a deployment when it fails or when a monitoring alarm threshold is met",
+        "from": "configure automatic rollback and alarms for CodeDeploy deployment group"
+      },
+      {
+        "relation": "references",
+        "to": "CodeDeploy deployment monitoring with alarms",
+        "to_description": "CodeDeploy feature that uses CloudWatch alarms to monitor metrics during deployment and trigger rollback when thresholds are exceeded",
+        "from": "configure automatic rollback and alarms for CodeDeploy deployment group"
+      },
+      {
+        "relation": "references",
+        "to": "pipeline artifact storage bucket",
+        "to_description": "Amazon S3 bucket used to store artifacts generated during CodePipeline pipeline execution",
+        "from": "Pipeline with source stage and a stage configured for automatic rollback on failure"
+      },
+      {
+        "relation": "hasChild",
+        "to": "YAML CodePipeline pipeline with automatic rollback on failure",
+        "to_description": "CloudFormation YAML template defining a CodePipeline pipeline with an S3 source stage, a CodeDeploy release stage with automatic rollback on failure, and disabled inbound stage transitions",
+        "from": "Pipeline with source stage and a stage configured for automatic rollback on failure"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [9/18] search_documentation :: 5.1.7 AgentCore evaluations
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations-terminology.html",
+      "title": "Trace",
+      "context": "A detailed record of a single request-response cycle beginning from an agent invocation that captures the complete execution path including all internal processing steps and external service calls",
+      "recommended_sections": [
+        "Trace"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/how-it-works-evaluations.html",
+      "title": "tool invocation accuracy",
+      "context": "A metric measuring the accuracy of a tool invoked by an agent while handling a user request, evaluated by AgentCore Evaluations.",
+      "recommended_sections": [
+        "How it works"
+      ],
+      "sections": [
+        "How it works"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/batch-evaluations-getting-started.html",
+      "title": "Getting started with batch evaluation",
+      "context": "End-to-end walkthrough for deploying an agent, generating sessions, running batch evaluation, and reading results using AgentCore",
+      "recommended_sections": [
+        "Getting started with batch evaluation"
+      ],
+      "sections": [
+        "Getting started with batch evaluation",
+        "Before you begin",
+        "Step 1: Create and deploy the sample agent",
+        "Create the project",
+        "Replace the agent code",
+        "Deploy and verify",
+        "Step 2: Generate sample sessions",
+        "Step 3: Run batch evaluation",
+        "Step 4: Read per-session detail",
+        "Next steps"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/ground-truth-evaluations.html",
+      "title": "Trajectory matching with expected trajectory",
+      "context": "Run trajectory evaluators by providing an expectedTrajectory to compare the agent's actual tool call sequence against an expected sequence of tool names",
+      "recommended_sections": [
+        "Trajectory matching with expected trajectory"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/release-notes.html",
+      "title": "AgentCore Evaluations",
+      "context": "A purpose-built evaluation service for automated, consistent, and data-driven agent assessment that measures how well agents and tools execute tasks and maintain output reliability.",
+      "recommended_sections": [
+        "Amazon Bedrock AgentCore Evaluations"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/APIReference/API_EvaluationExpectedTrajectory.html",
+      "title": "EvaluationExpectedTrajectory",
+      "context": "An object representing the expected tool call sequence for session-level trajectory evaluation, containing a list of tool names the agent is expected to invoke.",
+      "recommended_sections": null,
+      "sections": [
+        "EvaluationExpectedTrajectory",
+        "Contents",
+        "See Also"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/create-evaluator.html",
+      "title": "BedrockEvaluatorModelConfig",
+      "context": "CloudFormation property type that specifies the Amazon Bedrock model configuration used for evaluation in an AWS::BedrockAgentCore::Evaluator resource",
+      "recommended_sections": [
+        "Custom evaluator config examples with ground truth"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/getting-started-on-demand.html",
+      "title": "invoke_agent_runtime",
+      "context": "API operation that invokes an AgentCore Runtime for a specific session, provisioning a microVM if one does not already exist",
+      "recommended_sections": null,
+      "sections": [
+        "Getting started with on-demand evaluation",
+        "Prerequisites",
+        "Supported frameworks",
+        "Step 1: Create and deploy your agent",
+        "Step 2: Invoke your agent",
+        "Example invoke\\_agent.py",
+        "Step 3: Evaluate agent",
+        "Code samples for AgentCore CLI and AgentCore SDK",
+        "AWS SDK",
+        "Download span-logs from CloudWatch",
+        "Call Evaluate",
+        "Using evaluation targets",
+        "Session-level evaluator",
+        "Trace-level evaluator",
+        "Tool call level evaluator",
+        "Step 4: Evaluation results",
+        "Result limit",
+        "Partial failures",
+        "Span context",
+        "Example successful result entry",
+        "Example failed result entry"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 9,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability-telemetry.html",
+      "title": "AgentCore trace",
+      "context": "A detailed record of a single request-response cycle beginning from an agent invocation, capturing the complete execution path including processing steps, tool invocations, and resource utilization",
+      "recommended_sections": [
+        "Traces"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 10,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/skill-evaluators.html",
+      "title": "skill invocation",
+      "context": "A tool call in which an agent loads a skill, detected by AgentCore Evaluations via filesystem read of a SKILL.md file or a framework's native skill-loading tool.",
+      "recommended_sections": [
+        "Skill evaluators"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "bec8987a-c382-4d85-a831-5e82efb3ff85",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "hasChild",
+        "to": "Generate sample sessions",
+        "to_description": "Invoke the agent with varied prompts covering different customer support scenarios to create sessions for evaluation",
+        "from": "Getting started with batch evaluation"
+      },
+      {
+        "relation": "references",
+        "to": "AgentCore Runtime",
+        "to_description": "An Amazon Bedrock managed runtime environment that hosts the connected vehicle supervisor agent, receiving HTTP requests from Fleet Manager and invoking specialist agents and an automotive knowledge base",
+        "from": "Getting started with batch evaluation"
+      },
+      {
+        "relation": "hasChild",
+        "to": "Run batch evaluation",
+        "to_description": "Start a batch evaluation job that scores all recent agent sessions using built-in evaluators and returns aggregate results",
+        "from": "Getting started with batch evaluation"
+      },
+      {
+        "relation": "hasChild",
+        "to": "Read per-session detail",
+        "to_description": "View per-turn, per-evaluator scores for individual sessions using CLI commands or by reading evaluation events from CloudWatch Logs",
+        "from": "Getting started with batch evaluation"
+      },
+      {
+        "relation": "hasChild",
+        "to": "Create and deploy the sample agent",
+        "to_description": "Create an AgentCore project with the Acme Store customer support agent code and deploy it to AgentCore Runtime.",
+        "from": "Getting started with batch evaluation"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [10/18] search_documentation :: 5.1.8 reporting y visualizacion
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/quick/latest/userguide/email-reports-from-dashboard.html",
+      "title": "When you share the dashboard with new Quick user names or groups, they automatically start receiving the email reports.",
+      "context": "Warning that newly added dashboard users automatically receive scheduled email reports unless settings are updated",
+      "recommended_sections": [
+        "Configuring email report settings for a Quick Sight dashboard"
+      ],
+      "sections": [
+        "Configuring email report settings for a Quick Sight dashboard"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/quick/latest/userguide/sending-reports.html",
+      "title": "QuickSight scheduled email report",
+      "context": "A dashboard sent in report form on a recurring schedule (daily, weekly, monthly, or yearly) to QuickSight users or groups",
+      "recommended_sections": [
+        "Scheduling and sending Quick Sight reports by email"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/quick/latest/userguide/subscribing-to-reports.html",
+      "title": "QuickSight dashboard",
+      "context": "An Amazon QuickSight visualization that displays Trusted Advisor check results including affected accounts, regions, categories, and statuses",
+      "recommended_sections": [
+        "Subscribing to email reports in Amazon Quick Sight"
+      ],
+      "sections": [
+        "Subscribing to email reports in Amazon Quick Sight"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/quick/latest/userguide/subscriber-alerts.html",
+      "title": "QuickSight dashboard report",
+      "context": "A scheduled email delivery of a QuickSight dashboard in report form",
+      "recommended_sections": [
+        "Subscribing to Amazon Quick Sight dashboard emails and alerts"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/quick/latest/userguide/working-with-dashboards.html",
+      "title": "QuickSight email report",
+      "context": "A scheduled email delivery of a QuickSight dashboard sent only to users who have explicit access to the dashboard",
+      "recommended_sections": [
+        "Sharing and subscribing to data in Amazon Quick Sight with dashboards and reports"
+      ],
+      "sections": [
+        "Sharing and subscribing to data in Amazon Quick Sight with dashboards and reports"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/quick/latest/userguide/monitoring-performance.html",
+      "title": "CloudWatch is a Regional service. To view metrics, ensure that you are in the same AWS Region where your automations run.",
+      "context": "Regional constraint note indicating CloudWatch metrics must be viewed in the same AWS Region where automations execute",
+      "recommended_sections": [
+        "Available metrics"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/ops_event_response_dashboards.html",
+      "title": "Amazon CloudWatch dashboards",
+      "context": "Customizable home pages in the CloudWatch console that provide centralized views of metrics and alarms for AWS resources across Regions.",
+      "recommended_sections": [
+        "Implementation guidance"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/quick/latest/userguide/monitoring-cloudwatch-metrics.html",
+      "title": "AWS/QuickSight namespace",
+      "context": "The CloudWatch namespace under which Amazon Quick publishes all its monitoring metrics.",
+      "recommended_sections": [
+        "Monitoring Amazon Quick using CloudWatch metrics"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 9,
+      "url": "https://docs.aws.amazon.com/solutions/latest/clickstream-analytics-on-aws/dashboards-1.html",
+      "title": "CUSTOM dashboard",
+      "context": "A user-configurable CloudTrail Lake dashboard that can query any event data store type and supports up to 10 widgets with optional refresh schedules.",
+      "recommended_sections": [
+        "Custom report"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 10,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/ops_event_response_dashboards.html",
+      "title": "Amazon CloudWatch dashboards",
+      "context": "Customizable home pages in the CloudWatch console that provide centralized views of metrics and alarms for AWS resources across Regions.",
+      "recommended_sections": [
+        "Implementation guidance"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "538f6a20-67b4-4981-8c8d-b537e7563cc6",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "relatesTo",
+        "to": "QuickSight Schedules pane",
+        "to_description": "A UI panel in QuickSight dashboards that displays all scheduled reports a user is or can be subscribed to",
+        "from": "QuickSight dashboard report"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "reader generated report",
+        "to_description": "A scheduled pixel perfect report created and owned by a QuickSight dashboard viewer using a prompted report setup by an author",
+        "from": "QuickSight scheduled email report"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "QuickSight Enterprise edition",
+        "to_description": "The advanced edition of Amazon QuickSight that adds ML-powered insights, row/column level security, VPC connectivity, and additional capabilities beyond Standard edition",
+        "from": "QuickSight scheduled email report"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "Row Level Security",
+        "to_description": "PostgreSQL security feature whose policies, like pg_columnmask, are included in pg_dump and excluded by the --no-policies option in PostgreSQL 18",
+        "from": "QuickSight scheduled email report"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "email report download link",
+        "to_description": "A QuickSight email report delivery option that adds a time-limited link to the email body for downloading the snapshot report",
+        "from": "QuickSight email report"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [11/18] search_documentation :: 5.1.9 synthetic user workflows
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Blueprints.html",
+      "title": "canary blueprint",
+      "context": "A pre-built template used to create a CloudWatch Synthetics canary for a specific monitoring purpose",
+      "recommended_sections": [
+        "Using canary blueprints",
+        "GUI workflow builder",
+        "Canary recorder",
+        "Visual monitoring blueprint",
+        "Heartbeat monitoring",
+        "API canary"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_WritingCanary.html",
+      "title": "CloudWatch Synthetics canary script",
+      "context": "A configurable script that runs on a schedule to monitor endpoints, APIs, or web pages using CloudWatch Synthetics",
+      "recommended_sections": [
+        "Writing a canary script"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries.html",
+      "title": "Canaries check the availability and latency of your endpoints and can store load time data and screenshots of the UI.",
+      "context": "Summary of the monitoring capabilities of CloudWatch Synthetics canaries including availability, latency, UI screenshots, and security checks",
+      "recommended_sections": [
+        "Synthetic monitoring (canaries)"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/resource-explorer/latest/userguide/supported-resource-types.html",
+      "title": "CloudWatch Synthetics canary script",
+      "context": "A configurable script that runs on a schedule to monitor endpoints, APIs, or web pages using CloudWatch Synthetics",
+      "recommended_sections": [
+        "Amazon CloudWatch Synthetics"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/xray/latest/devguide/xray-services-cloudwatch-synthetics.html",
+      "title": "Synthetics canary",
+      "context": "A scripted monitor that follows the same routes and performs the same actions as customers to continually verify the customer experience.",
+      "recommended_sections": [
+        "View canaries with increased error reporting in the trace map"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Samples.html",
+      "title": "CloudWatch Synthetics canary script",
+      "context": "A configurable script that runs on a schedule to monitor endpoints, APIs, or web pages using CloudWatch Synthetics",
+      "recommended_sections": [
+        "Sample code for canary scripts"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_WritingCanary_Multichecks.html",
+      "title": "Node.js multi Checks blueprint",
+      "context": "A CloudWatch Synthetics blueprint for creating canaries that perform multiple validation checks within a single canary run",
+      "recommended_sections": [
+        "Writing a JSON configuration for Node.js multi Checks blueprint"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Create.html",
+      "title": "Synthetics canary",
+      "context": "A scripted monitor that follows the same routes and performs the same actions as customers to continually verify the customer experience.",
+      "recommended_sections": null,
+      "sections": [
+        "Creating a canary",
+        "Resources that are created for canaries"
+      ],
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "53cd2b9c-8e77-4f32-a773-b3eb54465a43",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "relatesTo",
+        "to": "visual monitoring blueprint",
+        "to_description": "A canary blueprint that compares screenshots from canary runs against a baseline to detect visual differences beyond a threshold",
+        "from": "canary blueprint"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "API canary blueprint",
+        "to_description": "A canary blueprint that tests the basic Read and Write functions of a REST API using multiple HTTP steps",
+        "from": "canary blueprint"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "GUI workflow builder blueprint",
+        "to_description": "A canary blueprint that verifies user actions such as clicks, text input, and form submissions can be performed on a webpage",
+        "from": "canary blueprint"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "broken link checker blueprint",
+        "to_description": "A canary blueprint that collects and tests all links inside a specified URL to detect broken or invalid links",
+        "from": "canary blueprint"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "heartbeat monitoring blueprint",
+        "to_description": "A canary blueprint that loads a specified URL and stores screenshots, HAR files, and access logs for performance monitoring",
+        "from": "canary blueprint"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [12/18] search_documentation :: 5.2.1 ventana de contexto y truncamiento
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/nova/latest/nova2-userguide/troubleshooting.html",
+      "title": "API stop reasons",
+      "context": "Values returned in Amazon Bedrock API responses indicating why model generation stopped, such as end_turn, max_tokens, content_filtered, and others",
+      "recommended_sections": [
+        "API response issues"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-use-converse-api.html",
+      "title": "Processing the response when using the Converse API",
+      "context": "Procedure for handling Converse API responses when a guardrail intervenes, including reading stopReason, trace, and blocked content output",
+      "recommended_sections": [
+        "Processing the response when using the Converse API"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference.html",
+      "title": "Converse response JSON example",
+      "context": "Sample Converse API response showing output message, stopReason, token usage, and latency metrics.",
+      "recommended_sections": [
+        "Converse response",
+        "Response",
+        "inferenceConfig"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/nova/latest/userguide/complete-request-schema-response.html",
+      "title": "reasoningContent block",
+      "context": "Optional content block returned when reasoning is enabled, containing reasoning text that is always redacted in the response",
+      "recommended_sections": [
+        "Response structure highlights"
+      ],
+      "sections": [
+        "Response structure highlights"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/APIReference/API_HarnessMessageStopEvent.html",
+      "title": "StopReason",
+      "context": "A field in the Amazon Bedrock Converse API response that indicates whether the model wants to use a tool or has finished generating its response",
+      "recommended_sections": [
+        "Contents"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/sdk-for-python/v1/guide/full.html",
+      "title": "stop_reason",
+      "context": "Response field indicating why Anthropic Claude stopped generating tokens, with values including end_turn, max_tokens, stop_sequence, refusal, tool_use, and model_context_window_exceeded",
+      "recommended_sections": [
+        "Use Converse"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/sdk-for-python/v1/guide/bedrock-converse.html",
+      "title": "async def converse(client: AsyncBedrockRuntimeClient) -> tuple[str, str]:",
+      "context": "Runs a complete two-turn conversation using the Bedrock Runtime Converse API, sending conversation history manually for the second turn and printing stop reason and token usage",
+      "recommended_sections": [
+        "Use Converse"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/user-simulation.html",
+      "title": "max_turns",
+      "context": "A dataset scenario field that sets the maximum number of conversation turns before the simulation stops, defaulting to 10",
+      "recommended_sections": [
+        "Stop conditions"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 9,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/getting-started-api-ex-python.html",
+      "title": "Converse",
+      "context": "Amazon Bedrock API operation for conversational model invocation, supported by IAM principal attribution, application inference profiles, and per-request metadata tagging",
+      "recommended_sections": [
+        "Submit a text prompt to a model and generate a text response with Converse"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 10,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ConverseStream.html",
+      "title": "bedrock:ConverseStream",
+      "context": "Sends messages to the specified Amazon Bedrock model and returns the response in a stream. ConverseStream provides a consistent API that works with all Amazon Bedrock models that support messages. This allows you to write code once and use it with different models. Should a model have unique inference parameters, you can also pass those unique parameters to the model.",
+      "recommended_sections": null,
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "4fefe1ae-738b-45dd-a8da-94f249bb09de",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "references",
+        "to": "guardrail tracing",
+        "to_description": "Optional guardrail feature that provides information about the content the guardrail blocked, returned in the trace field of the response",
+        "from": "Processing the response when using the Converse API"
+      },
+      {
+        "relation": "hasChild",
+        "to": "converse_stream_rust_use_statements",
+        "to_description": "Rust use statements, error utility struct, and constants for streaming responses from Anthropic Claude via the Bedrock ConverseStream API",
+        "from": "ConverseStream"
+      },
+      {
+        "relation": "references",
+        "to": "system prompts",
+        "to_description": "Instructions or context provided to a Claude 3 model before user inputs to set tone, define the model's role, or establish constraints for an interaction.",
+        "from": "ConverseStream"
+      },
+      {
+        "relation": "hasChild",
+        "to": "JavaScript ConverseStream example",
+        "to_description": "Send a text message to Amazon Nova Lite using the JavaScript SDK v3 ConverseStreamCommand and process the streaming response chunks in real-time",
+        "from": "ConverseStream"
+      },
+      {
+        "relation": "hasChild",
+        "to": "BedrockRuntimeAsyncClient Java ConverseStream example",
+        "to_description": "Send a text message to Amazon Nova Lite using the Java 2.x SDK asynchronous BedrockRuntimeAsyncClient and process the streaming response with a stream handler",
+        "from": "ConverseStream"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [13/18] search_documentation :: 5.2.2 errores de la API de Bedrock
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModelWithBidirectionalStreamOutput.html",
+      "title": "ModelTimeoutException",
+      "context": "An exception indicating the connection was closed because a request was not received within the timeout period with HTTP status 408",
+      "recommended_sections": [
+        "Contents"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-invoke-agent.html",
+      "title": "bedrock-agentcore:InvokeAgentRuntime permission",
+      "context": "IAM permission required to invoke an agent runtime on Amazon Bedrock AgentCore Runtime using the AWS SDK",
+      "recommended_sections": [
+        "Error handling"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-execute-command.html",
+      "title": "bedrock-agentcore:InvokeAgentRuntimeCommand IAM permission",
+      "context": "IAM permission required to call the InvokeAgentRuntimeCommand API operation",
+      "recommended_sections": [
+        "Error handling"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability-runtime-metrics.html",
+      "title": "AgentCore error types",
+      "context": "Categorized error codes for user, system, and throttling errors returned by AgentCore during invocations",
+      "recommended_sections": [
+        "Error types"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-use-invoke-guardrail-checks-using.html",
+      "title": "InvokeGuardrailChecks API errors",
+      "context": "Table of HTTP error codes and their causes returned by the InvokeGuardrailChecks API",
+      "recommended_sections": [
+        "Errors"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-luma.html",
+      "title": "GetAsyncInvoke",
+      "context": "Amazon Bedrock Runtime API operation that retrieves the status of an asynchronous invocation and is logged as a data event in CloudTrail.",
+      "recommended_sections": [
+        "Troubleshooting"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-get-started-command-shell.html",
+      "title": "ThrottlingException",
+      "context": "An error returned by Amazon Keyspaces when the request rate exceeds the service's throughput limits or when more than two processes read from the same stream shard simultaneously.",
+      "recommended_sections": [
+        "Error handling"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-troubleshooting.html",
+      "title": "409 RetryableConflictException",
+      "context": "Transient HTTP error returned when a second operation reaches an Amazon Bedrock AgentCore Runtime session during provisioning or teardown, requiring retry with exponential backoff",
+      "recommended_sections": [
+        "I need help understanding HTTP error codes"
+      ],
+      "sections": [
+        "Troubleshoot AgentCore Runtime",
+        "My agent invocations fail with \"This runtime is not MMDSv2-enabled\" ValidationException",
+        "My agent invocations fail with 504 Gateway Timeout errors",
+        "My Docker build fails with \"403 Forbidden\" when pulling Python base images",
+        "I get \"Unknown service: 'bedrock-agent-core-runtime'\" error when using boto3",
+        "I get \"AccessDeniedException\" when trying to create an Amazon Bedrock AgentCore Runtime",
+        "My Docker build fails with \"exec /bin/sh: exec format error\"",
+        "What are the requirements for Docker containers used with Amazon Bedrock AgentCore Runtime?",
+        "My long-running tool gets interrupted after 15 minutes",
+        "My idle sessions are not being released and I am exhausting my session quota",
+        "How do I access the runtimeSessionId in my agent code for tagging or grouping resources?",
+        "I have RuntimeClientError (403) issues",
+        "I have missing or empty CloudWatch Logs",
+        "I have payload format issues",
+        "I need help understanding HTTP error codes",
+        "I need recommendations for testing my agent",
+        "I need help debugging container issues",
+        "I need help troubleshooting MCP protocol agents",
+        "I need help troubleshooting bidirectional streaming using WebSocket",
+        "My code changes aren’t reflected in existing sessions",
+        "Spans are missing when my runtime is invoked from a Lambda function",
+        "My S3 Files or EFS mount fails with \"Access denied\"",
+        "My S3 Files or EFS mount fails with \"ResourceNotFound\"",
+        "My S3 Files or EFS mount times out",
+        "I get \"Permission Denied\" when writing to my mounted filesystem",
+        "My container fails to start with HTTP 424 error on high-layer images",
+        "My capacity provider is in state CREATE\\_FAILED",
+        "My agents on Instances do not have access to their credentials",
+        "Best practices"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 9,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/managed-entitlements-troubleshooting.html",
+      "title": "bedrock:InvokeModel permission",
+      "context": "IAM permission required on the bot IAM role to invoke Amazon Bedrock foundation models during natural language bot creation",
+      "recommended_sections": [
+        "Cannot use Bedrock model after activating grant"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 10,
+      "url": "https://docs.aws.amazon.com/macie/latest/APIReference/invitations-decline.html",
+      "title": "ThrottlingException",
+      "context": "An error returned by Amazon Keyspaces when the request rate exceeds the service's throughput limits or when more than two processes read from the same stream shard simultaneously.",
+      "recommended_sections": [
+        "ThrottlingException"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "9663602b-ef0e-48c9-a9fc-07facfeebf49",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "references",
+        "to": "InternalServerException",
+        "to_description": "An error returned by Amazon Keyspaces when an unexpected internal server error occurs while processing a request, unrelated to request parameters.",
+        "from": "InvokeGuardrailChecks API errors"
+      },
+      {
+        "relation": "references",
+        "to": "ServiceUnavailableException",
+        "to_description": "HTTP 503 error returned by InvokeGuardrailChecks when the service is temporarily unavailable, with exponential backoff recommended",
+        "from": "InvokeGuardrailChecks API errors"
+      },
+      {
+        "relation": "references",
+        "to": "ValidationException",
+        "to_description": "Exception returned when the request's input parameters were incorrectly formatted or the validity period of the root certificate ends before the validity period of the requested certificate",
+        "from": "InvokeGuardrailChecks API errors"
+      },
+      {
+        "relation": "references",
+        "to": "Amazon Bedrock guardrail check",
+        "to_description": "A content safety evaluation applied to messages via the InvokeGuardrailChecks API",
+        "from": "InvokeGuardrailChecks API errors"
+      },
+      {
+        "relation": "references",
+        "to": "AccessDeniedException",
+        "to_description": "Error returned when connecting to an EC2 instance via EC2 Instance Connect Endpoint without specifying the required --max-tunnel-duration parameter when the IAM policy includes a maxTunnelDuration condition",
+        "from": "InvokeGuardrailChecks API errors"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [14/18] search_documentation :: 5.2.3 prompt management testing y versiones
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/console/full.html",
+      "title": "prompt version",
+      "context": "An immutable snapshot of a prompt and its configurations created at a point in time for deployment to production applications",
+      "recommended_sections": [
+        "Prompt versions",
+        "Learn more",
+        "Prompt variant comparison",
+        "Prompt draft",
+        "Prompt management"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/creating-a-prompt.html",
+      "title": "Create an Amazon Bedrock prompt",
+      "context": "Create, configure, test, and version an Amazon Bedrock prompt with variables and inference parameters in SageMaker Unified Studio",
+      "recommended_sections": [
+        "Create an Amazon Bedrock prompt"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-version-compare.html",
+      "title": "Test variables",
+      "context": "Input values used to run a prompt and compare model output responses across different prompt versions in Amazon Bedrock",
+      "recommended_sections": [
+        "Compare versions of a prompt in Prompt management"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-version-create.html",
+      "title": "Create a version of a prompt",
+      "context": "A procedure to take a snapshot of a draft prompt and save it as an immutable version in Amazon Bedrock Prompt management",
+      "recommended_sections": [
+        "Create a version of a prompt in Prompt management"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_CreatePrompt_section.html",
+      "title": "57f6705f534a6bcaf67be32146d45043828919eb7fd61dcfe31582e5e9ba4bee",
+      "context": "Create an Amazon Bedrock managed prompt.",
+      "recommended_sections": null,
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "1d553729-7f46-4b90-b9b4-2e75a46e705b",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "references",
+        "to": "Agents for Amazon Bedrock build-time endpoint",
+        "to_description": "The API endpoint used to send build-time requests such as CreateAgent, UpdateAgent, and AssociateAgentCollaborator for Amazon Bedrock agents",
+        "from": "Create a version of a prompt"
+      },
+      {
+        "relation": "references",
+        "to": "prompt version",
+        "to_description": "An immutable snapshot of a prompt and its configurations created at a point in time for deployment to production applications",
+        "from": "Create a version of a prompt"
+      },
+      {
+        "relation": "references",
+        "to": "Prompt management",
+        "to_description": "The practice of maintaining versioned stores for prompts, model parameters, and foundation models to ensure reliable generative AI workload performance.",
+        "from": "Create a version of a prompt"
+      },
+      {
+        "relation": "references",
+        "to": "prompt DRAFT version",
+        "to_description": "The working in-progress version of a prompt in Prompt management before it is published as a numbered version",
+        "from": "Create a version of a prompt"
+      },
+      {
+        "relation": "references",
+        "to": "Prompt builder",
+        "to_description": "Amazon Bedrock console interface for constructing and configuring prompts",
+        "from": "Create a version of a prompt"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [15/18] search_documentation :: 5.2.4 troubleshooting de retrieval y vector store
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-direct-ingestion.html",
+      "title": "IngestionJob API operations",
+      "context": "A set of API operations used to sync a connected data source with a knowledge base vector store",
+      "recommended_sections": [
+        "Differences from syncing a data source"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/tutorial-build-rag-with-bedrock.html",
+      "title": "run ingestion using the console",
+      "context": "Use the Amazon Bedrock console to sync a data source and wait for the ingestion job to complete.",
+      "recommended_sections": [
+        "To run ingestion using the console"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-sync.html",
+      "title": "Sync a data source",
+      "context": "Trigger ingestion of data from a connected data source into an Amazon Bedrock managed knowledge base using the StartIngestionJob API",
+      "recommended_sections": [
+        "Sync a data source"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-ds-info.html",
+      "title": "ingestion job",
+      "context": "An Amazon Bedrock Knowledge Bases process that crawls documents through the access point, generates embeddings, and indexes them in the vector store",
+      "recommended_sections": [
+        "View data source information for your Amazon Bedrock knowledge base"
+      ],
+      "sections": [
+        "View data source information for your Amazon Bedrock knowledge base"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-data-source-structured-sync-ingest.html",
+      "title": "If you use the Amazon Bedrock Knowledge Bases service role created for you in the console and then sync your data store before granting access to your database to the authentication role that you use, the sync will fail.",
+      "context": "Warning that syncing before granting the authentication role access to the data store will cause the sync to fail",
+      "recommended_sections": [
+        "Sync your structured data store with your Amazon Bedrock knowledge base"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-ds-info.html",
+      "title": "ingestion job",
+      "context": "An Amazon Bedrock Knowledge Bases process that crawls documents through the access point, generates embeddings, and indexes them in the vector store",
+      "recommended_sections": [
+        "View data source information for your Amazon Bedrock knowledge base"
+      ],
+      "sections": [
+        "View data source information for your Amazon Bedrock knowledge base"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-data-source-sync-ingest.html",
+      "title": "Sync your data with your Amazon Bedrock knowledge base",
+      "context": "A procedure to synchronize data from a connected data source into an Amazon Bedrock knowledge base using the StartIngestionJob API",
+      "recommended_sections": [
+        "Sync your data with your Amazon Bedrock knowledge base"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-ds-sharepoint-troubleshooting.html",
+      "title": "Sites.Selected permission",
+      "context": "Microsoft Graph API permission that restricts the SharePoint connector to access only explicitly specified sites rather than all sites in the domain.",
+      "recommended_sections": [
+        "Sync errors",
+        "Troubleshoot a SharePoint data source"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "f03620ec-4514-495d-810e-bb5d62e5f5cd",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "dependsOn",
+        "to": "Connect Confluence Data Center to your managed knowledge base",
+        "to_description": "Create a Confluence Data Center data source in an Amazon Bedrock managed knowledge base using the console or API",
+        "from": "Sync a data source"
+      },
+      {
+        "relation": "references",
+        "to": "vector embeddings",
+        "to_description": "Numerical vector representations of data objects produced by embedding models for use in multi-dimensional space",
+        "from": "Sync a data source"
+      },
+      {
+        "relation": "dependsOn",
+        "to": "Connect OneDrive to your managed knowledge base",
+        "to_description": "Create a OneDrive data source in an Amazon Bedrock managed knowledge base using the console or API",
+        "from": "Sync a data source"
+      },
+      {
+        "relation": "references",
+        "to": "ListIngestionJobs",
+        "to_description": "API operation that lists all ingestion jobs for a data source in an Amazon Bedrock knowledge base with optional filtering and sorting",
+        "from": "Sync a data source"
+      },
+      {
+        "relation": "references",
+        "to": "Confluence data source",
+        "to_description": "A connection to an Atlassian Confluence Cloud instance that allows Amazon Bedrock Managed Knowledge Base to crawl pages, blog posts, and attachments",
+        "from": "Sync a data source"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [16/18] search_documentation :: 5.2.4 k-NN OpenSearch rendimiento
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/knn.html",
+      "title": "KNNGraphMemoryUsage metric",
+      "context": "An Amazon CloudWatch metric that tracks k-NN graph memory usage on each data node in OpenSearch Service",
+      "recommended_sections": [
+        "k-NN differences, tuning, and limitations"
+      ],
+      "sections": [
+        "k-Nearest Neighbor (k-NN) search in Amazon OpenSearch Service",
+        "Getting started with k-NN",
+        "k-NN differences, tuning, and limitations"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ultrawarm.html",
+      "title": "KNN index UltraWarm best practices",
+      "context": "Recommendations for using UltraWarm with KNN indexes including engine type considerations, memory provisioning, and force merge behavior",
+      "recommended_sections": [
+        "Best practices for KNN indexes",
+        "UltraWarm storage requirements and performance considerations"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-cloudwatchmetrics.html",
+      "title": "k-nearest neighbor plugin",
+      "context": "An OpenSearch plugin that enables k-NN similarity search on vector data in Amazon OpenSearch Service",
+      "recommended_sections": [
+        "k-NN metrics",
+        "Warm metrics"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html",
+      "title": "Auto-Tune",
+      "context": "A feature of Amazon OpenSearch Service that analyzes performance and usage metrics to suggest and apply memory-related configuration changes to improve cluster speed and stability",
+      "recommended_sections": [
+        "Auto-Tune for Amazon OpenSearch Service"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/opensearch-service/latest/console/full.html",
+      "title": "Auto-Tune",
+      "context": "A feature of Amazon OpenSearch Service that analyzes performance and usage metrics to suggest and apply memory-related configuration changes to improve cluster speed and stability",
+      "recommended_sections": [
+        "Auto-Tune"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-opensearchserverless-index-parameters.html",
+      "title": "M",
+      "context": "The number of neighbors to consider during k-NN search in an OpenSearch Serverless index",
+      "recommended_sections": [
+        "AWS::OpenSearchServerless::Index Parameters"
+      ],
+      "sections": [
+        "AWS::OpenSearchServerless::Index Parameters",
+        "Syntax",
+        "JSON",
+        "YAML",
+        "Properties"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/amazon-opensearch-service-lens/full.html",
+      "title": "UltraWarm node",
+      "context": "A specialized OpenSearch Service node type that uses Amazon S3 and caching to provide warm storage for read-only indexes",
+      "recommended_sections": [
+        "Implementation guidance"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/or1.html",
+      "title": "OpenSearch optimized instance",
+      "context": "A cost-effective Amazon OpenSearch Service instance family that uses local storage as primary with data copied synchronously to Amazon S3 for high durability and indexing throughput",
+      "recommended_sections": [
+        "Tuning for better ingestion throughput"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 9,
+      "url": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/multi-tier-storage.html",
+      "title": "OpenSearch Optimized Instances",
+      "context": "Specialized instance types (OR1, OR2, or OM2) used to power the hot tier in the Optimized engine's multi-tier storage architecture",
+      "recommended_sections": [
+        "Monitoring metrics"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 10,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/amazon-opensearch-service-lens/aosperf03-bp01.html",
+      "title": "UltraWarm nodes",
+      "context": "Cost-effective warm storage tier in Amazon OpenSearch Service for migrating logs and time-series indices from hot storage",
+      "recommended_sections": [
+        "Implementation guidance"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "b3e563ec-9e3c-4077-86d0-276a484a87a6",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "references",
+        "to": "knn.memory.circuit_breaker.limit",
+        "to_description": "A k-NN cluster setting that defines the maximum percentage of remaining RAM available for k-NN graph memory",
+        "from": "k-NN graph memory sizing note"
+      },
+      {
+        "relation": "references",
+        "to": "KNNGraphMemoryUsage metric",
+        "to_description": "An Amazon CloudWatch metric that tracks k-NN graph memory usage on each data node in OpenSearch Service",
+        "from": "k-NN graph memory sizing note"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "knn.memory.circuit_breaker.limit",
+        "to_description": "A k-NN cluster setting that defines the maximum percentage of remaining RAM available for k-NN graph memory",
+        "from": "KNNGraphMemoryUsage metric"
+      },
+      {
+        "relation": "references",
+        "to": "{\n  \"EfConstruction\" : {{Integer}},\n  \"M\" : {{Integer}}\n}",
+        "to_description": "JSON CloudFormation template syntax for declaring AWS::OpenSearchServerless::Index Parameters with EfConstruction and M properties",
+        "from": "AWS::OpenSearchServerless::Index Parameters"
+      },
+      {
+        "relation": "references",
+        "to": "EfConstruction: {{Integer}}\nM: {{Integer}}",
+        "to_description": "YAML CloudFormation template syntax for declaring AWS::OpenSearchServerless::Index Parameters with EfConstruction and M properties",
+        "from": "AWS::OpenSearchServerless::Index Parameters"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [17/18] search_documentation :: 5.2.5 Logs Insights y X-Ray para prompts
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/LogsAnomalyDetection-Metrics.html",
+      "title": "LogAnomalyPriority dimension",
+      "context": "A CloudWatch metric dimension that identifies the priority level of the anomaly associated with the AnomalyCount metric",
+      "recommended_sections": [
+        "Metrics published by log anomaly detectors"
+      ],
+      "sections": [
+        "Metrics published by log anomaly detectors"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax-Anomaly.html",
+      "title": "fields @timestamp, @message\n| filter @type = \"ERROR\"\n| pattern @message\n| anomaly\n| sort @timestamp desc",
+      "context": "CloudWatch Logs Insights query that combines filtering, anomaly detection, and sorting to organize error log anomaly results by timestamp",
+      "recommended_sections": [
+        "anomaly"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/whitepapers/latest/classic-intrusion-analysis-frameworks-for-aws-environments/full.html",
+      "title": "Amazon Lookout for Metrics alert",
+      "context": "A custom notification attached to a Lookout for Metrics detector that triggers when an anomaly of a specified severity level is detected.",
+      "recommended_sections": [
+        "Amazon CloudWatch Logs \\+ Amazon Lookout for Metrics"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html",
+      "title": "metric filters",
+      "context": "CloudWatch Logs feature that extracts metric observations from log events and transforms them into CloudWatch metrics, available only in the Standard log class",
+      "recommended_sections": [
+        "Collect, store, and query logs"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/create-alarms-for-custom-metrics-using-amazon-cloudwatch-anomaly-detection.html",
+      "title": "Create an alarm for your custom metric.",
+      "context": "Configure a CloudWatch alarm on a custom metric using anomaly detection conditions instead of static thresholds.",
+      "recommended_sections": [
+        "Set up anomaly detection for a custom metric",
+        "Summary",
+        "Architecture"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarm-data-queries.html",
+      "title": "log group-metric filter",
+      "context": "A CloudWatch filter that looks for terms and patterns in log data as it is sent to CloudWatch and converts matches into metrics",
+      "recommended_sections": [
+        "Log group-metric filters"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/whitepapers/latest/classic-intrusion-analysis-frameworks-for-aws-environments/control-name-descriptions.html",
+      "title": "Amazon CloudWatch metrics as a data source for Amazon Lookout for Metrics",
+      "context": "The integration that allows Amazon CloudWatch metrics to feed into an Amazon Lookout for Metrics detector for anomaly detection.",
+      "recommended_sections": [
+        "Amazon CloudWatch Logs \\+ Amazon Lookout for Metrics"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_AnomalyDetector.html",
+      "title": "AnomalyDetector",
+      "context": "An anomaly detection model associated with a particular CloudWatch metric, statistic, or metric math expression that displays a band of expected normal values when graphed",
+      "recommended_sections": null,
+      "sections": [
+        "AnomalyDetector",
+        "Contents",
+        "See Also"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 9,
+      "url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-cloudwatch-anomalydetector-metric.html",
+      "title": "CloudWatch AnomalyDetector Metric MetricName",
+      "context": "A required string field specifying the name of the CloudWatch metric in an anomaly detector, with a length between 1 and 255 characters",
+      "recommended_sections": [
+        "Properties"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "672e4ca0-d717-494f-92d8-727fc04f524d",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "references",
+        "to": "anomaly command",
+        "to_description": "A CloudWatch Logs Insights query command that uses machine learning to automatically identify unusual patterns and potential issues within log data",
+        "from": "fields @timestamp, @message\n| filter @type = \"ERROR\"\n| pattern @message\n| anomaly\n| sort @timestamp desc"
+      },
+      {
+        "relation": "references",
+        "to": "pattern command",
+        "to_description": "A CloudWatch Logs Insights query command that identifies recurring patterns in log data, used as input for the anomaly command",
+        "from": "fields @timestamp, @message\n| filter @type = \"ERROR\"\n| pattern @message\n| anomaly\n| sort @timestamp desc"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "fields @timestamp, @message\n| pattern @message\n| anomaly",
+        "to_description": "CloudWatch Logs Insights query that identifies patterns in log data and then detects anomalies within those patterns.",
+        "from": "fields @timestamp, @message\n| filter @type = \"ERROR\"\n| pattern @message\n| anomaly\n| sort @timestamp desc"
+      },
+      {
+        "relation": "references",
+        "to": "sort command",
+        "to_description": "A CloudWatch Logs Insights command used to order query results, combinable with the pattern command for fine-tuned queries",
+        "from": "fields @timestamp, @message\n| filter @type = \"ERROR\"\n| pattern @message\n| anomaly\n| sort @timestamp desc"
+      },
+      {
+        "relation": "references",
+        "to": "filter command",
+        "to_description": "A CloudWatch Logs Insights command used to narrow log results based on specified criteria, combinable with the pattern command",
+        "from": "fields @timestamp, @message\n| filter @type = \"ERROR\"\n| pattern @message\n| anomaly\n| sort @timestamp desc"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [18/18] search_documentation :: 5.2.5 validacion de esquema y salida estructurada
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/structured-output.html",
+      "title": "strict tool use",
+      "context": "Amazon Bedrock mechanism that adds the strict: true flag to tool definitions to enable schema validation on tool names and inputs",
+      "recommended_sections": [
+        "Strict tool use",
+        "Get validated JSON results from models",
+        "How it works",
+        "Request workflow",
+        "Converse API",
+        "JSON Schema output format",
+        "Supported JSON Schema features"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/custom-model-import-advanced-features.html",
+      "title": "BedrockCompletion JSON Schema structured output example",
+      "context": "Invoke a Custom Model Import model using BedrockCompletion with a json_schema response_format to generate a structured JSON car description.",
+      "recommended_sections": [
+        "Structured Outputs"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/claude-messages-structured-outputs.html",
+      "title": "Structured outputs is not supported on the Anthropic Messages API path on the bedrock-mantle endpoint",
+      "context": "Limitation stating that structured outputs cannot be used via the Anthropic Messages API path on the bedrock-mantle endpoint",
+      "recommended_sections": [
+        "Get validated JSON results from models"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/nova/latest/userguide/prompting-structured-output.html",
+      "title": "output schema",
+      "context": "A rating scale definition consisting of scale values and corresponding definitions that Amazon Bedrock uses to parse evaluator model outputs and compute average scores",
+      "recommended_sections": [
+        "Require structured output"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ToolInputSchema.html",
+      "title": "ToolInputSchema",
+      "context": "The JSON schema used to define the input parameters for a tool in the Converse API, with Amazon Nova supporting only a subset of JsonSchema functionality",
+      "recommended_sections": null,
+      "sections": [
+        "ToolInputSchema",
+        "Contents",
+        "See Also"
+      ],
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "935c1d3b-582e-4671-afae-86a2bf97f28c",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "relatesTo",
+        "to": "structured outputs",
+        "to_description": "A feature that enables controlled generation following specific formats, schemas, or patterns to ensure model responses adhere to predefined constraints.",
+        "from": "JSON Schema Draft 2020-12"
+      },
+      {
+        "relation": "references",
+        "to": "response_format parameter",
+        "to_description": "API parameter supporting json_object and json_schema types for structured output control in Custom Model Import",
+        "from": "BedrockCompletion JSON Schema structured output example"
+      },
+      {
+        "relation": "references",
+        "to": "BedrockCompletion",
+        "to_description": "An API format for Custom Model Import that supports structured outputs via response_format and output token log probabilities.",
+        "from": "BedrockCompletion JSON Schema structured output example"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "OpenAIChatCompletion JSON Schema response format example",
+        "to_description": "Invoke a Custom Model Import model using OpenAIChatCompletion with a json_schema response_format to generate a structured JSON car description from a chat message.",
+        "from": "BedrockCompletion JSON Schema structured output example"
+      },
+      {
+        "relation": "references",
+        "to": "invoke_model",
+        "to_description": "Boto3 method to invoke an Amazon Bedrock model with a request body",
+        "from": "BedrockCompletion JSON Schema structured output example"
+      }
+    ]
+  }
+}

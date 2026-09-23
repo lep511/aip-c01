@@ -1,0 +1,1870 @@
+
+====================================================================================================
+### [1/18] read_documentation :: 5.2.2 troubleshooting de codigos de error de la API
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/troubleshooting-api-error-codes.html:
+
+# Troubleshooting Amazon Bedrock API Error Codes
+
+This section provides detailed information about the common errors you might encounter when using Amazon Bedrock APIs, the cause of the error, and the solution for resolving the error.
+
+## AccessDeniedException
+
+**HTTP Status Code:** 403
+
+**Cause:** You do not have sufficient permissions to perform the requested action.
+
+**Solution:**
+
+* Verify that your IAM user or role has the necessary permissions for the action you are attempting.
+* If you are using temporary security credentials, make sure they haven't expired.
+
+## FTUFormNotFilled
+
+**HTTP Status Code:** 404
+
+**Cause:** Model use case details have not been submitted for this account
+
+**Solution:**
+
+* Fill out the Anthropic use case details form before using the model
+
+## IncompleteSignature
+
+**HTTP Status Code:** 400
+
+**Cause:** The request signature does not conform to AWS standards.
+
+**Solution:**
+
+* Make sure you are using an AWS SDK version that supports Amazon Bedrock.
+* Verify that your AWS access key ID and secret key are correctly configured.
+* If you are manually signing requests, we suggest double-checking your signature calculation process.
+
+## InternalFailure
+
+**HTTP Status Code:** 500
+
+**Cause:** The request processing has failed due to a server error
+
+**Solution:**
+
+* We suggest employing AWS recommended approach of using [retries with exponential backoff](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/retry-backoff.html "https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/retry-backoff.html")
+  and random [jitter](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/ "https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/") for improved reliability.
+* If the issue persists, please contact [AWS Support Center](https://aws.amazon.com/support "https://aws.amazon.com/support") and provide details about your request and the error you are encountering.
+
+## InvalidAction
+
+**HTTP Status Code:** 400
+
+**Cause:** The action or operation requested is invalid
+
+**Solution:**
+
+* We suggest double-checking the spelling and formatting of the action name in your request.
+* Verify that the action calling is supported by Amazon Bedrock and is correctly documented as shown in [Amazon Bedrock API Reference.](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations.html "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations.html")
+* Make sure you are using the most up-to-date version of the AWS SDK or CLI.
+
+## InvalidClientTokenId
+
+**HTTP Status Code:** 403
+
+**Cause:** The X.509 certificate or AWS access key ID provided does not exist in our records.
+
+**Solution:**
+
+* Verify that you are using the correct AWS access key ID.
+* If you recently created new access keys, make sure you are using the new credentials and not the old ones.
+
+## AWS Marketplace Agreement Failed within 15 minutes
+
+**HTTP Status Code:** 403
+
+**Cause:** The AWS Marketplace Agreement failed due to an underlying issue.
+
+**Solution:**
+
+* Review the error message and remediate the underlying issue. Common underlying issues are invalid payment error and restricted geo-location.
+* For invalid payment error, please review [Restriction on credit and debit card purchases for AISPL customers using AWS Marketplace](https://aws.amazon.com/blogs/awsmarketplace/restriction-on-credit-and-debit-card-purchases-for-aispl-customers-using-aws-marketplace/ "https://aws.amazon.com/blogs/awsmarketplace/restriction-on-credit-and-debit-card-purchases-for-aispl-customers-using-aws-marketplace/") and
+  [INVALID\_PAYMENT\_INSTRUMENT after requesting model access in Amazon Bedrock.](https://repost.aws/questions/QU0UOsutrWSSS4nOqgHcIUJg/invalid-payment-instrument-after-requesting-model-access-in-amazon-bedrock "https://repost.aws/questions/QU0UOsutrWSSS4nOqgHcIUJg/invalid-payment-instrument-after-requesting-model-access-in-amazon-bedrock").
+
+## AWS Marketplace Agreement Pending after 15 minutes
+
+**HTTP Status Code:** 403
+
+**Cause:** The AWS Marketplace Agreement has not succeeded and it has been 15 minutes since the request was made.
+
+**Solution:**
+
+* Try the request again every 15 minutes. If the issue persists, please contact [AWS Support Center](https://aws.amazon.com/support "https://aws.amazon.com/support") and provide details about your request and the error you are encountering.
+
+## MPAgreementBeingCreated
+
+**HTTP Status Code:** 403
+
+**Cause:** Your account is not authorized to access this model. Your AWS Marketplace subscription for this model is still being processed
+
+**Solution:**
+
+* Try again after 15 minutes
+
+## NotAuthorized
+
+**HTTP Status Code:** 400
+
+**Cause:** You do not have permission to perform this action.
+
+**Solution:**
+
+* Review your IAM permissions and make sure you have the necessary rights to perform the requested action on Amazon Bedrock resources.
+* If you are using an IAM role, verify that the role has the appropriate permissions and trust relationships.
+* Check for any organizational policies or service control policies that might be restricting your access.
+
+## RequestExpired
+
+**HTTP Status Code:** 400
+
+**Cause:** The request is no longer valid due to expired timestamps.
+
+**Solution:**
+
+* Make sure your system clock is correctly synchronized with a reliable time source.
+* If you are making requests from different time zones, be aware of potential timestamp discrepancies.
+
+## ServiceUnavailable
+
+**HTTP Status Code:** 503
+
+**Cause:** The service is temporarily unable to handle the request. 503 errors indicate that the service is experiencing high demand or temporary capacity constraints. This is not related to your account-level quotas or rate limits (which return 429 ThrottlingException).
+
+**Solution:**
+
+* We suggest employing AWS recommended approach of using [retries with exponential backoff](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/retry-backoff.html "https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/retry-backoff.html")
+  and random [jitter](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/ "https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/") for improved reliability.
+* Consider switching to a different AWS Region if the issue persists in your current Region. Different Regions may have varying levels of load and availability.
+* [Use Cross-Region inference](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html "https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html") to route your requests by using compute across different AWS Regions.
+* If you have high throughput requirements, we suggest exploring [Provisioned Throughput](https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html "https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html") for your use case.
+
+**Best practices**
+
+* Make sure your application can handle 503 status codes appropriately in your error handling and retry logic.
+* Check the AWS Service Health Dashboard for any announced issues or scheduled maintenance that might affect the service.
+
+If you experience frequent 503 errors or if they significantly impact your operations, please contact [AWS Support](https://aws.amazon.com/support "https://aws.amazon.com/support")for further assistance and guidance tailored to your specific use case.
+
+## overloaded\_error
+
+**HTTP Status Code:** 529
+
+**Cause:** The model is temporarily unable to process the request because of high demand or insufficient serving capacity. This is a transient capacity error and is different from a 429 `ThrottlingException`, which indicates that the request exceeded an account quota.
+
+**Solution:**
+
+* Retry the request using [exponential backoff](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/retry-backoff.html "https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/retry-backoff.html") and random [jitter](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/ "https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/"). If the response includes a `Retry-After` header, wait for the specified time before retrying.
+* Avoid immediate or synchronized retries from multiple clients, which can increase load and delay recovery.
+* If the model supports it, use [cross-Region inference](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html "https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html") to route requests across multiple AWS Regions.
+* If the error persists, contact [AWS Support](https://aws.amazon.com/support "https://aws.amazon.com/support") and provide the request ID, model ID, AWS Region, and approximate timestamp for the failed request.
+
+## ThrottlingException
+
+**HTTP Status Code:** 429
+
+**Cause:** The request was denied due to exceeding the account quotas for Amazon Bedrock.
+
+**Solution:**
+
+* Check the Amazon Bedrock service quotas in the [Amazon Bedrock service quotas](https://docs.aws.amazon.com/general/latest/gr/bedrock.html#limits_bedrock "https://docs.aws.amazon.com/general/latest/gr/bedrock.html#limits_bedrock") console to learn about the limits allotted to your account.
+* We suggest employing AWS recommended approach of using [retries with exponential backoff.](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/retry-backoff.html "https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/retry-backoff.html")
+  and random [jitter](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/ "https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/") for improved reliability.
+* If you have high throughput requirements, we suggest exploring [Provisioned Throughput](https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html "https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html") for your use case.
+* Request for quota increase by contacting your account manager or [AWS Support](https://aws.amazon.com/support "https://aws.amazon.com/support") if your workload traffic exceeds your account quotas.
+
+## ValidationError
+
+**HTTP Status Code:** 400
+
+**Cause:** The input fails to satisfy the constraints specified by Amazon Bedrock.
+
+**Solution:**
+
+* Review the API documentation to ensure all required parameters are included and formatted correctly.
+* Check that your input values are within the allowed ranges or conform to the expected patterns.
+* We suggest paying attention to any specific validation rules mentioned in the API reference for the action you are using.
+
+## ResourceNotFound
+
+**HTTP Status Code:** 404
+
+**Cause:** The requested resource could not be found.
+
+**Solution:**
+
+* Verify the correctness of model ID, endpoint name, or other resource identifiers in your request.
+* Please implement a fallback mechanism to use alternative models or endpoints when a primary resource is not found.
+
+**Best practices**
+
+* Use [ListFoundationModels](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_ListFoundationModels.html "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_ListFoundationModels.html") to learn about the available Amazon Bedrock foundation models that you can use.
+* We suggest implementing a periodic synchronization process to update your local resource catalog.
+
+If you continue to experience issues after trying these solutions, contact [AWS Support](https://aws.amazon.com/support "https://aws.amazon.com/support")for further assistance and guidance tailored to your specific use case.
+
+## Connection timeout or reset on long-running or idle connections
+
+**Symptom:** API calls fail with connection resets or timeouts, especially for long-running requests
+
+<e>Content truncated. Call the read_documentation tool with start_index=12000 to get more content.</e>
+
+====================================================================================================
+### [2/18] read_sections :: 5.2.1 stopReason de Converse
+====================================================================================================
+Error executing tool read_sections
+
+====================================================================================================
+### [3/18] read_documentation :: 5.2.2 errores restantes de InvokeModel
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModel.html:
+
+eModel_RequestSyntax "#API_runtime_InvokeModel_RequestSyntax")**
+:   The prompt and inference parameters in the format specified in the `contentType` in the header. You must provide the body in JSON format. To see the format and content of the request and response bodies for different models, refer to [Inference parameters](https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters.html "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters.html"). For more information, see [Run inference](https://docs.aws.amazon.com/bedrock/latest/userguide/api-methods-run.html "https://docs.aws.amazon.com/bedrock/latest/userguide/api-methods-run.html") in the Bedrock User Guide.
+
+    Length Constraints: Minimum length of 0. Maximum length of 25000000.
+
+## Response Syntax
+
+```
+HTTP/1.1 200
+Content-Type: contentType
+X-Amzn-Bedrock-PerformanceConfig-Latency: performanceConfigLatency
+X-Amzn-Bedrock-Service-Tier: serviceTier
+
+body
+```
+
+## Response Elements
+
+If the action is successful, the service sends back an HTTP 200 response.
+
+The response returns the following HTTP headers.
+
+**[contentType](#API_runtime_InvokeModel_ResponseSyntax "#API_runtime_InvokeModel_ResponseSyntax")**
+:   The MIME type of the inference result.
+
+**[performanceConfigLatency](#API_runtime_InvokeModel_ResponseSyntax "#API_runtime_InvokeModel_ResponseSyntax")**
+:   Model performance settings for the request.
+
+    Valid Values: `standard | optimized`
+
+**[serviceTier](#API_runtime_InvokeModel_ResponseSyntax "#API_runtime_InvokeModel_ResponseSyntax")**
+:   Specifies the processing tier type used for serving the request.
+
+    Valid Values: `priority | default | flex | reserved`
+
+The response returns the following as the HTTP body.
+
+**[body](#API_runtime_InvokeModel_ResponseSyntax "#API_runtime_InvokeModel_ResponseSyntax")**
+:   Inference response from the model in the format specified in the `contentType` header. To see the format and content of the request and response bodies for different models, refer to [Inference parameters](https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters.html "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters.html").
+
+    Length Constraints: Minimum length of 0. Maximum length of 25000000.
+
+## Errors
+
+For information about the errors that are common to all actions, see [Common Error Types](./CommonErrors.html "./CommonErrors.html").
+
+**AccessDeniedException**
+:   The request is denied because you do not have sufficient permissions to perform the requested action. For troubleshooting this error,
+    see [AccessDeniedException](https://docs.aws.amazon.com/bedrock/latest/userguide/troubleshooting-api-error-codes.html#ts-access-denied "https://docs.aws.amazon.com/bedrock/latest/userguide/troubleshooting-api-error-codes.html#ts-access-denied") in the Amazon Bedrock User Guide
+
+    HTTP Status Code: 403
+
+**InternalServerException**
+:   An internal server error occurred. For troubleshooting this error,
+    see [InternalFailure](https://docs.aws.amazon.com/bedrock/latest/userguide/troubleshooting-api-error-codes.html#ts-internal-failure "https://docs.aws.amazon.com/bedrock/latest/userguide/troubleshooting-api-error-codes.html#ts-internal-failure") in the Amazon Bedrock User Guide
+
+    HTTP Status Code: 500
+
+**ModelErrorException**
+:   The request failed due to an error while processing the model.
+
+    **originalStatusCode**
+    :   The original status code.
+
+    **resourceName**
+    :   The resource name.
+
+    HTTP Status Code: 424
+
+**ModelNotReadyException**
+:   The model specified in the request is not ready to serve inference requests. The AWS SDK
+    will automatically retry the operation up to 5 times. For information about configuring
+    automatic retries, see [Retry behavior](https://docs.aws.amazon.com/sdkref/latest/guide/feature-retry-behavior.html "https://docs.aws.amazon.com/sdkref/latest/guide/feature-retry-behavior.html") in the *AWS SDKs and Tools*
+    reference guide.
+
+    HTTP Status Code: 429
+
+**ModelTimeoutException**
+:   The request took too long to process. Processing time exceeded the model timeout length.
+
+    HTTP Status Code: 408
+
+**ResourceNotFoundException**
+:   The specified resource ARN was not found. For troubleshooting this error,
+    see [ResourceNotFound](https://docs.aws.amazon.com/bedrock/latest/userguide/troubleshooting-api-error-codes.html#ts-resource-not-found "https://docs.aws.amazon.com/bedrock/latest/userguide/troubleshooting-api-error-codes.html#ts-resource-not-found") in the Amazon Bedrock User Guide
+
+    HTTP Status Code: 404
+
+**ServiceQuotaExceededException**
+:   Your request exceeds the service quota for your account. You can view your quotas at [Viewing service quotas](https://docs.aws.amazon.com/servicequotas/latest/userguide/gs-request-quota.html "https://docs.aws.amazon.com/servicequotas/latest/userguide/gs-request-quota.html"). You can resubmit your request later.
+
+    HTTP Status Code: 400
+
+**ServiceUnavailableException**
+: 
+
+<e>Content truncated. Call the read_documentation tool with start_index=14000 to get more content.</e>
+
+====================================================================================================
+### [4/18] read_documentation :: 5.2.3 comparar versiones de prompt
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-version-compare.html:
+
+# Compare versions of a prompt in Prompt management
+
+The Amazon Bedrock console offers a tool to let you compare versions of a prompt that you've created in Prompt management. The tool highlights fields that exist in one version that don't exist in the other.
+
+###### To compare prompt versions
+
+1. Sign in to the AWS Management Console with an IAM identity that has permissions to use the Amazon Bedrock console. Then, open the Amazon Bedrock console at
+   [https://console.aws.amazon.com/bedrock](https://console.aws.amazon.com/bedrock "https://console.aws.amazon.com/bedrock").
+2. Select **Prompt management** from the left navigation pane. Then, choose a prompt in the **Prompts** section.
+3. In the **Versions** section, select the checkboxes next to two prompts to compare.
+4. Choose **Compare**.
+5. The JSON objects defining each prompt version are shown side by side. Differences between the versions are shown as follows:
+
+   * Fields that exist in one version, but don't exist in the other, are marked by a plus (+) symbol and highlighted in green.
+   * Fields that don't exist in one version, but exist in the other, are marked by a minus (-) symbol and highlighted in red.
+6. To compare output model responses for the different versions, fill in the **Test variables** and choose **Run prompt**.
+
+====================================================================================================
+### [5/18] read_documentation :: 5.2.4 kb chunking
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/kb-chunking.html:
+
+# How content chunking works for knowledge bases
+
+When ingesting your data, Amazon Bedrock first splits your documents or content into manageable chunks for efficient data
+retrieval. The chunks are then converted to embeddings and written to a vector index (vector representation
+of the data), while maintaining a mapping to the original document. The vector embeddings allow the texts to
+be quantitatively compared.
+
+###### Topics
+
+* [Standard chunking](#kb-standard-chunking "#kb-standard-chunking")
+* [Hierarchical chunking](#kb-hiearchical-chunking "#kb-hiearchical-chunking")
+* [Semantic chunking](#kb-semantic-chunking "#kb-semantic-chunking")
+* [Multimodal content chunking](#kb-multimodal-chunking "#kb-multimodal-chunking")
+
+## Standard chunking
+
+Amazon Bedrock supports the following standard approaches to chunking:
+
+###### Note
+
+Text chunking strategies apply only to text documents. For multimodal content (audio, video, images), chunking occurs at the embedding model level, not through these text-based strategies.
+
+* Fixed-size chunking: You can configure the desired chunk size by specifying the number of tokens per
+  chunk, and an overlap percentage, providing flexibility to align with your specific requirements. You can
+  set the maximum number of tokens that must not exceed for a chunk and the overlap percentage between consecutive
+  chunks.
+
+  ###### Note
+
+  For parsed content (such as content using advanced parsers or converted from HTML), Amazon Bedrock Knowledge Bases
+  may chunk content to optimize for best results. The chunker respects logical document boundaries
+  (such as pages or sections) and does not merge content across these boundaries, even when
+  increasing the maximum token size would otherwise allow for larger chunks.
+* Default chunking: Splits content into text chunks of approximately 300 tokens. The chunking process honors
+  sentence boundaries, ensuring that complete sentences are preserved within each chunk.
+
+You can also choose no chunking for your documents. Each document is treated a single text chunk. You might want
+to pre-process your documents by splitting them into separate files before choosing no chunking as your chunking
+approach/strategy. If you choose no chunking for your documents, you cannot view page number in citation or filter by
+the *x-amz-bedrock-kb-document-page-number* metadata field/attribute.
+
+## Hierarchical chunking
+
+Hierarchical chunking involves organizing information into nested structures of child and parent chunks.
+When creating a data source, you are able to define the parent chunk size, child chunk size and the number of
+tokens overlapping between each chunk. During retrieval, the system initially retrieves child chunks, but replaces
+them with broader parent chunks so as to provide the model with more comprehensive context.
+
+Small text embeddings are more precise, but retrieval aims for comprehensive context. A
+hierarchical chunking system balances these needs by replacing retrieved child chunks with
+their parent chunks when appropriate.
+
+###### Note
+
+* Since child chunks get replaced by parent chunks during retrieval, the returned number of results might be less than the requested amount.
+* Hierarchical chunking is not recommended when using S3 vector bucket as your vector store. When using high number of tokens for chunking (over 8000 tokens combined), you may run into metadata size limitations.
+
+For hierarchical chunking, Amazon Bedrock knowledge bases supports specifying two levels or the following depth for chunking:
+
+* Parent: You set the maximum parent chunk token size.
+* Child: You set the maximum child chunk token size.
+
+You also set the overlap tokens between chunks. This is the absolute number of overlap tokens
+between consecutive parent chunks and consecutive child chunks.
+
+## Semantic chunking
+
+Semantic chunking is a natural language processing technique that divides text
+into meaningful chunks to enhance understanding and information retrieval. It aims to improve
+retrieval accuracy by focusing on the semantic content rather than just syntactic structure.
+By doing so, it may help more precise extraction and manipulation of relevant information.
+
+When configuring semantic chunking, you have the option to specify the following
+hyper parameters.
+
+* Maximum tokens: The maximum number of tokens that should be included in a single chunk,
+  while honoring sentence boundaries.
+* Buffer size: For a given sentence, the buffer size defines the number of surrounding sentences
+  to be added for embeddings creation. For example, a buffer size of 1 results in 3 sentences (current,
+  previous and next sentence) to be combined and embedded. This parameter can influence how much text
+  is examined together to determine the boundaries of each chunk, impacting the granularity and coherence
+  of the resulting chunks. A larger buffer size might capture more context but can also introduce noise,
+  while a smaller buffer size might miss important context but ensures more precise chunking.
+* Breakpoint percentile threshold: The percentile threshold of sentence distance/dissimilarity
+  to draw breakpoints between sentences. A higher threshold requires sentences to be more
+  distinguishable to be split into different chunks. A higher threshold results in fewer
+  chunks and typically larger average chunk size.
+
+  ###### Note
+
+  There are additional costs to using semantic chunking due to its use of a
+  foundation model. The cost depends on the amount of data you have. See
+  [Amazon Bedrock pricing](https://aws.amazon.com/bedrock/pricing/ "https://aws.amazon.com/bedrock/pricing/") for more
+  information on the cost of foundation models.
+
+## Multimodal content chunking
+
+For multimodal content (audio, video, images), chunking behavior differs from text documents:
+
+* **Nova multimodal embeddings:** Chunking occurs at the embedding model level. You can configure audio and video chunk duration from 1-30 seconds (default: 5 seconds). For video files, only the video chunk duration applies, even if the video contains audio. Audio chunk duration only applies to standalone audio files.
+* **Bedrock Data Automation (BDA) parser:** Content is first converted to text (transcripts and scene summaries), then standard text chunking strategies are applied to the converted text.
+
+###### Note
+
+When using Nova multimodal embeddings, the text chunking strategies configured in your knowledge base only affect text documents in your data source, not audio, video, or image files.
+
+====================================================================================================
+### [6/18] read_documentation :: 5.2.4 knn OpenSearch
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/opensearch-service/latest/developerguide/knn.html:
+
+# k-Nearest Neighbor (k-NN) search in Amazon OpenSearch Service
+
+Short for its associated *k-nearest neighbors* algorithm,
+k-NN for Amazon OpenSearch Service lets you search for points in a vector space and find the "nearest neighbors"
+for those points by Euclidean distance or cosine similarity. Use cases include recommendations
+(for example, an "other songs you might like" feature in a music application), image
+recognition, and fraud detection.
+
+###### Note
+
+This documentation provides a brief overview of the k-NN plugin, as well as limitations
+when using the plugin with managed OpenSearch Service. For comprehensive documentation of the k-NN plugin,
+including simple and complex examples, parameter references, and the complete API reference,
+see the open source [OpenSearch documentation](https://opensearch.org/docs/latest/search-plugins/knn/index/ "https://opensearch.org/docs/latest/search-plugins/knn/index/"). The open source documentation also covers performance
+tuning and k-NN-specific cluster settings.
+
+## Getting started with k-NN
+
+To use k-NN, you must create an index with the `index.knn` setting and add one
+or more fields of the `knn_vector` data type.
+
+```
+PUT my-index
+
+{
+  "settings": {
+    "index.knn": true
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "dimension": 2
+      },
+      "my_vector2": {
+        "type": "knn_vector",
+        "dimension": 4
+      }
+    }
+  }
+}
+```
+
+The `knn_vector` data type supports a single list of up to 10,000 floats, with
+the number of floats defined by the required `dimension` parameter. After you
+create the index, add some data to it.
+
+```
+POST _bulk
+
+{ "index": { "_index": "my-index", "_id": "1" } }
+{ "my_vector1": [1.5, 2.5], "price": 12.2 }
+{ "index": { "_index": "my-index", "_id": "2" } }
+{ "my_vector1": [2.5, 3.5], "price": 7.1 }
+{ "index": { "_index": "my-index", "_id": "3" } }
+{ "my_vector1": [3.5, 4.5], "price": 12.9 }
+{ "index": { "_index": "my-index", "_id": "4" } }
+{ "my_vector1": [5.5, 6.5], "price": 1.2 }
+{ "index": { "_index": "my-index", "_id": "5" } }
+{ "my_vector1": [4.5, 5.5], "price": 3.7 }
+{ "index": { "_index": "my-index", "_id": "6" } }
+{ "my_vector2": [1.5, 5.5, 4.5, 6.4], "price": 10.3 }
+{ "index": { "_index": "my-index", "_id": "7" } }
+{ "my_vector2": [2.5, 3.5, 5.6, 6.7], "price": 5.5 }
+{ "index": { "_index": "my-index", "_id": "8" } }
+{ "my_vector2": [4.5, 5.5, 6.7, 3.7], "price": 4.4 }
+{ "index": { "_index": "my-index", "_id": "9" } }
+{ "my_vector2": [1.5, 5.5, 4.5, 6.4], "price": 8.9 }
+```
+
+Then you can search the data using the `knn` query type.
+
+```
+GET my-index/_search
+{
+  "size": 2,
+  "query": {
+    "knn": {
+      "my_vector2": {
+        "vector": [2, 3, 5, 6],
+        "k": 2
+      }
+    }
+  }
+}
+```
+
+In this case, `k` is the number of neighbors you want the query to return, but
+you must also include the `size` option. Otherwise, you get `k` results
+for each shard (and each segment) rather than `k` results for the entire query.
+k-NN supports a maximum `k` value of 10,000.
+
+If you mix the `knn` query with other clauses, you might receive fewer than
+`k` results. In this example, the `post_filter` clause reduces the
+number of results from 2 to 1.
+
+```
+GET my-index/_search
+
+{
+  "size": 2,
+  "query": {
+    "knn": {
+      "my_vector2": {
+        "vector": [2, 3, 5, 6],
+        "k": 2
+      }
+    }
+  },
+  "post_filter": {
+    "range": {
+      "price": {
+        "gte": 6,
+        "lte": 10
+      }
+    }
+  }
+}
+```
+
+If you need to handle a large volume of queries while maintaining optimal performance, you
+can use the [`_msearch`](https://opensearch.org/docs/latest/api-reference/multi-search/ "https://opensearch.org/docs/latest/api-reference/multi-search/") API to construct a bulk search with JSON and send a single
+request to perform multiple searches:
+
+```
+GET _msearch
+
+{ "index": "my-index"}
+{ "query": { "knn": {"my_vector2":{"vector": [2, 3, 5, 6],"k":2 }} } }
+{ "index": "my-index", "search_type": "dfs_query_then_fetch"}
+{ "query": { "knn": {"my_vector1":{"vector": [2, 3],"k":2 }} } }
+```
+
+The following video demonstrates how to set up bulk vector searches for K-NN
+queries.
+
+## k-NN differences, tuning, and limitations
+
+OpenSearch lets you modify all [k-NN settings](https://docs.opensearch.org/latest/vector-search/settings/ "https://docs.opensearch.org/latest/vector-search/settings/") using
+the `_cluster/settings` API. On OpenSearch Service, you can change all settings except
+`knn.memory.circuit_breaker.enabled` and
+`knn.circuit_breaker.triggered`. k-NN statistics are included as [Amazon CloudWatch metrics](./managedomains-cloudwatchmetrics.html "./managedomains-cloudwatchmetrics.html").
+
+In particular, check the `KNNGraphMemoryUsage` metric on each data node against
+the `knn.memory.circuit_breaker.limit` statistic and the available RAM for the
+instance type. OpenSearch Service uses half of an instance's RAM for the Java heap (up to a heap size of 32
+GiB). By default, k-NN uses up to 50% of the remaining half, so an instance type with 32 GiB
+of RAM can accommodate 8 GiB of graphs (32 \* 0.5 \* 0.5). Performance can suffer if graph
+memory usage exceeds this value.
+
+You can migrate a k-NN index created on version 2.x or later to [UltraWarm](./ultrawarm.html "./ultrawarm.html") or [cold storage](./cold-storage.html "./cold-storage.html") on a domain with
+version 2.17 or later.
+
+Clear cache api and warmup apis for k-NN indices are blocked for warm indices. When the
+first query is initiated for the index, it downloads the graph files from Amazon S3 and loads the
+graph to memory. Similarly, when TTL is expired for the graphs, the files are automatically
+evicted from memory.
+
+====================================================================================================
+### [7/18] read_documentation :: 5.2.5 structured output
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/structured-output.html:
+
+# Get validated JSON results from models
+
+Structured outputs is a capability on Amazon Bedrock that ensures model responses conform to user-defined JSON schemas and tool definitions, reducing the need for custom parsing and validation mechanisms in production AI deployments.
+
+## Benefits
+
+Structured outputs addresses critical challenges in production AI applications:
+
+* **Ensures schema compliance** – Eliminates error rates and retry loops from prompt-based approaches
+* **Reduced development complexity** – Removes the need for custom parsing and validation logic
+* **Lower operational costs** – Reduces failed requests and retries
+* **Production reliability** – Enables confident deployment of AI applications requiring predictable, machine-readable outputs
+
+## How it works
+
+Structured outputs constrains model responses to follow a specific schema, ensuring valid, parseable output for downstream processing. You can use structured outputs through two complementary mechanisms:
+
+### JSON Schema output format
+
+For InvokeModel API with Anthropic Claude models, use the `output_config.format` request field. With open weight models, use the `response_format` request field. For Converse APIs, use the `outputConfig.textFormat` request field. The model's response will conform to the specified JSON schema.
+
+### Strict tool use
+
+Add the `strict: true` flag to tool definitions to enable schema validation on tool names and inputs. The model's tool calls will then follow the defined tool input schema.
+
+These mechanisms can be used independently or together in the same request. Refer to [Bedrock API documentation](bedrock/latest/APIReference/welcome.html "bedrock/latest/APIReference/welcome.html") for more details.
+
+### Request workflow
+
+The following describes how Amazon Bedrock processes requests with structured outputs:
+
+1. **Initial request** – You include either a JSON schema through the `outputConfig.textFormat`, `output_config.format`, or `response_format` parameter or a tool definition with the `strict: true` flag in your inference request.
+2. **Schema validation** – Amazon Bedrock validates the JSON schema format against the supported JSON Schema Draft 2020-12 subset. If the schema contains unsupported features, Amazon Bedrock returns a 400 error immediately.
+3. **First-time compilation** – For new schemas, Amazon Bedrock compiles the grammar, which may take up to a few minutes.
+4. **Caching** – Successfully compiled grammars are cached for 24 hours from first access. Cached grammars are encrypted with AWS-managed keys.
+5. **Subsequent requests** – Identical schemas from the same account use cached grammars, resulting in inference latency comparable to standard requests with minimal overhead.
+6. **Response** – You receive standard inference responses with strict schema compliance.
+
+## Supported JSON Schema features
+
+The following JSON Schema Draft 2020-12 features are supported:
+
+* All basic types: `object`, `array`, `string`, `integer`, `number`, `boolean`, `null`
+* `enum` (strings, numbers, booleans, or nulls only)
+* `const`, `anyOf`, `allOf` (with limitations)
+* `$ref`, `$def`, and `definitions` (internal references only)
+* String formats: `date-time`, `time`, `date`, `duration`, `email`, `hostname`, `uri`, `ipv4`, `ipv6`, `uuid`
+* Array `minItems` (only values 0 and 1)
+
+The following features are *not* supported:
+
+* Recursive schemas
+* External `$ref` references
+* Numerical constraints (`minimum`, `maximum`, `multipleOf`)
+* String constraints (`minLength`, `maxLength`)
+* `additionalProperties` set to anything other than `false`
+
+## Supported APIs or features
+
+You can use structured outputs across the following Amazon Bedrock features:
+
+| **API or feature** | **Supported** | **Notes** |
+| --- | --- | --- |
+| [Converse](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html") and [ConverseStream](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ConverseStream.html "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ConverseStream.html") APIs | Yes | Conversational inference. |
+| [InvokeModel](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModel.html "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModel.html") and [InvokeModelWithResponseStream](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModelWithResponseStream.html "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModelWithResponseStream.html") APIs | Yes | Single-turn inference. |
+| Cross-Region inference | Yes | Works without any additional setup. |
+| Batch inference | Yes | Works without any additional setup. |
+| Anthropic Messages API on the `bedrock-mantle` endpoint (`https://bedrock-mantle.{region}.api.aws/anthropic/v1/messages`) | No | The `output_config.format` parameter is rejected with a 400 error. To use structured outputs with Anthropic Claude models, send the request through the Converse API or the InvokeModel API on the `bedrock-runtime` endpoint. |
+
+###### Note
+
+Structured outputs is incompatible with citations for Anthropic models. If you enable citations while using structured outputs, the model will return a 400 error.
+
+## Supported models
+
+To see which models support structured outputs, please go to
+[models at a glance](./model-cards.html "./model-cards.html") and select the model you are interested in.
+
+## Example requests
+
+### JSON Schema output format
+
+The following examples show how to use JSON Schema output format with structured outputs.
+
+#### Converse API
+
+```
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "text": "Given the following unstructured data, extract it into the provided structure."
+        },
+        {
+          "text": "..."
+        }
+      ]
+    }
+  ],
+  "outputConfig": {
+    "textFormat": {
+      "type": "json_schema",
+      "structure": {
+        "jsonSchema": {
+          "schema": "{\"type\": \"object\", \"properties\": {\"title\": {\"type\": \"string\", \"description\": \"title\"}, \"summary\": {\"type\": \"string\", \"description\": \"summary\"}, \"next_steps\": {\"type\": \"string\", \"description\": \"next steps\"}}, \"required\": [\"title\", \"summary\", \"next_steps\"], \"additionalProperties\": false}",
+          "name": "data_extraction",
+          "description": "Extract structured data from unstructured text"
+        }
+      }
+    }
+  }
+}
+```
+
+#### InvokeModel (Anthropic Claude)
+
+```
+{
+  "anthropic_version": "bedrock-2023-05-31",
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Given the following unstructured data, extract it into the provided structure."
+        },
+        {
+          "type": "text",
+          "text": "..."
+        }
+      ]
+    }
+  ],
+  "max_tokens": 3000,
+  "temperature": 1.0,
+  "output_config": {
+    "format": {
+      "type": "json_schema",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "title"
+          },
+          "summary": {
+            "type": "string",
+            "description": "summary"
+          },
+          "next_steps": {
+            "type": "string",
+            "description": "next steps"
+          }
+        },
+        "required": [
+          "title",
+          "summary",
+          "next_steps"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}
+```
+
+#### InvokeModel (Open-weight models)
+
+```
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": "Given the following unstructured data, extract it into the provided structure."
+    },
+    {
+      "role": "user",
+      "content": "..."
+    }
+  ],
+  "inferenceConfig": {
+    "maxTokens": 3000,
+    "temperature": 1.0
+  },
+  "response_format": {
+    "json_schema": {
+      "name": "summarizer",
+      
+
+<e>Content truncated. Call the read_documentation tool with start_index=8000 to get more content.</e>
+
+====================================================================================================
+### [8/18] read_documentation :: 5.2.5 anomaly detection en logs
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/LogsAnomalyDetection-Metrics.html:
+
+# Metrics published by log anomaly detectors
+
+CloudWatch Logs publishes the **AnomalyCount** metric to CloudWatch metrics. This
+metric is published to the `AWS/Logs` namespace.
+
+The **AnomalyCount** metric is published with the following
+dimensions:
+
+* **LogAnomalyDetector**– The name of the
+  anomaly detector
+* **LogAnomalyPriority**– The priority level
+  of the anomaly
+
+====================================================================================================
+### [9/18] read_documentation :: 5.2.4 sync de data source
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/kb-data-source-sync-ingest.html:
+
+# Sync your data with your Amazon Bedrock knowledge base
+
+###### Important
+
+For optimized retrieval accuracy and a managed experience, we recommend [Amazon Bedrock Managed Knowledge Base](./kb-build-managed.html "./kb-build-managed.html").
+
+After you create your knowledge base, you ingest or sync your data so that the data can be queried.
+Ingestion converts the raw data in your data source into vector embeddings, based on the vector embeddings
+model and configurations you specified.
+
+Before you begin ingestion, check that your data source fulfills the following conditions:
+
+* You have configured the connection information for your data source. To configure a data source
+  connector to crawl your data from your data source repository, see
+  [Supported data source connectors](https://docs.aws.amazon.com/bedrock/latest/userguide/data-source-connectors.html "https://docs.aws.amazon.com/bedrock/latest/userguide/data-source-connectors.html"). You configure your data source as part of creating
+  your knowledge base.
+* You have configured your chosen vector embeddings model and vector store. See
+  [supported
+  vector embeddings models](https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-supported.html "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-supported.html") and [vector stores for knowledge bases](https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-setup.html "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-setup.html").
+  You configure your vector embeddings as part of creating your knowledge base.
+* The files are in supported formats. For more information,
+  see [Support document formats](https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-ds.html#kb-ds-supported-doc-formats-limits "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-ds.html#kb-ds-supported-doc-formats-limits").
+* The files don't exceed the **Ingestion job file size** specified in [Amazon Bedrock endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/bedrock.html "https://docs.aws.amazon.com/general/latest/gr/bedrock.html") in the AWS General Reference.
+* If your data source contains metadata files, check the following conditions to ensure that the metadata files aren't ignored:
+
+  + Each `.metadata.json` file shares the same file name and extension as the source file that it's associated with.
+  + If the vector index for your knowledge base is in an Amazon OpenSearch Serverless vector store, check that the vector index is configured with the `faiss` engine. If the vector index is configured with the `nmslib` engine, you'll have to do one of the following:
+
+    - [Create a new knowledge base](./knowledge-base-create.html "./knowledge-base-create.html") in the console and let Amazon Bedrock automatically create a vector index in Amazon OpenSearch Serverless for you.
+    - [Create another vector index](./knowledge-base-setup.html "./knowledge-base-setup.html") in the vector store and select `faiss` as the **Engine**. Then [create a new knowledge base](./knowledge-base-create.html "./knowledge-base-create.html") and specify the new vector index.
+  + If the vector index for your knowledge base is in an Amazon Aurora database cluster, we recommend that you use the custom metadata field to store all your metadata in a single column
+    and create an index on this column. If you do not provide the custom metadata field, you must check that the table for your index contains a column for each metadata property in your
+    metadata files before starting ingestion. For more information, see [Prerequisites for using a vector store you created for a knowledge base](./knowledge-base-setup.html "./knowledge-base-setup.html").
+
+Each time you add, modify, or remove files from your data source, you must sync the data source so that it is re-indexed to the knowledge base. Syncing is incremental, so Amazon Bedrock only processes added, modified, or deleted documents since the last sync.
+
+## How a knowledge base handles resyncs
+
+Each time you add, modify, or remove files from your data source, you must sync the data source so
+that it is re-indexed in the knowledge base. Syncing is incremental, so Amazon Bedrock processes only the
+documents that were added, modified, or deleted since the last sync. When you sync a data source,
+Amazon Bedrock re-ingests documents to ensure accuracy and consistency. Re-ingestion includes parsing,
+chunking, generating embeddings, and indexing into the vector store.
+
+Sync scenarios
+
+| Scenario | What happens |
+| --- | --- |
+| No changes detected | The document is skipped. |
+| Content or metadata changed | The document is re-ingested (re-parsed, re-chunked, re-embedded, and re-indexed). |
+| New document added | Only the new document is ingested. |
+| Document deleted | The document is removed from the vector store. |
+
+### Metadata-only optimization
+
+In certain cases, Amazon Bedrock can update metadata without re-ingesting the document associated
+with that metadata file. This optimization retrieves existing vector embeddings from the vector
+store, merges the new metadata, and writes the updated embeddings back, which avoids calls to
+the embedding model.
+
+This optimization applies only when all of the following conditions are met:
+
+* Only `metadata.json` files are modified. No content files are changed.
+* The associated content files are not CSV files.
+* The data source does not use a custom transformation Lambda function.
+
+### Re-ingestion behavior for CSV files
+
+CSV files use the `documentStructureConfiguration` field in metadata to control which
+columns are indexed. Because Amazon Bedrock cannot determine whether this structural configuration
+changed without re-processing the file, CSV files are always re-ingested when their metadata
+files are updated.
+
+To learn how to ingest your data into your knowledge base and sync with your latest data, choose the tab for your preferred method, and then follow the steps:
+
+Console
+:   ###### To ingest your data into your knowledge base and sync with your latest data
+
+    1. Open the Amazon Bedrock console at [https://console.aws.amazon.com/bedrock/](https://console.aws.amazon.com/bedrock/ "https://console.aws.amazon.com/bedrock/").
+    2. From the left navigation pane, select **Knowledge base** and choose your knowledge base.
+    3. In the **Data source** section, select **Sync** to begin data ingestion or syncing
+       your latest data. To stop a data source currently syncing, select **Stop**. A data source must be
+       currently syncing to stop syncing the data source. You can select **Sync** again to ingest the
+       rest of your data.
+    4. When data ingestion completes, a green success banner appears if it is successful.
+
+       ###### Note
+
+       After data syncing completes, it could take a few minutes for the vector embeddings of the newly synced data
+       to reflect in your knowledge base and be available for querying if yo
+
+<e>Content truncated. Call the read_documentation tool with start_index=7000 to get more content.</e>
+
+====================================================================================================
+### [10/18] read_documentation :: 5.1.4 CodeBuild test report group
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/codebuild/latest/userguide/test-report-group.html:
+
+# Report groups
+
+A *report group* contains test reports and specifies
+shared settings. You use the buildspec file to specify the test cases to run and the
+commands to run them when it builds. For each report group configured in a build
+project, a run of the build project creates a test report. Multiple runs of a build
+project configured with a report group create multiple test reports in that report
+group, each with results of the same test cases specified for that report group.
+
+The test cases are specified for a report group in the buildspec file of a build
+project. You can specify up to five report groups in one build project. When you run a
+build, all the test cases run. A new test report is created with the results of each
+test case specified for a report group. Each time you run a new build, the test cases
+run and a new test report is created with the new test results.
+
+Report groups can be used in more than one build project. All test reports created
+with one report group share the same configuration, such as its export option and
+permissions, even if the test reports are created using different build projects. Test
+reports created with one report group in multiple build projects can contain the results
+from running different sets of test cases (one set of test cases for each build
+project). This is because you can specify different test case files for the report group
+in each project's buildspec file. You can also change the test case files for a report
+group in a build project by editing its buildspec file. Subsequent build runs create new
+test reports that contain the results of the test case files in the updated buildspec.
+
+###### Topics
+
+* [Create a report group](./report-group-create.html "./report-group-create.html")
+* [Report group naming](./test-report-group-naming.html "./test-report-group-naming.html")
+* [Share report groups](./report-groups-sharing.html "./report-groups-sharing.html")
+* [Specify test files](./report-group-test-cases.html "./report-group-test-cases.html")
+* [Specify test commands](./report-group-test-case-commands.html "./report-group-test-case-commands.html")
+* [Tag a report group in AWS CodeBuild](./how-to-tag-report-group.html "./how-to-tag-report-group.html")
+* [Update a report group](./report-group-export-settings.html "./report-group-export-settings.html")
+
+====================================================================================================
+### [11/18] read_documentation :: 5.1.2 A/B testing con production variants
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/sagemaker/latest/dg/model-ab-testing.html:
+
+# Testing models with production variants
+
+In production ML workflows, data scientists and engineers frequently try to improve performance using various
+methods, such as [Automatic model tuning with SageMaker AI](./automatic-model-tuning.html "./automatic-model-tuning.html"), training on
+additional or more-recent data, improving feature selection, using better updated instances and serving
+containers. You can use production variants to compare your models, instances and containers, and choose the
+best performing candidate to respond to inference requests.
+
+With SageMaker AI multi-variant endpoints you can distribute endpoint invocation requests across multiple production
+variants by providing the traffic distribution for each variant, or you can invoke a specific variant directly
+for each request. In this topic, we look at both methods for testing ML models.
+
+###### Topics
+
+* [Test models by specifying traffic distribution](#model-testing-traffic-distribution "#model-testing-traffic-distribution")
+* [Test models by invoking specific variants](#model-testing-target-variant "#model-testing-target-variant")
+* [Model A/B test example](#model-ab-test-example "#model-ab-test-example")
+
+## Test models by specifying traffic distribution
+
+To test multiple models by distributing traffic between them, specify the percentage of the traffic that
+gets routed to each model by specifying the weight for each production variant in the endpoint
+configuration. For information, see [CreateEndpointConfig](https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html"). The
+following diagram shows how this works in more detail.
+
+![Example showing how distributing traffic between models using InvokeEndpoint works in SageMaker AI.](/images/sagemaker/latest/dg/images/model-traffic-distribution.png)
+
+## Test models by invoking specific variants
+
+To test multiple models by invoking specific models for each request, specify the specific version of the
+model you want to invoke by providing a value for the `TargetVariant` parameter when you call
+[InvokeEndpoint](https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpoint.html "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpoint.html"). SageMaker AI ensures that the request is processed by the production variant you
+specify. If you have already provided traffic distribution and specify a value for the
+`TargetVariant` parameter, the targeted routing overrides the random traffic distribution. The
+following diagram shows how this works in more detail.
+
+![Example showing how invoking specific models for each request using InvokeEndpoint works in SageMaker AI.](/images/sagemaker/latest/dg/images/model-target-variant.png)
+
+## Model A/B test example
+
+Performing A/B testing between a new model and an old model with production traffic can be an effective
+final step in the validation process for a new model. In A/B testing, you test different variants of your
+models and compare how each variant performs. If the newer version of the model delivers better performance
+than the previously existing version, replace the old version of the model with the new version in
+production.
+
+The following example shows how to perform A/B model testing. For a sample notebook that implements this
+example, see ["A/B Testing ML models in production](https://sagemaker-examples.readthedocs.io/en/latest/sagemaker_endpoints/a_b_testing/a_b_testing.html "https://sagemaker-examples.readthedocs.io/en/latest/sagemaker_endpoints/a_b_testing/a_b_testing.html").
+
+### Step 1: Create and deploy models
+
+First, we define where our models are located in Amazon S3. These locations are used when we deploy our
+models in subsequent steps:
+
+```
+model_url = f"s3://{path_to_model_1}"
+model_url2 = f"s3://{path_to_model_2}"
+```
+
+Next, we create the model objects with the image and model data. These model objects are used to deploy
+production variants on an endpoint. The models are developed by training ML models on different data
+sets, different algorithms or ML frameworks, and different hyperparameters:
+
+```
+from sagemaker.core import image_uris
+
+model_name = f"DEMO-xgb-churn-pred-{datetime.now():%Y-%m-%d-%H-%M-%S}"
+model_name2 = f"DEMO-xgb-churn-pred2-{datetime.now():%Y-%m-%d-%H-%M-%S}"
+image_uri = get_image_uri(boto3.Session().region_name, 'xgboost', '0.90-1')
+image_uri2 = get_image_uri(boto3.Session().region_name, 'xgboost', '0.90-2')
+
+sm_session.create_model(
+    name=model_name,
+    role=role,
+    container_defs={
+        'Image': image_uri,
+        'ModelDataUrl': model_url
+    }
+)
+
+sm_session.create_model(
+    name=model_name2,
+    role=role,
+    container_defs={
+        'Image': image_uri2,
+        'ModelDataUrl': model_url2
+    }
+)
+```
+
+We now create two production variants, each with its own different model and resource requirements (instance type
+and counts). This enables you to also test models on different instance types.
+
+We set an initial\_weight of 1 for both variants. This means that 50% of requests go to
+`Variant1`, and the remaining 50% of requests to `Variant2`. The sum of weights
+across both variants is 2 and each variant has weight assignment of 1. This means that each variant
+receives 1/2, or 50%, of the total traffic.
+
+```
+from sagemaker.session import production_variant
+
+variant1 = production_variant(
+               model_name=model_name,
+               instance_type="ml.m5.xlarge",
+               initial_instance_count=1,
+               variant_name='Variant1',
+               initial_weight=1,
+           )
+
+variant2 = production_variant(
+               model_name=model_name2,
+               instance_type="ml.m5.xlarge",
+               initial_instance_count=1,
+               variant_name='Variant2',
+               initial_weight=1,
+           )
+```
+
+Finally we’re ready to deploy these production variants on a SageMaker AI endpo
+
+<e>Content truncated. Call the read_documentation tool with start_index=6000 to get more content.</e>
+
+====================================================================================================
+### [12/18] read_documentation :: 5.1.4 deployment guardrails canary
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/sagemaker/latest/dg/deployment-guardrails-blue-green-canary.html:
+
+# Use canary traffic shifting
+
+With canary traffic shifting, you can test a portion of your endpoint traffic on the new
+fleet while the old fleet serves the remainder of the traffic. This testing step is a safety
+guardrail that validates the new fleet’s functionality before shifting all of your traffic to the
+new fleet. You still have the benefits of a blue/green deployment, and the added canary feature
+lets you ensure that your new (green) fleet can serve inference before letting it handle 100% of
+the traffic.
+
+The portion of your green fleet that turns on to receive traffic is called the canary, and
+you can choose the size of this canary. Note that the canary size should be less than or
+equal to 50% of the new fleet's capacity. Once the baking period finishes and no
+pre-specified Amazon CloudWatch alarms trip, the rest of the traffic shifts from the old (blue) fleet
+to the green fleet. Canary traffic shifting provides you with more safety during your
+deployment since any issues with the updated model only impact the canary.
+
+The following diagram shows how canary traffic shifting manages the distribution of traffic
+between the blue and green fleets.
+
+![A successful two step canary traffic shift from the old fleet to the new fleet.](/images/sagemaker/latest/dg/images/deployment-guardrails-blue-green-canary.png)
+
+Once SageMaker AI provisions the green fleet, SageMaker AI routes a portion of the incoming traffic (for
+example, 25%) to the canary. Then the baking period begins, during which your CloudWatch alarms
+monitor the performance of the green fleet. During this time, both the blue fleet and green
+fleet are partially active and receiving traffic. If any of the alarms trip during the
+baking period, then SageMaker AI initiates a rollback and all traffic returns to the blue fleet. If
+none of the alarms trip, then all of the traffic shifts to the green fleet and there is a
+final baking period. If the final baking period finishes without tripping any alarms, then
+the green fleet serves all traffic and SageMaker AI terminates the blue fleet.
+
+## Prerequisites
+
+Before setting up a deployment with canary traffic shifting, you must create Amazon CloudWatch alarms
+to monitor metrics from your endpoint. The alarms are active during the baking period, and if any
+alarms trip, then all endpoint traffic rolls back to the blue fleet. To learn how to set up CloudWatch
+alarms on an endpoint, see the prerequisite page [Auto-Rollback Configuration and Monitoring](./deployment-guardrails-configuration.html "./deployment-guardrails-configuration.html"). To learn more about CloudWatch alarms, see [Using
+Amazon CloudWatch alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html") in the *Amazon CloudWatch User Guide*.
+
+## Configure Canary Traffic Shifting
+
+Once you are ready for your deployment and have set up Amazon CloudWatch alarms for your endpoint,
+you can use either the Amazon SageMaker AI [UpdateEndpoint](https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpoint.html "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpoint.html") API or the
+[update-endpoint](https://docs.aws.amazon.com/cli/latest/reference/sagemaker/update-endpoint.html "https://docs.aws.amazon.com/cli/latest/reference/sagemaker/update-endpoint.html") command in the AWS CLI to initiate the deployment.
+
+###### Topics
+
+* [How to update an endpoint (API)](#deployment-guardrails-blue-green-canary-configure-api-update "#deployment-guardrails-blue-green-canary-configure-api-update")
+* [How to update an endpoint with an existing blue/green update policy (API)](#deployment-guardrails-blue-green-canary-configure-api-existing "#deployment-guardrails-blue-green-canary-configure-api-existing")
+* [How to update an endpoint (CLI)](#deployment-guardrails-blue-green-canary-configure-cli-update "#deployment-guardrails-blue-green-canary-configure-cli-update")
+
+### How to update an endpoint (API)
+
+The following example of the [UpdateEndpoint](https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpoint.html "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpoint.html") API shows
+how you can update an endpoint with canary traffic shifting.
+
+```
+import boto3
+client = boto3.client("sagemaker")
+
+response = client.update_endpoint(
+    EndpointName="<your-endpoint-name>",
+    EndpointConfigName="<your-config-name>",
+    DeploymentConfig={
+        "BlueGreenUpdatePolicy": {
+            "TrafficRoutingConfiguration": {
+                "Type": "CANARY",
+                "CanarySize": {
+                    "Type": "CAPACITY_PERCENT",
+                    "Value": 30
+                },
+                "WaitIntervalInSeconds": 600
+            },
+            "TerminationWaitInSeconds": 600,
+            "MaximumExecutionTimeoutInSeconds": 1800
+        },
+        "AutoRollbackConfiguration": {
+            "Alarms": [
+                {
+                    "AlarmName": "<your-cw-alarm>"
+                }
+            ]
+        }
+    }
+)
+```
+
+To configure the canary traffic shifting option, do the following:
+
+* For `EndpointName`, use the name of the existing endpoint you want to update.
+* For `EndpointConfigName`, use the name of the endpoint configuration you want to use.
+* Under `DeploymentConfig` and `BlueGreenUpdatePolicy`, in
+  `TrafficRoutingConfiguration`, set the `Type` parameter to
+  `CANARY`. This specifies that the deployment uses canary traffic shifting.
+* In the `CanarySize` field, you can change the size of the canary by modifying the
+  `Type` and `Value` parameters. For
+  `Type`, use `CAPACITY_PERCENT`, meaning the
+  percentage of your green fleet you want to use as the canary, and then set
+  `Value` to `30`. In this example, you use 30% of
+  the green fleet’s capacity as the canary. Note that the canary size should
+  be equal to or less than 50% of the gr
+
+<e>Content truncated. Call the read_documentation tool with start_index=6000 to get more content.</e>
+
+====================================================================================================
+### [13/18] read_documentation :: 5.1.8 QuickSight sending reports
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/quick/latest/userguide/sending-reports.html:
+
+# Scheduling and sending Quick Sight reports by email
+
+###### Important
+
+Amazon Quick Sight in the Europe (Spain) (eu-south-2) region uses an internal email
+service (Amazon SES) in the Europe (Ireland) (eu-west-1) to send emails to Quick Sight
+users. Customer data that's included in scheduled reports, alerts, and other
+features are passed by email from Europe (Spain) to Europe (Ireland) before
+it reaches Quick Sight users.
+
+As a privacy protection measure, the following features that send customer data in
+emails have been limited or disabled by default.
+
+* File attachments and sheet previews in Scheduled Report emails. The [download link
+  option](https://docs.aws.amazon.com/quicksuite/latest/userguide/email-reports-from-dashboard "https://docs.aws.amazon.com/quicksuite/latest/userguide/email-reports-from-dashboard") is the default.
+* Emails that use threshold alerts.
+* Anomaly detection alerts.
+
+For more information about AWS privacy features, see [Privacy Features of AWS
+Services](https://aws.amazon.com/compliance/privacy-features/ "https://aws.amazon.com/compliance/privacy-features/").
+
+In Enterprise edition, you can send a dashboard in report form either once or on a
+schedule (daily, weekly, monthly, or yearly). You can email the reports to users or
+groups who share your Amazon Quick subscription. To receive email reports, the users or
+group members must meet the following conditions:
+
+* They are part of your Quick subscription.
+* You already shared the dashboard with them.
+* Amazon Quick Sight can't send scheduled emails to more than 5,000 members.
+
+Amazon Quick Sight generates a custom email snapshot for each user or group based on their data
+permissions, which are defined in the dashboard. Row Level Security (RLS), Column Level
+Security (CLS) and Dynamic Default Parameters for email reports works for both scheduled
+and ad hoc (one-time) emails.
+
+Quick authors can run scheduled reports with the **Report
+now** button in the Quick console or with the [`StartDashboardSnapshotJobSchedule`](https://docs.aws.amazon.com/quicksight/latest/APIReference/API_StartDashboardSnapshotJobSchedule.html "https://docs.aws.amazon.com/quicksight/latest/APIReference/API_StartDashboardSnapshotJobSchedule.html") API.
+
+Subscribers who are readers see an option for **Reports**
+on the dashboard when an email report is available for that dashboard. They can use the
+**Schedules** menu to subscribe to or unsubscribe from the emails.
+For more information, see [Subscribing to email reports in Amazon Quick Sight](./subscribing-to-reports.html "./subscribing-to-reports.html").
+
+You can create up to five schedules for each dashboard.
+
+Quick Sight dashboard viewers can also schedule their own reports for themselves from
+a Quick Sight dashboard. For more information about reader generated reports, see [Creating a reader generated report in Amazon Quick Sight](./reader-scheduling.html "./reader-scheduling.html").
+
+Use the following topics to learn more about email report settings and report billing.
+
+###### Topics
+
+* [Configuring email report settings for a Quick Sight dashboard](./email-reports-from-dashboard.html "./email-reports-from-dashboard.html")
+* [How billing works for email reports](./sending-reports-billing-info.html "./sending-reports-billing-info.html")
+
+====================================================================================================
+### [14/18] read_documentation :: 5.1.9 metricas publicadas por canaries
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_metrics.html:
+
+# CloudWatch metrics published by canaries
+
+Canaries publish the following metrics to CloudWatch in the `CloudWatchSynthetics`
+namespace. For more information about viewing CloudWatch metrics, see [View available metrics](./viewing_metrics_with_cloudwatch.html "./viewing_metrics_with_cloudwatch.html")
+.
+
+###### Note
+
+For multi-browser canaries, browser-dimension metrics are enabled by default to provide
+visibility into performance across browsers like Chrome, Firefox and other browsers. To
+disable browser metrics, set `browserDimension` to `false`.
+
+For single-browser canaries, browser-dimension metrics are disabled by default to avoid
+redundancy. To see metrics broken down by browser, set `browserDimension` to `true`.
+
+| Metric | Description |
+| --- | --- |
+| `2xx` | The number of network requests performed by the canary that returned OK responses, with response codes between 200 and 299.  This metric is reported for UI canaries that use runtime version `syn-nodejs-2.0` or later, and is reported for API canaries that use runtime version `syn-nodejs-2.2` or later.  Valid Dimensions: CanaryName, Browser  Valid Statistic: Sum  Units: Count |
+| `4xx` | The number of network requests performed by the canary that returned Error responses, with response codes between 400 and 499.  This metric is reported for UI canaries that use runtime version `syn-nodejs-2.0` or later, and is reported for API canaries that use runtime version `syn-nodejs-2.2` or later.  Valid Dimensions: CanaryName, Browser  Valid Statistic: Sum  Units: Count |
+| `5xx` | The number of network requests performed by the canary that returned Fault responses, with response codes between 500 and 599.  This metric is reported for UI canaries that use runtime version `syn-nodejs-2.0` or later, and is reported for API canaries that use runtime version `syn-nodejs-2.2` or later.  Valid Dimensions: CanaryName, Browser  Valid Statistic: Sum  Units: Count |
+| `Duration` | The duration in milliseconds of the canary run.  Valid Dimensions: CanaryName, Browser, Location  Valid Statistic: Average  Units: Milliseconds |
+| `DurationDryRun` | The duration of DryRun executions.  Valid Dimensions: CanaryName, Browser  Valid Statistic: Average  Units: Milliseconds |
+| `EphemeralStorageUsagePercent` | The maximum percentage of ephemeral storage used compared to total ephemeral storage configured. This metric is collected at every 10 second interval. |
+| `Failed` | The number of canary runs that failed to execute. These failures are related to the canary itself.  Valid Dimensions: CanaryName, Browser  Valid Statistic: Sum  Units: Count |
+| `Failed requests` | The number of HTTP requests executed by the canary on the target website that failed with no response.  Valid Dimensions: CanaryName, Browser  Valid Statistic: Sum  Units: Count |
+| `RetryCount` | The number of times your canary retried. This metric is only displayed when there are retries.  Valid Dimensions: CanaryName, Browser  Valid Statistic: Sum  Units: Count |
+| `SuccessPercent` | The percentage of the runs of this canary that succeed and find no failures.  Valid Dimensions: CanaryName, Browser, Location  Valid Statistic: Average  Units: Percent |
+| `SuccessPercentDryRun` | The success percentage of DryRun executions.  Valid Dimensions: CanaryName, Browser  Valid Statistic: Average  Units: Percent |
+| `SuccessPercentWithRetries` | The percentage of the runs of this canary that succeed after all attempts.  Valid Dimensions: CanaryName, Browser, Location  Valid Statistic: Average  Units: Percent |
+| `VisualMonitoringSuccessPercent` | The percentage of visual comparisons that successfully matched the baseline screenshots during a canary run.  Valid Dimensions: CanaryName, Browser  Valid Statistic: Average  Units: Percent |
+| `VisualMonitoringTotalComparisons` | The total number of visual comparisons that happened during a canary run.  Valid Dimensions: CanaryName, Browser  Units: Count |
+
+###### Note
+
+Canaries that use either the `executeStep()` or `executeHttpStep()`
+methods from the Synthetics library also publish `SuccessPercent` and `Duration` metrics with the dimensions `CanaryName` and `StepName`
+for each step.
+
+====================================================================================================
+### [15/18] read_documentation :: 5.1.3 GENOPS01-BP02 user feedback
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops01-bp02.html:
+
+# GENOPS01-BP02 Collect and monitor user feedback
+
+Supplement model performance evaluation with direct feedback from
+users. Implement continuous feedback loops to optimize application
+performance and enhance user satisfaction. Systematically collect,
+analyze, and act on user feedback to drive continuous improvement.
+By integrating this approach, you can achieve higher operational
+excellence and reliability, which keeps applications performant and
+aligned with user expectations. This proactive strategy helps to
+improve user satisfaction and foster a culture of ongoing
+enhancement and innovation.
+
+**Desired outcome:** When
+implemented, this best practice improves the ability to surface
+performance degradation issues with foundation models as they happen
+without requiring ground truth data.
+
+**Benefits this practice helps
+achieve:**
+
+* [Implement
+  observability for actionable insights](https://docs.aws.amazon.com/wellarchitected/latest/framework/oe-design-principles.html "https://docs.aws.amazon.com/wellarchitected/latest/framework/oe-design-principles.html") - User feedback
+  from model responses to prompts can inform the efficacy of a
+  model, a prompt, or both in addressing a customer problem.
+* [Anticipate
+  failure](https://docs.aws.amazon.com/wellarchitected/latest/framework/oe-design-principles.html "https://docs.aws.amazon.com/wellarchitected/latest/framework/oe-design-principles.html") - Periodic review of the user feedback helps you
+  proactively identify deviations in subjective evaluation of a
+  model's performance. This is because foundation models are
+  inherently non-deterministic with a realistic chance
+  of failure.
+
+**Level of risk exposed if this best practice
+is not established:** High
+
+## Implementation guidance
+
+Collect and monitor user feedback to establish continuous
+improvement and optimization of your applications. User feedback
+can be as simple as thumbs up or thumbs down, which you can
+capture in your application and store in a database. This approach
+helps detect issues early in the process and serves as a feedback
+mechanism for prompt engineering.
+
+Regularly review monitoring data, user feedback, and incident
+reports related to your application's integration with Amazon Bedrock and Amazon SageMaker AI models. Use these insights to
+identify potential improvements, such as optimizing data
+pipelines, refining integration patterns, or exploring new model
+capabilities.
+
+[Amazon Q Business](https://aws.amazon.com/q/business/ "https://aws.amazon.com/q/business/") offers tools to monitor and analyze user feedback.
+These include an analytics dashboard in the console that provides
+usage trends, user conversations, query trends, and user feedback.
+Use these insights to optimize your application and identify areas
+for improvement. Use the `PutFeedback` API action
+to allow end users to provide feedback on chat responses. This
+captures user sentiment and helps improve response quality.
+
+Consult your organization’s AI policy document for guidance on how to use user feedback for workload improvements. Direct techniques for incorporating user feedback like reinforcement learning through human feedback may not be applicable for all workloads. Workload owners may be best positioned to identify the appropriate feedback incorporation strategy for a given task.
+
+### Implementation steps
+
+1. For Amazon Q Business, set up user feedback collection.
+
+   * Integrate simple feedback options within the application
+   * Use the `PutFeedback` API action
+     through AWS SDK for application integration
+   * Use Amazon Q Business usage trends and query analysis
+   * Consider storing feedback in Amazon DynamoDB for
+     scalable, low-latency storage
+   * Enable conversation logging to get more insights from
+     user interactions
+
+     + Configure log delivery (choose between Amazon S3,
+       CloudWatch Logs, or Amazon Data Firehose)
+     + Set up filtering if you need to exclude sensitive
+       information
+     + Enable logging to start streaming conversation and
+       feedback data
+2. For Amazon Bedrock, set up user feedback collection.
+
+   * Create an Amazon S3 bucket to store user feedback
+   * Develop a web form or API endpoint to collect user
+     feedback
+   * Create an AWS Lambda function to process incoming
+     feedback
+   * Set up an Amazon EventBridge rule to run the Lambda
+     function when new feedback is added to the S3 bucket
+3. Establish a regular review process.
+
+   * Schedule periodic reviews of monitoring data, user
+     feedback, and incident reports
+   * Create an AWS Step Functions workflow to manage the
+     feedback processing pipeline
+   * Consider Amazon Bedrock's large language models to
+     analyze the feedback
+   * Consider Quick to create dashboards and
+     visualizations of the feedback data
+4. Implement and test improvements.
+
+   * Identify optimizations in data pipelines, integration
+     patterns, or model capabilities
+   * Track KPIs before and after improvements
+   * Develop and deploy optimizations
+   * Validate improvements using A/B testing
+
+## Resources
+
+**Related best practices:**
+
+* [OPS04-BP03](https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/ops_observability_customer_telemetry.html "https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/ops_observability_customer_telemetry.html")
+
+**Related documents:**
+
+* [Guidance
+  for Capturing and Analyzing Unstructured Customer Feedback on
+  AWS](https://aws.amazon.com/solutions/guidance/capturing-and-analyzing-unstructured-customer-feedback-on-aws/ "https://aws.amazon.com/solutions/guidance/capturing-and-analyzing-unstructured-customer-feedback-on-aws/")
+* [Build
+  an automated insight extraction framework for customer
+  feedback analysis with Amazon Bedrock and Quick](https://aws.amazon.com/blogs/machine-learning/build-an-automated-insight-extraction-framework-for-customer-feedback-analysis-with-amazon-bedrock-and-amazon-quicksight/ "https://aws.amazon.com/blogs/machine-learning/build-an-automated-insight-extraction-framework-for-customer-feedback-analysis-with-amazon-bedrock-and-amazon-quicksight/")
+* [Guidance
+  for Automated Customer Feedback Analysis with Amazon Bedrock](https://aws.amazon.com/solutions/guidance/automated-customer-feedback-analysis-with-amazon-bedrock/ "https://aws.amazon.com/solutions/guidance/automated-customer-feedback-analysis-with-amazon-bedrock/")
+
+**Related examples:**
+
+* [PutFeedback
+  - Amazon Q Business](https://docs.aws.amazon.com/amazonq/latest/api-reference/API_PutFeedback.html "https://docs.aws.amazon.com/amazonq/latest/api-reference/API_PutFeedback.html")
+* [Configure
+  agent to request information from user to increase accuracy of
+  function prediction - Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/agents-user-input.html "https://docs.aws.amazon.com/bedrock/latest/userguide/agents-user-input.html")
+
+**Related tools:**
+
+* [Amazon Q Business](https://aws.amazon.com/q
+
+<e>Content truncated. Call the read_documentation tool with start_index=7000 to get more content.</e>
+
+====================================================================================================
+### [16/18] read_documentation :: 5.1.1 GENOPS01-BP01 functional performance
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops01-bp01.html:
+
+# GENOPS01-BP01 Periodically evaluate functional performance
+
+Implement periodic evaluations using stratified sampling and custom
+metrics to maintain the performance and reliability of large
+language models. This practice verifies that models remain accurate
+and relevant over time by regularly assessing their performance
+against ground truth data and specific evaluation criteria. By
+employing stratified sampling, organizations can obtain a
+representative subset of data that reflects the diversity of
+real-world inputs, leading to more reliable performance metrics.
+Custom metrics allow for tailored assessments that align with
+specific business goals and user expectations. This practice helps
+customers achieve consistent model performance, detect and address
+model drift promptly, and integrate evaluation results into
+continuous improvement processes.
+
+**Desired outcome:** When
+implemented, this best practice improves the ability to identify and
+remediate performance degradation issues in model responses.
+
+**Benefits of establishing this best
+practice:**
+
+* [Implement
+  observability for actionable insights](https://docs.aws.amazon.com/wellarchitected/latest/framework/oe-design-principles.html "https://docs.aws.amazon.com/wellarchitected/latest/framework/oe-design-principles.html") - Model responses
+  to prompts can be observed using key performance indicators
+  (KPIs) to determine adherence to or deviation from acceptable
+  performance levels.
+* [Anticipate
+  failure](https://docs.aws.amazon.com/wellarchitected/latest/framework/oe-design-principles.html "https://docs.aws.amazon.com/wellarchitected/latest/framework/oe-design-principles.html") - Periodic review of the model's performance
+  levels helps you proactively identify deviations in its
+  performance. This is because foundation models are inherently
+  non-deterministic with a realistic chance of failure.
+
+**Level of risk exposed if this best practice
+is not established:** High
+
+## Implementation guidance
+
+Evaluations can be conducted by periodically running ground truth
+data and applying sampling techniques to run metrics for
+monitoring purposes. Feed your prompts into the model to generate
+outputs, compare those outputs to the known ground truth values,
+and analyze the results to track the model's performance over
+time, identifying potential drifts or degradation.
+
+You can employ stratified sampling techniques to verify diverse
+data representation within the sample set. Divide your ground
+truth data into relevant categories (for example, different user
+personas), and randomly sample from each category to provide a
+balanced representation in the evaluation set. Consider
+periodically updating your ground truth dataset as the inputs and
+usage of your workload change over time. Address data drift where
+actual usage diverges from your initial ground truth set.
+
+You can use the model evaluation feature built-in with Amazon Bedrock or open-source libraries like
+[fmeval](https://github.com/aws/fmeval "https://github.com/aws/fmeval") or
+[ragas](https://docs.ragas.io/en/stable/ "https://docs.ragas.io/en/stable/").
+Use Amazon Bedrock model invocation logging to collect metadata,
+requests, and responses for model invocations in your account.
+
+For Amazon SageMaker AI, you can set up manual evaluations for a
+human workforce using Studio, automatically evaluate your model
+with an algorithm using Studio, or automatically evaluate your
+model with a customized workflow using the fmeval library.
+
+The fmeval library provides a framework for defining and using
+custom metrics. By creating a custom metric class, you can
+encapsulate the logic for calculating a specific evaluation
+criterion tailored to your use case. Use this to continuously
+assess your language models using both standard metrics provided
+by fmeval and your own specialized metrics.
+
+Your organization’s AI policy should define the effective minimum performance levels for generative AI workloads, as well as how to validate performance on an ongoing basis. Consider identifying a single-threaded workload owner responsible for the operational considerations pertaining to ongoing performance evaluations. Run these evaluations when new candidate models are available, or when model customization techniques are applied. For example, fine-tuned and customized models should be subject to the same evaluation criteria and cadence as non-customized models.
+
+### Implementation steps
+
+1. Create a ground truth dataset.
+
+   * Verify that you have diverse data representation
+   * Consider various user personas and use cases
+2. Apply stratified sampling techniques.
+
+   * Categorize ground truth data into relevant groups
+   * Randomly sample from each group to achieve balanced
+     representation
+3. Establish periodic evaluation processes.
+
+   * For Amazon Bedrock:
+
+     + Use the built-in model evaluation feature
+     + Implement model invocation logging
+   * For Amazon SageMaker AI:
+
+     + Configure manual evaluations using Amazon SageMaker AI
+       Studio.
+     + Set up automatic evaluations using Amazon SageMaker AI
+       Studio or the fmeval library
+4. Define custom metrics.
+
+   * Use the fmeval library to create custom metric classes
+   * Encapsulate logic for calculating specific evaluation
+     criteria
+5. Perform model evaluations.
+
+   * Input prompts into the model
+   * Generate outputs and compare them to ground truth values
+   * Analyze results to track performance over time
+6. Monitor for performance drifts.
+
+   * Identify potential degradation in model performance
+   * Address data drift where actual usage diverges from the
+     initial ground truth
+7. Regularly update the ground truth dataset.
+
+   * Reflect changes in workload inputs and usage patterns
+   * Maintain the relevance of evaluation data
+
+**Additional recommendations**
+
+* Use open-source libraries.
+
+  + Consider using libraries like ragas for additional
+    evaluation capabilities
+  + Explore complementary metrics and evaluation techniques
+* Implement automated workflows.
+
+  + Integrate evaluation processes into CI/CD pipelines
+  + Set up alerts for significant performance changes
+
+## Resources
+
+**Related best practices:**
+
+* [OPS11-BP11](https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/ops_evolve_ops_metrics_review.html "https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/ops_evolve_ops_metrics_review.html")
+
+**Related documents:**
+
+* [Amazon SageMaker AI Model Evaluation](https://docs.aws.amazon.com/sagemaker/latest/dg/model-optimize-evaluate.html "https://docs.aws.amazon.com/sagemaker/latest/dg/model-optimize-evaluate.html")
+* [Evaluating
+  Models in Amazon Bedrock](https://aws.amazon.com/bedrock/evaluations/ "https://aws.amazon.com/bedrock/evaluations/")
+* [Data
+  and model quality monitoring with Amazon SageMaker AI Model
+  Monitor](https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html "https://docs.aws.amazon.com/sagemaker/latest/dg/mo
+
+<e>Content truncated. Call the read_documentation tool with start_index=7000 to get more content.</e>
+
+====================================================================================================
+### [17/18] read_documentation :: 5.1.4 AGENTOPS06-BP02 ongoing agent performance
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentops06-bp02.html:
+
+# AGENTOPS06-BP02 Evaluate and track ongoing agent performance
+
+Pre-deployment evaluation validates that an agent is ready to ship.
+Post-deployment evaluation validates that it still works. Without
+continuous assessment, gradual quality degradation from data drift,
+model updates, and shifting user patterns goes unnoticed until it is
+expensive to fix.
+
+**Desired outcome:**
+
+* Agent performance is continually evaluated against defined
+  quality benchmarks.
+* Automated pipelines detect degradation in output quality,
+  reasoning accuracy, and business outcome alignment.
+* Teams have clear visibility into performance trends over time
+  and can correlate quality changes with specific configuration,
+  model, or data updates.
+* Evaluation results drive prioritized improvement actions and
+  provide objective evidence for stakeholder reporting.
+
+**Common anti-patterns:**
+
+* Evaluating agent performance only at deployment time without
+  continuous post-deployment assessment, missing gradual
+  degradation from data drift, model updates, or changing user
+  patterns.
+* Relying solely on automated metrics without periodic human
+  evaluation, missing quality dimensions that automated metrics
+  can't fully capture (like nuance, appropriateness, and business
+  context alignment).
+* Using generic evaluation criteria across all agents without
+  tailoring metrics to each agent's specific use case and business
+  objectives, producing evaluation results that don't reflect
+  actual value.
+* Treating evaluation as separate from operations rather than
+  integrating it into the operational workflow, creating
+  evaluation debt that accumulates over time.
+
+**Benefits of establishing this best
+practice:**
+
+* Continuous evaluation provides an empirical foundation for
+  evidence-based improvement, identifying which agents need
+  attention and which changes produce measurable gains.
+* Performance trend tracking reveals patterns that inform
+  systematic improvement, turning evaluation data into practical
+  insights.
+* Multi-dimensional scoring catches quality issues that a single
+  metric would miss.
+* Correlation between quality shifts and configuration changes
+  compresses root-cause analysis.
+
+**Level of risk exposed if this best practice
+is not established:** High
+
+## Implementation guidance
+
+[Amazon
+Bedrock AgentCore Evaluations](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html") is an evaluation service for
+continuous assessment. Its on-demand mode runs benchmarks during
+development, and its online mode samples and evaluates live
+interactions in production without requiring manual triggers.
+Thirteen built-in evaluators cover correctness, helpfulness,
+safety, and tool selection accuracy, with custom evaluators
+available for business-specific requirements.
+[Amazon
+Bedrock Evaluations](https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation.html "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation.html") supplements this with model-level
+assessment, and periodic human evaluation covers the dimensions
+automated metrics miss.
+
+Evaluation frameworks need multiple dimensions because a single
+metric misses too much. For example:
+
+* Output quality (relevance, accuracy, coherence) measures
+  whether responses are good.
+* Safety (hallucination rate, toxicity, guardrail adherence)
+  measures whether responses are safe.
+* Efficiency (task completion rate, tool invocation success)
+  measures whether the agent is economical.
+* Business alignment (outcome achievement, user satisfaction,
+  SLA compliance) measures whether the agent delivers value.
+
+Weighting depends on the use case. For instance, a
+customer-support agent might weigh satisfaction higher than
+efficiency, while an internal automation agent might weigh
+efficiency higher than relevance. Generic weighting produces
+generic results.
+
+Dashboards that show evaluation scores over time make degradation
+visible before it becomes an incident. Alerting on threshold
+violations and on persistent negative trends, as opposed to
+single-point dips, catches the slow-moving problems that are
+hardest to diagnose after the fact. Correlate evaluation shifts
+with configuration and model changes so attribution is fast when a
+metric moves.
+
+LLM-as-a-Judge patterns can use multiple evaluator prompts
+covering different quality dimensions to produce a composite score
+that is more reliable than any single prompt. Periodic human
+review validates the automated scores and catches the blind spots.
+
+### Implementation steps
+
+1. **Configure
+   [Amazon
+   Bedrock AgentCore Evaluations](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html"):** Use
+   on-demand mode for development benchmarking and online mode
+   for continuous production monitoring.
+2. **Define a multi-dimensional
+   evaluation framework:** Apply use-case-specific
+   weighting across quality, safety, efficiency, and business
+   alignment.
+3. **Implement LLM-as-judge
+   patterns:** Use multiple evaluator prompts and
+   supplement with periodic human evaluation.
+4. **Build evaluation
+   dashboards:** Show trends over time with alerting
+   for threshold violations and persistent negative trends.
+5. **Correlate evaluation results with
+   change events:** Tag deployments, configuration
+   updates, and model changes so quality shifts can be
+   attributed quickly.
+
+## Resources
+
+**Related best practices:**
+
+* [AGENTOPS06-BP01 Design
+  multi-layered testing frameworks](agentops06-bp01.html "agentops06-bp01.html")
+* [AGENTOPS06-BP03
+  Establish SME-driven validation and business approval
+  workflows](agentops06-bp03.html "agentops06-bp03.html")
+* [AGENTOPS02-BP04
+  Maintain feedback control loops for continuous
+  improvement](agentops02-bp04.html "agentops02-bp04.html")
+* [AGENTOPS05-BP04
+  Define and track KPIs for agent workflows](agentops05-bp04.html "agentops05-bp04.html")
+* [AGENTPERF01-BP01
+  Define performance-aligned success criteria for agent
+  workloads](agentperf01-bp01.html "agentperf01-bp01.html")
+
+**Related documents:**
+
+* [Amazon
+  Bedrock AgentCore Evaluations](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html")
+* [Evaluate
+  models in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-judge.html "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-judge.html")
+* [Operationalizing
+  agentic AI on AWS](https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-operationalizing-agentic-ai/introduction.html "https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-operationalizing-agentic-ai/introduction.html")
+* [Build
+  reliable AI agents with Amazon Bedrock AgentCore
+  Evaluations](https://aws.amazon.com/b
+
+<e>Content truncated. Call the read_documentation tool with start_index=7000 to get more content.</e>
+
+====================================================================================================
+### [18/18] read_documentation :: 5.1.6 metricas de retrieval y latencia
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-eval-llm-results.html:
+
+# Review metrics for RAG evaluations that use LLMs (console)
+
+You can review the metrics presented in a report for a RAG evaluation job
+using the Amazon Bedrock console.
+
+RAG evaluations that use Large Language Models (LLMs) compute evaluation
+metrics to assess the performance of how well the Amazon Bedrock knowledge base or external RAG source is retrieving
+information and generating responses.
+
+In your RAG evaluation report card, you will see the metrics and the
+breakdown graphs of the metrics relevant to your evaluation type of either retrieval
+only or retrieval with response generation. Different metrics are relevant to different
+evaluation types. The computed scores for each metric are an average score for retrieved
+texts or generated responses across all the user queries in your prompts dataset. The
+computed score for each metric is a value between 0 and 1. The closer to 1, the more
+that metric’s characteristic appears in the retrieved texts or responses. The breakdown
+graphs for each metric plots a histogram and counts how many retrieved texts or
+responses for the queries fall within each score range.
+
+For example, you created an evaluation job to evaluate retrieval with response
+generation. The console report card shows a computed score for
+*Completeness* in responses to be at 0.82. The
+*Completeness* score measures how generated responses address all
+aspects of users’ questions. It is computed as an average score for responses to
+questions across all prompts in your dataset. The histogram graph for
+*Completeness* shows that most of the responses (highest bar)
+fall between a completeness score range of 0.7 to 0.8. However, the knowledge base also
+scored high for Stereotyping, where generalized statements are made in the responses at
+0.94 on average. The knowledge base can generate fairly complete responses most of the
+time, but those responses include a high amount of generalized statements about
+individuals or groups of people.
+
+## Report card for RAG evaluations that use LLMs
+
+Follow the steps to open the report card in the Amazon Bedrock console for RAG
+evaluation jobs that use LLMs. Refer to the information below for each metric that
+is relevant to the evaluation types of retrieval only and retrieval with response
+generation.
+
+* Sign in to the AWS Management Console and open the Amazon Bedrock console at [https://console.aws.amazon.com/bedrock/](https://console.aws.amazon.com/bedrock/ "https://console.aws.amazon.com/bedrock/").
+* Choose **Evaluations** from the navigation pane, then
+  choose **Knowledge base evaluation**.
+* Select the name of your knowledge base evaluation job. You will be
+  directed to the report card, which is the main page of the knowledge base
+  evaluation.
+
+  ###### Note
+
+  To open the report card, the status of your RAG evaluation
+  must be either ready or available.
+
+## Metrics relevant to retrieval only type evaluations
+
+There are certain metrics relevant to evaluating your knowledge base’s ability to
+retrieve highly relevant information.
+
+###### Contents
+
+* [Context relevance](./knowledge-base-eval-llm-results.html#kb-eval-metric-context-relevance "./knowledge-base-eval-llm-results.html#kb-eval-metric-context-relevance")
+* [Context coverage (requires ground truth)](./knowledge-base-eval-llm-results.html#kb-eval-metric-context-coverage "./knowledge-base-eval-llm-results.html#kb-eval-metric-context-coverage")
+
+### Context relevance
+
+This metric is relevant to the quality of the retrieved information. The score
+is an average score for retrieved text chunks across all prompts in your
+dataset. Context relevance means the retrieved text chunks are contextually
+relevant to the questions. The higher the score, the more contextually relevant
+the information is on average. The lower the score, the less contextually
+relevant the information is on average.
+
+### Context coverage (requires ground truth)
+
+This metric is relevant to the quality of the retrieved information. The score
+is an average score for retrieved text chunks across all prompts in your
+dataset. Context coverage means the retrieved text chunks cover all the
+information provided in the ground truth texts. The higher the score, the more
+context coverage on average. The lower the score, the less context coverage on
+average.
+
+## Metrics relevant to retrieval with response generation type evaluations
+
+There are certain metrics relevant to evaluating your knowledge base’s ability to
+generate useful, appropriate responses based on retrieved information.
+
+###### Contents
+
+* [Correctness](./knowledge-base-eval-llm-results.html#kb-eval-metric-correctness "./knowledge-base-eval-llm-results.html#kb-eval-metric-correctness")
+* [Completeness](./knowledge-base-eval-llm-results.html#kb-eval-metric-completeness "./knowledge-base-eval-llm-results.html#kb-eval-metric-completeness")
+* [Helpfulness](./knowledge-base-eval-llm-results.html#kb-eval-metric-helpfulness "./knowledge-base-eval-llm-results.html#kb-eval-metric-helpfulness")
+* [Logical coherence](./knowledge-base-eval-llm-results.html#kb-eval-metric-coherence "./knowledge-base-eval-llm-results.html#kb-eval-metric-coherence")
+* [Faithfulness](./knowledge-base-eval-llm-results.html#kb-eval-metric-faithfulness "./knowledge-base-eval-llm-results.html#kb-eval-metric-faithfulness")
+* [Citation precision](./knowledge-base-eval-llm-results.html#kb-eval-metric-cit-precision "./knowledge-base-eval-llm-results.html#kb-eval-metric-cit-precision")
+* [Citation coverage](./knowledge-base-eval-llm-results.html#kb-eval-metric-cit-coverage "./knowledge-base-eval-llm-results.html#kb-eval-metric-cit-coverage")
+* [Harmfulness](./knowledge-base-eval-llm-results.html#kb-eval-metric-harmfulness "./knowledge-base-eval-llm-results.html#kb-eval-metric-harmfulness")
+* [Stereotyping](./knowledge-base-eval-llm-results.html#kb-eval-metric-stereotyping "./knowledge-base-eval-llm-results.html#kb-eval-metric-stereotyping")
+* [Refusal](./knowledge-base-eval-llm-results.html#kb-eval-metric-refusa
+
+<e>Content truncated. Call the read_documentation tool with start_index=6000 to get more content.</e>

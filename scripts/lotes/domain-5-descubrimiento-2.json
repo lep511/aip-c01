@@ -1,0 +1,130 @@
+[
+  {
+    "label": "recommend sobre evaluation.html de Bedrock",
+    "tool": "recommend",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation.html" }
+  },
+  {
+    "label": "recommend sobre how-it-works-evaluations de AgentCore",
+    "tool": "recommend",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/how-it-works-evaluations.html" }
+  },
+  {
+    "label": "recommend sobre knowledge-base-evaluation-metrics",
+    "tool": "recommend",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-evaluation-metrics.html" }
+  },
+  {
+    "label": "recommend sobre Synthetics canaries",
+    "tool": "recommend",
+    "arguments": { "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries.html" }
+  },
+  {
+    "label": "errores comunes de la API de Bedrock",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Bedrock Runtime API Reference common errors ValidationException ServiceQuotaExceededException",
+      "search_intent": "Find the common error reference for the Bedrock runtime API",
+      "limit": 10
+    }
+  },
+  {
+    "label": "cuotas de Bedrock y ventana de contexto",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Amazon Bedrock quotas tokens per minute requests per minute service quotas",
+      "search_intent": "Find the Bedrock service quotas page covering token and request limits",
+      "limit": 10
+    }
+  },
+  {
+    "label": "Responsible AI Lens evaluacion",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Responsible AI Lens Well-Architected evaluation testing validation practices",
+      "search_intent": "Find the Responsible AI Lens best practices about evaluating and validating AI systems",
+      "limit": 15
+    }
+  },
+  {
+    "label": "Generative AI Lens operational excellence evaluacion",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Generative AI Lens operational excellence evaluate model performance continuous evaluation",
+      "search_intent": "Find Generative AI Lens best practices for evaluation and operations of GenAI workloads",
+      "limit": 15
+    }
+  },
+  {
+    "label": "Agentic AI Lens evaluacion de agentes",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Agentic AI Lens agent evaluation testing task completion benchmark",
+      "search_intent": "Find Agentic AI Lens best practices for evaluating agent performance",
+      "limit": 15
+    }
+  },
+  {
+    "label": "CodeBuild test reports y CodePipeline gates",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "CodeBuild test reports build spec report group pass fail",
+      "search_intent": "Find how CodeBuild surfaces automated test results for pipeline gating",
+      "limit": 10
+    }
+  },
+  {
+    "label": "Bedrock Flows testing y versiones",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Amazon Bedrock Flows test flow version alias validation",
+      "search_intent": "Find how Bedrock Flows are tested and versioned",
+      "limit": 10
+    }
+  },
+  {
+    "label": "X-Ray anotaciones y metadata en segmentos",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "X-Ray segment annotations metadata subsegment filter expression",
+      "search_intent": "Find how X-Ray annotations and metadata are used to search traces",
+      "limit": 10
+    }
+  },
+  {
+    "label": "OpenSearch busqueda hibrida y relevancia",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "OpenSearch hybrid search normalization processor search relevance compare results",
+      "search_intent": "Find documented tooling to evaluate and tune search relevance in OpenSearch",
+      "limit": 10
+    }
+  },
+  {
+    "label": "Bedrock model invocation logging",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Bedrock model invocation logging CloudWatch Logs S3 request response data",
+      "search_intent": "Find how Bedrock logs full request and response payloads for analysis",
+      "limit": 10
+    }
+  },
+  {
+    "label": "chunking de knowledge bases",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Bedrock knowledge base chunking strategy fixed size hierarchical semantic parsing",
+      "search_intent": "Find the documented chunking strategies for Bedrock knowledge bases",
+      "limit": 10
+    }
+  },
+  {
+    "label": "reintentos y timeouts de los SDK de AWS",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "AWS SDK retry behavior adaptive standard mode max attempts timeout configuration",
+      "search_intent": "Find the documented SDK retry and timeout configuration reference",
+      "limit": 10
+    }
+  }
+]

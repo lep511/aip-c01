@@ -1,0 +1,82 @@
+[
+  {
+    "label": "5.1.1 built-in metrics",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-built-in-metrics.html", "max_length": 9000 }
+  },
+  {
+    "label": "5.1.1 use metrics to understand model performance",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-metrics.html", "max_length": 9000 }
+  },
+  {
+    "label": "5.1.1 task types",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-tasks.html", "max_length": 6000 }
+  },
+  {
+    "label": "5.1.1 general text generation",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-tasks-general-text.html", "max_length": 6000 }
+  },
+  {
+    "label": "5.1.2 evaluation type automatic",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-automatic.html", "max_length": 6000 }
+  },
+  {
+    "label": "5.1.2 evaluation support regions and models",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-support.html", "max_length": 6000 }
+  },
+  {
+    "label": "5.1.2 judge model evaluation",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-judge.html", "max_length": 8000 }
+  },
+  {
+    "label": "5.1.3 human worker evaluations",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/human-worker-evaluations.html", "max_length": 9000 }
+  },
+  {
+    "label": "5.1.3 model evaluation type human",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-human.html", "max_length": 8000 }
+  },
+  {
+    "label": "5.1.3 HumanEvaluationCustomMetric API",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_HumanEvaluationCustomMetric.html", "max_length": 4000 }
+  },
+  {
+    "label": "5.1.5 RAG evaluation kb",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-kb.html", "max_length": 8000 }
+  },
+  {
+    "label": "5.1.5 y 5.1.6 knowledge base evaluation metrics",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-evaluation-metrics.html", "max_length": 10000 }
+  },
+  {
+    "label": "5.1.5 custom metrics prompt formats",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-evaluation-custom-metrics-prompt-formats.html", "max_length": 6000 }
+  },
+  {
+    "label": "5.1.8 model evaluation report programmatic",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-report-programmatic.html", "max_length": 6000 }
+  },
+  {
+    "label": "5.1.8 knowledge base evaluation report",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-evaluation-report.html", "max_length": 6000 }
+  },
+  {
+    "label": "5.1.8 model evaluation report s3",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-report-s3.html", "max_length": 5000 }
+  }
+]

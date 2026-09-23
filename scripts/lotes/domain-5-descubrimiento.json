@@ -1,0 +1,164 @@
+[
+  {
+    "label": "5.1.1 metricas de evaluacion de modelo",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Amazon Bedrock model evaluation metrics accuracy robustness toxicity",
+      "search_intent": "Find the official metrics used by Amazon Bedrock model evaluation jobs",
+      "limit": 10
+    }
+  },
+  {
+    "label": "5.1.1 metricas builtin del juez",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Bedrock LLM as a judge Builtin.Correctness Builtin.Faithfulness metrics",
+      "search_intent": "Find the built-in judge metric identifiers for Bedrock evaluations",
+      "limit": 10
+    }
+  },
+  {
+    "label": "5.1.2 tipos de job de evaluacion",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Amazon Bedrock evaluation supported Regions and models for model evaluation",
+      "search_intent": "Find which model types and Regions Bedrock evaluation jobs support",
+      "limit": 10
+    }
+  },
+  {
+    "label": "5.1.2 canary y A/B testing en AWS",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "SageMaker AI shadow tests production variants deployment guardrails canary",
+      "search_intent": "Find how AWS documents canary and A/B deployment for inference endpoints",
+      "limit": 10
+    }
+  },
+  {
+    "label": "5.1.3 evaluacion con human workers",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Bedrock model evaluation human workers rating methods thumbs up down Likert",
+      "search_intent": "Find the rating methods available for human-based Bedrock evaluations",
+      "limit": 10
+    }
+  },
+  {
+    "label": "5.1.3 annotation workflows Ground Truth",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "SageMaker Ground Truth labeling workflow human review annotation workforce",
+      "search_intent": "Find documented annotation workflow options for assessing model output quality",
+      "limit": 10
+    }
+  },
+  {
+    "label": "5.1.5 RAG evaluation y custom metrics",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Bedrock knowledge base RAG evaluation retrieval metrics context relevance coverage",
+      "search_intent": "Find the retrieval and generation metrics for Bedrock RAG evaluations",
+      "limit": 10
+    }
+  },
+  {
+    "label": "5.1.4 quality gates y evaluacion continua",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "CodePipeline test reports quality gate CodeDeploy automatic rollback alarm",
+      "search_intent": "Find how AWS documents automated quality gates in deployment pipelines",
+      "limit": 10
+    }
+  },
+  {
+    "label": "5.1.7 AgentCore evaluations",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Bedrock AgentCore agent evaluation task completion tool usage trajectory",
+      "search_intent": "Determine whether AWS documents an agent evaluation feature and where",
+      "limit": 10
+    }
+  },
+  {
+    "label": "5.1.8 reporting y visualizacion",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "CloudWatch dashboards QuickSight paginated reports automated email report",
+      "search_intent": "Find documented AWS options for automated reporting and visualization of metrics",
+      "limit": 10
+    }
+  },
+  {
+    "label": "5.1.9 synthetic user workflows",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "CloudWatch Synthetics canary blueprints scripted workflow monitoring",
+      "search_intent": "Find how AWS documents synthetic user workflow monitoring",
+      "limit": 10
+    }
+  },
+  {
+    "label": "5.2.1 ventana de contexto y truncamiento",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Bedrock Converse API stopReason max_tokens truncated response",
+      "search_intent": "Find how a truncated model response is signalled by the Bedrock API",
+      "limit": 10
+    }
+  },
+  {
+    "label": "5.2.2 errores de la API de Bedrock",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Bedrock runtime InvokeModel errors ThrottlingException ModelTimeoutException validation",
+      "search_intent": "Find the documented error types returned by the Bedrock runtime API",
+      "limit": 10
+    }
+  },
+  {
+    "label": "5.2.3 prompt management testing y versiones",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Amazon Bedrock Prompt Management create test prompt version variant",
+      "search_intent": "Find how prompts are tested and versioned in Bedrock Prompt Management",
+      "limit": 10
+    }
+  },
+  {
+    "label": "5.2.4 troubleshooting de retrieval y vector store",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Bedrock knowledge base ingestion job failed data source sync troubleshooting",
+      "search_intent": "Find documented failure modes and remediation for knowledge base ingestion",
+      "limit": 10
+    }
+  },
+  {
+    "label": "5.2.4 k-NN OpenSearch rendimiento",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "OpenSearch k-NN index memory estimation warmup search performance tuning",
+      "search_intent": "Find documented vector search performance diagnostics for OpenSearch",
+      "limit": 10
+    }
+  },
+  {
+    "label": "5.2.5 Logs Insights y X-Ray para prompts",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "CloudWatch Logs Insights query log anomaly detection metric filter",
+      "search_intent": "Find documented log analysis tooling for diagnosing application behaviour",
+      "limit": 10
+    }
+  },
+  {
+    "label": "5.2.5 validacion de esquema y salida estructurada",
+    "tool": "search_documentation",
+    "arguments": {
+      "search_phrase": "Bedrock structured output JSON schema validated results tool use schema",
+      "search_intent": "Find how Bedrock enforces structured output and schema validation",
+      "limit": 10
+    }
+  }
+]

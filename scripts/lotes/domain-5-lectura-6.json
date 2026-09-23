@@ -1,0 +1,7 @@
+[
+ {"label":"AGENTOPS06-BP02","tool":"read_documentation","arguments":{"url":"https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentops06-bp02.html","max_length":6000}},
+ {"label":"CW session trace evaluations","tool":"read_documentation","arguments":{"url":"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/session-traces-evaluations.html","max_length":5000}},
+ {"label":"RAIER01-BP03","tool":"read_documentation","arguments":{"url":"https://docs.aws.amazon.com/wellarchitected/latest/responsible-ai-lens/raier01-bp03.html","max_length":5000}},
+ {"label":"evaluadores builtin listado","tool":"read_documentation","arguments":{"url":"https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluators.html","max_length":8000}},
+ {"label":"QuickSight dashboards","tool":"read_documentation","arguments":{"url":"https://docs.aws.amazon.com/quick/latest/userguide/working-with-dashboards.html","max_length":4000}}
+]

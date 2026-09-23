@@ -1,0 +1,1398 @@
+
+====================================================================================================
+### [1/16] read_documentation :: 5.1.7 AgentCore evaluations hub
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html:
+
+# Evaluate agent performance with Amazon Bedrock AgentCore Evaluations
+
+Amazon Bedrock AgentCore Evaluations provides automated assessment tools to measure how well your agent or tools perform specific tasks, handle edge cases, and maintain consistency across different inputs and contexts. The service enables data-driven optimization and ensures your agents meet quality standards before and after deployment.
+
+AgentCore Evaluations integrates with popular agent frameworks including **Strands** and **LangGraph** with **OpenTelemetry** and **OpenInference** instrumentation libraries. Under the hood, traces from these agents are converted to a unified format and scored using LLM-as-a-Judge techniques for both built-in and custom evaluators.
+
+Each evaluator has a unique Amazon Resource Name (ARN) and resource policy attached to it. Evaluator ARNs follow these formats:
+
+```
+arn:aws:bedrock-agentcore:::evaluator/Builtin.Helpfulness (for built-in evaluators)
+```
+
+```
+arn:aws:bedrock-agentcore:region:account:evaluator/my-evaluator-id (for custom evaluators)
+```
+
+Built-in evaluators are public and accessible to all users. Custom evaluation resources are private and can only be accessed by users who are explicitly granted access. To grant access, you can use IAM resource-based policies for evaluators and evaluation configurations, and IAM identity-based policies for users and roles.
+
+By default, you can create up to 1,000 evaluation configurations per AWS Region in an AWS account. The service supports up to 1 million input and output tokens per minute per account for large regions.
+
+###### Topics
+
+* [How it works](./how-it-works-evaluations.html "./how-it-works-evaluations.html")
+* [Telemetry setup and delivery](./supported-frameworks-telemetry.html "./supported-frameworks-telemetry.html")
+* [Supported agent frameworks](./supported-frameworks.html "./supported-frameworks.html")
+* [Built-in evaluators](./built-in-evaluators-overview.html "./built-in-evaluators-overview.html")
+* [Third-party evaluators](./third-party-evaluators.html "./third-party-evaluators.html")
+* [Custom evaluators](./custom-evaluators.html "./custom-evaluators.html")
+* [Online evaluation](./online-evaluations.html "./online-evaluations.html")
+* [On-demand evaluation](./on-demand-evaluations.html "./on-demand-evaluations.html")
+* [Batch evaluation](./batch-evaluations.html "./batch-evaluations.html")
+* [Dataset evaluation](./dataset-evaluations.html "./dataset-evaluations.html")
+* [Simulation](./simulation.html "./simulation.html")
+* [Diagnose AgentCore Evaluation issues with an AI coding assistant](./diagnose-evaluation-issues.html "./diagnose-evaluation-issues.html")
+* [Encryption at rest for AgentCore Evaluations](./evaluations-encryption.html "./evaluations-encryption.html")
+
+====================================================================================================
+### [2/16] read_documentation :: 5.1.7 how it works evaluations
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/how-it-works-evaluations.html:
+
+# How it works
+
+Amazon Bedrock AgentCore Evaluations provides capabilities to assess the performance of AI agents. It can compute metrics such as an agent’s end-to-end task completion (goal attainment) correctness, the accuracy of a tool invoked by the agent while handling a user request, and any custom metric defined to evaluate specific dimensions of an agent’s behavior. The AgentCore Evaluations can evaluate the AI agents that are hosted under AgentCore Runtime as well as AI agents hosted outside of AgentCore.
+
+You can create and manage evaluation or relevant resources using the AgentCore CLI, the AgentCore Python SDK, the AWS Management Console or directly through AWS SDKs.
+
+###### Topics
+
+* [Evaluation terminology](./evaluations-terminology.html "./evaluations-terminology.html")
+* [Evaluators](./evaluators.html "./evaluators.html")
+* [Evaluation types](./evaluations-types.html "./evaluations-types.html")
+
+====================================================================================================
+### [3/16] read_documentation :: 5.1.7 evaluations terminology
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations-terminology.html:
+
+# Evaluation terminology
+
+Understanding key concepts and terminology is essential for effectively using AgentCore Evaluations. The following terms define the core components and processes involved in agent evaluation.
+
+###### Topics
+
+* [Agent Framework](#agent-framework "#agent-framework")
+* [Instrumentation Library](#instrumentation-library "#instrumentation-library")
+* [Instrumentation Agent](#instrumentation-agent "#instrumentation-agent")
+* [Session](#session "#session")
+* [Trace](#trace "#trace")
+* [Tool Call](#tool-call "#tool-call")
+* [Skill](#skill "#skill")
+* [Reference Free Large Language Models (LLMs) as judges](#llms-as-judges "#llms-as-judges")
+
+## Agent Framework
+
+An agent framework provides the foundational components for building, orchestrating, and running agent-based applications. Frameworks define structures such as steps, tools, control flow, and memory management. Common industry frameworks include [Strands Agents](https://strandsagents.com/latest/ "https://strandsagents.com/latest/") on the Strands website and **LangGraph**. These frameworks help standardize how agents are constructed and make them easier to instrument and evaluate.
+
+For more information about supported frameworks, see [Supported agent frameworks](./supported-frameworks.html "./supported-frameworks.html").
+
+## Instrumentation Library
+
+An instrumentation library records telemetry generated by your agent during execution. This telemetry can include traces, spans, tool calls, model invocations, and intermediate steps. Libraries such as **OpenTelemetry** and **OpenInference** offer standardized APIs and semantic conventions that allow you to capture agent behavior with minimal code changes. Instrumentation is required for trace collection and evaluation.
+
+For more information about supported instrumentation libraries, see [Supported agent frameworks](./supported-frameworks.html "./supported-frameworks.html").
+
+## Instrumentation Agent
+
+An instrumentation agent automatically captures telemetry from application code, processes it, and exports it to a backend service for storage or evaluation. Tools such as **ADOT (AWS Distro for OpenTelemetry)** provide a vendor-neutral, production-ready auto-instrumentation agent that dynamically injects bytecode to capture traces without code changes. The agent is a key component in enabling automated evaluation.
+
+AgentCore Evaluations currently supports **ADOT (AWS Distro for OpenTelemetry)** as the instrumentation agent.
+
+## Session
+
+A session represents a logical grouping of related interactions from a single user or workflow. A session may contain one or more traces. Sessions help you view and evaluate agent behavior across multi-step interactions, rather than focusing on individual requests.
+
+## Trace
+
+A trace is a complete record of a single agent execution or request. A trace contains one or more spans, which represent the individual operations performed during that execution. Traces provide end-to-end visibility into agent decisions and tool usage.
+
+## Tool Call
+
+A tool call is a span that represents an agent’s invocation of an external function, API, or capability. Tool call spans typically capture information such as the tool name, input parameters, execution time, and output. Tool call details are used to evaluate whether the agent selected and used tools correctly and efficiently.
+
+## Skill
+
+A skill is a reusable instruction file that an agent loads at runtime to help with a task. Skills follow the open [Agent Skills](https://agentskills.io "https://agentskills.io") standard for skill file structure. At runtime the agent selects a skill from a catalog it was shown, or reads the `SKILL.md` file directly from the filesystem. AgentCore Evaluations detects skill invocations from an agent’s traces. To evaluate them, use the [built-in skill evaluators](./skill-evaluators.html "./skill-evaluators.html") or custom TOOL\_CALL evaluators that reference the [skill placeholders](./create-evaluator.html "./create-evaluator.html").
+
+## Reference Free Large Language Models (LLMs) as judges
+
+Large Language Models (LLMs) as judges refers to an evaluation method that uses a large language model (LLM) to automatically assess the quality, correctness, or effectiveness of an agent or another model’s output. Instead of relying on manual review or rule-based checks, the LLM is prompted with evaluation criteria and produces a score, label, or explanation based on the input and output being evaluated. Unlike traditional evaluations that rely on ground-truth data, LLM-as-a-judge methods rely on the model’s internal knowledge to make judgments. This approach enables scalable, consistent, and customizable qualitative assessments, such as correctness, reasoning quality, or instruction adherence, across large numbers of agent interactions or model responses.
+
+====================================================================================================
+### [4/16] read_documentation :: 5.1.7 ground truth evaluations
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/ground-truth-evaluations.html:
+
+# Ground truth evaluations
+
+Ground truth is the known correct answer or expected behavior for a given input — the "gold standard" you compare actual results against. For agent evaluation, ground truth transforms subjective quality assessment into objective measurement, enabling regression detection, benchmark datasets, and domain-specific correctness that generic evaluators cannot provide on their own.
+
+With ground truth evaluations, you provide reference inputs alongside your session spans when calling the Evaluate API. The service uses these reference inputs to score your agent’s actual behavior against the expected behavior. Evaluators that don’t use a particular ground truth field ignore it and report which fields were not used in the response.
+
+###### Topics
+
+* [Supported builtin evaluators and ground truth fields](#gt-supported-evaluators "#gt-supported-evaluators")
+* [Prerequisites](#gt-prerequisites "#gt-prerequisites")
+* [Correctness with expected response](#gt-correctness "#gt-correctness")
+* [GoalSuccessRate with assertions](#gt-goal-success-rate "#gt-goal-success-rate")
+* [Trajectory matching with expected trajectory](#gt-trajectory-matching "#gt-trajectory-matching")
+* [Combining all ground truth fields in one request](#gt-combining-fields "#gt-combining-fields")
+* [Understanding ignored reference input fields](#gt-ignored-fields "#gt-ignored-fields")
+* [Ground truth in custom evaluators](#gt-custom-evaluators "#gt-custom-evaluators")
+
+## Supported builtin evaluators and ground truth fields
+
+The following table shows which built-in evaluators support ground truth and which fields they use.
+
+| Evaluator | Level | Ground truth field | Description |
+| --- | --- | --- | --- |
+| `Builtin.Correctness` | Trace | `expectedResponse` | Measures how accurately the agent’s response matches the expected answer. Uses LLM-as-a-Judge scoring. |
+| `Builtin.GoalSuccessRate` | Session | `assertions` | Validates whether the agent’s behavior satisfies natural language assertions across the entire session. Uses LLM-as-a-Judge scoring. |
+| `Builtin.TrajectoryExactOrderMatch` | Session | `expectedTrajectory` | Checks that the actual tool call sequence matches the expected sequence exactly — same tools, same order, no extras. Programmatic scoring (no LLM calls). |
+| `Builtin.TrajectoryInOrderMatch` | Session | `expectedTrajectory` | Checks that all expected tools appear in order within the actual sequence, but allows extra tools between them. Programmatic scoring. |
+| `Builtin.TrajectoryAnyOrderMatch` | Session | `expectedTrajectory` | Checks that all expected tools are present in the actual sequence, regardless of order. Extra tools are allowed. Programmatic scoring. |
+
+###### Note
+
+Custom evaluators also support ground truth fields through placeholders in their evaluation instructions. See [Ground truth in custom evaluators](#gt-custom-evaluators "#gt-custom-evaluators") for details.
+
+The following table describes the ground truth fields.
+
+| Field | Type | Scope | Description |
+| --- | --- | --- | --- |
+| `expectedResponse` | String | Trace | The expected agent response for a specific turn. Scoped to a trace using `traceId` in the reference input context. |
+| `assertions` | List of strings | Session | Natural language statements that should be true about the agent’s behavior across the session. |
+| `expectedTrajectory` | List of tool names | Session | The expected sequence of tool calls for the session. |
+
+* Ground truth fields are optional. If you omit them, evaluators fall back to their ground truth-free mode (for example, `Builtin.Correctness` still works without `expectedResponse` , it just evaluates based on context alone).
+* You can provide all ground truth fields in a single request. The service picks the relevant fields for each evaluator and reports `ignoredReferenceInputFields` in the response for any fields that were not used.
+* You don’t need to provide `expectedResponse` for every trace. Traces without ground truth are evaluated using the ground truth-free variant of the evaluator.
+
+## Prerequisites
+
+* Python 3.10+
+* An agent built with a supported framework and instrumentation library. For more information about supported frameworks and instrumentation libraries, see [Supported agent frameworks](./supported-frameworks.html "./supported-frameworks.html").
+* An agent deployed on AgentCore Runtime with observability enabled, or an agent built with a supported framework configured with [AgentCore Observability](./observability.html "./observability.html"), including Transaction Search. For more information about telemetry setup, see [Telemetry setup and delivery](./supported-frameworks-telemetry.html "./supported-frameworks-telemetry.html").
+* AWS credentials configured with permissions for `bedrock-agentcore` , `bedrock-agentcore-control` , and `logs` (CloudWatch)
+
+For instructions on downloading session spans, see [Getting started with on-demand evaluation](./getting-started-on-demand.html "./getting-started-on-demand.html").
+
+### About the examples
+
+The examples on this page use the sample agent from the [AgentCore Evaluations tutorials](https://github.com/awslabs/amazon-bedrock-agentcore-samples/tree/main/01-features/06-observe-evaluate-optimize-your-agent/02-evaluate "https://github.com/awslabs/amazon-bedrock-agentcore-samples/tree/main/01-features/06-observe-evaluate-optimize-your-agent/02-evaluate") . The agent has two tools — `calculator` and `weather` — and is deployed on AgentCore Runtime with observability enabled.
+
+The examples assume a two-turn session:
+
+1. **Turn 1:** "What is 15 + 27?" — agent uses the `calculator` tool and responds with the result.
+2. **Turn 2:** "What’s the weather?" — agent uses the `weather` tool and responds with the current weather.
+
+Before running evaluations, invoke your agent and wait 2–5 minutes for CloudWatch to ingest the telemetry data.
+
+The following constants are used throughout the examples on this page. Replace them with your own values:
+
+```
+REGION       = "<region-code>"
+AGENT_ID     = "my-agent-id"
+SESSION_ID   = "my-session-id"
+TRACE_ID_1   = "<trace-id-1>"   # Turn 1: "What is 15 + 27?"
+TRACE_ID_2   = "<trace-id-2>"   # Turn 2: "What's the weather?"
+```
+
+## Correctness with expected response
+
+`Builtin.Correctness` is a trace-level evaluator that measures how accurately the agent’s response matches an expected answer. When you provide `expectedResponse` , the evaluator compares the agent’s actual response against your ground truth using LLM-as-a-Judge scoring.
+
+###### Example
+
+AgentCore SDK
+:   1. ```
+       from bedrock_agentcore.evaluation import EvaluationClient, ReferenceInputs
+
+       client = EvaluationClient(region_name=REGION)
+
+       # String form — matched against the last trace in the session
+       results = client.run(
+           evaluator_ids=["Builtin.Correctness"],
+           agent_id=AGENT_ID,
+           session_id=SESSION_ID,
+           reference_inputs=ReferenceInputs(
+               expected_response="The weather is sunny",
+           ),
+       )
+
+       for r in results:
+           print(f"Trace: {r['context']['spanContext'].get('traceId', 'session')}")
+           print(f"Score: {r['value']}, Label: {r['label']}")
+       ```
+
+       To target a specific trace, pass `expected_response` as a dict mapping trace IDs to expected answers:
+
+       ```
+       results = client.run(
+           evaluator_ids=["Builtin.Correctness"],
+           agent_id=AGENT_ID,
+           session_id=SESSION_ID,
+           reference_inputs=ReferenceInputs(
+               expected_response={
+                   TRACE_ID_1: "15 + 27 = 42",
+                   TRACE_ID_2: "The weather is sunny",
+               },
+           ),
+       )
+       ```
+
+AgentCore CLI
+:   1. ```
+       # Expected response matched against the last trace
+       agentcore run eval \
+         --runtime AGENT_NAME \
+         --session-id SESSION_ID \
+         --evaluator Builtin.Correctness \
+         --expected-response "The weather is sunny"
+
+       # Target a specific trace
+       agentcore run eval \
+         --runtime AGENT_NAME \
+         --session-id SESSION_ID \
+         --evaluator Builtin.Correctness \
+         --trace-id TRACE_ID_1 \
+         --expected-response "15 + 27 = 42"
+
+       # ARN mode — evaluate an agent outside the CLI project
+       agentcore run eval \
+         --runtime-arn arn:aws:bedrock-agentcore:<region-code>:<account-id>:runtime/<agent-id> \
+         --region <region-code> \
+         --session-id SESSION_ID \
+         --evaluator-arn arn:aws:bedrock-agentcore:::evaluator/Builtin.Correctness \
+         --expected-response "The weather is sunny"
+       ```
+
+Starter Toolkit SDK
+:   1. ```
+       from bedrock_agentcore_starter_toolkit import Evaluation, ReferenceInputs
+
+       eval_client = Evaluation(region=REGION)
+
+       # String form — matched against the last trace
+       results = eval_client.run(
+           agent_id=AGENT_ID,
+           session_id=SESSION_ID,
+           evaluators=["
+
+<e>Content truncated. Call the read_documentation tool with start_index=9000 to get more content.</e>
+
+====================================================================================================
+### [5/16] read_documentation :: 5.1.7 skill evaluators
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/skill-evaluators.html:
+
+# Skill evaluators
+
+A *skill* is a reusable `SKILL.md` instruction file that an agent loads at runtime to help with a task. Skills follow the open [Agent Skills](https://agentskills.io "https://agentskills.io") standard for skill file structure. For terminology, see [Skill](./evaluations-terminology.html#skill "./evaluations-terminology.html#skill").
+
+AgentCore Evaluations provides two built-in evaluators for agents that use skills. Both are tool-level evaluators. AgentCore Evaluations emits one result per skill invocation and anchors each result to the tool call span that loaded the skill. A session with three skill invocations produces three results per evaluator.
+
+You can use these evaluators with on-demand, batch, and online evaluations. For the exact prompt bodies, see [Skill selection accuracy](./prompt-templates-builtin.html#skill-selection-accuracy "./prompt-templates-builtin.html#skill-selection-accuracy") and [Skill instruction following](./prompt-templates-builtin.html#skill-instruction-following "./prompt-templates-builtin.html#skill-instruction-following") on the [Prompt templates](./prompt-templates-builtin.html "./prompt-templates-builtin.html") page.
+
+## Builtin.SkillSelectionAccuracy
+
+The Skill selection accuracy evaluator (`Builtin.SkillSelectionAccuracy`) judges whether the skill the agent loaded fits the task, given the catalog of available skills. It returns `Yes` (1.0) or `No` (0.0).
+
+Placeholders the evaluator uses:
+
+* `invoked_skill` – The name of the skill the agent loaded in this tool call.
+* `available_skills` – The catalog of skills the agent could choose from at runtime. Not every framework exposes a catalog. When the catalog is not in the trace, this placeholder is empty and the evaluator judges the invoked skill against the user request and the conversation context alone.
+* `user_message` – The user request in the turn that triggered the skill invocation.
+* `context` – Previous turns up to the tool call being evaluated.
+
+The evaluator runs whenever AgentCore Evaluations detects a skill invocation. It focuses on the selection decision, not on how well the agent then executed the skill.
+
+## Builtin.SkillInstructionFollowing
+
+The Skill instruction following evaluator (`Builtin.SkillInstructionFollowing`) judges how fully the agent followed the loaded skill’s prescribed steps. It returns `Fully Followed` (1.0), `Mostly Followed` (0.75), `Partially Followed` (0.5), `Minimally Followed` (0.25), or `Not Followed` (0.0).
+
+Placeholders the evaluator uses:
+
+* `invoked_skill` – The name of the skill the agent loaded in this tool call.
+* `skill_content` – The full body of the loaded skill’s `SKILL.md` instructions.
+* `context` – The **full session context** — every turn from session start through session end. Because the agent may carry out prescribed steps at any point after loading the skill, the judge needs the entire session, not just the turns up to the tool call.
+
+The evaluator runs only when both the invoked skill and its `SKILL.md` body are present in the trace. The judge identifies the prescribed steps in the skill body, then, for each step, determines from the conversation record whether the step was fully carried out, partially carried out, or skipped, and produces an overall rating consistent with that per-step breakdown.
+
+## Framework support
+
+AgentCore Evaluations detects skill invocations from two kinds of trace signals: a filesystem read of a `SKILL.md` file, and a framework’s native skill-loading tool. The filesystem-read signal works for any framework. The native-tool signal applies to the specific frameworks in the second row of the following table.
+
+|  |  |
+| --- | --- |
+| Detection method | Frameworks |
+| `SKILL.md` file read (universal) | LlamaIndex, OpenAI Agents, and any agent that reads `SKILL.md` through a generic file-read tool. |
+| Native skill-loading tool (in addition to file read) | Strands Agents, LangGraph Deep Agents, Google ADK, Claude Agent SDK. |
+
+For the file-read path, AgentCore Evaluations matches a tool call as a skill load when its parameters contain a path ending in `/SKILL.md` and the tool result body is a well-formed `SKILL.md` file (frontmatter with `name` and `description` fields, followed by an instructions body).
+
+An available-skills catalog is emitted natively by Strands Agents, LangGraph Deep Agents, and Google ADK. Claude Agent SDK and file-read agents do not emit a catalog. `Builtin.SkillSelectionAccuracy` still runs on those agents, with an empty `available_skills` placeholder.
+
+For general instrumentation setup and per-framework scope names, see [Supported agent frameworks](./supported-frameworks.html "./supported-frameworks.html").
+
+## Skipping behavior
+
+AgentCore Evaluations classifies a tool call as a skill invocation when the trace exposes `invoked_skill` or `skill_content` for that call. If neither signal is present, AgentCore Evaluations skips both skill evaluators for that call and emits no result. If your agent doesn’t load any skills, both evaluators produce zero results for the session — this is expected, not an error.
+
+If your agent does load skills but the evaluators still return no results, run the diagnostic skill in [Diagnostic skill source](./diagnose-evaluation-skill-source.html "./diagnose-evaluation-skill-source.html") to confirm the traces carry the expected signals.
+
+## Skill placeholders for custom evaluators
+
+You can write a custom TOOL\_CALL evaluator that reasons about the skills an agent loaded. The skill placeholders described above (`invoked_skill`, `skill_content`, `available_skills`, `user_message`) are available to any custom TOOL\_CALL evaluator alongside the standard tool-level placeholders (`context`, `available_tools`, `tool_turn`). Session-level and trace-level custom evaluators cannot use these placeholders.
+
+How AgentCore Evaluations behaves depends on which skill placeholders the custom evaluator references:
+
+* An evaluator that references `invoked_skill` behaves like `Builtin.SkillSelectionAccuracy`: it runs only on skill-invocation tool calls, and `{context}` renders the standard pre-call snapshot.
+* An evaluator that references `skill_content` behaves like `Builtin.SkillInstructionFollowing`: it runs only on skill-invocation tool calls whose `SKILL.md` body is available, and `{context}` renders the **full session context** — every turn from session start through session end. This differs from the standard tool-level `context`.
+
+In either case, AgentCore Evaluations emits one result per skill invocation. For custom-evaluator authoring, see [Create evaluator](./create-evaluator.html "./create-evaluator.html").
+
+====================================================================================================
+### [6/16] read_documentation :: 5.1.7 create evaluator
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/create-evaluator.html:
+
+# Create evaluator
+
+The `CreateEvaluator` API creates a new custom evaluator that defines how to assess specific aspects of your agent’s behavior. This asynchronous operation returns immediately while the evaluator is being provisioned. The API returns the evaluator ARN, ID, creation timestamp, and initial status. Once created, the evaluator can be referenced in online evaluation configurations.
+
+**Required parameters:** You must specify a unique evaluator name (within your Region), evaluator configuration, and evaluation level ( `TOOL_CALL` , `TRACE` , or `SESSION` ).
+
+**Optional encryption:** You can specify a `kmsKeyArn` to encrypt the evaluator’s instructions and rating scale with a customer managed AWS KMS key. Only symmetric encryption KMS keys are supported. For more information, see [Encryption at rest for AgentCore Evaluations](./evaluations-encryption.html "./evaluations-encryption.html").
+
+**Evaluator configuration:** You can choose one of two evaluator types:
+
+LLM-as-a-judge
+:   Define evaluation instructions (prompts), model settings, and rating scales. A judge model executes the evaluation logic. The judge model is an Amazon Bedrock foundation model, invoked through either the Amazon Bedrock Runtime endpoint (`bedrock-runtime`) or the Amazon Bedrock Mantle endpoint (`bedrock-mantle`).
+
+Code-based
+:   Specify an AWS Lambda function ARN to run your own programmatic evaluation logic. For details on the Lambda function contract and configuration, see [Custom code-based evaluator](./code-based-evaluators.html "./code-based-evaluators.html").
+
+For LLM-as-a-judge evaluators, specify the judge model in `modelConfig` using one of the following:
+
+* `bedrockEvaluatorModelConfig` – Use a model on the Amazon Bedrock Runtime endpoint (`bedrock-runtime`). Specify the `modelId` and, optionally, an `inferenceConfig` with `maxTokens`, `temperature`, `topP`, and `stopSequences`.
+* `responsesEvaluatorModelConfig` – Use a model on the Amazon Bedrock Mantle endpoint (`bedrock-mantle`). Specify the `modelId` and, optionally, inference parameters. For a model’s supported endpoints, model IDs, and inference parameters, see its model card in the *Amazon Bedrock User Guide*, for example [GPT-5.6 Sol](https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-56-sol.html "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-56-sol.html").
+
+**LLM-as-a-judge instructions:** For LLM-as-a-judge evaluators, the instruction must include at least one placeholder, which is replaced with actual trace information before being sent to the judge model. Each evaluator level supports only a fixed set of placeholder values:
+
+* **Session-level evaluators:**
+
+  + `context` – A list of user prompts, assistant responses, and tool calls across all turns in the session.
+  + `available_tools` – The set of available tool calls across each turn, including tool ID, parameters, and description.
+* **Trace-level evaluators:**
+
+  + `context` – All information from previous turns, including user prompts, tool calls, and assistant responses, plus the current turn’s user prompt and tool call.
+  + `assistant_turn` – The assistant response for the current turn.
+* **Tool-level evaluators:**
+
+  + `available_tools` – The set of available tool calls, including tool ID, parameters, and description.
+  + `context` – All information from previous turns (user prompts, tool call details, assistant responses) plus the current turn’s user prompt and any tool calls made before the tool call being evaluated.
+  + `tool_turn` – The tool call under evaluation.
+  + **Skill placeholders** – The following placeholders are populated only for tool calls that AgentCore Evaluations identifies as skill invocations. A custom TOOL\_CALL evaluator that includes `invoked_skill` or `skill_content` runs only on skill-invocation tool calls; other tool calls in the same session are skipped. For details, see [Skill evaluators](./skill-evaluators.html "./skill-evaluators.html").
+
+    - `invoked_skill` – The name of the skill the agent loaded in this tool call.
+    - `skill_content` – The full body of the loaded skill’s `SKILL.md` instructions.
+    - `available_skills` – The catalog of skills the agent could choose from at runtime, when the trace exposes one. Each entry has a name and description. Not every framework exposes a catalog; when the catalog isn’t in the trace, this placeholder is empty.
+    - `user_message` – The user request in the turn that triggered the skill invocation.
+
+      ###### Note
+
+      When a custom TOOL\_CALL evaluator’s prompt references `skill_content`, `{context}` renders the **full session context** — every turn from session start through session end — so the judge can verify whether prescribed steps were carried out at any point after the skill was loaded. For other custom TOOL\_CALL evaluators, `{context}` is the standard pre-call snapshot.
+
+**Ground truth placeholders:** In addition to the standard placeholders, custom evaluators can reference ground truth placeholders that are populated from the `evaluationReferenceInputs` provided at evaluation time. This enables you to build evaluators that compare agent behavior against known-correct answers.
+
+* **Session-level evaluators:**
+
+  + `actual_tool_trajectory` — The actual sequence of tool names the agent called during the session.
+  + `expected_tool_trajectory` — The expected sequence of tool names, provided via `expectedTrajectory` in the evaluation reference inputs.
+  + `assertions` — The list of natural language assertions, provided via `assertions` in the evaluation reference inputs.
+* **Trace-level evaluators:**
+
+  + `expected_response` — The expected agent response, provided via `expectedResponse` in the evaluation reference inputs.
+
+###### Important
+
+Custom evaluators that use ground truth placeholders ( `assertions` , `expected_response` , `expected_tool_trajectory` ) cannot be used in online evaluation configurations. Online evaluations moni
+
+<e>Content truncated. Call the read_documentation tool with start_index=6000 to get more content.</e>
+
+====================================================================================================
+### [7/16] read_documentation :: 5.1.9 user simulation
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/user-simulation.html:
+
+# User simulation
+
+User simulation uses an LLM-backed actor to play the role of an end user interacting with your agent. You define the actor’s profile and goal, and the actor drives a multi-turn conversation with your agent until the goal is met or the turn limit is reached.
+
+###### Note
+
+User simulation invokes Amazon Bedrock models on the SDK side to generate the actor’s responses. Standard Amazon Bedrock model invocation charges apply for these calls. For details, see the [AgentCore pricing page](https://aws.amazon.com/bedrock/agentcore/pricing/ "https://aws.amazon.com/bedrock/agentcore/pricing/").
+
+This is useful when you want to:
+
+* **Test with realistic variation:** The actor generates different phrasings, follow-up questions, and conversation paths each run, exposing edge cases that hand-authored scenarios miss.
+* **Evaluate open-ended conversations:** For agents that handle free-form dialogue (customer support, tutoring, advisory), simulated scenarios better reflect real user behavior than fixed turn sequences.
+* **Scale scenario coverage:** Instead of writing dozens of multi-turn scripts by hand, define actor profiles with different personas and goals and let the actor generate the conversations.
+* **Regression test with diversity:** Run the same actor profile multiple times to check that your agent handles varied expressions of the same intent.
+
+User simulation works with both the [on-demand](./dataset-evaluations-on-demand.html "./dataset-evaluations-on-demand.html") and [batch](./dataset-evaluations-batch.html "./dataset-evaluations-batch.html") dataset runners.
+
+## How it works
+
+The runner processes each simulated scenario through a conversation loop:
+
+1. **Start:** The runner sends the scenario’s `input` field to your agent as the first turn.
+2. **Agent responds:** Your agent processes the input and returns a response.
+3. **Actor evaluates:** The LLM-backed actor receives the agent’s response and decides what to do next based on its profile and goal. The actor produces a structured response containing:
+
+   * **Reasoning:** The actor’s internal reasoning for its response (for example, "The agent provided flight options but did not ask for my preferred time. I should specify that I prefer morning flights."). This is useful for debugging why the actor behaved a certain way.
+   * **Message:** The next message to send to the agent.
+   * **Stop signal:** A boolean indicating whether the actor considers its goal achieved.
+4. **Continue or stop:** If the actor signals goal completion (`stop: true`) or the turn count reaches `max_turns`, the conversation ends. Otherwise, the actor’s next message becomes the input for the next turn.
+5. **Evaluate:** After the conversation completes, the runner evaluates the session using the configured evaluators, the same as with predefined scenarios.
+
+## Actor profile
+
+Each simulated scenario requires an `ActorProfile` that defines who the actor is and what it wants to achieve:
+
+| Field | Required | Description |
+| --- | --- | --- |
+| `context` | Yes | Background information about the actor. Describes the situation and any relevant details the actor should know. |
+| `goal` | Yes | What the actor wants to achieve in the conversation. The actor signals completion when it determines the goal has been met. |
+| `traits` | No | Key-value pairs describing the actor’s characteristics (for example, expertise level, communication style, patience). Defaults to empty. |
+
+```
+{
+  "actor_profile": {
+    "context": "A customer who purchased a laptop last week and it arrived with a cracked screen",
+    "goal": "Get a replacement laptop shipped within 2 business days",
+    "traits": {
+      "expertise": "non-technical",
+      "tone": "frustrated but polite",
+      "patience": "low"
+    }
+  }
+}
+```
+
+## Simulation configuration
+
+The `SimulationConfig` controls the actor’s behavior and is set on the runner’s evaluation config:
+
+| Field | Default | Description |
+| --- | --- | --- |
+| `model_id` | Default model | The Amazon Bedrock model ID used for the actor LLM. Choose a model that can follow complex persona instructions. If omitted, the default model is used. |
+
+```
+from bedrock_agentcore.evaluation import SimulationConfig
+
+simulation_config = SimulationConfig(
+    model_id="<model-id>",
+)
+```
+
+## Dataset schema
+
+A simulated scenario uses `actor_profile` and `input` instead of `turns`:
+
+```
+{
+  "scenarios": [
+    {
+      "scenario_id": "geography-student",
+      "scenario_description": "A curious student asks geography questions",
+      "actor_profile": {
+        "traits": {"expertise": "novice", "tone": "curious"},
+        "context": "A student studying world geography who wants to learn about capitals",
+        "goal": "Find out the capital cities of at least two different countries"
+      },
+      "input": "Hi! I'm studying geography. Can you help me learn about world capitals?",
+      "max_turns": 5,
+      "assertions": [
+        "Agent provides accurate capital city information",
+        "Agent is helpful and encouraging to the student"
+      ]
+    }
+  ]
+}
+```
+
+| Field | Required | Default | Description |
+| --- | --- | --- | --- |
+| `scenario_id` | Yes | — | Unique identifier for the scenario. |
+| `scenario_description` | No | `""` | Optional metadata describing the scenario. Useful for organizing and identifying scenarios in results. |
+| `actor_profile` | Yes | — | The actor’s identity and objective. See [Actor profile](#user-simulation-actor-profile "#user-simulation-actor-profile"). |
+| `input` | Yes | — | The first message sent to your agent to start the conversation. |
+| `max_turns` | No | 10 | Maximum number of turns before the conversation stops. Must be at least 1. |
+| `assertions` | No | — | Natural language assertions about expected behavior. Used by session-level evaluators such as `Builtin.GoalSuccessRate`. |
+
+###### Note
+
+Simulated scenarios do not support `expected_trajectory` or per-turn `expected_response` because the conversation flow is not known in advance. Use `assertions` for ground truth with simulated scenarios.
+
+`FileDatasetProvider` auto-detects the scenario type from the JSON structure: scenarios with an `actor_profile` field (and no `turns` field) are loaded as `SimulatedScenario`.
+
+## Using with the batch dataset runner
+
+The following example runs a simulated scenario evaluation using the [batch dataset runner](./dataset-evaluations-batch.html "./dataset-evaluations-batch.html"). Set `simulation_config` on `BatchEvaluationRunConfig` and include `SimulatedScenario` instances in the dataset:
+
+```
+import boto3
+import json
+from bedrock_agentcore.evaluation import (
+    BatchEvaluationRunner,
+    BatchEvaluationRunConfig,
+    BatchEvaluatorConfig,
+    CloudWatchDataSourceConfig,
+    SimulationConfig,
+    AgentInvokerInput,
+    AgentInvokerOutput,
+    Dataset,
+    SimulatedScenario,
+    ActorProfile,
+)
+
+AGENT_ARN = "arn:aws:bedrock-agentcore:us-west-2:123456789012:runtime/MyAgent-abc123"  # Replace with your agent runtime ARN
+REGION = "us-west-2"  # Replace with your region
+RUNTIME_ID = AGENT_ARN.split("/")[-1]
+AGENT_NAME = RUNTIME_ID.rsplit("-", 1)[0]
+ENDPOINT_NAME = "DEFAULT"
+LOG_GROUP = f"/aws/bedrock-agentcore/runtimes/{RUNTIME_ID}-{ENDPOINT_NAME}"
+SERVICE_NAME = f"{AGENT_NAME}.{ENDPOINT_NAME}"
+ACTOR_MODEL_ID = "global.anthropic.claude-haiku-4-5-20251001-v1:0"  # Replace with your preferred model
+
+# Define the dataset with simulated scenarios
+dataset = Dataset(
+    scenarios=[
+        SimulatedScenario(
+            scenario_id="support-frustrated-customer",
+            scenario_description="A frustrated customer with a defective product",
+            actor_profile=ActorProfile(
+                traits={"expertise": "non-technical", "tone": "frustrated but polite"},
+                context="Purchased a laptop last week that arrived with a cracked screen",
+                goal="Get a replacement laptop shipped within 2 business days",
+            ),
+            input="I received my laptop and the sc
+
+<e>Content truncated. Call the read_documentation tool with start_index=8000 to get more content.</e>
+
+====================================================================================================
+### [8/16] read_documentation :: 5.1.4 batch evaluations getting started
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/batch-evaluations-getting-started.html:
+
+# Getting started with batch evaluation
+
+This walkthrough takes you from a deployed agent to batch evaluation results using an Acme Store customer support agent. You will create the agent, deploy it, generate sample sessions, run a batch evaluation, and read the results.
+
+###### Topics
+
+* [Before you begin](#batch-gs-before-you-begin "#batch-gs-before-you-begin")
+* [Step 1: Create and deploy the sample agent](#batch-gs-step1 "#batch-gs-step1")
+* [Step 2: Generate sample sessions](#batch-gs-step2 "#batch-gs-step2")
+* [Step 3: Run batch evaluation](#batch-gs-step3 "#batch-gs-step3")
+* [Step 4: Read per-session detail](#batch-gs-step4 "#batch-gs-step4")
+* [Next steps](#batch-gs-next-steps "#batch-gs-next-steps")
+
+## Before you begin
+
+Make sure you have:
+
+* The AgentCore CLI installed (`agentcore --version`)
+* AWS credentials with permissions for `bedrock-agentcore` and `logs`
+* Transaction Search enabled in CloudWatch
+* Python 3.10+ (for boto3 examples)
+
+For full details, see [Prerequisites](./batch-evaluations-prereqs.html "./batch-evaluations-prereqs.html").
+
+The following constants are used in the boto3 examples. Replace them with your own values after deploying the agent:
+
+```
+REGION       = "us-west-2"
+AGENT_ARN    = "arn:aws:bedrock-agentcore:us-west-2:123456789012:runtime/AcmeSupport-abc123"
+SERVICE_NAME = "AcmeSupport-abc123.DEFAULT"
+LOG_GROUP    = "/aws/bedrock-agentcore/runtimes/AcmeSupport-abc123-DEFAULT"
+```
+
+## Step 1: Create and deploy the sample agent
+
+Create an AgentCore project and replace the default agent code with the Acme Store customer support agent. This agent has five tools for handling orders, returns, shipping, discounts, and escalations.
+
+### Create the project
+
+```
+agentcore create --name AcmeSupport --framework Strands --model-provider Bedrock --memory none
+cd AcmeSupport
+```
+
+### Replace the agent code
+
+Open `app/AcmeSupport/main.py` and replace its contents with the following:
+
+```
+"""Acme Store customer support agent."""
+from strands import Agent, tool
+from strands.models.bedrock import BedrockModel
+from bedrock_agentcore.runtime import BedrockAgentCoreApp
+
+app = BedrockAgentCoreApp()
+MODEL_ID = "global.anthropic.claude-sonnet-4-6"
+SYSTEM_PROMPT = (
+    "You are a helpful customer support assistant for Acme Store. "
+    "Help customers with their orders, returns, and shipping questions."
+)
+
+
+@tool
+def lookup_order(order_id: str) -> str:
+    """Look up an order by ID and return its status, item, and delivery details."""
+    orders = {
+        "ORD-1001": {
+            "status": "delivered",
+            "item": "Blue T-Shirt (L)",
+            "delivered": "2026-03-28",
+            "total": "$29.99",
+        },
+        "ORD-1002": {
+            "status": "in_transit",
+            "item": "Running Shoes (10)",
+            "shipped": "2026-03-30",
+            "est_delivery": "2026-04-05",
+            "total": "$89.99",
+        },
+        "ORD-1003": {
+            "status": "delayed",
+            "item": "Wireless Headphones",
+            "shipped": "2026-03-25",
+            "est_delivery": "2026-03-29",
+            "days_late": 5,
+            "total": "$59.99",
+        },
+        "ORD-1004": {
+            "status": "processing",
+            "item": "Yoga Mat",
+            "ordered": "2026-04-02",
+            "total": "$34.99",
+        },
+        "ORD-1005": {
+            "status": "delivered",
+            "item": "Coffee Maker",
+            "delivered": "2026-03-20",
+            "total": "$149.99",
+        },
+    }
+    return str(orders.get(order_id, {"error": f"Order {order_id} not found"}))
+
+
+@tool
+def initiate_return(order_id: str, reason: str) -> str:
+    """Initiate a return for an order. Sends a return label to the customer."""
+    return (
+        f"Return initiated for {order_id}. Reason: {reason}. "
+        "Return label sent to customer email. Please ship within 14 days."
+    )
+
+
+@tool
+def check_shipping_status(order_id: str) -> str:
+    """Check detailed shipping status including carrier location and delays."""
+    statuses = {
+        "ORD-1002": (
+            "Package is with carrier, currently in Portland OR. "
+            "On schedule for April 5."
+        ),
+        "ORD-1003": (
+            "Package delayed at distribution center in Memphis TN. "
+            "Original delivery was March 29. Now 5 days late. "
+            "Acme Store policy: orders delayed 3+ days qualify for 15% discount."
+        ),
+    }
+    return statuses.get(order_id, f"No active shipment found for {order_id}.")
+
+
+@tool
+def apply_discount(order_id: str, discount_percent: int, reason: str) -> str:
+    """Apply a percentage discount to an order and issue a refund."""
+    return (
+        f"Applied {discount_percent}% discount to {order_id}. "
+        f"Reason: {reason}. Refund will appear in 3-5 business days."
+    )
+
+
+@tool
+def escalate_to_human(reason: str) -> str:
+    """Escalate the conversation to a human support agent."""
+    return (
+        f"Escalated to human agent. Reason: {reason}. "
+        "Estimated wait time: 3 minutes."
+    )
+
+
+agent = Agent(
+    model=BedrockModel(model_id=MODEL_ID),
+    tools=[lookup_order, initiate_return, check_shipping_status,
+           apply_discount, escalate_to_human],
+    system_prompt=SYSTEM_PROMPT,
+)
+
+
+@app.entrypoint
+def invoke(payload, context):
+    result = agent(str(payload.get("prompt", "Hello")))
+    return {"response": str(result)}
+
+
+if __name__ == "__main__":
+    app.run()
+```
+
+### Deploy and verify
+
+```
+agentcore deploy
+```
+
+After deployment, verify the agent is running:
+
+```
+agentcore invoke --prompt "What's the status of order ORD-1001?"
+```
+
+You should see a response with the order details. Note the runtime ARN, service name, and log group from `agentcore status --json` — you will need these for the boto3 examples.
+
+###### Note
+
+If you already have an agent deployed on AgentCore Runtime with observability enabled, skip this step and use your own agent for the rest of the walkthrough.
+
+## Step 2: Generate sample sessions
+
+Invoke the agent with varied prompts to create sessions for evaluation. These prompts cover different scenarios: order lookups, returns, shipping delays, discount requests, and multi-tool interactions.
+
+###### Example
+
+AgentCore CLI
+:   ```
+    agentcore invoke --runtime AcmeSupport --prompt "What's the status of my order ORD-1001?"
+    agentcore invoke --runtime AcmeSupport --prompt "I need to return order ORD-1001, the shirt doesn't fit."
+    agentcore invoke --runtime AcmeSupport --prompt "What's the shipping status on ORD-1002?"
+    agentcore invoke --runtime AcmeSupport --prompt "My order ORD-1003 is delayed, can you help?"
+    agentcore invoke --runtime AcmeSupport --prompt "I'd like to check on order ORD-1004 please."
+    agentcore invoke --runtime AcmeSupport --prompt "Can you look up order ORD-1005 for me?"
+    agentcore invoke --runtime AcmeSupport --prompt "I want to return the coffee maker from order ORD-1005, it's defective."
+    agentcore invoke --runtime AcmeSupport --p
+
+<e>Content truncated. Call the read_documentation tool with start_index=7000 to get more content.</e>
+
+====================================================================================================
+### [9/16] read_documentation :: 5.1.7 observability runtime metrics de AgentCore
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability-runtime-metrics.html:
+
+# AgentCore generated runtime observability data
+
+The runtime metrics provided by AgentCore give you visibility into your agent execution activity levels, processing latency, resource utilization, and error rates. AgentCore also provides aggregated metrics for total invocations and sessions.
+
+###### Topics
+
+* [Observability runtime metrics](#observability-runtime-metrics-one "#observability-runtime-metrics-one")
+* [Resource usage metrics and logs](#observability-runtime-resource-usage-metrics-logs "#observability-runtime-resource-usage-metrics-logs")
+* [Provided span data](#observability-runtime-span-data "#observability-runtime-span-data")
+* [Application log data](#observability-runtime-application-log-data "#observability-runtime-application-log-data")
+* [Error types](#observability-runtime-metrics-errors "#observability-runtime-metrics-errors")
+
+## Observability runtime metrics
+
+The following list describes the runtime metrics provided by AgentCore. Runtime metrics are batched at one minute intervals. To learn more about viewing runtime metrics, see [View observability data for your Amazon Bedrock AgentCore agents](./observability-view.html "./observability-view.html").
+
+Invocations
+:   Shows the total number of requests made to the Data Plane API. Each API call counts as one invocation, regardless of the request payload size or response status.
+
+Invocations (aggregated)
+:   Shows the total number of invocations across all resources
+
+Throttles
+:   Displays the number of requests throttled by the service due to exceeding allowed TPS (Transactions Per Second) or quota limits. These requests return ThrottlingException with HTTP status code 429. Monitor this metric to determine if you need to review your service quotas or optimize request patterns.
+
+System Errors
+:   Shows the number of server-side errors encountered by AgentCore during request processing. High levels of server-side errors can indicate potential infrastructure or service issues that require investigation. See [Error types](#observability-runtime-metrics-errors "#observability-runtime-metrics-errors") for a list of possible error codes.
+
+User Errors
+:   Represents the number of client-side errors resulting from invalid requests. These require user action to resolve. High levels of client-side errors can indicate issues with request formatting or permissions that need to be addressed. See [Error types](#observability-runtime-metrics-errors "#observability-runtime-metrics-errors") for a list of possible error codes.
+
+Latency
+:   The total time elapsed between receiving the request and sending the final response token. Represents complete end-to-end processing time of the request.
+
+Total Errors
+:   The total number of system and user errors. In the Amazon Bedrock AgentCore console, this metric displays the number of errors as a percentage of the total number of invocations.
+
+Session Count
+:   Shows the number of new agent sessions created within the reporting period. Each session is counted once at creation time; subsequent invocations to the same session do not increment this metric. This is a cumulative counter, not a gauge of currently active sessions. Useful for monitoring overall platform usage, trending session creation rates, and understanding user engagement patterns.
+
+Sessions (aggregated)
+:   Shows the total number of new sessions created across all resources within the reporting period.
+
+ActiveSessionCount
+:   Shows the number of currently active sessions for your account. Unlike the `SessionCount` metric (a cumulative counter), this metric is a real-time gauge showing how many sessions are running at any given moment. Amazon Bedrock AgentCore publishes this metric once per minute per service type. Use it to monitor current capacity utilization, set alarms for unexpected usage spikes, and understand your session quota consumption. Use the `Service` dimension — with values `AgentCore.Runtime`, `AgentCore.CodeInterpreter`, or `AgentCore.Browser` — to filter this metric by workload type. Amazon Bedrock AgentCore publishes this metric directly to your AWS account in the `AWS/Bedrock-AgentCore` namespace.
+
+ActiveStreamingConnections
+:   **(WebSocket only)** Shows the current number of active WebSocket connections per agent. Monitor this metric to understand connection usage and detect connection drops or spikes for capacity planning. The only meaningful statistic is a 1-minute sum.
+
+InboundStreamingBytesProcessed
+:   **(WebSocket only)** Displays the total number of bytes successfully processed in WebSocket frames received from clients to agent containers. Use this metric to monitor data throughput and identify usage patterns.
+
+OutboundStreamingBytesProcessed
+:   **(WebSocket only)** Shows the total number of bytes successfully processed in WebSocket frames sent from agent containers to clients. Monitor this metric to understand agent response patterns and ensure successful data transmission.
+
+## Resource usage metrics and logs
+
+Amazon Bedrock AgentCore runtime provides comprehensive resource usage telemetry, including CPU and memory consumption metrics for your runtime resources.
+
+###### Note
+
+Resource usage data may be delayed by up to 60 minutes and precision might differ across metrics.
+
+**Vended metrics**
+
+Amazon Bedrock AgentCore runtime automatically provides resource usage metrics at account, agent runtime, and agent endpoint levels. These metrics are published at 1-minute resolution. Amazon CloudWatch aggregation and metric data retention will follow standard Amazon CloudWatch data retention polices. For more information, see [https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch\_concepts.html#Metric](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric").
+
+Here are the dimension sets and metrics available for monitoring your resources:
+
+| Name | Dimensions | Description |
+| --- | --- | --- |
+| CPUUsed-vCPUHours | Service; Service, Resource; Service, Resource, Name | The total amount of virtual CPU consumed in vCPU-Hours unit, available at the resource and account levels. Useful for resource tracking and estimated billing visibility. |
+| MemoryUsed-GBHours | Service; Service, Resource; Service, Resource, Name | The total amount of memory consumed in GB-Hours unit, available at the resource and account levels. Useful for resource tracking and estimated billing visibility. |
+
+Dimension explanation
+
+* **Service** - AgentCore.Runtime
+* **Resource** - Agent Arn
+* **Name** - Agent Endpoint name, in the format of AgentName::EndpointName
+
+Account level metrics are available in Amazon CloudWatch Bedrock AgentCore Observability Console under the **Runtime** tab. The dashboard displays Memory and CPU usage graphs generated from these metrics, representing total resource usage across all agents in your account within the region.
+
+Agent Endpoint level metrics are available in AgentEndpoint page of Amazon CloudWatch Bedrock AgentCore Observability Console. The dashboard displays Memory and CPU usage graphs generated from these metrics, representing total resource usage across all sessions invoked by the specified Agent Endpoint.
+
+###### Note
+
+Telemetry data is provided for monitoring purposes. Actual billing is calculated based on metered usage data and may differ from telemetry values due to aggregation timing, reconciliation processes, and measurement precision. Refer to your AWS billing statement for authoritative charges.
+
+**Vended logs**
+
+Bedrock AgentCore Runtime provides vended logs for session-level usage metrics at 1-second granularity. Each log record contains resource consumption data including CPU usage (agent.runtime.vcpu.hours.used) and memory consumption (agent.runtime.memory.gb\_hours.used).
+
+Each log record will have following schema:
+
+| Log type | Log fields | Description |
+| --- | --- | --- |
+| USAGE\_LOGS | ev
+
+<e>Content truncated. Call the read_documentation tool with start_index=8000 to get more content.</e>
+
+====================================================================================================
+### [10/16] read_documentation :: 5.1.7 EvaluationExpectedTrajectory API
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock-agentcore/latest/APIReference/API_EvaluationExpectedTrajectory.html:
+
+# EvaluationExpectedTrajectory
+
+The expected tool call trajectory for trajectory-based evaluation.
+
+## Contents
+
+**toolNames**
+:   The list of tool names representing the expected tool call sequence.
+
+    Type: Array of strings
+
+    Array Members: Minimum number of 0 items. Maximum number of 1000 items.
+
+    Length Constraints: Minimum length of 1. Maximum length of 500.
+
+    Required: No
+
+## See Also
+
+For more information about using this API in one of the language-specific AWS SDKs, see the following:
+
+* [AWS SDK for C++](https://docs.aws.amazon.com/goto/SdkForCpp/bedrock-agentcore-2024-02-28/EvaluationExpectedTrajectory "https://docs.aws.amazon.com/goto/SdkForCpp/bedrock-agentcore-2024-02-28/EvaluationExpectedTrajectory")
+* [AWS SDK for Java V2](https://docs.aws.amazon.com/goto/SdkForJavaV2/bedrock-agentcore-2024-02-28/EvaluationExpectedTrajectory "https://docs.aws.amazon.com/goto/SdkForJavaV2/bedrock-agentcore-2024-02-28/EvaluationExpectedTrajectory")
+* [AWS SDK for Ruby V3](https://docs.aws.amazon.com/goto/SdkForRubyV3/bedrock-agentcore-2024-02-28/EvaluationExpectedTrajectory "https://docs.aws.amazon.com/goto/SdkForRubyV3/bedrock-agentcore-2024-02-28/EvaluationExpectedTrajectory")
+
+====================================================================================================
+### [11/16] read_documentation :: marco Responsible AI Lens evaluate and release
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/wellarchitected/latest/responsible-ai-lens/evaluate-and-release.html:
+
+# Evaluate and release
+
+The evaluate and release focus area provides best practices for
+making a responsible release decision, given the release criteria
+from [Release criteria](./release-criteria.html "./release-criteria.html"), the evaluation datasets from [Dataset planning](./dataset-planning.html "./dataset-planning.html"), and the AI system design from [System planning](./system-planning.html "./system-planning.html"). The release
+decision is a binary (yes or no) decision that aggregates the results
+of testing the AI system against each individual release criterion.
+A well-designed decision factors in the compounded uncertainty in
+the individual criterion decisions, that is have we met each
+criterion with the required confidence (for example, are we at
+least 95% confident that the release criteria have been satisfied?).
+If a specific release criterion is not met, release may still be
+possible if the residual risk is disclosed through Monitoring
+transparency mechanisms. Otherwise, you should return to [System planning](./system-planning.html "./system-planning.html") to review options for baking and filtering
+mitigations.
+
+###### Focus areas
+
+* [System evaluation](./raier01.html "./raier01.html")
+* [Aggregate results](./raier02.html "./raier02.html")
+* [Address unmet release criteria](./raier03.html "./raier03.html")
+
+====================================================================================================
+### [12/16] read_documentation :: marco GenAI Lens operational excellence
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/operational-excellence.html:
+
+# Operational excellence
+
+The operational excellence best practices introduced in this paper
+are represented by at least one of the following principles:
+
+* **Implement comprehensive
+  observability:** Monitor and measure performance across
+  all layers of your generative AI system, from foundation models
+  to user interactions. By collecting metrics, user feedback, and
+  functional performance data, you can understand how your system
+  behaves in production and identify areas for improvement. This
+  holistic approach to monitoring enables data-driven decisions
+  about system optimizations and helps maintain consistent service
+  quality.
+* **Automate operational
+  management:** Deploy and manage generative AI
+  applications using infrastructure as code and automated
+  lifecycle processes. By implementing standardized templates,
+  version control, and automated deployment pipelines, you can
+  achieve consistent, repeatable operations while reducing manual
+  intervention. This approach minimizes human error, improves
+  deployment reliability, and enables rapid, controlled changes to
+  your environment.
+* **Establish operational
+  controls:** Implement governance mechanisms that
+  regulate system behavior and maintain operational stability. By
+  managing prompt templates, implementing rate limits, and
+  enabling workflow tracing, you can control how your system
+  operates and responds to varying conditions. This structured
+  approach to operations helps avoid system overload, maintains
+  performance standards, and enables effective troubleshooting
+  when issues arise.
+
+###### Focus areas
+
+* [Model performance evaluation](./genops01.html "./genops01.html")
+* [Monitor and manage operational health](./genops02.html "./genops02.html")
+* [Observability in workloads](./genops03.html "./genops03.html")
+* [Automate lifecycle management](./genops4.html "./genops4.html")
+* [Model customization](./genops05.html "./genops05.html")
+
+====================================================================================================
+### [13/16] read_documentation :: marco GENOPS01
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops01.html:
+
+# Model performance evaluation
+
+| GENOPS01: How do you achieve and verify consistent model output quality? |
+| --- |
+|  |
+
+Achieving consistent model output quality involves periodic
+evaluations using user feedback, ground truth data, and sampling
+techniques.
+
+###### Best practices
+
+* [GENOPS01-BP01 Periodically evaluate functional performance](./genops01-bp01.html "./genops01-bp01.html")
+* [GENOPS01-BP02 Collect and monitor user feedback](./genops01-bp02.html "./genops01-bp02.html")
+
+====================================================================================================
+### [14/16] read_documentation :: marco AGENTOPS06
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentops06.html:
+
+# Testing, evaluation, and validation frameworks
+
+Systematic testing and evaluation processes confirm agent quality, reliability, and
+alignment with business objectives through both traditional software testing and
+AI-specific quality assessment. Without a framework that covers every stage of the agent
+lifecycle, quality regressions from prompt changes, tool updates, or model updates reach
+users before anyone notices.
+
+| AGENTOPS06: How do you implement testing, evaluation, and validation frameworks? |
+| --- |
+|  |
+
+## Capability intent
+
+* Agents are validated at every layer, from isolated components to entire
+  workflows running in production-shadow mode, before changes reach
+  users.
+* Quality, safety, efficiency, and business-alignment metrics are measured
+  continually against version-controlled benchmarks, with regressions surfaced
+  as soon as they appear.
+* Change governance is proportional to risk. Low-risk changes flow through
+  automated gates, and high-risk changes receive SME and business-owner
+  review.
+* Evaluation datasets, prompts, and scoring rubrics are versioned and kept
+  current as agent capabilities and use cases evolve.
+* Rollback paths for prompts, tools, models, and agent versions are defined,
+  rehearsed, and wired to the same telemetry that detects quality threshold
+  violations.
+
+## Maturity levels
+
+These levels summarize what each stage of maturity looks like for testing,
+evaluation, and validation frameworks as a whole.
+
+| Level | Name | What it looks like |
+| --- | --- | --- |
+| 1 | Initial | Testing is one-time and focused on the happy path. Teams rely on manual inspection of agent outputs and infrequent exact-match assertions, missing failures that only appear in tool-use, multi-agent, or production traffic paths. No formal evaluation metrics exist beyond deployment-time smoke tests. Approvals are informal emails or chats, and rollback is a manual, untested redeploy of an older artifact. |
+| 2 | Emerging | Unit and integration tests exist for the core reasoning, tool, and memory components, and run in a [CI/CD](https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html "https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html") pipeline. Evaluation is performed at key milestones using [Amazon Bedrock model evaluation](https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation.html "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation.html") and documented acceptance criteria. Approval workflows distinguish at least two risk tiers, and rollback procedures are documented per agent. Coverage of edge cases, adversarial inputs, and production shadow runs is still patchy. |
+| 3 | Defined | A four-layer testing pyramid, covering unit, integration, end-to-end, and shadow, is standard across agent teams, with [Amazon Bedrock AgentCore Evaluations](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html") supplying built-in evaluators as standardized quality gates. Continuous evaluation tracks output quality, safety, efficiency, and business alignment over time, and risk-tiered approval workflows route changes by scope of impact. Rollback procedures are automated through pipeline triggers and exercised regularly. |
+| 4 | Proactive | Shadow testing runs alongside production for every significant release, with divergences triaged through [Amazon CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html") traces correlated to evaluation scores. Online evaluation samples live interactions continuously, with thresholds that trigger automated rollback through deployment alarms. Risk-tiered approvals include business owners and SMEs for autonomy-increasing changes, and evaluation datasets evolve automatically from incident and feedback data. Quality, safety, and business metrics are tracked across agent versions as first-class release artifacts. |
+| 5 | Optimized | Testing, evaluation, and validation are an integrated, self-healing system. Custom evaluators encode organization-specific quality standards and are versioned with the agents they cover. Policy-as-code expresses risk-tier rules and approval routing, and rollback is provably correct, tested quarterly through game-day exercises. Evaluation scoring, shadow comparisons, and human feedback feed a continuous improvement loop that updates datasets, prompts, and guardrails automatically. The organization contributes patterns and evaluators back to internal communities and external forums. |
+
+## Common issues to watch for
+
+* Teams stop at deterministic unit tests and skip shadow testing on real
+  traffic, so agents ship with unknown behavior on edge cases, adversarial
+  inputs, and production data distributions.
+* Quality is measured once at release and never again, so data drift, prompt
+  decay, and upstream model updates silently erode output quality between
+  releases.
+* All changes flow through either a heavyweight board or a rubber-stamp
+  review, which either bottlenecks minor tweaks or waves through autonomy
+  increases without SME scrutiny.
+* Test and evaluation datasets are created once and never refreshed, so
+  scores stay green while real-world failure modes go undetected.
+* Rollback procedures live in a runbook but are never rehearsed, so the
+  first real attempt during an incident discovers broken artifact stores,
+  missing permissions, or prompt and tool version mismatches.
+
+###### Best practices
+
+* [AGENTOPS06-BP01 Design multi-layered testing frameworks](./agentops06-bp01.html "./agentops06-bp01.html")
+* [AGENTOPS06-BP02 Evaluate and track ongoing agent performance](./agentops06-bp02.html "./agentops06-bp02.html")
+* [AGENTOPS06-BP03 Establish SME-driven validation and business approval workflows](./agentops06-bp03.html "./agent
+
+<e>Content truncated. Call the read_documentation tool with start_index=6000 to get more content.</e>
+
+====================================================================================================
+### [15/16] read_documentation :: 5.1.7 AGENTOPS06-BP01
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentops06-bp01.html:
+
+# AGENTOPS06-BP01 Design multi-layered testing frameworks
+
+Traditional software testing, like exact-match assertions and
+green-or-red unit tests, can miss important failure modes in agentic
+systems. A testing pyramid that covers unit, integration, end-to-end
+tests, and shadow layers helps teams catch behavioral regressions
+before they reach users.
+
+**Desired outcome:**
+
+* Agent systems are covered by a testing pyramid that includes
+  unit tests, integration tests, end-to-end tests, and shadow
+  tests in production environments.
+* Automated testing pipelines run on every code and configuration
+  change, providing rapid feedback on regressions.
+* Test coverage metrics are tracked and maintained above defined
+  thresholds for all agent capabilities.
+* Tests use semantic quality assessment rather than exact-match
+  comparison, so non-deterministic outputs don't break the suite.
+
+**Common anti-patterns:**
+
+* Testing only the happy path without covering edge cases, error
+  conditions, and adversarial inputs.
+* Relying exclusively on unit tests without integration and
+  end-to-end tests, missing failures that only emerge when
+  components interact with real tools and services.
+* Treating agent testing as equivalent to traditional software
+  testing without accounting for non-deterministic LLM outputs,
+  using exact string matching instead of semantic equivalence
+  checks.
+* Running tests only in isolated environments without shadow
+  testing in production, missing environment-specific behaviors
+  that only manifest with real data and traffic patterns.
+* Failing to maintain test datasets as capabilities evolve, so
+  tests become stale and lose regression-detection value.
+
+**Benefits of establishing this best
+practice:**
+
+* A thorough testing framework provides the empirical evidence
+  needed to validate each behavioral iteration, enabling confident
+  deployment.
+* Standardized testing procedures help validate every change
+  consistently, regardless of who made it or how urgent the
+  timeline.
+* Semantic evaluation accepts legitimate output variation while
+  still catching regressions.
+* Shadow testing validates behavioral changes against real traffic
+  without exposing users to the new version.
+
+**Level of risk exposed if this best practice
+is not established:** High
+
+## Implementation guidance
+
+Four layers cover the testing surface for most agent systems.
+
+Unit tests, the base layer, test individual components in
+isolation: prompt templates, tool invocation logic, memory
+retrieval, decision routing. LLM responses can be mocked where
+determinism is needed, so unit tests stay fast and reproducible.
+
+Integration tests, the second layer, validate agent-tool and
+agent-to-agent interactions in a staging environment with real
+endpoints, which is where many of the interesting failures emerge.
+
+End-to-end tests, the third layer, validate complete workflows,
+and this is where semantic evaluation matters more than exact
+matching.
+[Amazon
+Bedrock Evaluations](https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation.html "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation.html") and
+[Amazon
+Bedrock AgentCore Evaluations](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html") handle the semantic quality
+assessment that end-to-end tests need. AgentCore Evaluations' 13
+built-in evaluators provide standardized quality gates in CI/CD
+pipelines (correctness, helpfulness, safety, and tool selection
+accuracy), so regressions in output quality are detectable without
+requiring bit-exact comparison. Custom evaluators cover
+business-specific requirements.
+
+Shadow tests, the top layer, run new versions in parallel with
+production on real traffic using traffic mirroring, comparing
+outputs without serving the new version's responses. This catches
+environment-specific behavior that staging can't reproduce. The
+cost is the infrastructure to run parallel inferences, and the
+value is catching issues before users ever encounter them. For
+teams developing agents with Kiro, hooks can trigger test runs on
+file save and before deployment.
+
+Integrate automated testing into CI/CD pipelines so every layer
+blocks deployment on failure. Maintain test datasets with
+versioning, and review them regularly to add new use cases and
+failure modes discovered in production. The pyramid gets stronger
+over time only if the suite grows with the system.
+
+### Implementation steps
+
+1. **Define the four testing
+   layers:** Scope, tooling, and success criteria for
+   unit, integration, end-to-end, and shadow tests.
+2. **Implement unit and integration
+   tests:** Mock dependencies at the unit layer. Use
+   real staging endpoints for integration tests.
+3. **Create end-to-end scenarios with
+   semantic evaluation:** Use
+   [Amazon
+   Bedrock AgentCore Evaluations](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html") for quality assessment
+   rather than exact-match assertions.
+4. **Add shadow testing with traffic
+   mirroring:** Validate behavioral changes against
+   real-world inputs without exposing users.
+5. **Integrate tests into
+   CI/CD:** Run the full suite on every commit and
+   block deployment on failures.
+
+## Resources
+
+**Related best practices:**
+
+* [AGENTOPS06-BP02 Evaluate
+  and track ongoing agent performance](agentops06-bp02.html "agentops06-bp02.html")
+* [AGENTOPS06-BP03
+  Establish SME-driven validation and business approval
+  workflows](agentops06-bp03.html "agentops06-bp03.html")
+* [AGENTOPS03-BP02
+  Implement CI/CD pipelines tailored to agentic system
+  deployment (AgentOps)](agentops03-bp02.html "agentops03-bp02.html")
+* [AGENTPERF01-BP01
+  Define performance-aligned success criteria for agent
+  workloads](agentperf01-bp01.html "agentperf01-bp01.html")
+
+**Related documents:**
+
+* [Operationalizing
+  agentic AI on AWS](https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-operationalizing-agentic-ai/introduction.html "https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-operationalizing-agentic-ai/introduction.html")
+* [Amazon
+  Bedrock AgentCore Evaluations](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html")
+* [Evaluating
+  AI agents: Real-world lessons from building agentic systems at
+  Amazon](https://aws.amazon.com/blogs/machine-learning/evaluating-ai-agents-real-world-lessons-from-building-agentic-systems-at-amazon/ "https://aws.amazon.com/blogs/machine-learning/evaluating-ai-agents-real-world-lessons-from-building-agentic-systems-at-amazon/")
+* [LLM-as-a-judge
+  on Amazon Bedrock Model Evaluation](https://aws.amazon.com/blogs/machine-learning/llm-as-a-judge-on-amazon-bedrock-model-evaluation/ "https://aws.amazon.com/blogs/machine-learn
+
+<e>Content truncated. Call the read_documentation tool with start_index=7000 to get more content.</e>
+
+====================================================================================================
+### [16/16] read_documentation :: 5.1.7 AGENTOPS06-BP02
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentops06-bp02.html:
+
+# AGENTOPS06-BP02 Evaluate and track ongoing agent performance
+
+Pre-deployment evaluation validates that an agent is ready to ship.
+Post-deployment evaluation validates that it still works. Without
+continuous assessment, gradual quality degradation from data drift,
+model updates, and shifting user patterns goes unnoticed until it is
+expensive to fix.
+
+**Desired outcome:**
+
+* Agent performance is continually evaluated against defined
+  quality benchmarks.
+* Automated pipelines detect degradation in output quality,
+  reasoning accuracy, and business outcome alignment.
+* Teams have clear visibility into performance trends over time
+  and can correlate quality changes with specific configuration,
+  model, or data updates.
+* Evaluation results drive prioritized improvement actions and
+  provide objective evidence for stakeholder reporting.
+
+**Common anti-patterns:**
+
+* Evaluating agent performance only at deployment time without
+  continuous post-deployment assessment, missing gradual
+  degradation from data drift, model updates, or changing user
+  patterns.
+* Relying solely on automated metrics without periodic human
+  evaluation, missing quality dimensions that automated metrics
+  can't fully capture (like nuance, appropriateness, and business
+  context alignment).
+* Using generic evaluation criteria across all agents without
+  tailoring metrics to each agent's specific use case and business
+  objectives, producing evaluation results that don't reflect
+  actual value.
+* Treating evaluation as separate from operations rather than
+  integrating it into the operational workflow, creating
+  evaluation debt that accumulates over time.
+
+**Benefits of establishing this best
+practice:**
+
+* Continuous evaluation provides an empirical foundation for
+  evidence-based improvement, identifying which agents need
+  attention and which changes produce measurable gains.
+* Performance trend tracking reveals patterns that inform
+  systematic improvement, turning evaluation data into practical
+  insights.
+* Multi-dimensional scoring catches quality issues that a single
+  metric would miss.
+* Correlation between quality shifts and configuration changes
+  compresses root-cause analysis.
+
+**Level of risk exposed if this best practice
+is not established:** High
+
+## Implementation guidance
+
+[Amazon
+Bedrock AgentCore Evaluations](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html") is an evaluation service for
+continuous assessment. Its on-demand mode runs benchmarks during
+development, and its online mode samples and evaluates live
+interactions in production without requiring manual triggers.
+Thirteen built-in evaluators cover correctness, helpfulness,
+safety, and tool selection accuracy, with custom evaluators
+available for business-specific requirements.
+[Amazon
+Bedrock Evaluations](https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation.html "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation.html") supplements this with model-level
+assessment, and periodic human evaluation covers the dimensions
+automated metrics miss.
+
+Evaluation frameworks need multiple dimensions because a single
+metric misses too much. For example:
+
+* Output quality (relevance, accuracy, coherence) measures
+  whether responses are good.
+* Safety (hallucination rate, toxicity, guardrail adherence)
+  measures whether responses are safe.
+* Efficiency (task completion rate, tool invocation success)
+  measures whether the agent is economical.
+* Business alignment (outcome achievement, user satisfaction,
+  SLA compliance) measures whether the agent delivers value.
+
+Weighting depends on the use case. For instance, a
+customer-support agent might weigh satisfaction higher than
+efficiency, while an internal automation agent might weigh
+efficiency higher than relevance. Generic weighting produces
+generic results.
+
+Dashboards that show evaluation scores over time make degradation
+visible before it becomes an incident. Alerting on threshold
+violations and on persistent negative trends, as opposed to
+single-point dips, catches the slow-moving problems that are
+hardest to diagnose after the fact. Correlate evaluation shifts
+with configuration and model changes so attribution is fast when a
+metric moves.
+
+LLM-as-a-Judge patterns can use multiple evaluator prompts
+covering different quality dimensions to produce a composite score
+that is more reliable than any single prompt. Periodic human
+review validates the automated scores and catches the blind spots.
+
+### Implementation steps
+
+1. **Configure
+   [Amazon
+   Bedrock AgentCore Evaluations](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html"):** Use
+   on-demand mode for development benchmarking and online mode
+   for continuous production monitoring.
+2. **Define a multi-dimensional
+   evaluation framework:** Apply use-case-specific
+   weighting across quality, safety, efficiency, and business
+   alignment.
+3. **Implement LLM-as-judge
+   patterns:** Use multiple evaluator prompts and
+   supplement with periodic human evaluation.
+4. **Build evaluation
+   dashboards:** Show trends over time with alerting
+   for threshold violations and persistent negative trends.
+5. **Correlate evaluation results with
+   change events:** Tag deployments, configuration
+   updates, and model changes so quality shifts can be
+   attributed quickly.
+
+## Resources
+
+**Related best practices:**
+
+* [AGENTOPS06-BP01 Design
+  multi-layered testing frameworks](agentops06-bp01.html "agentops06-bp01.html")
+* [AGENTOPS06-BP03
+  Establish SME-driven validation and business approval
+  workflows](agentops06-bp03.html "agentops06-bp03.html")
+* [AGENTOPS02-BP04
+  Maintain feedback control loops for continuous
+  improvement](agentops02-bp04.html "agentops02-bp04.html")
+* [AGENTOPS05-BP04
+  Define and track KPIs for agent workflows](agentops05-bp04.html "agentops05-bp04.html")
+* [AGENTPERF01-BP01
+  Define performance-aligned success criteria for agent
+  workloads](agentperf01-bp01.html "agentperf01-bp01.html")
+
+**Related documents:**
+
+* [Amazon
+  Bedrock AgentCore Evaluations](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html")
+* [Evaluate
+  models in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-judge.html "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-judge.html")
+* [Operationalizing
+  agentic AI on AWS](https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-operationalizing-agentic-ai/introduction.html "https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-operationalizing-agentic-ai/introduction.html")
+* [Build
+  reliable AI agents with Amazon Bedrock AgentCore
+  Evaluations](https://aws.amazon.com/b
+
+<e>Content truncated. Call the read_documentation tool with start_index=7000 to get more content.</e>

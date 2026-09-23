@@ -1,0 +1,82 @@
+[
+  {
+    "label": "5.1.7 AgentCore evaluations hub",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html", "max_length": 7000 }
+  },
+  {
+    "label": "5.1.7 how it works evaluations",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/how-it-works-evaluations.html", "max_length": 9000 }
+  },
+  {
+    "label": "5.1.7 evaluations terminology",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations-terminology.html", "max_length": 8000 }
+  },
+  {
+    "label": "5.1.7 ground truth evaluations",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/ground-truth-evaluations.html", "max_length": 9000 }
+  },
+  {
+    "label": "5.1.7 skill evaluators",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/skill-evaluators.html", "max_length": 9000 }
+  },
+  {
+    "label": "5.1.7 create evaluator",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/create-evaluator.html", "max_length": 6000 }
+  },
+  {
+    "label": "5.1.9 user simulation",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/user-simulation.html", "max_length": 8000 }
+  },
+  {
+    "label": "5.1.4 batch evaluations getting started",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/batch-evaluations-getting-started.html", "max_length": 7000 }
+  },
+  {
+    "label": "5.1.7 observability runtime metrics de AgentCore",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability-runtime-metrics.html", "max_length": 8000 }
+  },
+  {
+    "label": "5.1.7 EvaluationExpectedTrajectory API",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/APIReference/API_EvaluationExpectedTrajectory.html", "max_length": 4000 }
+  },
+  {
+    "label": "marco Responsible AI Lens evaluate and release",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/wellarchitected/latest/responsible-ai-lens/evaluate-and-release.html", "max_length": 9000 }
+  },
+  {
+    "label": "marco GenAI Lens operational excellence",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/operational-excellence.html", "max_length": 8000 }
+  },
+  {
+    "label": "marco GENOPS01",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops01.html", "max_length": 6000 }
+  },
+  {
+    "label": "marco AGENTOPS06",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentops06.html", "max_length": 6000 }
+  },
+  {
+    "label": "5.1.7 AGENTOPS06-BP01",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentops06-bp01.html", "max_length": 7000 }
+  },
+  {
+    "label": "5.1.7 AGENTOPS06-BP02",
+    "tool": "read_documentation",
+    "arguments": { "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentops06-bp02.html", "max_length": 7000 }
+  }
+]

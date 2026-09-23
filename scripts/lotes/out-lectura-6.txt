@@ -1,0 +1,363 @@
+
+====================================================================================================
+### [1/5] read_documentation :: AGENTOPS06-BP02
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentops06-bp02.html:
+
+# AGENTOPS06-BP02 Evaluate and track ongoing agent performance
+
+Pre-deployment evaluation validates that an agent is ready to ship.
+Post-deployment evaluation validates that it still works. Without
+continuous assessment, gradual quality degradation from data drift,
+model updates, and shifting user patterns goes unnoticed until it is
+expensive to fix.
+
+**Desired outcome:**
+
+* Agent performance is continually evaluated against defined
+  quality benchmarks.
+* Automated pipelines detect degradation in output quality,
+  reasoning accuracy, and business outcome alignment.
+* Teams have clear visibility into performance trends over time
+  and can correlate quality changes with specific configuration,
+  model, or data updates.
+* Evaluation results drive prioritized improvement actions and
+  provide objective evidence for stakeholder reporting.
+
+**Common anti-patterns:**
+
+* Evaluating agent performance only at deployment time without
+  continuous post-deployment assessment, missing gradual
+  degradation from data drift, model updates, or changing user
+  patterns.
+* Relying solely on automated metrics without periodic human
+  evaluation, missing quality dimensions that automated metrics
+  can't fully capture (like nuance, appropriateness, and business
+  context alignment).
+* Using generic evaluation criteria across all agents without
+  tailoring metrics to each agent's specific use case and business
+  objectives, producing evaluation results that don't reflect
+  actual value.
+* Treating evaluation as separate from operations rather than
+  integrating it into the operational workflow, creating
+  evaluation debt that accumulates over time.
+
+**Benefits of establishing this best
+practice:**
+
+* Continuous evaluation provides an empirical foundation for
+  evidence-based improvement, identifying which agents need
+  attention and which changes produce measurable gains.
+* Performance trend tracking reveals patterns that inform
+  systematic improvement, turning evaluation data into practical
+  insights.
+* Multi-dimensional scoring catches quality issues that a single
+  metric would miss.
+* Correlation between quality shifts and configuration changes
+  compresses root-cause analysis.
+
+**Level of risk exposed if this best practice
+is not established:** High
+
+## Implementation guidance
+
+[Amazon
+Bedrock AgentCore Evaluations](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html") is an evaluation service for
+continuous assessment. Its on-demand mode runs benchmarks during
+development, and its online mode samples and evaluates live
+interactions in production without requiring manual triggers.
+Thirteen built-in evaluators cover correctness, helpfulness,
+safety, and tool selection accuracy, with custom evaluators
+available for business-specific requirements.
+[Amazon
+Bedrock Evaluations](https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation.html "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation.html") supplements this with model-level
+assessment, and periodic human evaluation covers the dimensions
+automated metrics miss.
+
+Evaluation frameworks need multiple dimensions because a single
+metric misses too much. For example:
+
+* Output quality (relevance, accuracy, coherence) measures
+  whether responses are good.
+* Safety (hallucination rate, toxicity, guardrail adherence)
+  measures whether responses are safe.
+* Efficiency (task completion rate, tool invocation success)
+  measures whether the agent is economical.
+* Business alignment (outcome achievement, user satisfaction,
+  SLA compliance) measures whether the agent delivers value.
+
+Weighting depends on the use case. For instance, a
+customer-support agent might weigh satisfaction higher than
+efficiency, while an internal automation agent might weigh
+efficiency higher than relevance. Generic weighting produces
+generic results.
+
+Dashboards that show evaluation scores over time make degradation
+visible before it becomes an incident. Alerting on threshold
+violations and on persistent negative trends, as opposed to
+single-point dips, catches the slow-moving problems that are
+hardest to diagnose after the fact. Correlate evaluation shifts
+with configuration and model changes so attribution is fast when a
+metric moves.
+
+LLM-as-a-Judge patterns can use multiple evaluator prompts
+covering different quality dimensions to produce a composite score
+that is more reliable than any single prompt. Periodic human
+review validates the automated scores and catches the blind spots.
+
+### Implementation steps
+
+1. **Configure
+   [Amazon
+   Bedrock AgentCore Evaluations](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html"):** Use
+   on-demand mode for development benchmarking and online mode
+   for continuous production monitoring.
+2. **Define a multi-dimensional
+   evaluation framework:** Apply use-case-specific
+   weighting across quality, safety, efficiency, and business
+   alignment.
+3. **Implement LLM-as-judge
+   patterns:** Use multiple evaluator prompts and
+   supplement with periodic human evaluation.
+4. **Build evaluation
+   dashboards:** Show trends over time with alerting
+   for threshold violations and persistent negative trends.
+5. **Correlate evaluation results with
+   change events:** Tag deployments, configuration
+   updates, and model changes so quality shifts can be
+   attributed quickly.
+
+## Resources
+
+**Related best practices:**
+
+* [AGENTOPS06-BP01 Design
+  multi-layered testing frameworks](agentops06-bp01.html "agentops06-bp01.html")
+* [AGENTOPS06-BP03
+  Establish SME-driven validation and business approval
+  workflows](agentops06-bp03.html "agentops06-bp03.html")
+* [AGENTOPS02-BP04
+  Maintain feedback control loops for continuous
+  improvement](agentops02-bp04.html "agentops02-bp04.html")
+* [AGENTOPS05-BP04
+  Define and tr
+
+<e>Content truncated. Call the read_documentation tool with start_index=6000 to get more content.</e>
+
+====================================================================================================
+### [2/5] read_documentation :: CW session trace evaluations
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/session-traces-evaluations.html:
+
+# Agent details - Evaluations
+
+Evaluations provides continuous quality monitoring metrics for your AI agents. You can use
+the information provided by the dashboard to assess the performance, quality, and reliability
+of your AI agents.
+
+Instead of relying on simulated test cases, evaluations capture real user sessions and agent
+interactions, providing a comprehensive view of agent performance, from input to final output.
+With agent evaluations, you can define sampling rules to evaluate only a percentage of the
+sessions or traces, and then apply a variety of evaluators to asses and score an AI agent's
+operational performance. The resulting assessments and scores are displayed in the Evaluations
+dashboard, allowing you to monitor trends, identify potential quality issues, set alarms, and
+investigate and diagnose potential issues.
+
+The Evaluations dashboard lists all of the evaluations that have been enabled and configured
+for the selected agent. For more information about configuring evaluations for an agent, see
+[AgentCore evaluations](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html"). You can expand each evaluation to view the sessions, traces,
+and spans that were evaluated.
+
+![Evaluations.](/images/AmazonCloudWatch/latest/monitoring/images/evals_overview.png)
+
+###### Topics
+
+* [Evaluations details](#session-traces-evaluations-details "#session-traces-evaluations-details")
+* [Evaluations graphs](#session-traces-evaluations-graphs "#session-traces-evaluations-graphs")
+* [Work with evaluation results](#session-traces-evaluations-raw-results "#session-traces-evaluations-raw-results")
+
+## Evaluations details
+
+For each evaluation, the dashboard includes the following sections:
+
+Evaluation configuration metrics
+:   Provides metrics for the overall evaluation configuration. An evaluator defines
+    how to assess a specific aspect of an AI agent's performance. To view more details
+    about an evaluator, choose its name in the **Evaluator** column.
+    To view a bar chart and analyze trends for an evaluator, choose the value in the
+    **Count** column.
+
+    ![Evaluation configuration metrics.](/images/AmazonCloudWatch/latest/monitoring/images/evals_01.png)
+
+Session evaluations
+:   Provides evaluation results for evaluators at the session level. A session represents
+    a logical grouping of related interactions from a single user or workflow. A session can
+    contain one or more traces. You can choose a session to filter down to the list of traces
+    within that session in the **Trace evaluations** section.
+
+    ![Session evaluations.](/images/AmazonCloudWatch/latest/monitoring/images/evals_02.png)
+
+Trace evaluations
+:   Provides evaluation results for evaluators at the trace level. A trace is a complete
+    record of a single agent execution or request. A trace can contain one or more spans.
+    Choose a trace to view the trace details along with all the evaluators that were run on
+    that trace.
+
+    ![Trace evaluations.](/images/AmazonCloudWatch/latest/monitoring/images/evals_03.png)
+
+Span evaluations
+:   Provides evaluation results for evaluators at the span level. A span represents the
+    individual operations performed during that execution. Choose a span to view the span
+    details along with all the operations performed during that span.
+
+    ![Span evaluations.](/images/AmazonCloudWatch/latest/monitoring/images/evals_04.png)
+
+## Evaluations graphs
+
+The Evaluations dashboard also includes a bar graph for each evaluator. The graphs show
+the trends for each evaluator over time, and enable you to set alarms for specific metric
+values. To set an alarm, click a bar in the graph, and then choose **Alarm**
+(bell) icon. For more information, see [Using Amazon CloudWatch alarms](./CloudWatch_Alarms.html "./CloudWatch_Alarms.html").
+
+![Evaluations graphs.](/images/AmazonCloudWatch/latest/monitoring/images/evals_graphs.png)
+
+## Work with evaluation results
+
+If you need direct access to your evaluation results data, or if you want to create custom visualizations
+or work outside the AgentCore Evaluations console, you can access your evaluation results directly through
+CloudWatch Logs, CloudWatch Metrics, and CloudWatch dashboards.
+
+###### Topics
+
+* [Accessing evaluation results in CloudWatch Logs](#accessing-evaluation-results-logs "#accessing-evaluation-results-logs")
+* [Accessing evaluation metrics in CloudWatch Metrics](#accessing-evaluation-metrics "#accessing-evaluation-metrics")
+* [Creating Custom Dashboards](#creating-custom-dashboards "#creating-custom-dashboards")
+* [Setting alarms on evaluation metrics](#setting-alarms-evaluation-metrics "#setting-alarms-evaluation-metrics")
+* [Additional Resources](#additional-resources "#additional-resources")
+
+### Accessing evaluation results in CloudWatch Logs
+
+Your evaluation results are automatically published to CloudWatch Logs in Embedded Metric Format (E
+
+<e>Content truncated. Call the read_documentation tool with start_index=5000 to get more content.</e>
+
+====================================================================================================
+### [3/5] read_documentation :: RAIER01-BP03
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/wellarchitected/latest/responsible-ai-lens/raier01-bp03.html:
+
+# RAIER01-BP03 For each system update, re-run the evaluation and update the system registry
+
+Record evaluation activities in logs that capture test conditions,
+system configurations, data inputs, raw results, and methodological
+notes with sufficient detail to make the entire process
+reproducible. Establish version control for evaluation artifacts to
+assist builders to trace unique system builds and their
+corresponding evaluation results.
+
+**Level of risk exposed if this best
+practice is not established:** High
+
+## Implementation considerations
+
+1. Log your evaluation runs, including information on which
+   datasets you used, what system version you tested, what
+   hardware and software configuration you ran on, and raw and
+   intermediate outputs. Your logs should be detailed enough that
+   someone else could reproduce your exact evaluation months
+   later.
+2. Set up version control for your evaluation materials,
+   including test scripts, configuration files, and result
+   outputs.
+3. Link your evaluation materials to both your system and your
+   dataset registry so that it is clear which data and system
+   versions led to the evaluation results. This allows you to
+   link each system build and dataset pair to its specific
+   evaluation artifacts.
+
+## Resources
+
+**Related documents**
+
+* [ISO/IEC
+  42001:2023 A.6.2.4 AI system verification and
+  validation](https://www.iso.org/standard/42001 "https://www.iso.org/standard/42001")
+* [ISO/IEC
+  42001:2023 A.7.2 Data for development and enhancement of AI
+  system](https://www.iso.org/standard/42001 "https://www.iso.org/standard/42001")
+
+====================================================================================================
+### [4/5] read_documentation :: evaluadores builtin listado
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluators.html:
+
+# Evaluators
+
+Evaluators are the core components that assess your agent’s performance across different dimensions. They analyze agent traces and provide quantitative scores based on specific criteria such as helpfulness, accuracy, or custom business metrics. AgentCore Evaluations offers built-in evaluators for common use cases and third-party evaluators from open source evaluation libraries. You can also create custom evaluators tailored to your specific requirements.
+
+###### Topics
+
+* [Built-in evaluators](#built-in-evaluators "#built-in-evaluators")
+* [Third-party evaluators](#third-party-evaluators-hiw "#third-party-evaluators-hiw")
+* [Custom evaluators](#custom-evaluators-hiw "#custom-evaluators-hiw")
+
+## Built-in evaluators
+
+Built-in evaluators are pre-configured solutions that use Large Language Models (LLMs) as judges to evaluate agent performance. These evaluators come with predefined configurations, including carefully crafted prompt templates, selected evaluator models, and standardized scoring criteria.
+
+Built-in evaluators are designed to address common evaluation needs while ensuring consistency and reliability across assessments. Because they are part of our fully managed offering, you can use them immediately without any additional configuration, and we will continue improving their quality and adding new evaluators over time. To preserve consistency and reliability, the configurations of built-in evaluators cannot be modified.
+
+## Third-party evaluators
+
+Third-party evaluators come from the DeepEval and AutoEval open source libraries. Amazon Bedrock AgentCore manages them the same way as built-in evaluators. Select a third-party evaluator by ID and the service runs it—no model or configuration required. You can also derive a custom evaluator from a built-in or third-party evaluator to run its logic on your own model. For more information, see [Third-party evaluators](./third-party-evaluators.html "./third-party-evaluators.html").
+
+## Custom evaluators
+
+Custom evaluators offer more flexibility by allowing you to define all aspects of your evaluation process. AgentCore Evaluations supports the following types of custom evaluators:
+
+* **LLM-as-a-judge evaluators** – Define your own evaluator model, evaluation instructions, and scoring schemas. You can tailor the evaluation to your specific needs by selecting the evaluator model, crafting custom evaluation instructions, defining specific evaluation criteria, and designing your own scoring schema. For more information, see [Custom evaluators](./custom-evaluators.html "./custom-evaluators.html").
+* **Code-based evaluators** – Use your own AWS Lambda function to programmatically evaluate agent performance. This approach gives you full control over the evaluation logic, enabling deterministic checks, external API calls, regex matching, custom metrics, or any business-specific rules without relying on an LLM judge. For more information, see [Custom code-based evaluator](./code-based-evaluators.html "./code-based-evaluators.html").
+* **Evaluators derived from a base evaluator** – Run an existing built-in or third-party evaluator’s logic on your own model and inference, instead of the model the service picks. For more information, see [Third-party evaluators](./third-party-evaluators.html "./third-party-evaluators.html").
+
+This level of customization is particularly valuable when you need to evaluate domain-specific agents, apply unique quality standards, or implement specialized scoring systems. For example, you might create custom evaluation criteria for specific industries like healthcare or finance, or design scoring schemas that align with your organization’s quality metrics.
+
+====================================================================================================
+### [5/5] read_documentation :: QuickSight dashboards
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/quick/latest/userguide/working-with-dashboards.html:
+
+# Sharing and subscribing to data in Amazon Quick Sight with dashboards and reports
+
+A *dashboard* is a read-only snapshot of an analysis that
+you can share with other Amazon Quick Sight users for reporting purposes. A dashboard preserves the
+configuration of the analysis at the time you publish it, including such things as
+filtering, parameters, controls, and sort order. The data used for the analysis isn't
+captured as part of the dashboard. When you view the dashboard, it reflects the current data
+in the data sets used by the analysis.
+
+When you share a dashboard, you specify which users have access to it. Users who are
+dashboard viewers can view and filter the dashboard data. Any selections to filters,
+controls, or sorting that users apply while viewing the dashboard exist only while the user
+is viewing the dashboard, and aren't saved after it's closed. Users who are dashboard
+owners can edit and share the dashboard, and optionally can edit and share the analysis. If
+you want them to also edit and share the data set, you can set that up in the analysis.
+
+A shared dashboard can also be embedded in a website or app, if you are using Enterprise
+edition. For more information about embedded dashboards, see [Embedded analytics for Amazon Quick Sight](./embedded-analytics.html "./embedded-analytics.html").
+
+Use the following sections to learn how to publish and share dashboards, subscribe to
+threshold alerts, and send and subscribe to dashboard email reports.
+
+###### Topics
+
+* [Publishing dashboards](./creating-a-dashboard.html "./creating-a-dashboard.html")
+* [Sharing Amazon Quick Sight dashboards](./sharing-a-dashboard.html "./sharing-a-dashboard.html")
+* [Using Quick connectors in dashboard visuals](./action-connectors-in-dashboard-visuals.html "./action-connectors-in-dashboard-visuals.html")
+* [Sharing your view of a Amazon Quick Sight dashboard](./share-dashboard-view.html "./share-dashboard-view.html")
+* [Scheduling and sending Quick Sight reports by email](./sending-reports.html "./sending-reports.html")
+* [Subscribing to email reports in Amazon Quick Sight](./subscribing-to-reports.html "./subscribing-to-reports.html")
+* [Working with threshold alerts in Amazon Quick Sight](./threshold-alerts.html "./threshold-alerts.html")
+* [Printing a dashboard or analysis](./printing1.html "./printing1.html")
+* [Exporting Amazon Quick Sight analyses or dashboards as PDFs](./export-dashboard-to-pdf.html "./export-dashboard-to-pdf.html")
+* [Error codes for failed PDF export jobs](./qs-reports-error-codes.html "./qs-reports-error-codes.html")
+* [Organizing assets into folders for Amazon Quick](./folders.html "./folders.html")

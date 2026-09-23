@@ -1,0 +1,2673 @@
+
+====================================================================================================
+### [1/16] recommend :: recommend sobre evaluation.html de Bedrock
+====================================================================================================
+{
+  "url": "https://docs.aws.amazon.com/step-functions/latest/dg/use-cases.html",
+  "title": "Explore AWS Step Functions workflow use cases",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/what-is-bedrock-agentcore.html",
+  "title": "Amazon Bedrock AgentCore for scalable AI agent operations",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/wellarchitected/latest/machine-learning-lens/mlops04-bp01.html",
+  "title": "automate ML operations with SageMaker AI",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-automatic.html",
+  "title": "Understand prerequisites for Amazon Bedrock model evaluation",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-tasks.html",
+  "title": "Amazon Bedrock model evaluation task types",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html",
+  "title": "Amazon Bedrock AgentCore Evaluations tool for assessing…",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-ab-testing.html",
+  "title": "Amazon SageMaker AI production variant A/B testing",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-judge.html",
+  "title": "Amazon Bedrock's model performance evaluation process",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-automatic.html",
+  "title": "create automatic model evaluation jobs in Amazon Bedrock",
+  "context": "Intent: How to"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-moonshot-ai-kimi-k3.html",
+  "title": "Kimi K3",
+  "context": "New content added on 2026-09-18T07:20:32.402000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/inference-responses-api.html",
+  "title": "Responses API",
+  "context": "New content added on 2026-09-16T16:23:29.033000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-native-multimodal.html",
+  "title": "Native multimodal processing",
+  "context": "New content added on 2026-09-10T17:45:38.443000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-6-astra.html",
+  "title": "GPT-6 Astra",
+  "context": "New content added on 2026-09-09T02:20:40.101000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
+  "title": "Model lifecycle (Legacy)",
+  "context": "New content added on 2026-09-08T21:37:19.091000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-ds-confluence-onprem-connect.html",
+  "title": "Connect a Confluence Data Center data source",
+  "context": "New content added on 2026-09-05T00:35:31.349000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-ds-confluence-onprem.html",
+  "title": "Confluence Data Center",
+  "context": "New content added on 2026-09-05T00:35:31.324000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-confluence-onprem-auth-setup.html",
+  "title": "Set up Basic or PAT authentication for Confluence Data Center",
+  "context": "New content added on 2026-09-05T00:35:31.298000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-vpc-configuration.html",
+  "title": "Configure VPC connectivity for a data source",
+  "context": "New content added on 2026-09-05T00:35:31.240000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-fable-5-1.html",
+  "title": "Claude Fable 5.1",
+  "context": "New content added on 2026-09-01T19:08:19.596000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-evaluation-metrics.html",
+  "title": "Use metrics to understand RAG system performance",
+  "context": "Learn about the built-in metrics available for Amazon Bedrock RAG evaluation jobs, including retrieve-only and retrieve-and-generate metrics like correctness, faithfulness, and citation precision."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-eval-llm-results.html",
+  "title": "Review metrics for RAG evaluations that use LLMs (console)",
+  "context": "Learn about the evaluation metrics in Amazon Bedrock knowledge base RAG evaluation report cards, including context relevance, correctness, faithfulness, and citation metrics."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-kb.html",
+  "title": "Evaluate the performance of RAG sources using Amazon Bedrock evaluations",
+  "context": "Learn how to evaluate RAG source performance using Amazon Bedrock evaluations, including supported evaluator and response generator models for retrieve-only and retrieve-and-generate jobs."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-judge.html",
+  "title": "Evaluate model performance using another LLM as a judge",
+  "context": "Learn how Amazon Bedrock uses an LLM as a judge to evaluate model performance, including supported evaluator and generator models for built-in and custom metrics."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-kb-llama.html",
+  "title": "MetaLlama 3.1 70B Instruct",
+  "context": "Reference prompts and score mappings used with Meta Llama 3.1 70B Instruct for Amazon Bedrock model evaluation metrics including logical coherence, faithfulness, helpfulness, correctness, and more."
+}
+{
+  "url": "https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/evaluation.html",
+  "title": "Evaluate the performance of an Amazon Bedrock model",
+  "context": "Learn about automatic model evaluation jobs in Amazon Bedrock in SageMaker Unified Studio, including supported LLM use cases, performance metrics, and dataset options."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-metrics.html",
+  "title": "Use metrics to understand model performance",
+  "context": "Reference for Amazon Bedrock built-in LLM judge evaluation metrics, including correctness, completeness, faithfulness, helpfulness, coherence, relevance, and harmfulness."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-evaluation-create-randg.html",
+  "title": "Creating a retrieve-and-generate RAG evaluation job",
+  "context": "Learn how to create a retrieve-and-generate RAG evaluation job in Amazon Bedrock using the console, AWS CLI, or SDK for Python, including knowledge base and metric configuration."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-evaluation-create-ro.html",
+  "title": "Creating a retrieve-only RAG evaluation job",
+  "context": "Learn how to create a retrieve-only RAG evaluation job in Amazon Bedrock using the AWS Console, AWS CLI, or Python SDK (Boto3), including knowledge base configuration and metric selection."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-judge-prompt-haiku.html",
+  "title": " AnthropicClaude 3 Haiku",
+  "context": "Reference for the exact judge evaluator prompts used with Anthropic Claude 3 Haiku in Amazon Bedrock model evaluation, including metrics like logical coherence, faithfulness, helpfulness, and harmfulness."
+}
+{
+  "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/rag-healthcare-use-cases/evaluation.html",
+  "title": "Evaluating generative AI solutions for healthcare",
+  "context": "Learn about evaluation approaches for generative AI healthcare solutions, including metrics for information extraction, multi-retriever RAG systems, and LLM-as-a-judge techniques."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-kb-prompt-kb-sonnet-37.html",
+  "title": " AnthropicClaude 3.7 Sonnet",
+  "context": "Reference for evaluation metrics used with Anthropic Claude 3.7 Sonnet in Amazon Bedrock, including scoring scales for logical coherence, faithfulness, helpfulness, completeness, correctness, context coverage, citation precision, harmfulness, and refusal."
+}
+
+====================================================================================================
+### [2/16] recommend :: recommend sobre how-it-works-evaluations de AgentCore
+====================================================================================================
+
+
+====================================================================================================
+### [3/16] recommend :: recommend sobre knowledge-base-evaluation-metrics
+====================================================================================================
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-evaluation-custom-metrics-prompt-formats.html",
+  "title": "custom metric prompts for Amazon Bedrock RAG evaluation",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-eval-prompt.html",
+  "title": "Amazon Bedrock RAG evaluation job prompts",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-evaluation-prompt.html",
+  "title": "RAG evaluations prompt dataset requirements in Amazon…",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-kb-prompt-kb-nova.html",
+  "title": "Amazon Nova Pro evaluation metrics",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-kb.html",
+  "title": "RAG source performance evaluation with Amazon Bedrock",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/sagemaker-experiments.xml.html",
+  "title": "Amazon SageMaker MLflow experiment tracking",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-eval-llm-results.html",
+  "title": "Understand Amazon Bedrock RAG evaluation metrics",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors-bedrock-kb.html",
+  "title": "S3 Vectors in Amazon Bedrock Knowledge Bases",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-configure-neural-search.html",
+  "title": "Neural Search and Hybrid Search setup on OpenSearch…",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-moonshot-ai-kimi-k3.html",
+  "title": "Kimi K3",
+  "context": "New content added on 2026-09-18T07:20:32.402000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/inference-responses-api.html",
+  "title": "Responses API",
+  "context": "New content added on 2026-09-16T16:23:29.033000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-native-multimodal.html",
+  "title": "Native multimodal processing",
+  "context": "New content added on 2026-09-10T17:45:38.443000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-6-astra.html",
+  "title": "GPT-6 Astra",
+  "context": "New content added on 2026-09-09T02:20:40.101000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
+  "title": "Model lifecycle (Legacy)",
+  "context": "New content added on 2026-09-08T21:37:19.091000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-ds-confluence-onprem-connect.html",
+  "title": "Connect a Confluence Data Center data source",
+  "context": "New content added on 2026-09-05T00:35:31.349000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-ds-confluence-onprem.html",
+  "title": "Confluence Data Center",
+  "context": "New content added on 2026-09-05T00:35:31.324000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-confluence-onprem-auth-setup.html",
+  "title": "Set up Basic or PAT authentication for Confluence Data Center",
+  "context": "New content added on 2026-09-05T00:35:31.298000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-vpc-configuration.html",
+  "title": "Configure VPC connectivity for a data source",
+  "context": "New content added on 2026-09-05T00:35:31.240000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-fable-5-1.html",
+  "title": "Claude Fable 5.1",
+  "context": "New content added on 2026-09-01T19:08:19.596000"
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-eval-llm-results.html",
+  "title": "Review metrics for RAG evaluations that use LLMs (console)",
+  "context": "Learn about the evaluation metrics in Amazon Bedrock knowledge base RAG evaluation report cards, including context relevance, correctness, faithfulness, and citation metrics."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-evaluation-create-randg.html",
+  "title": "Creating a retrieve-and-generate RAG evaluation job",
+  "context": "Learn how to create a retrieve-and-generate RAG evaluation job in Amazon Bedrock using the console, AWS CLI, or SDK for Python, including knowledge base and metric configuration."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation.html",
+  "title": "Evaluate the performance of Amazon Bedrock resources",
+  "context": "Learn how to evaluate the performance of Amazon Bedrock models and knowledge bases using automated, human-based, and LLM judge model evaluation jobs."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-evaluation-create-ro.html",
+  "title": "Creating a retrieve-only RAG evaluation job",
+  "context": "Learn how to create a retrieve-only RAG evaluation job in Amazon Bedrock using the AWS Console, AWS CLI, or Python SDK (Boto3), including knowledge base configuration and metric selection."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-metrics.html",
+  "title": "Use metrics to understand model performance",
+  "context": "Reference for Amazon Bedrock built-in LLM judge evaluation metrics, including correctness, completeness, faithfulness, helpfulness, coherence, relevance, and harmfulness."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-kb.html",
+  "title": "Evaluate the performance of RAG sources using Amazon Bedrock evaluations",
+  "context": "Learn how to evaluate RAG source performance using Amazon Bedrock evaluations, including supported evaluator and response generator models for retrieve-only and retrieve-and-generate jobs."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-kb-llama.html",
+  "title": "MetaLlama 3.1 70B Instruct",
+  "context": "Reference prompts and score mappings used with Meta Llama 3.1 70B Instruct for Amazon Bedrock model evaluation metrics including logical coherence, faithfulness, helpfulness, correctness, and more."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-kb-prompt-kb-sonnet-37.html",
+  "title": " AnthropicClaude 3.7 Sonnet",
+  "context": "Reference for evaluation metrics used with Anthropic Claude 3.7 Sonnet in Amazon Bedrock, including scoring scales for logical coherence, faithfulness, helpfulness, completeness, correctness, context coverage, citation precision, harmfulness, and refusal."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-evaluation-create-randg-custom.html",
+  "title": "Creating a retrieve-and-generate RAG evaluation job using custom metrics",
+  "context": "Learn how to create a retrieve-and-generate RAG evaluation job with custom metrics in Amazon Bedrock using the console, AWS CLI, or API, including prompt and rating scale configuration."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-built-in-metrics.html",
+  "title": "Create a model evaluation job using built-in metrics",
+  "context": "Learn how to create an Amazon Bedrock model evaluation job using built-in metrics via the console or AWS CLI, including evaluator model selection and S3 dataset configuration."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-evaluation-create-ro-custom.html",
+  "title": "Creating a retrieve-only RAG evaluation job using custom metrics",
+  "context": "Learn how to create a retrieve-only RAG evaluation job with custom metrics in Amazon Bedrock using the console or AWS CLI, including metric prompts and rating scales."
+}
+{
+  "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-evaluation-custom-metrics-prompt-formats.html",
+  "title": "Create a prompt for a custom metric",
+  "context": "Learn how to create custom metric prompts for Amazon Bedrock RAG evaluation jobs, including prompt structure, input variables, output schemas, and JSON file formats."
+}
+
+====================================================================================================
+### [4/16] recommend :: recommend sobre Synthetics canaries
+====================================================================================================
+{
+  "url": "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/health-checks-types.html",
+  "title": "Amazon Route 53 health check types overview",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/polly/latest/dg/what-is.html",
+  "title": "Amazon Polly offers text-to-speech conversion in various…",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/xray/latest/devguide/xray-console-servicemap.html",
+  "title": "trace map in Amazon CloudWatch for service errors",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Roles.html",
+  "title": "Amazon CloudWatch Synthetics roles and permissions",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonSynthetics/latest/APIReference/Welcome.html",
+  "title": "Amazon CloudWatch Synthetics monitors endpoints and APIs",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/pinpoint/latest/apireference_smsvoicev2/API_SendVoiceMessage.html",
+  "title": "Amazon Polly voice message sending API details",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/connect/latest/adminguide/testing-simulation.html",
+  "title": "Amazon Connect testing and simulation features",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Blueprints.html",
+  "title": "Amazon CloudWatch Synthetics canary blueprints overview",
+  "context": "Intent: Learn about"
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Debug_Locally.html",
+  "title": "Test and debug CloudWatch Synthetics canaries locally",
+  "context": "Intent: How to"
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Create.html",
+  "title": "Create a CloudWatch Synthetics canary",
+  "context": "Intent: How to"
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/example_cloudwatch_GetOTelEnrichment_section.html",
+  "title": "Use GetOTelEnrichment with an AWS SDK",
+  "context": "New content added on 2026-09-11T02:03:01.922000"
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/example_cloudwatch_GetAlarmMuteRule_section.html",
+  "title": "Use GetAlarmMuteRule with an AWS SDK",
+  "context": "New content added on 2026-09-11T02:03:01.890000"
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/example_cloudwatch_ListAlarmMuteRules_section.html",
+  "title": "Use ListAlarmMuteRules with an AWS SDK",
+  "context": "New content added on 2026-09-11T02:03:01.867000"
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/example_cloudwatch_StartOTelEnrichment_section.html",
+  "title": "Use StartOTelEnrichment with an AWS SDK",
+  "context": "New content added on 2026-09-11T02:03:01.845000"
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/example_cloudwatch_DeleteAlarmMuteRule_section.html",
+  "title": "Use DeleteAlarmMuteRule with an AWS SDK",
+  "context": "New content added on 2026-09-11T02:03:01.823000"
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/example_cloudwatch_Scenario_OTelMetrics_section.html",
+  "title": "Send OpenTelemetry metrics to CloudWatch and alarm on them with PromQL using an AWS SDK",
+  "context": "New content added on 2026-09-11T02:03:01.802000"
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/example_cloudwatch_StopOTelEnrichment_section.html",
+  "title": "Use StopOTelEnrichment with an AWS SDK",
+  "context": "New content added on 2026-09-11T02:03:01.780000"
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/example_cloudwatch_PutAlarmMuteRule_section.html",
+  "title": "Use PutAlarmMuteRule with an AWS SDK",
+  "context": "New content added on 2026-09-11T02:03:01.758000"
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/example_cloudwatch_DescribeAlarmContributors_section.html",
+  "title": "Use DescribeAlarmContributors with an AWS SDK",
+  "context": "New content added on 2026-09-11T02:03:01.730000"
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-PromQL-Grafana.html",
+  "title": "Grafana integration",
+  "context": "New content added on 2026-09-08T10:51:45.845000"
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_WritingCanary.html",
+  "title": "Writing a canary script",
+  "context": "Explore how to write CloudWatch Synthetics canary scripts, integrate canaries with AWS services, and work with external dependencies and libraries."
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Library.html",
+  "title": "Synthetics runtime versions",
+  "context": "Learn about CloudWatch Synthetics runtime versions, including supported languages (Node.js, Python, Java) and frameworks (Puppeteer, Playwright, Selenium) for canary creation."
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Function_Library.html",
+  "title": "Library functions available for canary scripts",
+  "context": "Explore built-in CloudWatch Synthetics library functions for writing Node.js canary scripts, covering both UI and API canary use cases."
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Samples.html",
+  "title": "Sample code for canary scripts",
+  "context": "Sample code for CloudWatch Synthetics canary scripts using Node.js with Playwright, Node.js with Puppeteer, and Python with Selenium, including multi-step, cookie, device emulation, and API examples."
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Blueprints.html",
+  "title": "Using canary blueprints",
+  "context": "Learn about canary blueprints in Amazon CloudWatch Synthetics, including heartbeat monitoring, API canary, broken link checker, visual monitoring, GUI workflow builder, and multi checks blueprints."
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Recorder.html",
+  "title": "Using the CloudWatch Synthetics Recorder for Google Chrome",
+  "context": "Learn how to install and use the CloudWatch Synthetics Recorder Chrome extension to record browser actions and automatically generate Node.js scripts for canaries."
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Synthetics_WritingCanary_Nodejs_Playwright.html",
+  "title": "Writing a Node.js canary script using the Playwright runtime",
+  "context": "Learn how to write and package Node.js canary scripts using the CloudWatch Synthetics Playwright runtime, including converting existing Playwright scripts and configuring runtime options."
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_WritingCanary_Python.html",
+  "title": "Writing a Python canary script",
+  "context": "Learn how to write a Python CloudWatch Synthetics canary script, package canary files, and convert existing Selenium scripts to work as CloudWatch Synthetics canaries."
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_WritingCanary_Nodejs_Pup.html",
+  "title": "Writing a Node.js canary script using the Puppeteer runtime",
+  "context": "Learn how to write a CloudWatch Synthetics Node.js canary script using the Puppeteer runtime, including packaging, environment variables, AWS SDK integration, and static IP configuration."
+}
+{
+  "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/performing-safe-canary-upgrades.html",
+  "title": "Performing safe canary updates",
+  "context": "Learn how to perform safe canary updates in CloudWatch Synthetics using dry runs via the AWS Console, CLI, or CloudFormation to validate runtime and configuration changes."
+}
+
+====================================================================================================
+### [5/16] search_documentation :: errores comunes de la API de Bedrock
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability-runtime-metrics.html",
+      "title": "AgentCore error types",
+      "context": "Categorized error codes for user, system, and throttling errors returned by AgentCore during invocations",
+      "recommended_sections": [
+        "Error types"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore-control/latest/APIReference/CommonErrors.html",
+      "title": "ThrottlingException",
+      "context": "An error returned by Amazon Keyspaces when the request rate exceeds the service's throughput limits or when more than two processes read from the same stream shard simultaneously.",
+      "recommended_sections": [
+        "Common Error Types"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-rate-limits.html",
+      "title": "dimension keys",
+      "context": "Canonical identifier fields (VIN, customer_id, dealer_id, supplier_id, part_number, station_id) shared across all data products",
+      "recommended_sections": [
+        "Common API errors"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/recommendations-tool-description.html",
+      "title": "ServiceQuotaExceededException",
+      "context": "Error returned when a request exceeds the service quota for Amazon Managed Workflows for Apache Airflow Serverless resources such as workflow counts or concurrent run limits",
+      "recommended_sections": [
+        "Errors"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-troubleshooting.html",
+      "title": "409 RetryableConflictException",
+      "context": "Transient HTTP error returned when a second operation reaches an Amazon Bedrock AgentCore Runtime session during provisioning or teardown, requiring retry with exponential backoff",
+      "recommended_sections": [
+        "I need help understanding HTTP error codes"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/managed-blockchain/latest/AMBQ-APIReference/API_Errors.html",
+      "title": "ServiceQuotaExceededException",
+      "context": "Error returned when a request exceeds the service quota for Amazon Managed Workflows for Apache Airflow Serverless resources such as workflow counts or concurrent run limits",
+      "recommended_sections": [
+        "Service-specific Errors"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/configuration-bundles-create.html",
+      "title": "configuration bundle",
+      "context": "A versioned, immutable snapshot of an agent's configuration including system prompts, model IDs, and tool descriptions that can be changed without code deployments",
+      "recommended_sections": [
+        "Errors"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/APIReference/CommonErrors.html",
+      "title": "ThrottlingException",
+      "context": "An error returned by Amazon Keyspaces when the request rate exceeds the service's throughput limits or when more than two processes read from the same stream shard simultaneously.",
+      "recommended_sections": [
+        "Common Error Types"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 9,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-stop-session.html",
+      "title": "StopRuntimeSession error handling",
+      "context": "Table of common HTTP error codes and descriptions returned by the StopRuntimeSession operation",
+      "recommended_sections": [
+        "Error handling"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 10,
+      "url": "https://docs.aws.amazon.com/lambda/latest/dg/microvms-launching.html",
+      "title": "ServiceQuotaExceededException",
+      "context": "Error returned when a request exceeds the service quota for Amazon Managed Workflows for Apache Airflow Serverless resources such as workflow counts or concurrent run limits",
+      "recommended_sections": [
+        "Run errors"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "5b953203-d1a9-4ee9-adca-fb039235598c",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "relatesTo",
+        "to": "concurrent quantum task limit",
+        "to_description": "A service quota in Amazon Braket that limits the number of simultaneous quantum tasks against a simulator device",
+        "from": "ServiceQuotaExceededException"
+      },
+      {
+        "relation": "references",
+        "to": "{\"message\": \"string\"}",
+        "to_description": "JSON response body schema used by multiple MediaLive error models including InvalidRequest, AccessDenied, ResourceNotFound, LimitExceeded, InternalServiceError, BadGatewayException, and GatewayTimeoutException.",
+        "from": "ServiceQuotaExceededException"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "Maps error codes",
+        "to_description": "Error codes, exceptions, and updated error messages returned by the Amazon Location Service Maps API",
+        "from": "ServiceQuotaExceededException"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "ReadCapacityUnits",
+        "to_description": "A property of ReadProvisionedThroughputSettings that specifies a fixed integer read capacity for a DynamoDB replica table or global secondary index",
+        "from": "ThrottlingException"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "exponential backoff and retry strategies",
+        "to_description": "A recommended error-handling pattern for AWS API clients to gracefully manage rate limiting by progressively increasing wait times between retries",
+        "from": "ThrottlingException"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [6/16] search_documentation :: cuotas de Bedrock y ventana de contexto
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/quotas-mantle.html",
+      "title": "The bedrock-mantle endpoint does not enforce requests-per-minute (RPM) quotas.",
+      "context": "Clarification that throttling on the bedrock-mantle endpoint is governed solely by token-based quotas, not RPM",
+      "recommended_sections": [
+        "Quota types",
+        "Requesting a quota increase"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/general/latest/gr/bedrock.html",
+      "title": "On-demand InvokeModel tokens per minute",
+      "context": "A per-model, per-Region quota limiting the maximum combined input and output tokens per minute when a model is invoked on-demand in a single Region",
+      "recommended_sections": null,
+      "sections": [
+        "Amazon Bedrock endpoints and quotas",
+        "Amazon Bedrock service endpoints",
+        "Amazon Bedrock control plane APIs",
+        "Amazon Bedrock runtime APIs",
+        "Agents for Amazon Bedrock build-time APIs",
+        "Agents for Amazon Bedrock runtime APIs",
+        "Amazon Bedrock Data Automation APIs",
+        "Amazon Bedrock service quotas"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+      "title": "AgentCore Evaluations input tokens per minute",
+      "context": "The rate limit on input tokens processed per minute by built-in AgentCore evaluators for on-demand evaluations",
+      "recommended_sections": [
+        "AgentCore Evaluations Service Quotas"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/quotas-runtime.html",
+      "title": "InvokeModel requests per minute",
+      "context": "A per-model, per-Region quota limiting the maximum number of inference requests per minute that an account can submit for a model on the bedrock-runtime endpoint",
+      "recommended_sections": [
+        "Quota types",
+        "Requesting a quota increase",
+        "Quotas for the bedrock-runtime endpoint"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-quotas.html",
+      "title": "Managed knowledge base quotas",
+      "context": "Table of default and adjustable service quotas that apply specifically to Amazon Bedrock managed knowledge bases",
+      "recommended_sections": [
+        "Service quotas for managed knowledge bases"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/quotas.html",
+      "title": "token usage quota",
+      "context": "Quota mechanism that controls model inference throughput in Amazon Bedrock based on token consumption rates",
+      "recommended_sections": [
+        "Quotas for Amazon Bedrock"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/quotas-token-burndown.html",
+      "title": "Understanding token quota management",
+      "context": "Explanation of how tokens are deducted from TPM and TPD quotas at the start, during, and end of an Amazon Bedrock request",
+      "recommended_sections": [
+        "Understanding token quota management",
+        "Scenario 1: High max\\_tokens value"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-use-invoke-guardrail-checks-quotas.html",
+      "title": "InvokeGuardrailChecks requests per minute quota",
+      "context": "The maximum number of InvokeGuardrailChecks API calls allowed per account, per Region, per minute",
+      "recommended_sections": [
+        "Quotas"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "38d5cc77-024e-4ee9-8e45-d66586206da9",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "references",
+        "to": "bedrock-mantle endpoint",
+        "to_description": "Amazon Bedrock endpoint architected with advanced scheduling and work-queueing mechanisms that supports Chat Completions, Responses, and Messages APIs with higher initial throughput limits",
+        "from": "The bedrock-mantle endpoint does not enforce requests-per-minute (RPM) quotas."
+      },
+      {
+        "relation": "references",
+        "to": "Bedrock Mantle input tokens per minute",
+        "to_description": "Per-model, per-Region quota limiting the maximum number of input tokens per minute an account can submit to a model on the bedrock-mantle endpoint",
+        "from": "The bedrock-mantle endpoint does not enforce requests-per-minute (RPM) quotas."
+      },
+      {
+        "relation": "references",
+        "to": "Tokens per minute (TPM)",
+        "to_description": "Amazon Bedrock quota limiting the total number of input and output tokens processed per minute, relevant to Deadline Cloud assistant usage",
+        "from": "Understanding token quota management"
+      },
+      {
+        "relation": "references",
+        "to": "burndown rate",
+        "to_description": "The rate at which input and output tokens are converted into token quota usage for the throttling system in Amazon Bedrock global cross-Region inference.",
+        "from": "Understanding token quota management"
+      },
+      {
+        "relation": "references",
+        "to": "cacheReadInputTokens",
+        "to_description": "The CloudWatch Amazon Bedrock runtime metric representing the number of input tokens retrieved from a cache instead of being reprocessed by the model",
+        "from": "Understanding token quota management"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [7/16] search_documentation :: Responsible AI Lens evaluacion
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/aws-certification/latest/ai-business-strategist-01/ai-business-strategist-01.html",
+      "title": "AWS Well-Architected Framework (Responsible AI Lens)",
+      "context": "An AWS framework lens providing governance best practices for building responsible and scalable AI solutions.",
+      "recommended_sections": [
+        "Recommended AWS knowledge"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/aws-certification/latest/ai-business-strategist-01/full.html",
+            "section_title": "Recommended AWS knowledge",
+            "section_anchor": "ai-business-strategist-01-aws-knowledge"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/responsible-ai-lens/full.html",
+      "title": "Responsible AI Lens",
+      "context": "An AWS Well-Architected Framework lens that provides best practices for responsibly building and operating AI solutions across eight focus areas aligned to the machine learning lifecycle.",
+      "recommended_sections": [
+        "Responsible AI Lens - AWS Well-Architected Framework"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/wellarchitected/latest/responsible-ai-lens/responsible-ai-lens.html",
+            "section_title": "Lens availability",
+            "section_anchor": "custom-lens-availability"
+          },
+          {
+            "url": "https://docs.aws.amazon.com/wellarchitected/latest/responsible-ai-lens/responsible-ai-lens.html",
+            "section_title": "Responsible AI Lens - AWS Well-Architected Framework",
+            "section_anchor": "responsible-ai-lens"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentic-ai-lens.html",
+      "title": "AWS Well-Architected Agentic AI Lens",
+      "context": "An extension of the AWS Well-Architected Framework providing best practices for designing, deploying, and operating agentic AI systems on AWS",
+      "recommended_sections": [
+        "Agentic AI Lens - AWS Well-Architected"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/generative-ai-lens.html",
+      "title": "AWS Well-Architected Generative AI Lens",
+      "context": "A comprehensive AWS guidance document providing best practices for designing, deploying, and operating generative AI workloads across security, reliability, performance, cost, and other domains.",
+      "recommended_sections": [
+        "Generative AI Lens - AWS Well-Architected Framework"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/conclusion.html",
+            "section_title": "Conclusion",
+            "section_anchor": "conclusion"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/financial-services-industry-lens/fsisec14.html",
+      "title": "AWS Well-Architected Generative AI Lens - Governance",
+      "context": "AWS Well-Architected guidance covering governance practices for generative AI workloads",
+      "recommended_sections": [
+        "Documents"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/aws-certification/latest/ai-professional-01/full.html",
+      "title": "AWS WA Tool Generative AI Lens",
+      "context": "Extension of the AWS Well-Architected Tool providing best practices specific to generative AI workloads",
+      "recommended_sections": [
+        "Task 1.1: Analyze requirements and design GenAI solutions."
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/aws-certification/latest/ai-professional-01/ai-professional-01-domain1.html",
+            "section_title": "Task 1.1: Analyze requirements and design GenAI solutions.",
+            "section_anchor": "ai-professional-01-task-1-1"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/managedservices/latest/appguide/app-dev-deploy-overview.html",
+      "title": "AWS Well-Architected guidance",
+      "context": "Published framework guidance from AWS for building well-architected AI applications following responsible AI best practices",
+      "recommended_sections": [
+        "Application development"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/responsible-ai-lens/evaluate-and-release.html",
+      "title": "evaluate and release focus area",
+      "context": "A best practices area for making responsible AI system release decisions based on release criteria, evaluation datasets, and system design.",
+      "recommended_sections": [
+        "Evaluate and release"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 9,
+      "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-aws-data/technical-assessment.html",
+      "title": "AWS Well-Architected Framework Machine Learning Lens",
+      "context": "AWS guidance covering ML operational best practices and design principles within the Well-Architected Framework",
+      "recommended_sections": [
+        "Technical assessment"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/whitepapers/latest/aws-caf-for-ai/further-reading.html",
+            "section_title": "Further reading",
+            "section_anchor": "further-reading"
+          },
+          {
+            "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-aws-data/full.html",
+            "section_title": "Technical assessment",
+            "section_anchor": "technical-assessment"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 10,
+      "url": "https://docs.aws.amazon.com/online-register/latest/data-formats/awswell-architectedtool.html",
+      "title": "Well-Architected lens review",
+      "context": "An evaluation of a workload against a specific Well-Architected lens, capturing risk counts and status",
+      "recommended_sections": [
+        "Data retrieval APIs for AWS Well-Architected Tool"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/service-authorization/latest/reference/list_wellarchitected.html",
+            "section_title": "Actions defined by AWS Well-Architected Tool",
+            "section_anchor": "list_wellarchitected-actions-as-permissions"
+          },
+          {
+            "url": "https://docs.aws.amazon.com/general/latest/gr/wellarchitected.html",
+            "section_title": "Service quotas",
+            "section_anchor": "limits_wellarchitected"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 11,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/end-user-computing-lens/full.html",
+      "title": "Well-Architected End User Computing Lens",
+      "context": "A Well-Architected lens used to guide the design and evaluation of End User Computing solutions against best practices.",
+      "recommended_sections": [
+        "Introduction"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 12,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/machine-learning-lens/conclusion.html",
+      "title": "ML lens",
+      "context": "An extension of the AWS Well-Architected Framework that provides specific machine learning best practices for building and deploying ML workloads",
+      "recommended_sections": [
+        "Conclusion"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 13,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/sap-lens/full.html",
+      "title": "Well-Architected Framework SAP Lens",
+      "context": "An AWS Well-Architected Framework lens providing best practice guidance for reviewing and optimizing SAP workloads on AWS",
+      "recommended_sections": [
+        "Best Practice 4.4 – Perform regular workload reviews to optimize for resiliency, performance, agility, and cost"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/wellarchitected/latest/sap-lens/best-practice-4-4.html",
+            "section_title": "Best Practice 4.4 – Perform regular workload reviews to optimize for resiliency, performance, agility, and cost",
+            "section_anchor": "best-practice-4-4"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 14,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/userguide/lens-catalog.html",
+      "title": "AWS Well-Architected Framework lens",
+      "context": "A default lens applied to all workloads containing architectural best practices for designing reliable, secure, efficient, cost-effective, and sustainable cloud systems",
+      "recommended_sections": [
+        "Lens Catalog for AWS WA Tool"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/wellarchitected/latest/userguide/lenses.html",
+            "section_title": "Using lenses in AWS WA Tool",
+            "section_anchor": "lenses"
+          },
+          {
+            "url": "https://docs.aws.amazon.com/wellarchitected/latest/userguide/lenses-remove.html",
+            "section_title": "Removing a lens from a workload in AWS WA Tool",
+            "section_anchor": "lenses-remove"
+          }
+        ]
+      }
+    }
+  ],
+  "facets": null,
+  "query_id": "cab9f78f-bb51-428d-86ee-ddb7c7bf981a",
+  "metadata": {
+    "discovered_services": [
+      {
+        "name": "AWS Well-Architected Tool",
+        "description": "AWS tool that helps review workload architectures against best practices and monitor overall status and risks"
+      },
+      {
+        "name": "AWS",
+        "description": "Amazon Web Services cloud infrastructure provider responsible for operating, managing, and controlling host operating systems, virtualization layers, and physical security of facilities."
+      },
+      {
+        "name": "AWS Well-Architected Framework",
+        "description": "An AWS framework providing architectural best practices and guidance for designing and operating reliable, secure, efficient, and cost-effective systems in the cloud."
+      }
+    ],
+    "related_tasks": [
+      {
+        "name": "download and import the Responsible AI Lens",
+        "description": "Download the Responsible AI Lens JSON from the AWS Well-Architected custom lens GitHub repository and import it into AWS Well-Architected Tool to begin reviewing an AI workload.",
+        "urls": [
+          {
+            "url_name": "/wellarchitected/latest/responsible-ai-lens/responsible-ai-lens.html#custom-lens-availability",
+            "url_description": "How to download and import the Responsible AI Lens JSON into AWS Well-Architected Tool from the public AWS Well-Architected custom lens GitHub repository to begin reviewing AI workloads."
+          }
+        ]
+      },
+      {
+        "name": "import the Responsible AI Lens",
+        "description": "Download and import the Responsible AI Lens into AWS Well-Architected Tool to begin reviewing AI workloads",
+        "urls": [
+          {
+            "url_name": "/wellarchitected/latest/responsible-ai-lens/full.html#custom-lens-availability",
+            "url_description": "How to download and import the Responsible AI Lens into AWS Well-Architected Tool from the public GitHub repository to review AI workloads"
+          }
+        ]
+      },
+      {
+        "name": "How to use this guidance",
+        "description": "Guidance on how builders should apply the Responsible AI Lens focus areas, questions, and best practices to their AI development situation",
+        "urls": [
+          {
+            "url_name": "/wellarchitected/latest/responsible-ai-lens/full.html#how-to-use-this-guidance",
+            "url_description": "How builders should navigate and apply the Responsible AI Lens guidance across eight machine learning lifecycle focus areas, including scope limitations, risk terminology, and compliance considerations"
+          }
+        ]
+      },
+      {
+        "name": "Reviewing an existing agentic AI deployment",
+        "description": "Evaluate an existing agentic AI deployment for architectural improvements using the Agentic AI Lens",
+        "urls": [
+          {
+            "url_name": "/wellarchitected/latest/agentic-ai-lens/agentic-ai-lens.html#agentic-ai-lens-how-to-use",
+            "url_description": "When and how to apply the AWS Well-Architected Agentic AI Lens alongside the AWS Well-Architected Framework for designing, reviewing, and establishing standards for agentic AI deployments"
+          }
+        ]
+      },
+      {
+        "name": "Designing a new agentic AI system",
+        "description": "Architect a new agentic AI system or add agentic capabilities to an existing application using Well-Architected guidance",
+        "urls": [
+          {
+            "url_name": "/wellarchitected/latest/agentic-ai-lens/agentic-ai-lens.html#agentic-ai-lens-how-to-use",
+            "url_description": "When and how to apply the AWS Well-Architected Agentic AI Lens alongside the AWS Well-Architected Framework for designing, reviewing, and establishing standards for agentic AI deployments"
+          }
+        ]
+      },
+      {
+        "name": "download and import the Generative AI Lens into AWS Well-Architected Tool",
+        "description": "Download the Generative AI Lens JSON from the public GitHub repository and import it into AWS Well-Architected Tool to begin reviewing generative AI workloads",
+        "urls": [
+          {
+            "url_name": "/wellarchitected/latest/generative-ai-lens/generative-ai-lens.html#custom-lens-availability",
+            "url_description": "How to download and import the AWS Well-Architected Generative AI Lens JSON from the public GitHub repository into AWS Well-Architected Tool to begin reviewing generative AI workloads using custom lenses."
+          }
+        ]
+      },
+      {
+        "name": "Analyze requirements and design GenAI solutions",
+        "description": "Design comprehensive GenAI architectures aligned with business needs, validate feasibility with proofs of concept, and standardize components using AWS frameworks",
+        "urls": [
+          {
+            "url_name": "/aws-certification/latest/ai-professional-01/full.html#ai-professional-01-task-1-1",
+            "url_description": "How to analyze business requirements and design GenAI solution architectures using Amazon Bedrock, AWS Well-Architected Framework, and Generative AI Lens for proof-of-concept and full-scale deployment"
+          }
+        ]
+      },
+      {
+        "name": "conduct a technical assessment",
+        "description": "A multi-step procedure for evaluating an organization's technical capabilities across data engineering, business analysis, and data science teams.",
+        "urls": [
+          {
+            "url_name": "/prescriptive-guidance/latest/strategy-aws-data/technical-assessment.html",
+            "url_description": "How to conduct a technical assessment of an organization's data and ML capabilities by asking structured questions across data engineering, business analysis, and data science teams, with references to AWS Well-Architected Framework lenses."
+          }
+        ]
+      },
+      {
+        "name": "Task 1.1: Analyze requirements and design GenAI solutions",
+        "description": "Task covering architectural design, proof-of-concept development, and standardized component creation for generative AI solutions",
+        "urls": [
+          {
+            "url_name": "/aws-certification/latest/ai-professional-01/ai-professional-01-domain1.html#ai-professional-01-task-1-1",
+            "url_description": "How to analyze business requirements and design generative AI solution architectures using Amazon Bedrock, AWS Well-Architected Framework, and the Generative AI Lens for proof-of-concept and full-scale deployment"
+          }
+        ]
+      },
+      {
+        "name": "Perform regular workload reviews to optimize for resiliency, performance, agility, and cost",
+        "description": "Periodically review SAP workloads using the Well-Architected SAP Lens and incorporate new AWS services and right-sizing improvements into an operational backlog",
+        "urls": [
+          {
+            "url_name": "/wellarchitected/latest/sap-lens/full.html#best-practice-4-4",
+            "url_description": "How to perform regular SAP workload reviews on AWS using the Well-Architected SAP Lens to right-size EC2 and EBS resources, adopt new AWS services, and optimize for resiliency, performance, agility, and cost"
+          },
+          {
+            "url_name": "/wellarchitected/latest/sap-lens/design-principle-4.html#design-principle-4",
+            "url_description": "Best practices for regularly validating and improving SAP workloads on AWS, including lifecycle event planning, patch management, fault recovery testing, and workload optimization for resiliency, performance, agility, and cost"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "relation": "relatesTo",
+        "to": "AI governance",
+        "to_description": "A framework of consistent practices to address organizational risks, ethical deployment, data quality, and regulatory compliance for AI technologies.",
+        "from": "AWS Well-Architected Framework (Responsible AI Lens)"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "responsible AI practices",
+        "to_description": "A set of key dimensions including controllability, safety, fairness, veracity, robustness, explainability, privacy, security, transparency, and governance that customers should address when building AI applications",
+        "from": "AWS Well-Architected Framework (Responsible AI Lens)"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "responsible AI",
+        "to_description": "A set of considerations and practices for implementing generative AI in educational environments, covering content appropriateness, academic integrity, transparency, bias mitigation, and cost controls.",
+        "from": "Responsible AI Lens"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "narrow use case definitions",
+        "to_description": "A practice of scoping AI use cases tightly to manage risks effectively while maximizing benefits",
+        "from": "Responsible AI Lens"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "Responsible AI best practice framework",
+        "to_description": "AWS-published framework of best practices for building and operating AI applications across traditional ML, generative AI, and agentic use cases",
+        "from": "Responsible AI Lens"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [8/16] search_documentation :: Generative AI Lens operational excellence evaluacion
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/generative-ai-assisted-incident-response-system.html",
+      "title": "operational excellence best practices",
+      "context": "A set of five best practice guidelines covering model performance evaluation, monitoring, traceability, lifecycle management, and model customization for generative AI incident response.",
+      "recommended_sections": [
+        "Operational excellence best practices"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/generative-ai-automated-code-review.html",
+      "title": "prompt versioning and audit logs",
+      "context": "A traceability mechanism that tracks changes to prompts and maintains audit records for the code review system",
+      "recommended_sections": [
+        "Operational excellence best practices"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops01.html",
+      "title": "GENOPS01-BP02 Collect and monitor user feedback",
+      "context": "Best practice for supplementing model performance evaluation with direct user feedback to drive continuous improvement of generative AI applications.",
+      "recommended_sections": [
+        "Model performance evaluation"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/operational-excellence.html",
+      "title": "prompt template management",
+      "context": "A structured approach to creating, versioning, and managing prompt templates used in generative AI workflows.",
+      "recommended_sections": [
+        "Operational excellence"
+      ],
+      "sections": [
+        "Operational excellence"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/generative-ai-lifecycle.html",
+      "title": "continuous improvement phase",
+      "context": "The final generative AI lifecycle phase involving ongoing monitoring, user feedback collection, and iterative model adjustments to enhance accuracy, quality, and relevance over time.",
+      "recommended_sections": [
+        "Continuous improvement"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/gen-ai-lifecycle-operational-excellence/full.html",
+      "title": "Generative AI Lifecycle Operational Excellence framework",
+      "context": "A staged framework that guides organizations through the entire lifecycle of generative AI application development and operations using best practices and component-based architectures.",
+      "recommended_sections": [
+        "Generative AI Lifecycle Operational Excellence framework on AWS"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genperf01-bp02.html",
+      "title": "generative AI workload performance metrics",
+      "context": "Quantifiable measures used to evaluate foundation model performance including latency, throughput, response quality, and training times",
+      "recommended_sections": [
+        "Resources"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/generative-ai-lens.html",
+      "title": "AWS Well-Architected Generative AI Lens",
+      "context": "A comprehensive AWS guidance document providing best practices for designing, deploying, and operating generative AI workloads across security, reliability, performance, cost, and other domains.",
+      "recommended_sections": [
+        "Generative AI Lens - AWS Well-Architected Framework"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 9,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops01-bp01.html",
+      "title": "model drift",
+      "context": "A critical production challenge where a generative AI model's behavior or performance degrades over time due to evolving data patterns or user behaviors.",
+      "recommended_sections": [
+        "GENOPS01-BP01 Periodically evaluate functional performance"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 10,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genperf01.html",
+      "title": "model performance benchmark",
+      "context": "A test suite built from ground truth data used to measure and compare foundation model performance on specific tasks",
+      "recommended_sections": null,
+      "sections": [
+        "Establish performance evaluation processes"
+      ],
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "53e48b6f-b26f-4623-bdbd-76f3dcbe01ae",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "references",
+        "to": "generative AI-assisted incident response system",
+        "to_description": "An AI-powered system that accelerates IT incident resolution by automating information collection, correlating incidents with historical data, and providing AI-assisted analysis.",
+        "from": "operational excellence best practices"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "generative AI lifecycle",
+        "to_description": "The end-to-end stages of building and operating generative AI workloads, including scoping, model selection, model customization, development and integration, deployment, and continuous improvement",
+        "from": "AWS Well-Architected Generative AI Lens"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "responsible AI practices",
+        "to_description": "A set of key dimensions including controllability, safety, fairness, veracity, robustness, explainability, privacy, security, transparency, and governance that customers should address when building AI applications",
+        "from": "AWS Well-Architected Generative AI Lens"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "foundation model",
+        "to_description": "Large pre-trained AI model accessible through Amazon Bedrock for generative AI tasks",
+        "from": "AWS Well-Architected Generative AI Lens"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "AWS Well-Architected Framework",
+        "to_description": "A framework that helps customers understand the pros and cons of decisions made while building systems on AWS, providing architectural best practices for reliable, secure, efficient, and cost-effective systems.",
+        "from": "AWS Well-Architected Generative AI Lens"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [9/16] search_documentation :: Agentic AI Lens evaluacion de agentes
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentperf02-bp02.html",
+      "title": "workload-specific model benchmarking",
+      "context": "Practice of evaluating candidate models against an evaluation set representative of actual production traffic rather than relying on general public leaderboard rankings",
+      "recommended_sections": [
+        "Implementation guidance",
+        "Implementation steps"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentrel02-bp01.html",
+      "title": "task completion rate",
+      "context": "A per-agent quality metric measuring how often an agent successfully completes its assigned task",
+      "recommended_sections": [
+        "Implementation steps"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentops06.html",
+      "title": "Testing, evaluation, and validation frameworks",
+      "context": "Overview of systematic testing and evaluation processes that confirm agent quality, reliability, and alignment with business objectives",
+      "recommended_sections": [
+        "Testing, evaluation, and validation frameworks"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentic-ai-lens.html",
+      "title": "LLM-as-judge",
+      "context": "An evaluation technique that uses a large language model to assess the quality of agent outputs against defined criteria",
+      "recommended_sections": [
+        "Lens roadmap"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentrel05-bp02.html",
+      "title": "task-level feedback",
+      "context": "Agent feedback signal that captures whether the agent completed the task correctly, using automation for deterministic criteria and LLM-as-a-judge for subjective quality",
+      "recommended_sections": [
+        "Implementation guidance"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentperf01-bp01.html",
+      "title": "token efficiency",
+      "context": "Efficiency KPI measuring tokens consumed per task and cost per completion for agent workloads",
+      "recommended_sections": [
+        "AGENTPERF01-BP01 Define performance-aligned success criteria for agent workloads"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentops01-bp01.html",
+      "title": "business outcome metrics for agents",
+      "context": "Operational measurements such as task resolution rate, escalation rate, and customer satisfaction used to evaluate whether an agent delivers business value",
+      "recommended_sections": [
+        "AGENTOPS01-BP01 Establish well-defined agent roles, responsibilities, and success criteria"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentops06-bp01.html",
+      "title": "Amazon Bedrock AgentCore Evaluations",
+      "context": "A capability of Amazon Bedrock AgentCore that runs periodic quality assessments against representative task sets by comparing outputs against golden-path examples and flagging regressions",
+      "recommended_sections": [
+        "Implementation steps"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 9,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentops06-bp02.html",
+      "title": "Amazon Bedrock AgentCore Evaluations",
+      "context": "A capability of Amazon Bedrock AgentCore that runs periodic quality assessments against representative task sets by comparing outputs against golden-path examples and flagging regressions",
+      "recommended_sections": [
+        "Resources"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 10,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/glossary.html",
+      "title": "AWS Glossary",
+      "context": "A reference to the latest AWS terminology definitions available in the AWS Glossary Reference.",
+      "recommended_sections": [
+        "AWS Glossary"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 11,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/appendix-a.html",
+      "title": "AGENTPERF01: How do you plan strategically for agent performance and establish measurement practices?",
+      "context": "Focus area covering best practices for defining performance success criteria, implementing performance telemetry, and profiling end-to-end agent latency.",
+      "recommended_sections": [
+        "AGENTPERF01: How do you plan strategically for agent performance and establish measurement practices?"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "9433735d-bbae-45f9-a72b-19bd2aef608c",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "relatesTo",
+        "to": "agent evaluation framework",
+        "to_description": "A quality control mechanism that assesses agent functional correctness, response quality, safety boundaries, and alignment with organizational policies before deployment.",
+        "from": "task completion rate"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "schema compliance rate",
+        "to_description": "A per-agent quality metric tracking how often agent outputs conform to the defined output schema",
+        "from": "task completion rate"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "agent workload KPI taxonomy",
+        "to_description": "Four-dimensional framework of latency, throughput, quality, and efficiency signals used to measure agent workload performance",
+        "from": "task completion rate"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "model customization",
+        "to_description": "The process of adapting a generative AI foundation model through techniques such as prompt engineering, RAG, fine-tuning, or custom pre-training to meet specific operational needs.",
+        "from": "Amazon Bedrock AgentCore Evaluations"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "agent KPI framework",
+        "to_description": "Defined set of key performance indicators covering operational, quality, efficiency, and business dimensions for measuring agent workflow effectiveness",
+        "from": "Amazon Bedrock AgentCore Evaluations"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [10/16] search_documentation :: CodeBuild test reports y CodePipeline gates
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/codebuild/latest/userguide/report-create.html",
+      "title": "Create test reports",
+      "context": "A procedure to generate test reports by configuring a CodeBuild build project with report groups in its buildspec file and running a build",
+      "recommended_sections": [
+        "Create test reports"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/codebuild/latest/userguide/report-group-create.html",
+      "title": "Create a report group (buildspec)",
+      "context": "Create a CodeBuild report group by configuring the reports section of a buildspec file and running a build",
+      "recommended_sections": [
+        "Create a report group (buildspec)"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/codebuild/latest/userguide/test-view-reports.html",
+      "title": "View test reports",
+      "context": "View details, test case results, pass/fail counts, and duration for CodeBuild test reports grouped by build run, report group, or AWS account",
+      "recommended_sections": [
+        "View test reports"
+      ],
+      "sections": [
+        "View test reports"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/codebuild/latest/userguide/report-group-test-cases.html",
+      "title": "Specify test files",
+      "context": "Configure the test result files and their location for each report group in the reports section of a CodeBuild buildspec file",
+      "recommended_sections": [
+        "Specify test files"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html",
+      "title": "reports/<report-group>/files",
+      "context": "A required buildspec sequence that specifies the file locations containing raw test result data for a CodeBuild report group",
+      "recommended_sections": [
+        "reports"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/codebuild/latest/userguide/test-report-group.html",
+      "title": "Specify test files",
+      "context": "Configure the test result files and their location for each report group in the reports section of a CodeBuild buildspec file",
+      "recommended_sections": [
+        "Report groups"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/codebuild/latest/userguide/sample-test-report-cli.html",
+      "title": "Step 2: Configure a project with a report group",
+      "context": "Create a buildspec file and a CodeBuild build project configured to run tests and export results to the report group.",
+      "recommended_sections": [
+        "Step 2: Configure a project with a report group"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/codebuild/latest/helppanel/full.html",
+      "title": "CodeBuild test report",
+      "context": "A visual report generated by CodeBuild showing the number of test cases run and their pass/fail results for unit, functional, or integration tests.",
+      "recommended_sections": [
+        "Report group"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "e882636d-22f5-4def-b228-a9d158b2c230",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "references",
+        "to": "buildspec file",
+        "to_description": "A YAML configuration file named buildspec.yml placed in the source code root directory that defines build commands and settings for CodeBuild",
+        "from": "Create test reports"
+      },
+      {
+        "relation": "hasChild",
+        "to": "reports:\n  php-reports:\n    files:\n      - \"reports/php/*.xml\"\n    file-format: \"JUNITXML\"\n  nunit-reports:\n    files:\n      - \"reports/nunit/*.xml\"\n    file-format: \"NUNITXML\"",
+        "to_description": "Define two report groups with JUNITXML and NUNITXML test result file locations in a CodeBuild buildspec reports section",
+        "from": "Create test reports"
+      },
+      {
+        "relation": "dependsOn",
+        "to": "create a build project",
+        "to_description": "A procedure to define and configure a CodeBuild build project with source, environment, commands, and output settings",
+        "from": "Create test reports"
+      },
+      {
+        "relation": "references",
+        "to": "test report",
+        "to_description": "An auto-generated document capturing test configuration, success criteria results, a visual timeline, and overall pass/fail outcome after a test run completes",
+        "from": "Create test reports"
+      },
+      {
+        "relation": "references",
+        "to": "test report file format",
+        "to_description": "The supported file formats for CodeBuild test reports, including CUCUMBERJSON, JUNITXML, NUNITXML, NUNIT3XML, TESTNGXML, and VISUALSTUDIOTRX",
+        "from": "Create test reports"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [11/16] search_documentation :: Bedrock Flows testing y versiones
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/flows-test.html",
+      "title": "flow verification checks",
+      "context": "Pre-execution validations Amazon Bedrock performs on a flow before testing, including connectivity, output nodes, variable types, and condition expressions",
+      "recommended_sections": null,
+      "sections": [
+        "Test a flow in Amazon Bedrock"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/console/full.html",
+      "title": "flow alias",
+      "context": "A pointer to a specific version of an Amazon Bedrock flow used to route InvokeFlow requests without tracking version numbers directly",
+      "recommended_sections": [
+        "Flow versions and aliases"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/flows-alias-create.html",
+      "title": "flow alias",
+      "context": "A pointer to a specific version of an Amazon Bedrock flow used to route InvokeFlow requests without tracking version numbers directly",
+      "recommended_sections": [
+        "Create an alias of a flow in Amazon Bedrock"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_CreateFlowAlias_section.html",
+      "title": "f709cb6aab3512569806c7d9884526edc4db1fdb73258769a9dadf45753743d2",
+      "context": "Create an alias for an Amazon Bedrock flow.",
+      "recommended_sections": null,
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_CreateFlowAlias.html",
+      "title": "bedrock:CreateFlowAlias",
+      "context": "Creates an alias of a flow for deployment. For more information, see Deploy a flow in Amazon Bedrock in the Amazon Bedrock User Guide.",
+      "recommended_sections": null,
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-agent_example_bedrock-agent_CreateFlowAlias_section.html",
+      "title": "Amazon Bedrock flow alias",
+      "context": "A named alias for an Amazon Bedrock flow that includes a routing configuration pointing to a specific flow version",
+      "recommended_sections": [
+        "Use `CreateFlowAlias` with an AWS SDK"
+      ],
+      "sections": [
+        "Use `CreateFlowAlias` with an AWS SDK"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/flows-deploy.html",
+      "title": "flow alias",
+      "context": "A pointer to a specific version of an Amazon Bedrock flow used to route InvokeFlow requests without tracking version numbers directly",
+      "recommended_sections": [
+        "Deploy a flow to your application using versions and aliases"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/flows-alias-modify.html",
+      "title": "flow alias",
+      "context": "A pointer to a specific version of an Amazon Bedrock flow used to route InvokeFlow requests without tracking version numbers directly",
+      "recommended_sections": [
+        "Modify an alias of a flow in Amazon Bedrock"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 9,
+      "url": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_UpdateFlowAlias_section.html",
+      "title": "6977dade6c8adbc1930a83e0cd5b72afacf803eefb947cb8e1860e1c35edcebb",
+      "context": "Update an alias for an Amazon Bedrock flow.",
+      "recommended_sections": null,
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 10,
+      "url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-bedrock-flowalias.html",
+      "title": "AWS::Bedrock::FlowAlias",
+      "context": "Amazon Bedrock resource type representing an alias for a Bedrock flow that supports tag-based grouping",
+      "recommended_sections": [
+        "AWS::Bedrock::FlowAlias"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "e74f8d94-6f0a-4431-aded-b43def2a1ec4",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "relatesTo",
+        "to": "FlowAliasRoutingConfigurationListItem",
+        "to_description": "A CloudFormation property type that contains information about a version that a Bedrock Flow alias maps to",
+        "from": "flow alias"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "flow execution",
+        "to_description": "An asynchronous run of an Amazon Bedrock flow that can last up to 24 hours with individual nodes running up to five minutes",
+        "from": "flow alias"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "Amazon Bedrock flow",
+        "to_description": "A visual workflow builder in Amazon Bedrock that connects AI components such as agents, knowledge bases, and Lambda functions into automated pipelines",
+        "from": "flow alias"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "TSTALIASID",
+        "to_description": "The default test alias created automatically when a flow is first created, pointing to the working draft version",
+        "from": "flow alias"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "Amazon Bedrock agent alias",
+        "to_description": "A named reference to a specific version of an Amazon Bedrock agent, used as the encryption context scope for KMS operations",
+        "from": "Amazon Bedrock flow alias"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [12/16] search_documentation :: X-Ray anotaciones y metadata en segmentos
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-python-segment.html",
+      "title": "X-Ray filter expression",
+      "context": "A query expression used in AWS X-Ray groups to define criteria for filtering trace segments by service, fault, error, or other attributes",
+      "recommended_sections": [
+        "Recording annotations with the X-Ray SDK for Python",
+        "Add annotations and metadata to segments with the X-Ray SDK for Python"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-java-segment.html",
+      "title": "X-Ray filter expression",
+      "context": "A query expression used in AWS X-Ray groups to define criteria for filtering trace segments by service, fault, error, or other attributes",
+      "recommended_sections": [
+        "Recording annotations with the X-Ray SDK for Java",
+        "Add annotations and metadata to segments with the X-Ray SDK for Java"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-ruby-segment.html",
+      "title": "X-Ray filter expression",
+      "context": "A query expression used in AWS X-Ray groups to define criteria for filtering trace segments by service, fault, error, or other attributes",
+      "recommended_sections": [
+        "Recording annotations with the X-Ray SDK for Ruby",
+        "Add annotations and metadata to segments with the X-Ray SDK for Ruby"
+      ],
+      "sections": [
+        "Add annotations and metadata to segments with the X-Ray SDK for Ruby",
+        "Recording annotations with the X-Ray SDK for Ruby",
+        "Recording metadata with the X-Ray SDK for Ruby",
+        "Recording user IDs with the X-Ray SDK for Ruby"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-go-segment.html",
+      "title": "X-Ray filter expression",
+      "context": "A query expression used in AWS X-Ray groups to define criteria for filtering trace segments by service, fault, error, or other attributes",
+      "recommended_sections": [
+        "Recording annotations with the X-Ray SDK for Go",
+        "Add annotations and metadata to segments with the X-Ray SDK for Go"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html",
+      "title": "X-Ray group",
+      "context": "A named collection of traces defined by a filter expression that generates its own service graph, trace summaries, and CloudWatch metrics.",
+      "recommended_sections": [
+        "Annotations and metadata"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-segment.html",
+      "title": "X-Ray segment",
+      "context": "A unit of tracing data created by the X-Ray SDK for each sampled incoming HTTP request, containing timing, method, and disposition information",
+      "recommended_sections": [
+        "Recording annotations with the X-Ray SDK for Node.js"
+      ],
+      "sections": [
+        "Add annotations and metadata to segments with the X-Ray SDK for Node.js",
+        "Recording annotations with the X-Ray SDK for Node.js",
+        "Recording metadata with the X-Ray SDK for Node.js",
+        "Recording user IDs with the X-Ray SDK for Node.js"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html",
+      "title": "segment with annotations example",
+      "context": "An X-Ray segment JSON document that includes an annotations object with string, number, and boolean key-value pairs for filter expression indexing",
+      "recommended_sections": [
+        "Annotations"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-dotnet-segment.html",
+      "title": "X-Ray metadata",
+      "context": "Non-indexed key-value pairs attached to segments or subsegments that can hold any serializable value including objects and lists",
+      "recommended_sections": [
+        "Add annotations and metadata to segments with the X-Ray SDK for .NET"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 9,
+      "url": "https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-ruby-middleware.html",
+      "title": "Instrumenting code manually",
+      "context": "Create X-Ray segments and subsegments manually in non-Rails Ruby applications to provide tracing context",
+      "recommended_sections": [
+        "Instrumenting code manually"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "7d564634-b649-490b-9da0-254883b33851",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "references",
+        "to": "annotations",
+        "to_description": "A training data format that provides the location of entities within documents, enabling context-aware model training including for PDFs, image files, and Word documents",
+        "from": "segment with annotations example"
+      },
+      {
+        "relation": "references",
+        "to": "http object",
+        "to_description": "A block within a segment or subsegment that records details about an HTTP request and response.",
+        "from": "segment with annotations example"
+      },
+      {
+        "relation": "references",
+        "to": "https://console.aws.amazon.com/xray/home#/traces?filter=service(\"api.amazon.com\") { fault = true OR responsetime > 2.5 } AND annotation.foo = \"bar\"",
+        "to_description": "Deep link URL to a filtered X-Ray traces view using a filter expression with service, fault, response time, and annotation conditions",
+        "from": "X-Ray filter expression"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "X-Ray segment",
+        "to_description": "A unit of tracing data created by the X-Ray SDK for each sampled incoming HTTP request, containing timing, method, and disposition information",
+        "from": "X-Ray metadata"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "OpenTelemetry span attributes",
+        "to_description": "OTEL attributes emitted on the server span for every request where customer rate limits are evaluated, used for debugging and monitoring.",
+        "from": "X-Ray metadata"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [13/16] search_documentation :: OpenSearch busqueda hibrida y relevancia
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/migration-solr-opensearch/overview.html",
+      "title": "OpenSearch hybrid search",
+      "context": "OpenSearch approach that combines traditional lexical search with semantic vector search using score normalization and combination techniques for more relevant results",
+      "recommended_sections": [
+        "Use cases"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/migration-solr-opensearch/full.html",
+            "section_title": "Vector search and LLM support",
+            "section_anchor": "vector-search"
+          },
+          {
+            "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/migration-solr-opensearch/operational-architecture.html",
+            "section_title": "Vector search and LLM support",
+            "section_anchor": "vector-search"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-configure-neural-search.html",
+      "title": "normalization search pipeline processor",
+      "context": "A search pipeline processor that normalizes and combines document scores from multiple search methods for hybrid search",
+      "recommended_sections": [
+        "Hybrid Search",
+        "Neural and hybrid queries"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/location/latest/developerguide/how-to-geocode-address.html",
+            "section_title": "Use hybrid query",
+            "section_anchor": "geocode-hybrid-query"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html",
+      "title": "OpenSearch Dashboards search relevance comparison",
+      "context": "A feature in OpenSearch Dashboards 2.4.0 and later that displays side-by-side OpenSearch and Amazon Kendra re-ranked search results for comparison",
+      "recommended_sections": [
+        "Comparing OpenSearch results with Amazon Kendra results"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors-opensearch.html",
+      "title": "hybrid search capabilities",
+      "context": "A search approach that combines vector similarity search with keyword search in OpenSearch",
+      "recommended_sections": [
+        "When to use this integration"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/amazon-opensearch-service-lens/search-workloads.html",
+      "title": "OpenSearch scoring capabilities",
+      "context": "Relevance scoring mechanism in OpenSearch used to rank and order search results according to user expectations",
+      "recommended_sections": [
+        "Use case: E-commerce product search"
+      ],
+      "sections": null,
+      "metadata": {
+        "additional_urls": [
+          {
+            "url": "https://docs.aws.amazon.com/wellarchitected/latest/amazon-opensearch-service-lens/full.html",
+            "section_title": "Use case: E-commerce product search",
+            "section_anchor": "use-case-e-commerce-product-search"
+          }
+        ]
+      }
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/release-notes.html",
+      "title": "Neural Search and Hybrid Search on OpenSearch Serverless",
+      "context": "OpenSearch Serverless ML capabilities combining keyword and semantic search to perform context-aware search operations for more relevant results",
+      "recommended_sections": null,
+      "sections": [
+        "Document history for Amazon OpenSearch Service",
+        "Earlier updates"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/semantic-layer-agentic-ai-ontology-reasoning-virtual-knowledge-graph/technology-tradeoffs-alternatives.html",
+      "title": "hybrid BM25 and vector search",
+      "context": "OpenSearch retrieval pattern combining keyword relevance scoring with k-NN vector similarity for agent context retrieval.",
+      "recommended_sections": [
+        "Amazon S3 Vectors as an Alternative for Vector Storage",
+        "Integration with Amazon OpenSearch Service and Neptune Analytics"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/migration-solr-opensearch/configuration-migration-flow.html",
+      "title": "OpenSearch search pipelines",
+      "context": "OpenSearch feature similar to ingest pipelines but tailored for processing search queries and results at search time",
+      "recommended_sections": [
+        "Using Amazon OpenSearch Ingestion (recommended)",
+        "Step 3. Migrate document processing pipelines"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 9,
+      "url": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/searching.html",
+      "title": "search result highlighting",
+      "context": "An OpenSearch feature that returns additional markup around matched terms within document fields in search results",
+      "recommended_sections": [
+        "Search result highlighting"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 10,
+      "url": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/application-search-relevance-agent.html",
+      "title": "Search Relevance Workbench",
+      "context": "A UI page in OpenSearch Service where users run end-to-end search relevance experiments using query DSL",
+      "recommended_sections": [
+        "Getting started",
+        "Capabilities",
+        "Search Relevance Agent in Amazon OpenSearch Service"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "8373e3ef-3526-4bd9-8f98-e0264ba3f070",
+  "metadata": {
+    "discovered_services": [
+      {
+        "name": "opensearchserverless",
+        "description": "Amazon OpenSearch Serverless"
+      },
+      {
+        "name": "OpenSearch Service",
+        "description": "Amazon OpenSearch Service"
+      }
+    ],
+    "related_tasks": [
+      {
+        "name": "Comparing OpenSearch results with Amazon Kendra results",
+        "description": "Use OpenSearch Dashboards to view side-by-side OpenSearch ranked results and Amazon Kendra re-ranked results for a search query",
+        "urls": [
+          {
+            "url_name": "/kendra/latest/dg/opensearch-rerank.html#compare-opensearch-rerank-plugin",
+            "url_description": "How to compare side-by-side OpenSearch ranked results against Amazon Kendra Intelligent Ranking re-ranked results using OpenSearch Dashboards Search Relevance"
+          }
+        ]
+      },
+      {
+        "name": "start the Search Relevance Agent",
+        "description": "Initiate the Search Relevance Agent by entering the /search-relevance slash command in the AI Assistant chat",
+        "urls": [
+          {
+            "url_name": "/opensearch-service/latest/developerguide/application-search-relevance-agent.html#application-search-relevance-agent-getting-started",
+            "url_description": "How to activate the Search Relevance Agent in Amazon OpenSearch Service by entering the /search-relevance slash command in the AI Assistant chat within a Search workspace"
+          }
+        ]
+      },
+      {
+        "name": "Add synonym and typo handling",
+        "description": "Configure synonym support and fuzziness in OpenSearch to return relevant results despite spelling mistakes or alternative terms",
+        "urls": [
+          {
+            "url_name": "/wellarchitected/latest/amazon-opensearch-service-lens/search-workloads.html#use-case-e-commerce-product-search",
+            "url_description": "How to implement e-commerce product search using Amazon OpenSearch Service with indexing, full-text queries, aggregation filters, relevance scoring, and synonym and fuzziness support"
+          }
+        ]
+      },
+      {
+        "name": "Sort and rank",
+        "description": "Apply OpenSearch scoring to ensure search results are relevant and ordered to meet user expectations",
+        "urls": [
+          {
+            "url_name": "/wellarchitected/latest/amazon-opensearch-service-lens/search-workloads.html#use-case-e-commerce-product-search",
+            "url_description": "How to implement e-commerce product search using Amazon OpenSearch Service with indexing, full-text queries, aggregation filters, relevance scoring, and synonym and fuzziness support"
+          }
+        ]
+      },
+      {
+        "name": "e-commerce product search",
+        "description": "Multi-step procedure to index product data and implement search features for an ecommerce website using Amazon OpenSearch Service",
+        "urls": [
+          {
+            "url_name": "/wellarchitected/latest/amazon-opensearch-service-lens/full.html#use-case-e-commerce-product-search",
+            "url_description": "How to implement e-commerce product search using Amazon OpenSearch Service with full-text search, aggregations, scoring, and typo handling for relevant results"
+          }
+        ]
+      },
+      {
+        "name": "Handling similarity configurations",
+        "description": "Map Solr similarity scoring algorithm configurations to equivalent OpenSearch similarity settings",
+        "urls": [
+          {
+            "url_name": "/prescriptive-guidance/latest/migration-solr-opensearch/full.html#map-similarity",
+            "url_description": "How to map Solr similarity scoring algorithm configurations to Amazon OpenSearch Service similarity settings, which use BM25 as the default ranking framework"
+          }
+        ]
+      },
+      {
+        "name": "Request body searches",
+        "description": "Perform complex OpenSearch searches using the HTTP request body and the OpenSearch DSL query language",
+        "urls": [
+          {
+            "url_name": "/opensearch-service/latest/developerguide/searching.html#searching-dsl",
+            "url_description": "How to perform complex searches in Amazon OpenSearch Service using request body DSL queries with multi_match, boosting, highlighting, and count operations"
+          },
+          {
+            "url_name": "/opensearch-service/latest/developerguide/searching.html#searching",
+            "url_description": "Overview of search methods in Amazon OpenSearch Service including URI searches, request body DSL queries, pagination, and Dashboards Query Language"
+          }
+        ]
+      },
+      {
+        "name": "Migrate document processing pipelines",
+        "description": "Translate Solr update request processor chains to OpenSearch ingest pipelines or Amazon OpenSearch Ingestion pipelines",
+        "urls": [
+          {
+            "url_name": "/prescriptive-guidance/latest/migration-solr-opensearch/full.html#configuration-migrate-document-processing",
+            "url_description": "How to migrate Solr updateRequestProcessorChain document transformation logic to Amazon OpenSearch Ingestion pipelines or OpenSearch ingest pipelines"
+          },
+          {
+            "url_name": "/prescriptive-guidance/latest/migration-solr-opensearch/configuration-migration-flow.html#configuration-migrate-document-processing",
+            "url_description": "How to migrate Solr update request processor chains to Amazon OpenSearch Ingestion pipelines or OpenSearch ingest pipelines for document transformation before indexing"
+          }
+        ]
+      },
+      {
+        "name": "Use hybrid query",
+        "description": "Procedure for geocoding an address by combining query text and query components in a single Geocode API request",
+        "urls": [
+          {
+            "url_name": "/location/latest/developerguide/how-to-geocode-address.html#geocode-hybrid-query",
+            "url_description": "How to geocode an address by combining QueryText and QueryComponents in a hybrid query to the Amazon Location Service Geocode API for improved accuracy"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "relation": "relatesTo",
+        "to": "OpenSearch query DSL",
+        "to_description": "OpenSearch's structured JSON-based query domain-specific language where all queries are expressed as nested JSON objects defining query clauses, filters, and aggregations.",
+        "from": "OpenSearch hybrid search"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "OpenSearch vector database",
+        "to_description": "OpenSearch's capability to store and search billion-scale vectors using various algorithms and engines for semantic search.",
+        "from": "OpenSearch hybrid search"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "hybrid search",
+        "to_description": "A search capability in AWS Agent Registry that combines semantic understanding with keyword matching to return relevant results for both natural language queries and exact name lookups.",
+        "from": "normalization search pipeline processor"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "S3 Vectors engine",
+        "to_description": "A storage engine option for Amazon OpenSearch managed clusters that uses S3 Vectors as the underlying vector storage layer",
+        "from": "hybrid search capabilities"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "full-text search",
+        "to_description": "Neptune feature that integrates with OpenSearch/ElasticSearch to enable text-based graph property lookups in Gremlin traversals",
+        "from": "OpenSearch scoring capabilities"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [14/16] search_documentation :: Bedrock model invocation logging
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html",
+      "title": "model invocation logging",
+      "context": "Amazon Bedrock feature that records input and output data for model invocations to CloudWatch Logs and Amazon S3, where original unmasked content is preserved",
+      "recommended_sections": [
+        "Monitor model invocation using CloudWatch Logs and Amazon S3",
+        "Model invocation logging using the console",
+        "Log entry format"
+      ],
+      "sections": [
+        "Monitor model invocation using CloudWatch Logs and Amazon S3",
+        "Set up an Amazon S3 destination",
+        "Set up an CloudWatch Logs destination",
+        "Model invocation logging using the console",
+        "Model invocation logging using the API",
+        "Log entry format"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/console/full.html",
+      "title": "Invocation logs and small input and output data are stored in either CloudWatch Logs or Amazon S3. For large input and output data (above 100 KB) and binary image outputs, only Amazon S3 is supported.",
+      "context": "Describes the logging destination constraints for Amazon Bedrock model invocation logs based on data size and type",
+      "recommended_sections": [
+        "Model invocation logging"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/monitoring-runtime-metrics.html",
+      "title": "model invocation logging CloudWatch metrics",
+      "context": "CloudWatch metrics emitted under the AWS/Bedrock namespace tracking delivery success and failure of model invocation logs to CloudWatch and S3",
+      "recommended_sections": [
+        "Model invocation logging CloudWatch metrics"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/model-invocations.html",
+      "title": "You must enable Model invocation logging in Amazon Bedrock to view the invocations.",
+      "context": "Prerequisite note stating that Model invocation logging must be enabled in Amazon Bedrock before invocations are visible in CloudWatch",
+      "recommended_sections": [
+        "Enabling model invocation in Amazon Bedrock"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/configure-bedrock-invocation-logging-cloudformation.html",
+      "title": "Amazon Bedrock model invocation logging",
+      "context": "Optional Amazon Bedrock feature that captures assistant conversations and log content sent to the model in a configured S3 bucket or CloudWatch Logs log group",
+      "recommended_sections": [
+        "Configure model invocation logging in Amazon Bedrock by using AWS CloudFormation",
+        "Related resources",
+        "Summary",
+        "Architecture"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_PutModelInvocationLoggingConfiguration.html",
+      "title": "bedrock:PutModelInvocationLoggingConfiguration",
+      "context": "Set the configuration values for model invocation logging.",
+      "recommended_sections": null,
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-distillation.html",
+      "title": "invocation log",
+      "context": "A detailed record of Amazon Bedrock model invocations including input prompts, output responses, and optional request metadata stored in Amazon S3 or CloudWatch Logs.",
+      "recommended_sections": [
+        "Creating a distilled model using production data"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_GetModelInvocationLoggingConfiguration.html",
+      "title": "bedrock:GetModelInvocationLoggingConfiguration",
+      "context": "Get the current configuration values for model invocation logging.",
+      "recommended_sections": null,
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "86bf743d-9a66-4835-8114-dc55b6aa1600",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "relatesTo",
+        "to": "ModelInvocationLogsS3DeliverySuccess",
+        "to_description": "CloudWatch metric tracking successful delivery of model invocation logs to Amazon S3",
+        "from": "model invocation logging CloudWatch metrics"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "ModelInvocationLargeDataS3DeliverySuccess",
+        "to_description": "CloudWatch metric tracking successful delivery of large model invocation data to Amazon S3",
+        "from": "model invocation logging CloudWatch metrics"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "model invocation log entry",
+        "to_description": "JSON object containing invocation metadata, input and output bodies, token counts, and identity information for a single Amazon Bedrock model call",
+        "from": "model invocation logging"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "LLM output logging",
+        "to_description": "The practice of logging and inspecting large language model outputs to validate correctness over time",
+        "from": "model invocation logging"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "CloudWatch Logs destination",
+        "to_description": "An AWS::Logs::Destination resource that links CloudWatch Logs to a physical resource such as an Amazon Kinesis data stream for log event subscriptions.",
+        "from": "model invocation logging"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [15/16] search_documentation :: chunking de knowledge bases
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/console/full.html",
+      "title": "fixed-size chunking",
+      "context": "A pre-defined chunking strategy in Amazon Bedrock knowledge bases that splits documents into chunks of a specified token size with configurable overlap",
+      "recommended_sections": [
+        "Content chunking and parsing settings",
+        "Content parsing and chunking"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_ChunkingConfiguration.html",
+      "title": "ChunkingConfiguration",
+      "context": "An immutable configuration setting that defines how documents are split into chunks during data source ingestion in Amazon Bedrock",
+      "recommended_sections": null,
+      "sections": [
+        "ChunkingConfiguration",
+        "Contents",
+        "See Also"
+      ],
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-chunking.html",
+      "title": "fixed-size chunking",
+      "context": "A pre-defined chunking strategy in Amazon Bedrock knowledge bases that splits documents into chunks of a specified token size with configurable overlap",
+      "recommended_sections": [
+        "Standard chunking",
+        "Hierarchical chunking",
+        "Semantic chunking"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/kendra/latest/dg/kendra-availability-change.html",
+      "title": "BMKB chunking strategy",
+      "context": "Configuration option in BMKB that controls how documents are split into chunks for ingestion, including Default, Fixed-size, Hierarchical, and No Chunking options",
+      "recommended_sections": [
+        "Chunking Strategy Selection"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-customize-ingestion.html",
+      "title": "fixed-size chunking",
+      "context": "A pre-defined chunking strategy in Amazon Bedrock knowledge bases that splits documents into chunks of a specified token size with configurable overlap",
+      "recommended_sections": [
+        "Fixed-size chunking"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-data-source-customize-ingestion.html",
+      "title": "If you omit this configuration, Amazon Bedrock splits your content into chunks of approximately 300 tokens, while preserving sentence boundaries.",
+      "context": "Default chunking behavior of Amazon Bedrock Knowledge Bases when no chunking configuration is specified",
+      "recommended_sections": [
+        "Choose a chunking strategy",
+        "Fixed-size chunking",
+        "Semantic chunking"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/smbdb-knowledge-worker-co-pilot.html",
+      "title": "fixed-size chunking",
+      "context": "A pre-defined chunking strategy in Amazon Bedrock knowledge bases that splits documents into chunks of a specified token size with configurable overlap",
+      "recommended_sections": [
+        "Chunking strategy considerations"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/kb-chunking-parsing.html",
+      "title": "chunking",
+      "context": "A preprocessing technique that splits documents into manageable text chunks for efficient data retrieval and vector indexing in Amazon Bedrock knowledge bases",
+      "recommended_sections": null,
+      "sections": [
+        "Chunking and parsing with knowledge bases",
+        "Chunking",
+        "Parsing"
+      ],
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "42a65370-22e5-4138-8ddb-baf453b7e420",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "references",
+        "to": "chunking strategy",
+        "to_description": "An ingest-time decision that determines how source documents are split into retrievable passages, with options including fixed-size, semantic, and hierarchical approaches",
+        "from": "If you omit this configuration, Amazon Bedrock splits your content into chunks of approximately 300 tokens, while preserving sentence boundaries."
+      },
+      {
+        "relation": "relatesTo",
+        "to": "Amazon Bedrock managed knowledge base",
+        "to_description": "A fully managed RAG solution within Amazon Bedrock with built-in connectors, smart parsing, managed vector store, hybrid search, and native RetrieveAndGenerate and Agentic Retrieval APIs",
+        "from": "BMKB chunking strategy"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "hybrid search",
+        "to_description": "A search capability in AWS Agent Registry that combines semantic understanding with keyword matching to return relevant results for both natural language queries and exact name lookups.",
+        "from": "semantic chunking"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "knowledge base chunk",
+        "to_description": "An excerpt from a data source that is returned when the knowledge base it belongs to is queried",
+        "from": "semantic chunking"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "chunking strategy",
+        "to_description": "An ingest-time decision that determines how source documents are split into retrievable passages, with options including fixed-size, semantic, and hierarchical approaches",
+        "from": "semantic chunking"
+      }
+    ]
+  }
+}
+
+====================================================================================================
+### [16/16] search_documentation :: reintentos y timeouts de los SDK de AWS
+====================================================================================================
+{
+  "search_results": [
+    {
+      "rank_order": 1,
+      "url": "https://docs.aws.amazon.com/sdk-for-net/v4/developer-guide/retries-timeouts.html",
+      "title": "AWS_MAX_ATTEMPTS environment variable",
+      "context": "An environment variable that controls the default maximum number of retry attempts for the AWS SDK for .NET application",
+      "recommended_sections": [
+        "Overview"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 2,
+      "url": "https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/retries-timeouts.html",
+      "title": "AWS_MAX_ATTEMPTS environment variable",
+      "context": "An environment variable that controls the default maximum number of retry attempts for the AWS SDK for .NET application",
+      "recommended_sections": [
+        "Overview"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 3,
+      "url": "https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_configuration.html",
+      "title": "retry mode",
+      "context": "An AWS SDK configuration setting that determines which retry strategy (standard, adaptive, or legacy) the SDK uses when a request fails.",
+      "recommended_sections": [
+        "retries"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 4,
+      "url": "https://docs.aws.amazon.com/sdk-for-python/v1/guide/configuration-variables.html",
+      "title": "retry_mode = standard",
+      "context": "Configure the SDK retry mode to standard in the AWS config file profile",
+      "recommended_sections": [
+        "retry\\_mode"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 5,
+      "url": "https://docs.aws.amazon.com/sdk-for-go/v2/developer-guide/configure-retries-timeouts.html",
+      "title": "limit max number of attempts",
+      "context": "Wrap an aws.Retryer with retry.AddWithMaxAttempts to set a custom maximum number of retry attempts for SDK operations",
+      "recommended_sections": [
+        "Standard Retryer"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 6,
+      "url": "https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/retry-strategy.html",
+      "title": "StandardRetryStrategy with maxAttempts(10)",
+      "context": "Build a StandardRetryStrategy with a maximum of 10 attempts and configure a DynamoDB client with it",
+      "recommended_sections": [
+        "Standard retry strategy",
+        "Configure retry behavior in the AWS SDK for Java 2.x",
+        "Customize maximum attempts"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 7,
+      "url": "https://docs.aws.amazon.com/sdkref/latest/guide/feature-retry-behavior.html",
+      "title": "AWS SDK retry behavior",
+      "context": "Built-in retry and exponential backoff configuration options available in AWS SDKs for handling transient service errors.",
+      "recommended_sections": [
+        "Retry settings"
+      ],
+      "sections": null,
+      "metadata": null
+    },
+    {
+      "rank_order": 8,
+      "url": "https://docs.aws.amazon.com/sdk-for-python/v1/guide/config-retries.html",
+      "title": "standard retry strategy",
+      "context": "The recommended RetryStrategy implementation for normal use cases, using exponential backoff and circuit breaking with a default of 3 maximum attempts",
+      "recommended_sections": [
+        "Standard retry strategy"
+      ],
+      "sections": null,
+      "metadata": null
+    }
+  ],
+  "facets": null,
+  "query_id": "9d80f1ea-a45f-4cc1-8b97-90b796acbb66",
+  "metadata": {
+    "discovered_services": null,
+    "related_tasks": null,
+    "relationships": [
+      {
+        "relation": "relatesTo",
+        "to": "export AWS_RETRY_MODE=standard",
+        "to_description": "Set the retry mode to standard for all service clients using an environment variable in the current shell session",
+        "from": "retry_mode = standard"
+      },
+      {
+        "relation": "references",
+        "to": "retry_mode",
+        "to_description": "A shared AWS config file profile setting that specifies the retry strategy for all service clients active under that profile",
+        "from": "retry_mode = standard"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "Aws\\Retry\\Configuration",
+        "to_description": "An AWS SDK PHP object that accepts a retry mode and maximum attempts parameter for configuring client retry behavior.",
+        "from": "retry mode"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "AWS SDK retry configuration",
+        "to_description": "A client configuration option that controls the retry mode and maximum number of allowed retries for SDK requests.",
+        "from": "retry mode"
+      },
+      {
+        "relation": "relatesTo",
+        "to": "stage retry",
+        "to_description": "A CodePipeline feature that allows re-running failed stages or failed actions without restarting the entire pipeline",
+        "from": "retry mode"
+      }
+    ]
+  }
+}

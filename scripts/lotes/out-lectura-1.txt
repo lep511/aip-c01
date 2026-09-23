@@ -1,0 +1,1242 @@
+
+====================================================================================================
+### [1/16] read_documentation :: 5.1.1 built-in metrics
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-built-in-metrics.html:
+
+# Create a model evaluation job using built-in metrics
+
+To create a job using the following instructions, you need a prompt dataset. If you haven't already created one, see [Create a prompt dataset for a model evaluation job that uses a model as judge](./model-evaluation-prompt-datasets-judge.html "./model-evaluation-prompt-datasets-judge.html").
+
+Console
+:   1. Open the [Amazon Bedrock console](https://console.aws.amazon.com/bedrock/home "https://console.aws.amazon.com/bedrock/home").
+    2. In the left-hand pane under **Inference and assessment**, select **Evaluations**.
+    3. In the **Model evaluations** pane, choose **Create** and select **Automatic: Model as a judge**.
+    4. Enter your model evaluation details by doing the following:
+
+       1. In the **Model evaluation details** pane under **Evaluation name**, enter a name for your evaluation job. The name
+          you choose must be unique within your AWS Region.
+       2. Optionally, under **Description - *optional***, enter a description for your evaluation job.
+       3. Under **Evaluator model**, choose **Select model** and select the judge model you want to perform your
+          evaluation.
+    5. Enter the inference source for your evaluation job. With Amazon Bedrock model evaluations, you can either evaluate the performance of Amazon Bedrock models,
+       or of other models by providing your own inference response data in the [prompt dataset](./model-evaluation-prompt-datasets-judge.html "./model-evaluation-prompt-datasets-judge.html").
+       To select an Amazon Bedrock model, do the following:
+
+       1. In the **Inference source** pane, under **Select source** select **Bedrock models**.
+       2. Under **Select model**, choose **Select model**.
+       3. In the pop-up, select the model you want to evaluate and choose **Apply**.
+       4. (Optional) to change the model's inference parameters, for **Inference configuration**, choose **update**.
+    6. To bring your own inference response data, do the following:
+
+       1. In the **Inference source** pane, under **Select source** select **Bring your own inference responses**.
+       2. For **Source name**, enter a name for the model you used to create the response data. The name you enter must match the
+          `modelIdentifier` parameter in your [prompt dataset](./model-evaluation-prompt-datasets-judge.html#model-evaluation-prompt-datasets-judge-byoir "./model-evaluation-prompt-datasets-judge.html#model-evaluation-prompt-datasets-judge-byoir").
+    7. Select the built-in metrics you want the evaluator model to score your generator model's responses against by selecting
+       at least one metric in the **Metrics** pane.
+    8. Define your input and output locations for your dataset and results by doing the following:
+
+       1. In the **Datasets** pane under **Choose a prompt dataset**, enter the Amazon S3 URI for your prompt dataset,
+          or choose **Browse S3** and select your file. To see a definition of the required prompt dataset format for a model-as-a-judge
+          evaluation job, see [Create a prompt dataset for a model evaluation job that uses a model as judge](./model-evaluation-prompt-datasets-judge.html "./model-evaluation-prompt-datasets-judge.html").
+       2. Under **Evaluation results**, enter an Amazon S3 location for Amazon Bedrock to save your results, or choose **Browse S3** to
+          select a location.
+    9. Under **Amazon Bedrock IAM role - Permissions**, select **Create and use a new service role** to have Amazon Bedrock create a
+       new IAM role for the evaluation job, or select **Use an existing service role** to pick an existing IAM role. For a list of the required
+       permissions to create and run an evaluation job, see [Prerequisites](./model-evaluation-judge-create.html#model-evaluation-judge-create-prereqs "./model-evaluation-judge-create.html#model-evaluation-judge-create-prereqs").
+    10. (Optional) to use your own KMS key to encrypt your evaluation data, under **KMSkey - *Optional***,
+        check **Customize encryption settings (advanced)** and select your AWS KMS key. By default, Amazon Bedrock encrypts your evaluation job data with an
+        AWS-owned KMS key.
+    11. Choose **Create** to finish creating your evaluation job.
+
+AWS CLI
+:   * ###### Example AWS CLI command and JSON file to create an evaluation job for an Amazon Bedrock model
+
+      ```
+      aws bedrock create-evaluation-job --cli-input-json file://my_eval_job.json
+      ```
+
+      ```
+      {
+          "jobName": "model-eval-llmaj",
+          "roleArn": "arn:aws:iam::111122223333:role/Amazon-Bedrock-ModelAsAJudgeTest",
+          "applicationType": "ModelEvaluation",
+          "evaluationConfig": {
+              "automated": {
+                  "datasetMetricConfigs": [
+                      {
+                          "taskType": "General",
+                          "dataset": {
+                              "name": "text_dataset",
+                              "datasetLocation": {
+                                  "s3Uri": "s3://amzn-s3-demo-bucket/input_datasets/text_dataset_input.jsonl"
+                              }
+                          },
+                          "metricNames": [
+                              "Builtin.Correctness",
+                              "Builtin.Completeness"
+                          ]
+                      }
+                  ],
+                  "evaluatorModelConfig": {
+                      "bedrockEvaluatorModels": [
+                          {
+                              "modelIdentifier": "anthropic.claude-3-haiku-20240307-v1:0"
+                          }
+                      ]
+                  }
+              }
+          },
+          "inferenceConfig": {
+              "models": [
+                  {
+                      "bedrockModel": {
+                          "modelIdentifier": "anthropic.claude-v2",
+                          "inferenceParams": "{\"inferenceConfig\":{\"maxTokens\":512,\"temperature\":1,\"topP\":0.999,\"stopSequences\":[\"stop\"]},\"additionalModelRequestFields\":{\"top_k\": 128}}"
+                      }
+                  }
+              ]
+          },
+          "outputDataConfig": {
+              "s3Uri": "s3://amzn-s3-demo-bucket/output_data/"
+          }
+      }
+      ```
+
+      ###### Example AWS CLI command and JSON file to create an evaluation job where you provide your own inference response data
+
+      ```
+      aws bedrock create-evaluation-job --cli-input-json file://my_eval_job.json
+      ```
+
+      ```
+      {
+          "jobName": "model-eval-llmaj",
+          "roleArn": "arn:aws:iam::111122223333:role/Amazon-Bedrock-ModelAsAJudgeTest",
+          "evaluationConfig": {
+              "automated": {
+                  "datasetMetricConfigs": [
+                      {
+                          "taskType": "General",
+                          "dataset": {
+                              "name": "text_dataset",
+                              "datasetLocation": {
+                                  "s3Uri": "s3://amzn-s3-demo-bucket/input/model-eval/fitness-dataset-model-eval-byoi.jsonl"
+                              }
+                          },
+                          "metricNames": [
+                              "Builtin.Correctness",
+                              "Builtin.Completeness"
+                          ]
+                      }
+                  ],
+                  "evaluatorModelConfig": {
+                      "bedrockEvaluatorModels": [
+                          {
+                              "modelIdentifier": "us.meta.llama3-1-70b-instruct-v1:0"
+                          }
+                      ]
+                  }
+              }
+          },
+          "inferenceConfig": {
+              "models": [
+                  {
+                      "precomputedInferenceSource": {
+                          "inferenceSourceIdentifier": "my_model"
+                      }
+                  }
+              ]
+          },
+          "outputDataConfig": {
+              "s3Uri": "s3://amzn-s3-demo-bucket/output/"
+          }
+      }
+      ```
+
+====================================================================================================
+### [2/16] read_documentation :: 5.1.1 use metrics to understand model performance
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-metrics.html:
+
+# Use metrics to understand model performance
+
+When you run a judge-based model evaluation job, the evaluator model you select uses a set of metrics to characterize the performance of the models being evaluated. Amazon Bedrock provides a number
+of built-in metrics you can choose from, or you can define your own metrics.
+
+The following table lists the built-in metrics available in Amazon Bedrock for evaluation jobs that use an LLM as a judge.
+To learn more about using custom metrics, see [Create a prompt for a custom metric](./model-evaluation-custom-metrics-prompt-formats.html "./model-evaluation-custom-metrics-prompt-formats.html") and [Create a model evaluation job using custom metrics](./model-evaluation-custom-metrics-create-job.html "./model-evaluation-custom-metrics-create-job.html").
+
+| Metric | Description |
+| --- | --- |
+| Correctness (`Builtin.Correctness`) | Measures if the model's response to the prompt is correct. Note that if you supply a reference response (ground truth) as part of your [prompt dataset](./model-evaluation-prompt-datasets-judge.html "./model-evaluation-prompt-datasets-judge.html"), the evaluator model considers this when scoring the response. |
+| Completeness (`Builtin.Completeness`) | Measures how well the model's response answers every question in the prompt. Note that if you supply a reference response (ground truth) as part of your [prompt dataset](./model-evaluation-prompt-datasets-judge.html "./model-evaluation-prompt-datasets-judge.html"), the evaluator model considers this when scoring the response. |
+| Faithfulness (`Builtin.Faithfulness`) | Identifies whether the response contains information not found in the prompt to measure how faithful the response is to the available context. |
+| Helpfulness (`Builtin.Helpfulness`) | Measures how helpful the model's response is. The evaluation uses factors including whether the response follows provided instructions, whether the response is sensible and coherent, and whether the response anticipates implicit needs and expectations. |
+| Logical coherence (`Builtin.Coherence`) | Measures how coherent the response is by identifying logical gaps, inconsistencies, and contradictions in a model's response to a prompt. |
+| Relevance (`Builtin.Relevance`) | Measures how relevant the answer is to the prompt. |
+| Following instructions (`Builtin.FollowingInstructions`) | Measures how well the model's response respects the exact directions found in the prompt. |
+| Professional style and tone (`Builtin.ProfessionalStyleAndTone`) | Measures how appropriate the response's style, formatting, and tone is for a professional setting. |
+| Harmfulness (`Builtin.Harmfulness`) | Evaluates whether the response contains harmful content. |
+| Stereotyping (`Builtin.Stereotyping`) | Evaluates whether content in the response contains stereotypes of any kind (either positive or negative). |
+| Refusal (`Builtin.Refusal`) | Determines if the response directly declines to answer the prompt or rejects the request by providing reasons. |
+
+====================================================================================================
+### [3/16] read_documentation :: 5.1.1 task types
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-tasks.html:
+
+# Model evaluation task types in Amazon Bedrock
+
+In a model evaluation job, an evaluation task type is a task you want the model to perform based on information in your prompts. You can choose one task type per model evaluation job.
+
+The following table summarizes available tasks types for automatic model evaluations, built-in datasets, and relevant metrics for each task type.
+
+Available built-in datasets for automatic model evaluation jobs in Amazon Bedrock
+
+| Task type | Metric | Built-in datasets | Computed metric |
+| --- | --- | --- | --- |
+| General text generation | Accuracy | [TREX](https://hadyelsahar.github.io/t-rex/ "https://hadyelsahar.github.io/t-rex/") | Real world knowledge (RWK) score |
+| Robustness | [BOLD](https://github.com/amazon-science/bold "https://github.com/amazon-science/bold") | Word error rate |
+| [TREX](https://hadyelsahar.github.io/t-rex/ "https://hadyelsahar.github.io/t-rex/") |
+| [WikiText2](https://huggingface.co/datasets/Salesforce/wikitext "https://huggingface.co/datasets/Salesforce/wikitext") |
+| Toxicity | [RealToxicityPrompts](https://github.com/allenai/real-toxicity-prompts "https://github.com/allenai/real-toxicity-prompts") | Toxicity |
+| [BOLD](https://github.com/amazon-science/bold "https://github.com/amazon-science/bold") |
+| Text summarization | Accuracy | Gigaword | BERTScore |
+| Toxicity | Gigaword | Toxicity |
+| Robustness | Gigaword | BERTScore and deltaBERTScore |
+| Question and answer | Accuracy | [BoolQ](https://github.com/google-research-datasets/boolean-questions "https://github.com/google-research-datasets/boolean-questions") | NLP-F1 |
+| [NaturalQuestions](https://github.com/google-research-datasets/natural-questions "https://github.com/google-research-datasets/natural-questions") |
+| [TriviaQA](https://nlp.cs.washington.edu/triviaqa/ "https://nlp.cs.washington.edu/triviaqa/") |
+| Robustness | [BoolQ](https://github.com/google-research-datasets/boolean-questions "https://github.com/google-research-datasets/boolean-questions") | F1 and deltaF1 |
+| [NaturalQuestions](https://github.com/google-research-datasets/natural-questions "https://github.com/google-research-datasets/natural-questions") |
+| [TriviaQA](https://nlp.cs.washington.edu/triviaqa/ "https://nlp.cs.washington.edu/triviaqa/") |
+| Toxicity | [BoolQ](https://github.com/google-research-datasets/boolean-questions "https://github.com/google-research-datasets/boolean-questions") | Toxicity |
+| [NaturalQuestions](https://github.com/google-research-datasets/natural-questions "https://github.com/google-research-datasets/natural-questions") |
+| [TriviaQA](https://nlp.cs.washington.edu/triviaqa/ "https://nlp.cs.washington.edu/triviaqa/") |
+| Text classification | Accuracy | [Women's Ecommerce Clothing Reviews](https://www.kaggle.com/datasets/nicapotato/womens-ecommerce-clothing-reviews "https://www.kaggle.com/datasets/nicapotato/womens-ecommerce-clothing-reviews") | Accuracy (Binary accuracy from classification\_accuracy\_score) |
+| Robustness | [Women's Ecommerce Clothing Reviews](https://www.kaggle.com/datasets/nicapotato/womens-ecommerce-clothing-reviews "https://www.kaggle.com/datasets/nicapotato/womens-ecommerce-clothing-reviews") | classification\_accuracy\_score and delta\_classification\_accuracy\_score |
+
+###### Topics
+
+* [General text generation for model evaluation in Amazon Bedrock](./model-evaluation-tasks-general-text.html "./model-evaluation-tasks-general-text.html")
+* [Text summarization for model evaluation in Amazon Bedrock](./model-evaluation-tasks-text-summary.html "./model-evaluation-tasks-text-summary.html")
+* [Question and answer for model evaluation in Amazon Bedrock](./model-evaluation-tasks-question-answer.html "./model-evaluation-tasks-question-answer.html")
+* [Text classification for model evaluation in Amazon Bedrock](./model-evaluation-text-classification.html "./model-evaluation-text-classification.html")
+
+====================================================================================================
+### [4/16] read_documentation :: 5.1.1 general text generation
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-tasks-general-text.html:
+
+# General text generation for model evaluation in Amazon Bedrock
+
+General text generation is a task used by applications that include chatbots. The
+responses generated by a model to general questions are influenced by the
+correctness, relevance, and bias contained in the text used to train the
+model.
+
+###### Important
+
+For general text generation, there is a known system issue that prevents
+Cohere models from completing the toxicity evaluation successfully.
+
+The following built-in datasets contain prompts that are well-suited for use in
+general text generation tasks.
+
+**Bias in Open-ended Language Generation Dataset (BOLD)**
+:   The Bias in Open-ended Language Generation Dataset (BOLD) is a dataset
+    that evaluates fairness in general text generation, focusing on five
+    domains: profession, gender, race, religious ideologies, and political
+    ideologies. It contains 23,679 different text generation prompts.
+
+**RealToxicityPrompts**
+:   RealToxicityPrompts is a dataset that evaluates toxicity. It attempts
+    to get the model to generate racist, sexist, or otherwise toxic
+    language. This dataset contains 100,000 different text generation
+    prompts.
+
+**T-Rex : A Large Scale Alignment of Natural Language with Knowledge Base Triples (TREX)**
+:   TREX is dataset consisting of Knowledge Base Triples (KBTs) extracted
+    from Wikipedia. KBTs are a type of data structure used in natural
+    language processing (NLP) and knowledge representation. They consist of
+    a subject, predicate, and object, where the subject and object are
+    linked by a relation. An example of a Knowledge Base Triple (KBT) is
+    "George Washington was the president of the United States". The subject
+    is "George Washington", the predicate is "was the president of", and the
+    object is "the United States".
+
+**WikiText2**
+:   WikiText2 is a HuggingFace dataset that contains prompts used in general text generation.
+
+The following table summarizes the metrics calculated, and recommended built-in dataset
+that are available for automatic model evaluation jobs. To successfully specify the
+available built-in datasets using the AWS CLI, or a supported AWSSDK use the
+parameter names in the column, *Built-in datasets
+(API)*.
+
+Available built-in datasets for general text generation in Amazon Bedrock
+
+| Task type | Metric | Built-in datasets (Console) | Built-in datasets (API) | Computed metric |
+| --- | --- | --- | --- | --- |
+| General text generation | Accuracy | [TREX](https://hadyelsahar.github.io/t-rex/ "https://hadyelsahar.github.io/t-rex/") | `Builtin.T-REx` | Real world knowledge (RWK) score |
+| Robustness | [BOLD](https://github.com/amazon-science/bold "https://github.com/amazon-science/bold") | `Builtin.BOLD` | Word error rate |
+| [WikiText2](https://huggingface.co/datasets/Salesforce/wikitext "https://huggingface.co/datasets/Salesforce/wikitext") | `Builtin.WikiText2` |
+| [TREX](https://hadyelsahar.github.io/t-rex/ "https://hadyelsahar.github.io/t-rex/") | `Builtin.T-REx` |
+| Toxicity | [RealToxicityPrompts](https://github.com/allenai/real-toxicity-prompts "https://github.com/allenai/real-toxicity-prompts") | `Builtin.RealToxicityPrompts` | Toxicity |
+| [BOLD](https://github.com/amazon-science/bold "https://github.com/amazon-science/bold") | `Builtin.Bold` |
+
+To learn more about how the computed metric for each built-in dataset is calculated, see [Review model evaluation job reports and metrics in Amazon Bedrock](./model-evaluation-report.html "./model-evaluation-report.html")
+
+====================================================================================================
+### [5/16] read_documentation :: 5.1.2 evaluation type automatic
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-automatic.html:
+
+# Required steps before creating your first automatic model evaluation job
+
+Automatic model evaluation jobs require access to the following service level resources.
+Use the linked topics to learn more about getting setting up.
+
+###### Cross Origin Resource Sharing (CORS) permission requirements
+
+CORS permissions are only required on the Amazon S3 output bucket for human-based model evaluation jobs. Automated model evaluation jobs do not require CORS configuration. To
+learn more, see [Required Cross Origin Resource Sharing (CORS) permissions on S3 buckets](./model-evaluation-security-cors.html "./model-evaluation-security-cors.html")
+
+###### Required service level resources to start an automatic model evaluation job
+
+1. To start a automatic model evaluation job, you need access to at least one Amazon Bedrock
+   foundation model. To learn more, see [Request access to models](./model-access.html "./model-access.html").
+2. To create an automatic model evaluation job you need access to the [https://console.aws.amazon.com/bedrock/](https://console.aws.amazon.com/bedrock/ "https://console.aws.amazon.com/bedrock/"),
+   AWS Command Line Interface, or a supported AWS SDK. To learn more about the required IAM actions
+   and resources, see [Required console permissions to create an automatic model evaluation job](#base-for-automatic "#base-for-automatic").
+3. When the model evaluation job starts, a service role is used to perform actions on
+   your behalf. To learn more about required IAM actions and the trust policy
+   requirements, see [Service role requirements for automatic model evaluation jobs](./automatic-service-roles.html "./automatic-service-roles.html").
+4. Amazon Simple Storage Service – All data used and generated must be placed in an Amazon S3 bucket that is
+   in the same AWS Region in an automatic model evaluation job.
+5. Cross Origin Resource Sharing (CORS) – CORS configuration is not required for automatic model evaluation jobs. It is only required for human-based evaluation jobs. To learn more, see [Required Cross Origin Resource Sharing (CORS) permissions on S3 buckets](./model-evaluation-security-cors.html "./model-evaluation-security-cors.html").
+6. An IAM service role – To run an automatic model evaluation job you must
+   create a service role. The service role allows Amazon Bedrock to perform actions on your
+   behalf in your AWS account. To learn more, see [Service role requirements for automatic model evaluation jobs](./automatic-service-roles.html "./automatic-service-roles.html").
+
+## Required console permissions to create an automatic model evaluation job
+
+The following policy contains the minimum set of IAM actions and resources in Amazon Bedrock
+and Amazon S3 that are required to create an *automatic* model evaluation
+job using the Amazon Bedrock console.
+
+In the policy, we recommend using the IAM JSON policy element [Resource](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_resource.html "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_resource.html") to limit access to only the models and buckets required for the
+IAM user, group, or role.
+
+JSON
+:   :   ```
+        {
+          "Version":"2012-10-17",
+          "Statement": [
+            {
+              "Sid": "AllowPassingConsoleCreatedServiceRoles",
+              "Effect": "Allow",
+              "Action": [
+                "iam:PassRole"
+              ],
+              "Resource": [
+                "arn:aws:iam::111122223333:role/service-role/Amazon-Bedrock-IAM-Role-*"
+              ],
+              "Condition": {
+                "StringEquals": {
+                  "iam:PassedToService": "bedrock.amazonaws.com"
+                }
+              }
+            },
+            {
+              "Sid": "BedrockConsole",
+              "Effect": "Allow",
+              "Action": [
+                "bedrock:CreateEvaluationJob",
+                "bedrock:GetEvaluationJob",
+                "bedrock:ListEvaluationJobs",
+                "bedrock:StopEvaluationJob",
+                "bedrock:GetCustomModel",
+                "bedrock:ListCustomModels",
+                "bedrock:CreateProvisionedModelThroughput",
+                "bedrock:UpdateProvisionedModelThroughput",
+                "bedrock:GetProvisionedModelThroughput",
+                "bedrock:ListProvisionedModelThroughputs",
+                "bedrock:GetImportedModel",
+                "bedrock:ListImportedModels",
+                "bedrock:ListMarketplaceModelEndpoints",
+                "bedrock:ListTagsForResource",
+                "bedrock:UntagResource",
+                "bedrock:TagResource"
+              ],
+              "Resource": [
+                "arn:aws:bedrock:us-west-2::foundation-model/model-id-of-foundational-model",
+                "arn:aws:bedrock:us-west-2:111122223333:inference-profile/*",
+                "arn:aws:bedrock:us-west-2:111122223333:provisioned-model/*",
+                "arn:aws:bedrock:us-west-2:111122223333:imported-model/*"
+              ]
+            },
+            {
+              "Sid": "AllowConsoleS3AccessForModelEvaluation",
+              "Effect": "Allow",
+              "Action": [
+                "s3:GetObject",
+                "s3:GetBucketCORS",
+                "s3:ListBucket",
+                "s3:ListBucketVersions",
+                "s3:GetBucketLocation"
+              ],
+              "Resource": [
+                "arn:aws:s3:::my_output_bucket",
+                "arn:aws:s3:::input_datasets/prompts.jsonl"
+              ]
+            }
+          ]
+        }
+        ```
+
+====================================================================================================
+### [6/16] read_documentation :: 5.1.2 evaluation support regions and models
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-support.html:
+
+# Supported Regions and models for model evaluation
+
+To see which models support model evaluation, please visit
+[models at a glance](./model-cards.html "./model-cards.html") and choose the model you are interested in.
+
+====================================================================================================
+### [7/16] read_documentation :: 5.1.2 judge model evaluation
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-judge.html:
+
+# Evaluate model performance using another LLM as a judge
+
+With a model evaluation job that uses a judge model, Amazon Bedrock uses an LLM to score another model's responses and provide an
+explanation of how it scored each prompt and response pair. Scores and explanations are available in the Amazon Bedrock console through the
+[Evaluations](https://console.aws.amazon.com/bedrock/home#/eval/evaluation "https://console.aws.amazon.com/bedrock/home#/eval/evaluation") page.
+
+This kind of model evaluation requires two different models, a *generator model* and an *evaluator model*.
+You define prompts for the generator model in a dataset, and the evaluator model scores the responses to those prompts based on metrics
+you select.
+
+The metrics summary card in the console displays a histogram that shows the number of times a responses received a certain score, and explanations of the score for
+the first five prompts found in your dataset. The full evaluation job report is available in the Amazon S3 bucket you specify when you create the model evaluation job.
+
+When you create the model evaluation job, you can either select an Amazon Bedrock model as the generator model, or you can evaluate a non-Amazon Bedrock model by providing
+your own inference response data in the prompt dataset. If you provide your own response data, Amazon Bedrock skips the model invoke step and directly evaluates the
+data you supply.
+
+To rate the generator models' responses, Amazon Bedrock provides a set of built-in metrics you can select from. Each metric uses a different prompt for the evaluator model.
+You can also define your own custom metrics for your particular business case. See [Use metrics to understand model performance](./model-evaluation-metrics.html "./model-evaluation-metrics.html") to learn more.
+
+## Supported models
+
+### Supported evaluator models (built-in metrics)
+
+To create an evaluation job that uses an LLM as a judge with Amazon Bedrock's built-in metrics, you need access to at least one of the judge models in the following list. To learn more about gaining access to models and Region availability,
+see [Request access to models](./model-access.html "./model-access.html").
+
+* Amazon Nova Pro – `amazon.nova-pro-v1:0`
+* Amazon Nova 2 Lite – `amazon.nova-2-lite-v1:0`
+* Amazon Nova Micro – `amazon.nova-micro-v1:0`
+* Amazon Nova Premier – `amazon.nova-premier-v1:0`
+* Anthropic Claude 3.5 Sonnet v1 – `anthropic.claude-3-5-sonnet-20240620-v1:0`
+* Anthropic Claude 3.5 Sonnet v2 – `anthropic.claude-3-5-sonnet-20241022-v2:0`
+* Anthropic Claude 3.7 Sonnet – `anthropic.claude-3-7-sonnet-20250219-v1:0`
+* Anthropic Claude Sonnet 4 – `anthropic.claude-sonnet-4-20250514-v1:0`
+* Anthropic Claude 3 Haiku – `anthropic.claude-3-haiku-20240307-v1:0`
+* Anthropic Claude 3.5 Haiku – `anthropic.claude-3-5-haiku-20241022-v1:0`
+* Anthropic Claude Haiku 4.5 – `anthropic.claude-haiku-4-5-20251001-v1:0`
+* Anthropic Claude Opus 4.5 – `anthropic.claude-opus-4-5-20251101-v1:0`
+* OpenAI GPT-5.4 – `openai.gpt-5.4`
+* OpenAI GPT-5.5 – `openai.gpt-5.5`
+* Anthropic Claude Sonnet 4.6 – `anthropic.claude-sonnet-4-6`
+* Anthropic Claude Opus 4.6 – `anthropic.claude-opus-4-6-v1`
+* Anthropic Claude Opus 4.7 – `anthropic.claude-opus-4-7`
+* Anthropic Claude Opus 4.8 – `anthropic.claude-opus-4-8`
+* Anthropic Claude Sonnet 4.0 – `anthropic.claude-sonnet-4-20250514-v1:0`
+* Anthropic Claude Sonnet 4.5 – `anthropic.claude-sonnet-4-5-20250929-v1:0`
+* Meta Llama 3.1 70B Instruct – `meta.llama3-1-70b-instruct-v1:0`
+* Mistral Large – `mistral.mistral-large-2402-v1:0`
+
+[Cross Region inference](./cross-region-inference.html "./cross-region-inference.html") profiles are supported for the listed models. To learn more, see [Supported cross-Region inference profiles](./inference-profiles-support.html#inference-profiles-support-system "./inference-profiles-support.html#inference-profiles-support-system").
+
+### Supported evaluator models (custom metrics)
+
+To create an evaluation job that uses an LLM as a judge with custom metrics, you need access to at least one of the judge models in the following list.
+
+* Mistral Large 24.02 – `mistral.mistral-large-2402-v1:0`
+* Mistral Large 24.07 – `mistral.mistral-large-2407-v1:0`
+* Anthropic Claude 3.5 Sonnet v1 – `anthropic.claude-3-5-sonnet-20240620-v1:0`
+* Anthropic Claude 3.5 Sonnet v2 – `anthropic.claude-3-5-sonnet-20241022-v2:0`
+* Anthropic Claude 3.7 Sonnet – `anthropic.claude-3-7-sonnet-20250219-v1:0`
+* Anthropic Claude Sonnet 4 – `anthropic.claude-sonnet-4-20250514-v1:0`
+* Anthropic Claude 3 Haiku 3 – `anthropic.claude-3-haiku-20240307-v1:0`
+* Anthropic Claude 3 Haiku 3.5 – `anthropic.claude-3-5-haiku-20241022-v1:0`
+* Meta Llama 3.1 70B Instruct – `meta.llama3-1-70b-instruct-v1:0`
+* Meta Llama 3.3 70B Instruct – `meta.llama3-3-70b-instruct-v1:0`
+* Amazon Nova Pro – `amazon.nova-pro-v1:0`
+* Amazon Nova 2 Lite – `amazon.nova-2-lite-v1:0`
+* Amazon Nova Micro – `amazon.nova-micro-v1:0`
+* Amazon Nova Premier – `amazon.nova-premier-v1:0`
+* Anthropic Claude Haiku 4.5 – `anthropic.claude-haiku-4-5-20251001-v1:0`
+* Anthropic Claude Opus 4.5 – `anthropic.claude-opus-4-5-20251101-v1:0`
+* OpenAI GPT-5.4 – `openai.gpt-5.4`
+* OpenAI GPT-5.5 – `openai.gpt-5.5`
+* Anthropic Claude Sonnet 4.6 – `anthropic.claude-sonnet-4-6`
+* Anthropic Claude Opus 4.6 – `anthropic.claude-opus-4-6-v1`
+* Anthropic Claude Opus 4.7 – `anthropic.claude-opus-4-7`
+* Anthropic Claude Opus 4.8 – `anthropic.claude-opus-4-8`
+* Anthropic Claude Sonnet 4.0 – `anthropic.claude-sonnet-4-20250514-v1:0`
+* Anthropic Claude Sonnet 4.5 – `anthropic.claude-sonnet-4-5-20250929-v1:0`
+
+[Cross Region inference](./cross-region-inference.html "./cross-region-inference.html") profiles are supported for the listed models. To learn more, see [Supported cross-Region inference profiles](./inference-profiles-support.html#inference-profiles-support-system "./inference-profiles-support.html#inference-profiles-support-system").
+
+### Supported generator models
+
+You can use the following model types in Amazon Bedrock as the generator model in an evaluation job. You can also bring your own inference response data from non-Amazon Bedrock models.
+
+* Foundation models – [Using models with Bedrock](./foundation-models-reference.html "./foundation-models-reference.html")
+* Models invoked through the OpenAI Responses API on the `bedrock-mantle` endpoint – [Responses API](./inference-responses-api.html "./inference-responses-api.html")
+* Amazon Bedrock Marketplace models – [Amazon Bedrock Marketplace](./amazon-bedrock-marketplace.html "./amazon-bedrock-marketplace.html")
+* Customized foundation models – [Customize your model to improve its performance for your use case](./custom-models.html "./custom-models.html")
+* Imported foundation models – [Use Custom model import to import a customized open-source model into Amazon Bedrock](./model-customization-import-model.html "./model-customization-import-model.html")
+* Prompt routers – [Understanding intelligent prompt routing in Amazon Bedrock](./prompt-routing.html "./prompt-routing.html")
+* Models for which you have purchased Provisioned Throughput – [Increase model invocation capacity with Provisioned Throughput in Amazon Bedrock](./prov-throughput.html "./prov-throughput.html")
+
+###### OpenAI Responses API console support not available
+
+You can use generator models invoked through the OpenAI Responses API only through the AWS CLI and the Amazon Bedrock API. The Amazon Bedrock console doesn't support selecting these models.
+
+====================================================================================================
+### [8/16] read_documentation :: 5.1.3 human worker evaluations
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/human-worker-evaluations.html:
+
+# Manage a work team for human evaluations of models in Amazon Bedrock
+
+For evaluation jobs that use human workers you need to have a work team. A work team is a
+group of workers that *you* choose. These can be employees of your
+company or a group of subject-matter experts from your industry.
+
+###### Worker notifications in Amazon Bedrock
+
+* When you create an evaluation job in Amazon Bedrock workers are notified of their
+  assigned job *only* when you first add them to a work
+  team
+* If you delete a worker from a work team during evaluation job creation, they
+  will lose access to *all* evaluation jobs they have been
+  assigned too.
+* For any new evaluation jobs that you assign to an existing human worker, you
+  must notify them directly and provide them the URL to the worker portal. Workers
+  must use their previously created login credentials for the worker portal. This
+  worker portal is the same for all evaluation jobs in your AWS account per
+  region
+
+You can create a human work team or manage an existing one while setting up an evaluation
+job workers to a *Private workforce* that is managed by Amazon SageMaker Ground Truth.
+Amazon SageMaker Ground Truth supports more advanced workforce management features. To learn more about managing
+your workforce in Amazon SageMaker Ground Truth, see [Create and manage
+workforces](https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-management.html "https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-management.html").
+
+You can delete workers from a work team while setting up a new evaluation job. Otherwise,
+you must use either the Amazon Cognito console or the Amazon SageMaker Ground Truth console to manage work teams you've
+created in Amazon Bedrock.
+
+If the IAM user, group, or role has the required permissions you will see existing
+private workforces and work teams you created in Amazon Cognito, Amazon SageMaker Ground Truth, or Amazon Augmented AI visible when
+you are creating an evaluation job that uses human workers.
+
+Amazon Bedrock supports a maximum of 50 workers per work team.
+
+In the email addresses field, you can enter up to 50 email addresses at time. To add more
+workers to your evaluation job use the Amazon Cognito console or the Ground Truth console. The addresses
+must be separated by a comma. You should include your own email address so that you are part
+of the workforce and can see the labeling tasks.
+
+## Create instructions for human workers
+
+Creating good instructions for your model evaluation jobs improves your worker's
+accuracy in completing their task. You can modify the default instructions that are
+provided in the console when creating a model evaluation job. The instructions are shown
+to the worker on the UI page where they complete their labeling task.
+
+To help workers complete their assigned tasks, you can provide instructions in two
+places.
+
+###### Provide a good description for each evaluation and rating method
+
+The descriptions should provide a succinct explanation of the metrics selected.
+The description should expand on the metric, and make clear how you want workers to
+evaluate the selected rating method.
+
+###### Provide your workers overall evaluation instructions
+
+These instructions are shown on the same webpage where workers complete a task.
+You can use this space to provide high level direction for the model evaluation job,
+and to describe the ground truth responses if you've included them in your prompt
+dataset.
+
+====================================================================================================
+### [9/16] read_documentation :: 5.1.3 model evaluation type human
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-type-human.html:
+
+# Creating your first model evaluation that uses human workers
+
+A model evaluation job that uses human workers requires access to the following service
+level resources. Use the linked topics to learn more about getting setting up.
+
+###### Required service level resources to start a model evaluation job that uses human workers
+
+1. Model evaluation jobs that use human workers allow you to rate/compare the
+   responses for up two different foundation models. To start a job, at least one Amazon Bedrock
+   foundation model is required. To learn more accessing Amazon Bedrock foundation models, see
+   [Request access to models](./model-access.html "./model-access.html").
+2. To create a model evaluation job using human workers, you need access to the
+   [https://console.aws.amazon.com/bedrock/](https://console.aws.amazon.com/bedrock/ "https://console.aws.amazon.com/bedrock/"), AWS Command Line Interface, or a supported AWS SDK. To learn more about the
+   required IAM actions and resources, see [Required console permissions to create a human-based model evaluation job](#more-for-human "#more-for-human").
+3. When the model evaluation job starts, a service role is used to perform actions on
+   your behalf. To learn more about required IAM actions and the trust policy
+   requirements, see [Service role requirements for automatic model evaluation jobs](./automatic-service-roles.html "./automatic-service-roles.html").
+4. A prompt dataset is required to start the model evaluation job; it must be stored
+   in a Amazon S3 bucket. To learn more about the prompt dataset requirements, see [Create a custom prompt dataset for a model evaluation job that uses human workers](./model-evaluation-prompt-datasets-custom-human.html "./model-evaluation-prompt-datasets-custom-human.html")
+5. The human evaluators are managed as a workteam. You can create a new Amazon Cognito
+   managed workteam using the Amazon Bedrock console. To learn more about managing your
+   workforce, see [Manage a work team for human evaluations of models in Amazon Bedrock](./human-worker-evaluations.html "./human-worker-evaluations.html").
+
+## Required console permissions to create a human-based model evaluation job
+
+To create a model evaluation job that uses human workers from the Amazon Bedrock console you
+need to have additional permissions added to your user, group, or role.
+
+The following policy contains the minimum set of IAM actions and resources in Amazon Bedrock,
+Amazon SageMaker AI, Amazon Cognito and Amazon S3 that are required to create a human-based model evaluation
+job using the Amazon Bedrock console.
+
+JSON
+:   :   ```
+        {
+          "Version":"2012-10-17",
+          "Statement": [
+            {
+              "Sid": "AllowPassingConsoleCreatedServiceRoles",
+              "Effect": "Allow",
+              "Action": [
+                "iam:PassRole"
+              ],
+              "Resource": [
+                "arn:aws:iam::111122223333:role/service-role/Amazon-Bedrock-IAM-Role-*"
+              ],
+              "Condition": {
+                "StringEquals": {
+                  "iam:PassedToService": "bedrock.amazonaws.com"
+                }
+              }
+            },
+            {
+              "Sid": "BedrockConsole",
+              "Effect": "Allow",
+              "Action": [
+                "bedrock:CreateEvaluationJob",
+                "bedrock:GetEvaluationJob",
+                "bedrock:ListEvaluationJobs",
+                "bedrock:StopEvaluationJob",
+                "bedrock:GetCustomModel",
+                "bedrock:ListCustomModels",
+                "bedrock:CreateProvisionedModelThroughput",
+                "bedrock:UpdateProvisionedModelThroughput",
+                "bedrock:GetProvisionedModelThroughput",
+                "bedrock:ListProvisionedModelThroughputs",
+                "bedrock:GetImportedModel",
+                "bedrock:ListImportedModels",
+                "bedrock:ListTagsForResource",
+                "bedrock:UntagResource",
+                "bedrock:TagResource"
+              ],
+              "Resource": [
+                "arn:aws:bedrock:us-west-2::foundation-model/model-id-of-foundational-model",
+                "arn:aws:bedrock:us-west-2:111122223333:inference-profile/*",
+                "arn:aws:bedrock:us-west-2:111122223333:provisioned-model/*",
+                "arn:aws:bedrock:us-west-2:111122223333:imported-model/*"
+              ]
+            },
+            {
+              "Sid": "AllowCognitionActionsForWorkTeamCreations",
+              "Effect": "Allow",
+              "Action": [
+                "cognito-idp:CreateUserPool",
+                "cognito-idp:CreateUserPoolClient",
+                "cognito-idp:CreateGroup",
+                "cognito-idp:AdminCreateUser",
+                "cognito-idp:AdminAddUserToGroup",
+                "cognito-idp:CreateUserPoolDomain",
+                "cognito-idp:UpdateUserPool",
+                "cognito-idp:ListUsersInGroup",
+                "cognito-idp:ListUsers",
+                "cognito-idp:AdminRemoveUserFromGroup"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Sid": "AllowModelEvaluationResourceCreation",
+              "Effect": "Allow",
+              "Action": [
+                "sagemaker:CreateFlowDefinition",
+                "sagemaker:CreateWorkforce",
+                "sagemaker:CreateWorkteam",
+                "sagemaker:DescribeFlowDefinition",
+                "sagemaker:DescribeHumanLoop",
+                "sagemaker:ListFlowDefinitions",
+                "sagemaker:ListHumanLoops",
+                "sagemaker:DescribeWorkforce",
+                "sagemaker:DescribeWorkteam",
+                "sagemaker:ListWorkteams",
+                "sagemaker:ListWorkforces",
+                "sagemaker:DeleteFlowDefinition",
+                "sagemaker:DeleteHumanLoop",
+                "sagemaker:RenderUiTemplate",
+                "sagemaker:StartHumanLoop",
+                "sagemaker:StopHumanLoop"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Sid": "AllowConsoleS3AccessForModelEvaluation",
+              "Effect": "Allow",
+              "Action": [
+                "s3:GetObject",
+                "s3:GetBucketCORS",
+                "s3:ListBucket",
+                "s3:ListBucketVersions",
+                "s3:GetBucketLocation"
+              ],
+              "Resource": [
+                "arn:aws:s3:::my_output_bucket",
+                "arn:aws:s3:::input_datasets/prompts.jsonl"
+              ]
+            }
+          ]
+        }
+        ```
+
+====================================================================================================
+### [10/16] read_documentation :: 5.1.3 HumanEvaluationCustomMetric API
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/APIReference/API_HumanEvaluationCustomMetric.html:
+
+# HumanEvaluationCustomMetric
+
+In a model evaluation job that uses human workers you must
+define the name of the metric, and how you want that metric rated
+`ratingMethod`, and an optional description of the metric.
+
+## Contents
+
+**name**
+:   The name of the metric. Your human evaluators will see this name in the evaluation UI.
+
+    Type: String
+
+    Length Constraints: Minimum length of 1. Maximum length of 63.
+
+    Pattern: `[0-9a-zA-Z-_.]+`
+
+    Required: Yes
+
+**ratingMethod**
+:   Choose how you want your human workers to evaluation your model. Valid values for rating methods are `ThumbsUpDown`, `IndividualLikertScale`,`ComparisonLikertScale`, `ComparisonChoice`, and `ComparisonRank`
+
+    Type: String
+
+    Length Constraints: Minimum length of 1. Maximum length of 100.
+
+    Pattern: `[0-9a-zA-Z-_]+`
+
+    Required: Yes
+
+**description**
+:   An optional description of the metric. Use this parameter to provide more details about the metric.
+
+    Type: String
+
+    Length Constraints: Minimum length of 1. Maximum length of 63.
+
+    Pattern: `.+`
+
+    Required: No
+
+## See Also
+
+For more information about using this API in one of the language-specific AWS SDKs, see the following:
+
+* [AWS SDK for C++](https://docs.aws.amazon.com/goto/SdkForCpp/bedrock-2023-04-20/HumanEvaluationCustomMetric "https://docs.aws.amazon.com/goto/SdkForCpp/bedrock-2023-04-20/HumanEvaluationCustomMetric")
+* [AWS SDK for Java V2](https://docs.aws.amazon.com/goto/SdkForJavaV2/bedrock-2023-04-20/HumanEvaluationCustomMetric "https://docs.aws.amazon.com/goto/SdkForJavaV2/bedrock-2023-04-20/HumanEvaluationCustomMetric")
+* [AWS SDK for Ruby V3](https://docs.aws.amazon.com/goto/SdkForRubyV3/bedrock-2023-04-20/HumanEvaluationCustomMetric "https://docs.aws.amazon.com/goto/SdkForRubyV3/bedrock-2023-04-20/HumanEvaluationCustomMetric")
+
+====================================================================================================
+### [11/16] read_documentation :: 5.1.5 RAG evaluation kb
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-kb.html:
+
+# Evaluate the performance of RAG sources using Amazon Bedrock evaluations
+
+You can use computed metrics to evaluate how effectively a Retrieval Augmented Generation (RAG) system retrieves relevant
+information from your data sources, and how effective the generated responses are in
+answering questions. The results of a RAG evaluation allow you to compare
+different Amazon Bedrock Knowledge Bases and other RAG sources, and then to choose the best Knowledge Base or RAG system for your
+application.
+
+You can set up two different types of RAG evaluation jobs.
+
+* **Retrieve only** – In a *retrieve-only*
+  RAG evaluation job, the report is based on the data retrieved
+  from your RAG source. You can either evaluate an Amazon Bedrock Knowledge Base,
+  or you can bring your own inference response data from an external RAG source.
+* **Retrieve and generate** – In a
+  *retrieve-and-generate* RAG evaluation job, the
+  report is based on the data retrieved from your knowledge base and the summaries
+  generated by the response generator model. You can either use an Amazon Bedrock Knowledge Base and response generator model,
+  or you can bring your own inference response data from an external RAG source.
+
+## Supported models
+
+To create a RAG evaluation job, you need access to at least one of the evaluator models in the following lists. To create a retrieve-and-generate job that uses an Amazon Bedrock
+model to generate the responses, you also need access to at least one of the listed generator response models.
+
+To learn more about gaining access to models and Region availability,
+see [Request access to models](./model-access.html "./model-access.html").
+
+### Supported evaluator models (built-in metrics)
+
+* Amazon Nova Pro – `amazon.nova-pro-v1:0`
+* Amazon Nova 2 Lite – `amazon.nova-2-lite-v1:0`
+* Amazon Nova Micro – `amazon.nova-micro-v1:0`
+* Amazon Nova Premier – `amazon.nova-premier-v1:0`
+* Anthropic Claude 3.5 Sonnet v1 – `anthropic.claude-3-5-sonnet-20240620-v1:0`
+* Anthropic Claude 3.5 Sonnet v2 – `anthropic.claude-3-5-sonnet-20241022-v2:0`
+* Anthropic Claude 3.7 Sonnet – `anthropic.claude-3-7-sonnet-20250219-v1:0`
+* Anthropic Claude 3 Haiku – `anthropic.claude-3-haiku-20240307-v1:0`
+* Anthropic Claude 3.5 Haiku – `anthropic.claude-3-5-haiku-20241022-v1:0`
+* Anthropic Claude Haiku 4.5 – `anthropic.claude-haiku-4-5-20251001-v1:0`
+* Anthropic Claude Opus 4.5 – `anthropic.claude-opus-4-5-20251101-v1:0`
+* OpenAI GPT-5.4 – `openai.gpt-5.4`
+* OpenAI GPT-5.5 – `openai.gpt-5.5`
+* Anthropic Claude Sonnet 4.6 – `anthropic.claude-sonnet-4-6`
+* Anthropic Claude Opus 4.6 – `anthropic.claude-opus-4-6-v1`
+* Anthropic Claude Opus 4.7 – `anthropic.claude-opus-4-7`
+* Anthropic Claude Opus 4.8 – `anthropic.claude-opus-4-8`
+* Anthropic Claude Sonnet 4.0 – `anthropic.claude-sonnet-4-20250514-v1:0`
+* Meta Llama 3.1 70B Instruct – `meta.llama3-1-70b-instruct-v1:0`
+* Mistral Large – `mistral.mistral-large-2402-v1:0`
+
+[Cross Region inference](./cross-region-inference.html "./cross-region-inference.html") profiles are supported for the listed models. To learn more, see [Supported cross-Region inference profiles](./inference-profiles-support.html#inference-profiles-support-system "./inference-profiles-support.html#inference-profiles-support-system").
+
+### Supported evaluator models (custom metrics)
+
+* Mistral Large 24.02 – `mistral.mistral-large-2402-v1:0`
+* Mistral Large 24.07 – `mistral.mistral-large-2407-v1:0`
+* Anthropic Claude 3.5 Sonnet v1 – `anthropic.claude-3-5-sonnet-20240620-v1:0`
+* Anthropic Claude 3.5 Sonnet v2 – `anthropic.claude-3-5-sonnet-20241022-v2:0`
+* Anthropic Claude 3.7 Sonnet – `anthropic.claude-3-7-sonnet-20250219-v1:0`
+* Anthropic Claude 3 Haiku 3 – `anthropic.claude-3-haiku-20240307-v1:0`
+* Anthropic Claude 3 Haiku 3.5 – `anthropic.claude-3-5-haiku-20241022-v1:0`
+* Meta Llama 3.1 70B Instruct – `meta.llama3-1-70b-instruct-v1:0`
+* Meta Llama 3.3 70B Instruct – `meta.llama3-3-70b-instruct-v1:0`
+* Amazon Nova Pro – `amazon.nova-pro-v1:0`
+* Amazon Nova 2 Lite – `amazon.nova-2-lite-v1:0`
+* Amazon Nova Micro – `amazon.nova-micro-v1:0`
+* Amazon Nova Premier – `amazon.nova-premier-v1:0`
+* Anthropic Claude Haiku 4.5 – `anthropic.claude-haiku-4-5-20251001-v1:0`
+* Anthropic Claude Opus 4.5 – `anthropic.claude-opus-4-5-20251101-v1:0`
+* OpenAI GPT-5.4 – `openai.gpt-5.4`
+* OpenAI GPT-5.5 – `openai.gpt-5.5`
+* Anthropic Claude Sonnet 4.6 – `anthropic.claude-sonnet-4-6`
+* Anthropic Claude Opus 4.6 – `anthropic.claude-opus-4-6-v1`
+* Anthropic Claude Opus 4.7 – `anthropic.claude-opus-4-7`
+* Anthropic Claude Opus 4.8 – `anthropic.claude-opus-4-8`
+* Anthropic Claude Sonnet 4.0 – `anthropic.claude-sonnet-4-20250514-v1:0`
+
+[Cross Region inference](./cross-region-inference.html "./cross-region-inference.html") profiles are supported for the listed models. To learn more, see [Supported cross-Region inference profiles](./inference-profiles-support.html#inference-profiles-support-system "./inference-profiles-support.html#inference-profiles-support-system").
+
+### Supported response generator models
+
+You can use the following model types in Amazon Bedrock as the response generator model in an evaluation job. You can also bring your own inference response data from non-Amazon Bedrock models.
+
+* Foundation models – [Using models with Bedrock](./foundation-models-reference.html "./foundation-models-reference.html")
+* Amazon Bedrock Marketplace models – [Amazon Bedrock Marketplace](./amazon-bedrock-marketplace.html "./amazon-bedrock-marketplace.html")
+* Customized foundation models – [Customize your model to improve its performance for your use case](./custom-models.html "./custom-models.html")
+* Imported foundation models – [Use Custom model import to import a customized open-source model into Amazon Bedrock](./model-customization-import-model.html "./model-customization-import-model.html")
+* Prompt routers – [Understanding intelligent prompt routing in Amazon Bedrock](./prompt-routing.html "./prompt-routing.html")
+* Models for which you have purchased Provisioned Throughput – [Increase model invocation capacity with Provisioned Throughput in Amazon Bedrock](./prov-throughput.html "./prov-throughput.html")
+
+====================================================================================================
+### [12/16] read_documentation :: 5.1.5 y 5.1.6 knowledge base evaluation metrics
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-evaluation-metrics.html:
+
+# Use metrics to understand RAG system performance
+
+When you run a RAG evaluation job, the evaluator model you select uses a set of metrics to characterize the performance of the
+RAG systems being evaluated. Amazon Bedrock provides a number of built-in metrics you can choose from, or you can define your own metrics.
+
+Amazon Bedrock RAG evaluations offers two types of evaluation job, retrieve only and retrieve and generate. Each type of job has its own set of
+built-in metrics you can select from.
+
+The following tables list the available built-in metrics for each evaluation type. To learn more about using custom metrics for RAG evaluation
+jobs, see [Create a prompt for a custom metric](./kb-evaluation-custom-metrics-prompt-formats.html "./kb-evaluation-custom-metrics-prompt-formats.html").
+
+Built-in metrics for retrieve-only RAG evaluation jobs
+
+| Metric | Description |
+| --- | --- |
+| Context relevance (`Builtin.ContextRelevance`) | Measures how contextually relevant the retrieved texts are to the questions. |
+| Context coverage (`Builtin.ContextCoverage`) | Measures how much the retrieved texts cover all the information in the ground truth texts. You must supply a ground truth in your prompt dataset to use this metric. |
+
+Built-in metrics for retrieve-and-generate RAG evaluation jobs
+
+| Metric | Description |
+| --- | --- |
+| Correctness (`Builtin.Correctness`) | Measures how accurate the responses are in answering questions. |
+| Completeness (`Builtin.Completeness`) | Measures how well the responses answer and resolve all aspects of the questions. |
+| Helpfulness (`Builtin.Helpfulness`) | Measures holistically how useful responses are in answering questions. |
+| Logical coherence (`Builtin.LogicalCoherence`) | Measures whether the responses are free from logical gaps, inconsistencies or contradictions. |
+| Faithfulness (`Builtin.Faithfulness`) | Measures how well responses avoid hallucination with respect to the retrieved texts. |
+| Citation precision (`Builtin.CitationPrecision`) | Measures how many of the cited passages were correctly cited. |
+| Citation coverage (`Builtin.CitationCoverage`) | Measures how well the response is supported by the cited passages and if there are any missing citations. |
+| Harmfulness (`Builtin.Harmfulness`) | Measures harmful content in the responses, including hate, insults, violence, or sexual content. |
+| Stereotyping (`Builtin.Stereotyping`) | Measures generalized statements about individuals or groups of people in responses. |
+| Refusal (`Builtin.Refusal`) | Measures how evasive the responses are in answering questions. |
+
+====================================================================================================
+### [13/16] read_documentation :: 5.1.5 custom metrics prompt formats
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/kb-evaluation-custom-metrics-prompt-formats.html:
+
+# Create a prompt for a custom metric
+
+With RAG evaluation jobs, you can create your own metrics to
+better characterize model performance for your particular business case. You can define up to 10 custom metrics for
+each evaluation job.
+
+To create your own custom evaluation metric, you need to supply the following:
+
+* A prompt containing detailed instructions for the judge model to use
+* The evaluator model you want to use for your custom metrics
+
+You can also specify a scoring system (output schema) that the evaluator model can use to rate the RAG system's outputs.
+
+The following sections describe how to create a prompt for your evaluator model when using custom metrics, including best practices. They also define the schema to use if you create your metric using
+a JSON file.
+
+To learn how to create an evaluation job with a custom metric using your prompt, see [Creating a retrieve-only RAG evaluation job using custom metrics](./knowledge-base-evaluation-create-ro-custom.html "./knowledge-base-evaluation-create-ro-custom.html") and [Creating a retrieve-and-generate RAG evaluation job using custom metrics](./knowledge-base-evaluation-create-randg-custom.html "./knowledge-base-evaluation-create-randg-custom.html").
+
+## Prompt construction and best practices
+
+When creating a prompt for a custom metric, you should structure the prompt with the following elements:
+
+1. **Role definition** (optional) – instructs the evaluator model to adopt a specific identity or role
+2. **Task description** – provides detailed instructions about the evaluation task
+3. **Criterion and rubric** (optional) – provides detailed scoring guidelines and rubrics for the evaluation
+4. **Input variables** – defines the variables to be evaluated such as the prompt and response
+
+Include these elements in your prompt in the order given in the list. The following sections describe each of these elements in more detail.
+
+### Role definition
+
+Supplying a role definition is optional, but providing one can help frame the evaluation. For example, if you're creating a metric to evaluate the
+prose style of a RAG system's final outputs, you could consider using a role like "writing tutor". Roles like "factual accuracy checker" or "subject matter expert"
+might also be appropriate depending on the goals of your evaluation.
+
+If you choose to include a role definition, it should be the first section of your prompt. The following shows an example role definition.
+
+###### Example role definition
+
+```
+You are a professional editor who is familiar with the requirements of commonly-used style manuals.
+```
+
+### Task definition
+
+The task definition is the most important section of your prompt and defines the task you want your evaluator model to carry out.
+Your task definition should provide detailed instructions about the evaluation task (we recommend a minimum of 15 words), and be specific about
+what aspects to focus on and how to structure the evaluation.
+
+Your task definition should come directly after your role definition, if you choose to include one.
+
+For more general guidance about how to structure prompts for LLMs, see [Design a prompt](./design-a-prompt.html "./design-a-prompt.html").
+
+The following example shows a task definition for a metric that focuses on the adherence of RAG system responses to a particular style guide.
+
+###### Example task definition
+
+```
+You are provided a prompt and a response from a RAG system.
+The prompt asks the RAG system to follow the Chicago Manual of Style when generating its responses. 
+Your task is to assess how closely the text in the response adheres to the style guide.
+Focus in particular on grammar, prose style, and citation requirements.
+```
+
+### Criterion and rubric
+
+This section is optional, and can be used to define multiple evaluation rubrics or provide detailed scoring guidelines for the metric.
+This section should be added between the task definition and input variables. The following examples show an evaluation rubric and scoring guidelines
+for the task given in the example task definition provided. You can include either or both of these types of information in this section of your prompt.
+
+###### Example evaluation rubric
+
+```
+When evaluating the response quality, consider the following:
+- Grammar: Does the grammar in the response follow the requirements of the style guide
+- Style consistency: Does the response maintain consistent capitalization, punctuation, and paragraph formatting
+- Citations: Does the response use the correct citation style for in-text citations and endnotes
+```
+
+###### Example scoring guidelines
+
+```
+Please rate the quality of the response on the following scale:
+- Poor: Response includes errors in citation, grammar, or usage
+- Acceptable: Response includes only minor formatting errors
+- Good: Response meets all requirements of the style guide
+```
+
+When you create an evaluation job that uses an LLM as a judge, either in the AWS Management Console or using the AWS CLI or one of the AWS SDKs, you can specify an output schema for
+Amazon Bedrock to rate the responses from your generator model. Make sure that any definitions you specify for the output schema are consistent with the scoring guidelines you define in the prompt. For
+example, in the preceding example, you would specify the definitions for your output schema as 'Poor', 'Acceptable', and 'Good'. For more guidance on defining output schemas, see
+[Specifying an output schema (rating scale)](#kb-evaluation-custom-metrics-prompt-formats-schema "#kb-evaluation-custom-metrics-prompt-formats-schema").
+
+### Input variables
+
+The final section of your prompt specifies the variables that the evaluator model needs to perform the evaluation. Note that you must specify the input variables last; if
+you provide further instructions in your prompt after the input variables, the evaluator model may not evaluate your metrics correctly.
+
+The minimum input variables you need to specify depend on the type of evaluation job you are 
+
+<e>Content truncated. Call the read_documentation tool with start_index=6000 to get more content.</e>
+
+====================================================================================================
+### [14/16] read_documentation :: 5.1.8 model evaluation report programmatic
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-report-programmatic.html:
+
+# Review metrics for an automated model evaluation job in Amazon Bedrock (console)
+
+You can review the metrics presented in a report for an automatic model evaluation job using the Amazon Bedrock console.
+
+In your model evaluation report card, you will see the total number of prompts in
+the dataset you provided or selected, and how many of those prompts received
+responses. If the number of responses is less than the number of input prompts, make
+sure to check the data output file in your Amazon S3 bucket. It is possible that the
+prompt caused an error with the model and there was no inference retrieved. Only
+responses from the model will be used in metric calculations.
+
+Use the following procedure to review an automatic model evaluation job on the
+Amazon Bedrock console.
+
+1. Open the Amazon Bedrock console.
+2. From the navigation pane, choose **Model
+   evaluation**.
+3. Next, in the **Model evaluations** table find the name of
+   the automated model evaluation job you want to review. Then, choose
+   it.
+
+In all semantic robustness related metrics, Amazon Bedrock perturbs prompts in the following
+ways: convert text to all lower cases, keyboard typos, converting numbers to words,
+random changes to upper case and random addition/deletion of whitespaces.
+
+After you open the model evaluation report you can view the summarized metrics,
+and the **Job configuration summary** of the job.
+
+For each metric and prompt dataset specified when the job was created you see a
+card, and a value for each dataset specified for that metric. How this value is
+calculated changes based on the task type and the metrics you selected.
+
+###### How each available metric is calculated when applied to the general text generation task type
+
+* **Accuracy**: For this metric, the value is
+  calculated using real world knowledge score (RWK score). RWK score examines
+  the model’s ability to encode factual knowledge about the real world. A high
+  RWK score indicates that your model is being accurate.
+* **Robustness**: For this metric, the value is
+  calculated using semantic robustness. Which is calculated using word error
+  rate. Semantic robustness measures how much the model output changes as a
+  result of minor, semantic preserving perturbations, in the input. Robustness
+  to such perturbations is a desirable property, and thus a low semantic
+  robustness score indicated your model is performing well.
+
+  The perturbation types we will consider are: convert text to all lower
+  cases, keyboard typos, converting numbers to words, random changes to upper
+  case and random addition/deletion of whitespaces. Each prompt in your
+  dataset is perturbed approximately 5 times. Then, each perturbed response is
+  sent for inference, and used to calculate robustness scores
+  automatically.
+* **Toxicity**: For this metric, the value is
+  calculated using toxicity from the detoxify algorithm. A low toxicity value
+  indicates that your selected model is not producing large amounts of toxic
+  content. To learn more about the detoxify algorithm and see how toxicity is
+  calculated, see the [detoxify algorithm](https://github.com/unitaryai/detoxify "https://github.com/unitaryai/detoxify") on GitHub.
+
+###### How each available metric is calculated when applied to the text summarization task type
+
+* **Accuracy**: For this metric, the value is
+  calculated using BERT Score. BERT Score is calculated using pre-trained
+  contextual embeddings from BERT models. It matches words in candidate and
+  reference sentences by cosine similarity.
+* **Robustness**: For this metric, the value
+  calculated is a percentage. It calculated by taking (Delta BERTScore /
+  BERTScore) x 100. Delta BERTScore is the difference in BERT Scores between a
+  perturbed prompt and the original prompt in your dataset. Each prompt in
+  your dataset is perturbed approximately 5 times. Then, each perturbed
+  response is sent for inference, and used to calculate robustness scores
+  automatically. A lower score indicates the selected model is more
+  robust.
+* **Toxicity**: For this metric, the value is
+  calculated using toxicity from the detoxify algorithm. A low toxicity value
+  indicates that your selected model is not producing large amounts of toxic
+  content. To learn more about the detoxify algorithm and see how toxicity is
+  calculated, see the [detoxify algorithm](https://github.com/unitaryai/detoxify "https://github.com/unitaryai/detoxify") on GitHub.
+
+###### How each available metric is calculated when applied to the question and answer task type
+
+* **Accuracy**: For this metric, the value
+  calculated is F1 score. F1 score is calculated by dividing the precision
+  score (the ratio of correct predictions to all predictions) by the recall
+  score (the ratio of correct predictions to the total number of relevant
+  predictions). The F1 score ranges from 0 to 1, with higher values indicating
+  better performance.
+* **Robustness**: For this metric, the value
+  calculated is a percentage. It is calculated by taking (Delta F1 / F1) x
+  100. Delta F1 is the difference in F1 Scores between a perturbed prompt and
+  the original prompt in your dataset. Each prompt in your dataset is
+  perturbed approximately 5 times. Then, each perturbed response is sent for
+  inference, and used to calculate robustness scores automatically. A lower
+  score indicates the selected model is more robust.
+* **Toxicity**: For this metric, the value is
+  calculated using toxicity from the detoxify algorithm. A low toxicity value
+  indicates that your selected model is not producing large amounts of toxic
+  content. To learn more about the detoxify algorithm and see how toxicity is
+  calculated, see the [detoxify algorithm](https://github.com/unitaryai/detoxify "https://github.com/unitaryai/detoxify") on GitHub.
+
+###### How each available metric is calculated when applied to the text classification task type
+
+* **Accuracy**: For this metric, the value
+  calculated is accuracy. Accuracy is a score that co
+
+<e>Content truncated. Call the read_documentation tool with start_index=6000 to get more content.</e>
+
+====================================================================================================
+### [15/16] read_documentation :: 5.1.8 knowledge base evaluation report
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-evaluation-report.html:
+
+# Review RAG evaluation job reports and metrics
+
+The results of a Retrieval Augmented Generation (RAG) evaluation job are presented in a report, and include key
+metrics or data that can help you assess the performance or effectiveness of a knowledge
+base. The results of a knowledge base evaluation job are available through the Amazon Bedrock console or
+in the Amazon S3 bucket you specified when creating the job.
+
+For RAG evaluation jobs with one or more custom metrics, Amazon Bedrock also stores your metric definitions as JSON files in the output S3 bucket you specify. You can access these files by navigating to
+`s3://S3-output-bucket-name/job-name/job-uuid/custom_metrics`. To see the format for
+JSON definitions of custom metrics, see [Creating a JSON file to create a custom metric](./model-evaluation-custom-metrics-prompt-formats.html#model-evaluation-custom-metrics-prompt-formats-json "./model-evaluation-custom-metrics-prompt-formats.html#model-evaluation-custom-metrics-prompt-formats-json").
+
+Use the following topics to learn how to review knowledge base evaluation reports and
+metrics.
+
+###### Topics
+
+* [Review metrics for RAG evaluations that use LLMs (console)](./knowledge-base-eval-llm-results.html "./knowledge-base-eval-llm-results.html")
+
+====================================================================================================
+### [16/16] read_documentation :: 5.1.8 model evaluation report s3
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-report-s3.html:
+
+# Understand how the results of your model evaluation job are saved in Amazon S3
+
+The output from a model evaluation job is saved in the Amazon S3 bucket you specified
+when you created the model evaluation job. Results of model evaluation jobs are
+saved as JSON line files (`.jsonl`).
+
+The results from the model evaluation job is saved in the S3 bucket you specified
+as follows.
+
+* For model evaluation jobs that use human workers:
+
+  `s3://user-specified-S3-output-path/job-name/job-uuid/datasets/dataset-name/file-uuid_output.jsonl`
+* For automatic model evaluation jobs:
+
+  `s3://user-specified-S3-output-path/job-name/job-uuid/models/model-id/taskTypes/task-type/datasets/dataset/file-uuid_output.jsonl`
+
+For model or RAG evaluation jobs with one or more custom metrics, Amazon Bedrock also stores your metric definitions as JSON files in the output S3 bucket you specify. You can access these files by navigating to
+`s3://S3-output-bucket-name/job-name/job-uuid/custom_metrics`. To see the format for
+JSON definitions of custom metrics, see [Creating a JSON file to create a custom metric](./model-evaluation-custom-metrics-prompt-formats.html#model-evaluation-custom-metrics-prompt-formats-json "./model-evaluation-custom-metrics-prompt-formats.html#model-evaluation-custom-metrics-prompt-formats-json").
+
+The following topics describe how the results from automated and human worker
+based model evaluation job are saved in Amazon S3.
+
+## Output data from automated model evaluation jobs
+
+The results of the automated evaluation job are stored in the
+`datasets` directory when job status changes to
+**Completed**.
+
+For each metric and corresponding prompt dataset you selected when the model
+evaluation job was created, a JSON line file is generated in the
+`datasets` directory. The file uses the following naming
+convention
+`metric_input-dataset.jsonl`.
+
+Each result from the model evaluation job starts with the
+`automatedEvaluationResult` key. The first child key
+`scores` contains the metrics you selected in the Amazon Bedrock console.
+In this example, only a single metric `Accuracy` was selected. It
+also contains `result` which is calculated value for the selected
+metric. To learn more about what specific value is calculated, see [Review metrics for an automated model evaluation job in Amazon Bedrock (console)](./model-evaluation-report-programmatic.html "./model-evaluation-report-programmatic.html").
+
+The second key, `inputRecord` is a copy of what you provided in
+your input prompt dataset.
+
+The third key, `modelResponses` contains a list of JSON objects
+which contains the ARN of the model selected when you created the model
+evaluation job. It also contains the full response from the model based on the
+prompt provided.
+
+The following is an example output for the text summarization task type with
+only one metric, accuracy, selected.
+
+```
+{
+"automatedEvaluationResult": {
+    "scores": [{
+        "metricName": "Accuracy",
+        "result": 0.31920555233955383
+    }]
+},
+"inputRecord": {
+    "prompt": "Human: two bodies have been recovered from a flooded coal mine in yiyang city , central china 's henan province , as of #:## thursday morning , rescuers said . Assistant:",
+    "referenceResponse": "two bodies recovered from flooded coal mine in c. china"
+},
+"modelResponses": [{
+    "modelIdentifier": "arn:aws:bedrock:us-west-2::foundation-model/anthropic.claude-v2",
+    "response": " Here are the key points I gathered from your news summary:\n\n- Two bodies have been recovered from a flooded coal mine in Yiyang City, in China's Henan province.\n\n- This happened as of Thursday morning, according to rescuers.\n\n- The location is central China's Henan province. \n\n- Yiyang City is where the flooded coal mine is located.\n\n- The coal mine was flooded, leading to the two deaths and need for rescue/recovery efforts.\n\n- This news is developing as of Thursday morning, so the death toll and rescue details may still be unfolding.\n\nPlease let me know if I have accurately summarized the key information or if you would like me to expand on any part of it."
+}]
+}
+```
+
+## Output data from model evaluation jobs that use human workers.
+
+When a model evaluation job has completed, you see the following parameters in
+the output data returned from human review tasks.
+
+| Parameter | Value Type | Example Values | Description |
+| --- | --- | --- | --- |
+| `flowDefinitionArn` | String | `arn:aws:sagemaker:us-west-2:111122223333:flow-definition/flow-definition-name` | The Amazon Resource Number (ARN) of the human review workflow (flow definition) used to create the human loop. |
+| `humanAnswers` | List of JSON objects | ```   "answerContent": { "evaluationResults": { 	"thumbsUpDown": [{ 		"metricName": "Relevance", 		"modelResponseId": "0", 		"result": false 	}] } } ``` | A list of JSON objects that contain worker responses in `answerContent`. |
+| `humanLoopName` | String | `system-generated-hash` | A system generated 40-character hex string. |
+| `input
+
+<e>Content truncated. Call the read_documentation tool with start_index=5000 to get more content.</e>

@@ -1,0 +1,1178 @@
+
+====================================================================================================
+### [1/12] read_documentation :: 5.2.1 stopReason valores validos
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html:
+
+             "action": "string",
+                           "detected": boolean,
+                           "score": number,
+                           "threshold": number,
+                           "type": "string"
+                        }
+                     ]
+                  },
+                  "invocationMetrics": { 
+                     "guardrailCoverage": { 
+                        "images": { 
+                           "guarded": number,
+                           "total": number
+                        },
+                        "textCharacters": { 
+                           "guarded": number,
+                           "total": number
+                        }
+                     },
+                     "guardrailProcessingLatency": number,
+                     "usage": { 
+                        "automatedReasoningPolicies": number,
+                        "automatedReasoningPolicyUnits": number,
+                        "contentPolicyImageUnits": number,
+                        "contentPolicyUnits": number,
+                        "contextualGroundingPolicyUnits": number,
+                        "sensitiveInformationPolicyFreeUnits": number,
+                        "sensitiveInformationPolicyUnits": number,
+                        "topicPolicyUnits": number,
+                        "wordPolicyUnits": number
+                     }
+                  },
+                  "sensitiveInformationPolicy": { 
+                     "piiEntities": [ 
+                        { 
+                           "action": "string",
+                           "detected": boolean,
+                           "match": "string",
+                           "type": "string"
+                        }
+                     ],
+                     "regexes": [ 
+                        { 
+                           "action": "string",
+                           "detected": boolean,
+                           "match": "string",
+                           "name": "string",
+                           "regex": "string"
+                        }
+                     ]
+                  },
+                  "topicPolicy": { 
+                     "topics": [ 
+                        { 
+                           "action": "string",
+                           "detected": boolean,
+                           "name": "string",
+                           "type": "string"
+                        }
+                     ]
+                  },
+                  "wordPolicy": { 
+                     "customWords": [ 
+                        { 
+                           "action": "string",
+                           "detected": boolean,
+                           "match": "string"
+                        }
+                     ],
+                     "managedWordLists": [ 
+                        { 
+                           "action": "string",
+                           "detected": boolean,
+                           "match": "string",
+                           "type": "string"
+                        }
+                     ]
+                  }
+               }
+            ]
+         }
+      },
+      "promptRouter": { 
+         "invokedModelId": "string"
+      }
+   },
+   "usage": { 
+      "cacheDetails": [ 
+         { 
+            "inputTokens": number,
+            "ttl": "string"
+         }
+      ],
+      "cacheReadInputTokens": number,
+      "cacheWriteInputTokens": number,
+      "inputTokens": number,
+      "outputTokens": number,
+      "totalTokens": number
+   }
+}
+```
+
+## Response Elements
+
+If the action is successful, the service sends back an HTTP 200 response.
+
+The following data is returned in JSON format by the service.
+
+**[additionalModelResponseFields](#API_runtime_Converse_ResponseSyntax "#API_runtime_Converse_ResponseSyntax")**
+:   Additional fields in the response that are unique to the model.
+
+    Type: JSON value
+
+**[metrics](#API_runtime_Converse_ResponseSyntax "#API_runtime_Converse_ResponseSyntax")**
+:   Metrics for the call to `Conv
+
+<e>Content truncated. Call the read_documentation tool with start_index=24000 to get more content.</e>
+
+====================================================================================================
+### [2/12] read_documentation :: 5.2.1 conversation inference guia
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference.html:
+
+# Inference using Converse API
+
+The Converse API is available on the `bedrock-runtime` endpoint only.
+
+You can use the Amazon Bedrock Converse API to create conversational applications
+that send and receive messages to and from an Amazon Bedrock model. For example, you can create a
+chat bot that maintains a conversation over many turns and uses a persona or tone
+customization that is unique to your needs, such as a helpful technical support
+assistant.
+
+To use the Converse API, you use the [Converse](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html") or [ConverseStream](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ConverseStream.html "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ConverseStream.html") (for streaming
+responses) operations to send messages to a model. It is possible to use the existing base
+inference operations ([InvokeModel](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModel.html "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModel.html") or [InvokeModelWithResponseStream](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModelWithResponseStream.html "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModelWithResponseStream.html")) for conversation applications. However, the
+Converse API provides a consistent API that works
+with all Amazon Bedrock models that support messages. This means you can write code once and use
+it with different models. Should a model have unique inference parameters, the
+Converse API also allows you to pass those unique parameters in a model
+specific structure.
+
+You can use the Converse API to implement [tool
+use](./tool-use.html "./tool-use.html") and [guardrails](./guardrails-use-converse-api.html "./guardrails-use-converse-api.html") in your
+applications.
+
+###### Note
+
+* With Mistral AI and Meta models, the Converse API embeds your input in
+  a model-specific prompt template that enables
+  conversations.
+* Restrictions apply to the following operations: `InvokeModel`, `InvokeModelWithResponseStream`, `Converse`, and `ConverseStream`. See [API restrictions](./inference-api-restrictions.html "./inference-api-restrictions.html") for details.
+
+For code examples, see the following:
+
+* Python examples for this topic – [Converse API examples](./conversation-inference-examples.html "./conversation-inference-examples.html")
+* Various languages and models – [Code examples for Amazon Bedrock Runtime using AWS SDKs](./service_code_examples_bedrock-runtime.html "./service_code_examples_bedrock-runtime.html")
+* Java tutorial – [A Java developer's guide to Bedrock's new Converse
+  API](https://community.aws/content/2hUiEkO83hpoGF5nm3FWrdfYvPt/amazon-bedrock-converse-api-java-developer-guide "https://community.aws/content/2hUiEkO83hpoGF5nm3FWrdfYvPt/amazon-bedrock-converse-api-java-developer-guide")
+* JavaScript tutorial – [A developer's guide to Bedrock's new Converse API](https://community.aws/content/2dtauBCeDa703x7fDS9Q30MJoBA/amazon-bedrock-converse-api-developer-guide "https://community.aws/content/2dtauBCeDa703x7fDS9Q30MJoBA/amazon-bedrock-converse-api-developer-guide")
+
+## Using the Converse API
+
+To use the Converse API, you call the `Converse` or
+`ConverseStream` operations to send messages to a model. To call
+`Converse`, you require permission for the
+`bedrock:InvokeModel` operation. To call `ConverseStream`, you
+require permission for the `bedrock:InvokeModelWithResponseStream`
+operation.
+
+### Request
+
+When you make a [Converse](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html") request with an [Amazon Bedrock runtime endpoint](https://docs.aws.amazon.com/general/latest/gr/bedrock.html#br-rt "https://docs.aws.amazon.com/general/latest/gr/bedrock.html#br-rt"), you can include the following
+fields:
+
+* **modelId** – A required parameter in
+  the header that lets you specify the resource to use for inference.
+* The following fields let you customize the prompt:
+
+  + **messages** – Use to specify
+    the content and role of the prompts.
+  + **system** – Use to specify
+    system prompts, which define instructions or context for the
+    model.
+  + **inferenceConfig** – Use to
+    specify inference parameters that are common to all models.
+    Inference parameters influence the generation of the
+    response.
+  + **additionalModelRequestFields**
+    – Use to specify inference parameters that are specific to the
+    model that you run inference with.
+  + **promptVariables** – (If you
+    use a prompt from Prompt management) Use this field to define the variables in
+    the prompt to fill in and the values with which to fill them.
+* The following fields let you customize how the response is
+  returned:
+
+  + **guardrailConfig** – Use this
+    field to include a guardrail to apply to the entire prompt.
+  + **toolConfig** – Use this field
+    to include a tool to help a model generate responses.
+  + **additionalModelResponseFieldPaths**
+    – Use this field to specify fields to return as a JSON pointer
+    object.
+  + **serviceTier**
+    – Use this field to specify the service tier for a particular
+    request
+* **requestMetadata** – Use this field to
+  include metadata that can be filtered on when using invocation logs.
+
+###### Note
+
+The following restrictions apply when you use a Prompt management prompt with `Converse` or `ConverseStream`:
+
+* You can't include the `additionalModelRequestFields`, `inferenceConfig`, `system`, or `toolConfig` fields.
+* If you include the `messages` field, the messages are appended after the messages defined in the prompt.
+* If you include the `guardrailConfig` field, the guardrail is applied to the entire prompt. If you include `guardContent` blocks in 
+
+<e>Content truncated. Call the read_documentation tool with start_index=6000 to get more content.</e>
+
+====================================================================================================
+### [3/12] read_documentation :: 5.1.1 GENOPS01-BP01
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops01-bp01.html:
+
+# GENOPS01-BP01 Periodically evaluate functional performance
+
+Implement periodic evaluations using stratified sampling and custom
+metrics to maintain the performance and reliability of large
+language models. This practice verifies that models remain accurate
+and relevant over time by regularly assessing their performance
+against ground truth data and specific evaluation criteria. By
+employing stratified sampling, organizations can obtain a
+representative subset of data that reflects the diversity of
+real-world inputs, leading to more reliable performance metrics.
+Custom metrics allow for tailored assessments that align with
+specific business goals and user expectations. This practice helps
+customers achieve consistent model performance, detect and address
+model drift promptly, and integrate evaluation results into
+continuous improvement processes.
+
+**Desired outcome:** When
+implemented, this best practice improves the ability to identify and
+remediate performance degradation issues in model responses.
+
+**Benefits of establishing this best
+practice:**
+
+* [Implement
+  observability for actionable insights](https://docs.aws.amazon.com/wellarchitected/latest/framework/oe-design-principles.html "https://docs.aws.amazon.com/wellarchitected/latest/framework/oe-design-principles.html") - Model responses
+  to prompts can be observed using key performance indicators
+  (KPIs) to determine adherence to or deviation from acceptable
+  performance levels.
+* [Anticipate
+  failure](https://docs.aws.amazon.com/wellarchitected/latest/framework/oe-design-principles.html "https://docs.aws.amazon.com/wellarchitected/latest/framework/oe-design-principles.html") - Periodic review of the model's performance
+  levels helps you proactively identify deviations in its
+  performance. This is because foundation models are inherently
+  non-deterministic with a realistic chance of failure.
+
+**Level of risk exposed if this best practice
+is not established:** High
+
+## Implementation guidance
+
+Evaluations can be conducted by periodically running ground truth
+data and applying sampling techniques to run metrics for
+monitoring purposes. Feed your prompts into the model to generate
+outputs, compare those outputs to the known ground truth values,
+and analyze the results to track the model's performance over
+time, identifying potential drifts or degradation.
+
+You can employ stratified sampling techniques to verify diverse
+data representation within the sample set. Divide your ground
+truth data into relevant categories (for example, different user
+personas), and randomly sample from each category to provide a
+balanced representation in the evaluation set. Consider
+periodically updating your ground truth dataset as the inputs and
+usage of your workload change over time. Address data drift where
+actual usage diverges from your initial ground truth set.
+
+You can use the model evaluation feature built-in with Amazon Bedrock or open-source libraries like
+[fmeval](https://github.com/aws/fmeval "https://github.com/aws/fmeval") or
+[ragas](https://docs.ragas.io/en/stable/ "https://docs.ragas.io/en/stable/").
+Use Amazon Bedrock model invocation logging to collect metadata,
+requests, and responses for model invocations in your account.
+
+For Amazon SageMaker AI, you can set up manual evaluations for a
+human workforce using Studio, automatically evaluate your model
+with an algorithm using Studio, or automatically evaluate your
+model with a customized workflow using the fmeval library.
+
+The fmeval library provides a framework for defining and using
+custom metrics. By creating a custom metric class, you can
+encapsulate the logic for calculating a specific evaluation
+criterion tailored to your use case. Use this to continuously
+assess your language models using both standard metrics provided
+by fmeval and your own specialized metrics.
+
+Your organization’s AI policy should define the effective minimum performance levels for generative AI workloads, as well as how to validate performance on an ongoing basis. Consider identifying a single-threaded workload owner responsible for the operational considerations pertaining to ongoing performance evaluations. Run these evaluations when new candidate models are available, or when model customization techniques are applied. For example, fine-tuned and customized models should be subject to the same evaluation criteria and cadence as non-customized models.
+
+### Implementation steps
+
+1. Create a ground truth dataset.
+
+   * Verify that you have diverse data representation
+   * Consider various user personas and use cases
+2. Apply stratified sampling techniques.
+
+   * Categorize ground truth data into relevant groups
+   * Randomly sample from each group to achieve balanced
+     representation
+3. Establish periodic evaluation processes.
+
+   * For Amazon Bedrock:
+
+     + Use the built-in model evaluation feature
+     + Implement model invocation logging
+   * For Amazon SageMaker AI:
+
+     + Configure manual evaluations using Amazon SageMaker AI
+       Studio.
+     + Set up automatic evaluations using Amazon SageMaker AI
+       Studio or the fmeval library
+4. Define custom metrics.
+
+   * Use the fmeval library to create custom metric classes
+   * Encapsulate logic for calculating specific evaluation
+     criteria
+5. Perform model evaluations.
+
+   * Input prompts into the model
+   * Generate outputs and compare them to ground truth values
+   * Analyze results to track performance over time
+6. Monitor for performance drifts.
+
+   * Identify potential degradation in model performance
+   * Address data drift where actual usage diverges from the
+     initial ground truth
+7. Regularly update the ground truth dataset.
+
+   * Reflect changes in workload inputs and usage patterns
+   * Maintain the relevance of evaluation data
+
+**Additional recommendations**
+
+* Use open-source libraries.
+
+  + Consider using libraries like ragas for additional
+    evaluation capabilities
+  + Explore complementary metrics and evaluation techniques
+* Implement automated workflows.
+
+  + Integrate evaluation processes into CI/CD pipelines
+  + Set up alerts for significant performance changes
+
+## Resources
+
+**Related best practices:**
+
+* [OPS11-BP11](https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/ops_evolve_ops_metrics_review.html "https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/ops_evolve_ops_metrics_review.html")
+
+**Related documents:**
+
+* [Amazon SageMaker AI Model Evaluation](https://docs.aws.amazon.com/sagemaker/latest/dg/model-optimize-evaluate.html "https://docs.aws.amazon.com/sagemaker/latest/dg/model-optimize-evaluate.html")
+* [Evaluating
+  Models in Amazon Bedrock](https://aws.amazon.com/bedrock/evaluations/ "https://aws.amazon.com/bedrock/evaluations/")
+* [Data
+  and model quality monitoring with Amazon SageMaker AI Model
+  Monitor](https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html "https://docs.aws.amazon.com/sagemaker/latest/dg/mo
+
+<e>Content truncated. Call the read_documentation tool with start_index=7000 to get more content.</e>
+
+====================================================================================================
+### [4/12] read_documentation :: 5.1.4 AGENTOPS06-BP02
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentops06-bp02.html:
+
+# AGENTOPS06-BP02 Evaluate and track ongoing agent performance
+
+Pre-deployment evaluation validates that an agent is ready to ship.
+Post-deployment evaluation validates that it still works. Without
+continuous assessment, gradual quality degradation from data drift,
+model updates, and shifting user patterns goes unnoticed until it is
+expensive to fix.
+
+**Desired outcome:**
+
+* Agent performance is continually evaluated against defined
+  quality benchmarks.
+* Automated pipelines detect degradation in output quality,
+  reasoning accuracy, and business outcome alignment.
+* Teams have clear visibility into performance trends over time
+  and can correlate quality changes with specific configuration,
+  model, or data updates.
+* Evaluation results drive prioritized improvement actions and
+  provide objective evidence for stakeholder reporting.
+
+**Common anti-patterns:**
+
+* Evaluating agent performance only at deployment time without
+  continuous post-deployment assessment, missing gradual
+  degradation from data drift, model updates, or changing user
+  patterns.
+* Relying solely on automated metrics without periodic human
+  evaluation, missing quality dimensions that automated metrics
+  can't fully capture (like nuance, appropriateness, and business
+  context alignment).
+* Using generic evaluation criteria across all agents without
+  tailoring metrics to each agent's specific use case and business
+  objectives, producing evaluation results that don't reflect
+  actual value.
+* Treating evaluation as separate from operations rather than
+  integrating it into the operational workflow, creating
+  evaluation debt that accumulates over time.
+
+**Benefits of establishing this best
+practice:**
+
+* Continuous evaluation provides an empirical foundation for
+  evidence-based improvement, identifying which agents need
+  attention and which changes produce measurable gains.
+* Performance trend tracking reveals patterns that inform
+  systematic improvement, turning evaluation data into practical
+  insights.
+* Multi-dimensional scoring catches quality issues that a single
+  metric would miss.
+* Correlation between quality shifts and configuration changes
+  compresses root-cause analysis.
+
+**Level of risk exposed if this best practice
+is not established:** High
+
+## Implementation guidance
+
+[Amazon
+Bedrock AgentCore Evaluations](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html") is an evaluation service for
+continuous assessment. Its on-demand mode runs benchmarks during
+development, and its online mode samples and evaluates live
+interactions in production without requiring manual triggers.
+Thirteen built-in evaluators cover correctness, helpfulness,
+safety, and tool selection accuracy, with custom evaluators
+available for business-specific requirements.
+[Amazon
+Bedrock Evaluations](https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation.html "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation.html") supplements this with model-level
+assessment, and periodic human evaluation covers the dimensions
+automated metrics miss.
+
+Evaluation frameworks need multiple dimensions because a single
+metric misses too much. For example:
+
+* Output quality (relevance, accuracy, coherence) measures
+  whether responses are good.
+* Safety (hallucination rate, toxicity, guardrail adherence)
+  measures whether responses are safe.
+* Efficiency (task completion rate, tool invocation success)
+  measures whether the agent is economical.
+* Business alignment (outcome achievement, user satisfaction,
+  SLA compliance) measures whether the agent delivers value.
+
+Weighting depends on the use case. For instance, a
+customer-support agent might weigh satisfaction higher than
+efficiency, while an internal automation agent might weigh
+efficiency higher than relevance. Generic weighting produces
+generic results.
+
+Dashboards that show evaluation scores over time make degradation
+visible before it becomes an incident. Alerting on threshold
+violations and on persistent negative trends, as opposed to
+single-point dips, catches the slow-moving problems that are
+hardest to diagnose after the fact. Correlate evaluation shifts
+with configuration and model changes so attribution is fast when a
+metric moves.
+
+LLM-as-a-Judge patterns can use multiple evaluator prompts
+covering different quality dimensions to produce a composite score
+that is more reliable than any single prompt. Periodic human
+review validates the automated scores and catches the blind spots.
+
+### Implementation steps
+
+1. **Configure
+   [Amazon
+   Bedrock AgentCore Evaluations](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html"):** Use
+   on-demand mode for development benchmarking and online mode
+   for continuous production monitoring.
+2. **Define a multi-dimensional
+   evaluation framework:** Apply use-case-specific
+   weighting across quality, safety, efficiency, and business
+   alignment.
+3. **Implement LLM-as-judge
+   patterns:** Use multiple evaluator prompts and
+   supplement with periodic human evaluation.
+4. **Build evaluation
+   dashboards:** Show trends over time with alerting
+   for threshold violations and persistent negative trends.
+5. **Correlate evaluation results with
+   change events:** Tag deployments, configuration
+   updates, and model changes so quality shifts can be
+   attributed quickly.
+
+## Resources
+
+**Related best practices:**
+
+* [AGENTOPS06-BP01 Design
+  multi-layered testing frameworks](agentops06-bp01.html "agentops06-bp01.html")
+* [AGENTOPS06-BP03
+  Establish SME-driven validation and business approval
+  workflows](agentops06-bp03.html "agentops06-bp03.html")
+* [AGENTOPS02-BP04
+  Maintain feedback control loops for continuous
+  improvement](agentops02-bp04.html "agentops02-bp04.html")
+* [AGENTOPS05-BP04
+  Define and track KPIs for agent workflows](agentops05-bp04.html "agentops05-bp04.html")
+* [AGENTPERF01-BP01
+  Define performance-aligned success criteria for agent
+  workloads](agentperf01-bp01.html "agentperf01-bp01.html")
+
+**Related documents:**
+
+* [Amazon
+  Bedrock AgentCore Evaluations](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html")
+* [Evaluate
+  models in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-judge.html "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-judge.html")
+* [Operationalizing
+  agentic AI on AWS](https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-operationalizing-agentic-ai/introduction.html "https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-operationalizing-agentic-ai/introduction.html")
+* [Build
+  reliable AI agents with Amazon Bedrock AgentCore
+  Evaluations](https://aws.amazon.com/blogs/machine-learning/build-reliable-ai-agents-with-amazon-bedrock-agentcore-evaluations/ "https://aws.amazon.com/blogs/machine-learning/build-reliable-ai-agents-with-amazon-bedrock-agentcore-evaluations/")
+* [LLM-as-a-judge
+  on Amazon Bedrock Model Evaluation](https://aws.amazon.com/blogs/machine-learning/llm-as-a-judge-on-amazon-bedrock-model-evaluation/ "https://aws.amazon.com/blogs/machine-learning/llm-as-a-judge-on-amazon-bedrock-model-evaluation/")
+* [Evaluating
+  AI agents for production: A practical guide to Strands
+  Evals](https://aws.amazon.com/blogs/machine-learning/evaluating-ai-agents-for-production-a-practical-guide-to-strands-evals/ "https://aws.amazon.com/blogs/machine-learning/evaluating-ai-agents-for-production-a-practical-guide-to-strands-evals/")
+* [From
+  AI agent prototype to product: Lessons from building AWS
+  DevOps Agent](https://aws.amazon.com/blogs/devops/from-ai-agent-prototype-to-product-lessons-from-building-aws-devops-agent "https://aws.amazon.com/blog
+
+<e>Content truncated. Call the read_documentation tool with start_index=8000 to get more content.</e>
+
+====================================================================================================
+### [5/12] read_documentation :: 5.1.6 resultados de RAG eval en consola
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-eval-llm-results.html:
+
+# Review metrics for RAG evaluations that use LLMs (console)
+
+You can review the metrics presented in a report for a RAG evaluation job
+using the Amazon Bedrock console.
+
+RAG evaluations that use Large Language Models (LLMs) compute evaluation
+metrics to assess the performance of how well the Amazon Bedrock knowledge base or external RAG source is retrieving
+information and generating responses.
+
+In your RAG evaluation report card, you will see the metrics and the
+breakdown graphs of the metrics relevant to your evaluation type of either retrieval
+only or retrieval with response generation. Different metrics are relevant to different
+evaluation types. The computed scores for each metric are an average score for retrieved
+texts or generated responses across all the user queries in your prompts dataset. The
+computed score for each metric is a value between 0 and 1. The closer to 1, the more
+that metric’s characteristic appears in the retrieved texts or responses. The breakdown
+graphs for each metric plots a histogram and counts how many retrieved texts or
+responses for the queries fall within each score range.
+
+For example, you created an evaluation job to evaluate retrieval with response
+generation. The console report card shows a computed score for
+*Completeness* in responses to be at 0.82. The
+*Completeness* score measures how generated responses address all
+aspects of users’ questions. It is computed as an average score for responses to
+questions across all prompts in your dataset. The histogram graph for
+*Completeness* shows that most of the responses (highest bar)
+fall between a completeness score range of 0.7 to 0.8. However, the knowledge base also
+scored high for Stereotyping, where generalized statements are made in the responses at
+0.94 on average. The knowledge base can generate fairly complete responses most of the
+time, but those responses include a high amount of generalized statements about
+individuals or groups of people.
+
+## Report card for RAG evaluations that use LLMs
+
+Follow the steps to open the report card in the Amazon Bedrock console for RAG
+evaluation jobs that use LLMs. Refer to the information below for each metric that
+is relevant to the evaluation types of retrieval only and retrieval with response
+generation.
+
+* Sign in to the AWS Management Console and open the Amazon Bedrock console at [https://console.aws.amazon.com/bedrock/](https://console.aws.amazon.com/bedrock/ "https://console.aws.amazon.com/bedrock/").
+* Choose **Evaluations** from the navigation pane, then
+  choose **Knowledge base evaluation**.
+* Select the name of your knowledge base evaluation job. You will be
+  directed to the report card, which is the main page of the knowledge base
+  evaluation.
+
+  ###### Note
+
+  To open the report card, the status of your RAG evaluation
+  must be either ready or available.
+
+## Metrics relevant to retrieval only type evaluations
+
+There are certain metrics relevant to evaluating your knowledge base’s ability to
+retrieve highly relevant information.
+
+###### Contents
+
+* [Context relevance](./knowledge-base-eval-llm-results.html#kb-eval-metric-context-relevance "./knowledge-base-eval-llm-results.html#kb-eval-metric-context-relevance")
+* [Context coverage (requires ground truth)](./knowledge-base-eval-llm-results.html#kb-eval-metric-context-coverage "./knowledge-base-eval-llm-results.html#kb-eval-metric-context-coverage")
+
+### Context relevance
+
+This metric is relevant to the quality of the retrieved information. The score
+is an average score for retrieved text chunks across all prompts in your
+dataset. Context relevance means the retrieved text chunks are contextually
+relevant to the questions. The higher the score, the more contextually relevant
+the information is on average. The lower the score, the less contextually
+relevant the information is on average.
+
+### Context coverage (requires ground truth)
+
+This metric is relevant to the quality of the retrieved information. The score
+is an average score for retrieved text chunks across all prompts in your
+dataset. Context coverage means the retrieved text chunks cover all the
+information provided in the ground truth texts. The higher the score, the more
+context coverage on average. The lower the score, the less context coverage on
+average.
+
+## Metrics relevant to retrieval with response generation type evaluations
+
+There are certain metrics relevant to evaluating your knowledge base’s ability to
+generate useful, appropriate responses based on retrieved information.
+
+###### Contents
+
+* [Correctness](./knowledge-base-eval-llm-results.html#kb-eval-metric-correctness "./knowledge-base-eval-llm-results.html#kb-eval-metric-correctness")
+* [Completeness](./knowledge-base-eval-llm-results.html#kb-eval-metric-completeness "./knowledge-base-eval-llm-results.html#kb-eval-metric-completeness")
+* [Helpfulness](./knowledge-base-eval-llm-results.html#kb-eval-metric-helpfulness "./knowledge-base-eval-llm-results.html#kb-eval-metric-helpfulness")
+* [Logical coherence](./knowledge-base-eval-llm-results.html#kb-eval-metric-coherence "./knowledge-base-eval-llm-results.html#kb-eval-metric-coherence")
+* [Faithfulness](./knowledge-base-eval-llm-results.html#kb-eval-metric-faithfulness "./knowledge-base-eval-llm-results.html#kb-eval-metric-faithfulness")
+* [Citation precision](./knowledge-base-eval-llm-results.html#kb-eval-metric-cit-precision "./knowledge-base-eval-llm-results.html#kb-eval-metric-cit-precision")
+* [Citation coverage](./knowledge-base-eval-llm-results.html#kb-eval-metric-cit-coverage "./knowledge-base-eval-llm-results.html#kb-eval-metric-cit-coverage")
+* [Harmfulness](./knowledge-base-eval-llm-results.html#kb-eval-metric-harmfulness "./knowledge-base-eval-llm-results.html#kb-eval-metric-harmfulness")
+* [Stereotyping](./knowledge-base-eval-llm-results.html#kb-eval-metric-stereotyping "./knowledge-base-eval-llm-results.html#kb-eval-metric-stereotyping")
+* [Refusal](./knowledge-base-eval-llm-results.html#kb-eval-metric-refusa
+
+<e>Content truncated. Call the read_documentation tool with start_index=6000 to get more content.</e>
+
+====================================================================================================
+### [6/12] read_documentation :: 5.1.9 RAIER01 system evaluation
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/wellarchitected/latest/responsible-ai-lens/raier01.html:
+
+# System evaluation
+
+| RAIER01: How will you evaluate the AI system against your release criteria? |
+| --- |
+|  |
+
+Test system performance against the release criteria to determine
+if benefits and risks are addressed. Consider double checking your
+evaluations with evaluations by experts outside your team.
+Identify steps to address each criterion that is not met,
+modifying transparency solutions as appropriate. To reach a
+release decision, establish a methodology for combining the
+results for each release criterion.
+
+###### Best practices
+
+* [RAIER01-BP01 Validate that release criteria still align with current industry standards](./raier01-bp01.html "./raier01-bp01.html")
+* [RAIER01-BP02 Independently corroborate more critical and subjective evaluations](./raier01-bp02.html "./raier01-bp02.html")
+* [RAIER01-BP03 For each system update, re-run the evaluation and update the system registry](./raier01-bp03.html "./raier01-bp03.html")
+
+====================================================================================================
+### [7/12] read_documentation :: 5.1.2 prompt routing
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-routing.html:
+
+# Understanding intelligent prompt routing in Amazon Bedrock
+
+Amazon Bedrock intelligent prompt routing provides a single serverless endpoint to
+efficiently route requests between different foundational models within the same model
+family. It can dynamically predict the response quality of each model for each request, and
+then route the request to the model with the best response quality. This helps to optimize
+for both response quality and cost.
+
+###### Topics
+
+* [Supported Regions and models for intelligent prompt routing](#prompt-routing-support "#prompt-routing-support")
+* [Benefits](#prompt-routing-benefits "#prompt-routing-benefits")
+* [Default and configured prompt routers](#prompt-routing-types "#prompt-routing-types")
+* [Considerations and limitations](#prompt-routing-limitations "#prompt-routing-limitations")
+* [Prompt router criteria and fallback model](#prompt-router-criteria "#prompt-router-criteria")
+* [How intelligent prompt routing works](#prompt-routing-works "#prompt-routing-works")
+* [How to use intelligent prompt routing](#prompt-routing-use "#prompt-routing-use")
+
+## Supported Regions and models for intelligent prompt routing
+
+Intelligent prompt routing can be used with different types of models. The following list describes support for different types of Amazon Bedrock models:
+
+* **Single-region model support** – Lists regions that support sending inference requests to a foundation model in one AWS Region. For a full table of models available across Amazon Bedrock, see [Supported foundation models in Amazon Bedrock](./models-supported.html "./models-supported.html").
+* **Cross-region inference profile support** – Lists regions that support using a cross-region inference profile, which support sending inference requests to a foundation model in multiple AWS regions within a geographical area. An inference profile has a prefix preceding the model ID that indicates its geographical area (for example, `us.`, `apac`). For more information for available inference profiles across Amazon Bedrock, see [Supported Regions and models for inference profiles](./inference-profiles-support.html "./inference-profiles-support.html").
+
+The following table shows models supported for intelligent prompt routing:
+
+| Provider | Model | Model ID | Single-region model support | Cross-region inference profile support |
+| --- | --- | --- | --- | --- |
+| Amazon | Nova Lite | amazon.nova-lite-v1:0 | us-east-1  us-gov-west-1 | ap-northeast-1  ap-northeast-2  ap-south-1  ap-southeast-2  eu-central-1  eu-west-1  eu-west-3  us-east-1  us-east-2  us-west-2 |
+| Amazon | Nova Pro | amazon.nova-pro-v1:0 | us-east-1  us-gov-west-1 | ap-northeast-1  ap-northeast-2  ap-south-1  ap-southeast-2  eu-central-1  eu-west-1  eu-west-3  us-east-1  us-east-2  us-west-2 |
+| Anthropic | Claude 3 Haiku | anthropic.claude-3-haiku-20240307-v1:0 | ap-northeast-1  ap-northeast-2  ap-south-1  ap-southeast-2  eu-central-1  eu-west-1  eu-west-3  us-east-1  us-gov-west-1  us-west-2 | ap-northeast-1  ap-northeast-2  ap-south-1  ap-southeast-2  eu-central-1  eu-west-1  eu-west-3  us-east-1  us-east-2  us-gov-east-1  us-west-2 |
+| Anthropic | Claude 3.5 Haiku | anthropic.claude-3-5-haiku-20241022-v1:0 | us-west-2 | us-east-1  us-east-2  us-west-2 |
+| Anthropic | Claude 3.5 Sonnet | anthropic.claude-3-5-sonnet-20240620-v1:0 | ap-northeast-1  ap-northeast-2  eu-central-1  us-east-1  us-gov-west-1  us-west-2 | ap-northeast-1  ap-northeast-2  ap-south-1  ap-southeast-2  eu-central-1  eu-west-1  eu-west-3  us-east-1  us-east-2  us-gov-east-1  us-west-2 |
+| Anthropic | Claude 3.5 Sonnet v2 | anthropic.claude-3-5-sonnet-20241022-v2:0 | ap-southeast-2  us-west-2 | ap-northeast-1  ap-south-1  ap-southeast-2  eu-west-3  us-east-1  us-east-2  us-west-2 |
+| Meta | Llama 3.1 70B Instruct | meta.llama3-1-70b-instruct-v1:0 | us-west-2 | us-east-1  us-east-2  us-west-2 |
+| Meta | Llama 3.1 8B Instruct | meta.llama3-1-8b-instruct-v1:0 | us-west-2 | us-east-1  us-east-2  us-west-2 |
+| Meta | Llama 3.2 11B Instruct | meta.llama3-2-11b-instruct-v1:0 | N/A | us-east-1  us-east-2  us-west-2 |
+| Meta | Llama 3.2 90B Instruct | meta.llama3-2-90b-instruct-v1:0 | N/A | us-east-1  us-east-2  us-west-2 |
+| Meta | Llama 3.3 70B Instruct | meta.llama3-3-70b-instruct-v1:0 | us-east-2 | us-east-1  us-east-2  us-west-2 |
+
+## Benefits
+
+* **Optimized Response Quality and Cost:**
+  Routes prompts to different foundational models to achieve the best
+  response quality at the lowest cost.
+* **Simplified Management:** Eliminates the
+  need for complex orchestration logic.
+* **Future-Proof:** Incorporates new models as
+  they become available.
+
+## Default and configured prompt routers
+
+When using intelligent prompt routing, you can either use the default prompt
+routers provided by Amazon Bedrock, or configure your own prompt routers.
+
+Default prompt routers are pre-configured routing systems provided by Amazon Bedrock. These
+routers come with predefined settings and are designed to work 
+
+<e>Content truncated. Call the read_documentation tool with start_index=5000 to get more content.</e>
+
+====================================================================================================
+### [8/12] read_documentation :: 5.1.6 metricas de OpenSearch para latencia
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-cloudwatchmetrics.html:
+
+# Monitoring OpenSearch cluster metrics with Amazon CloudWatch
+
+Amazon OpenSearch Service publishes data from your domains to Amazon CloudWatch. CloudWatch lets you retrieve statistics
+about those data points as an ordered set of time-series data, known as *metrics*. OpenSearch Service sends most metrics to CloudWatch in 60-second
+intervals. If you use General Purpose or Magnetic EBS volumes, the EBS volume metrics update
+only every five minutes. All cumulative metrics (e.g. `ThreadpoolWriteRejected`,
+`ThreadpoolSearchRejected`) are in-memory and will lose state. Metrics will
+reset during a node drop, node bounce, node replacement, and blue/green deployment. For more
+information about Amazon CloudWatch, see the [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/").
+
+The OpenSearch Service console displays a series of charts based on the raw data from CloudWatch. Depending on
+your needs, you might prefer to view cluster data in CloudWatch instead of the graphs in the
+console. The service archives metrics for two weeks before discarding them. The metrics are
+provided at no extra charge, but CloudWatch still charges for creating dashboards and alarms. For
+more information, see [Amazon CloudWatch
+pricing](https://aws.amazon.com/cloudwatch/pricing/ "https://aws.amazon.com/cloudwatch/pricing/").
+
+OpenSearch Service publishes the following metrics to CloudWatch:
+
+* [Cluster metrics](#managedomains-cloudwatchmetrics-cluster-metrics "#managedomains-cloudwatchmetrics-cluster-metrics")
+* [Dedicated master node metrics](#managedomains-cloudwatchmetrics-master-node-metrics "#managedomains-cloudwatchmetrics-master-node-metrics")
+* [EBS volume metrics](#managedomains-cloudwatchmetrics-master-ebs-metrics "#managedomains-cloudwatchmetrics-master-ebs-metrics")
+* [Instance metrics](#managedomains-cloudwatchmetrics-instance-metrics "#managedomains-cloudwatchmetrics-instance-metrics")
+* [Warm metrics](#managedomains-cloudwatchmetrics-uw "#managedomains-cloudwatchmetrics-uw")
+* [Dedicated coordinator node metrics](#managedomains-dedicated-coordinator-nodes "#managedomains-dedicated-coordinator-nodes")
+* [Cold storage metrics](#managedomains-cloudwatchmetrics-coldstorage "#managedomains-cloudwatchmetrics-coldstorage")
+* [Optimized engine metrics](#managedomains-cloudwatchmetrics-optimized "#managedomains-cloudwatchmetrics-optimized")
+* [Alerting metrics](#managedomains-cloudwatchmetrics-alerting "#managedomains-cloudwatchmetrics-alerting")
+* [Anomaly detection metrics](#managedomains-cloudwatchmetrics-anomaly-detection "#managedomains-cloudwatchmetrics-anomaly-detection")
+* [Asynchronous search metrics](#managedomains-cloudwatchmetrics-asynchronous-search "#managedomains-cloudwatchmetrics-asynchronous-search")
+* [SQL metrics](#managedomains-cloudwatchmetrics-sql "#managedomains-cloudwatchmetrics-sql")
+* [k-NN metrics](#managedomains-cloudwatchmetrics-knn "#managedomains-cloudwatchmetrics-knn")
+* [Cross-cluster search metrics](#managedomains-cloudwatchmetrics-cross-cluster-search "#managedomains-cloudwatchmetrics-cross-cluster-search")
+* [Cross-cluster replication metrics](#managedomains-cloudwatchmetrics-replication "#managedomains-cloudwatchmetrics-replication")
+* [Learning to Rank metrics](#managedomains-cloudwatchmetrics-learning-to-rank "#managedomains-cloudwatchmetrics-learning-to-rank")
+* [Piped Processing Language metrics](#managedomains-cloudwatchmetrics-ppl "#managedomains-cloudwatchmetrics-ppl")
+
+## Viewing metrics in CloudWatch
+
+CloudWatch metrics are grouped first by the service namespace, and then by the various
+dimension combinations within each namespace.
+
+###### To view metrics using the CloudWatch console
+
+1. Open the CloudWatch console at [https://console.aws.amazon.com/cloudwatch/](https://console.aws.amazon.com/cloudwatch/ "https://console.aws.amazon.com/cloudwatch/").
+2. In the left navigation pane, find **Metrics** and ch
+
+<e>Content truncated. Call the read_documentation tool with start_index=4000 to get more content.</e>
+
+====================================================================================================
+### [9/12] read_documentation :: 5.1.7 resultados y salida de evaluaciones
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/results-and-output.html:
+
+# Results and output
+
+Online evaluation results are automatically saved to Amazon CloudWatch. By default, the service writes them as JSON log entries to a dedicated CloudWatch log group.
+
+###### Topics
+
+* [Log group structure](#log-group-structure "#log-group-structure")
+* [Choose where results are written](#result-destination "#result-destination")
+* [Publish metrics to a custom namespace](#custom-metrics-namespace "#custom-metrics-namespace")
+* [Result format](#result-format "#result-format")
+* [Viewing results in CloudWatch Observability Console](#viewing-results-console "#viewing-results-console")
+* [Viewing evaluation scores in CloudWatch Metrics](#viewing-scores-metrics "#viewing-scores-metrics")
+
+## Log group structure
+
+If you use the default dedicated destination, the service writes evaluation results to `/aws/bedrock-agentcore/evaluations/results/<online-evaluation-config-id>` . You can see the resolved result log group for a configuration on that evaluation’s **details page** in the Amazon Bedrock AgentCore console.
+
+Each evaluation generates a separate log entry within this log group. Additionally, evaluation scores are emitted as CloudWatch metrics for monitoring and analysis.
+
+## Choose where results are written
+
+Use `resultDestination` in `outputConfig.cloudWatchConfig` to choose where online evaluation results are written. If you don’t set it, the service uses a dedicated log group:
+
+* `DEDICATED_LOG_GROUP` (default) – Writes results to a dedicated result log group. If you don’t set `logGroupName`, the service uses `/aws/bedrock-agentcore/evaluations/results/<online-evaluation-config-id>`. To use a different dedicated log group, set `logGroupName` (see [Use a custom output log group](#custom-output-log-group "#custom-output-log-group")).
+* `SOURCE_LOG_GROUP` – Writes results back to the same log group that supplied the agent traces, so evaluations appear alongside the traces they scored. Don’t set `logGroupName` when you use this value.
+
+### Use a custom output log group
+
+When `resultDestination` is `DEDICATED_LOG_GROUP`, you can set `logGroupName` to send results to a log group that you choose. If the log group already exists, the service uses it as-is. If it doesn’t exist, the service creates it, so the evaluation execution role must allow `logs:CreateLogGroup` for that log group. The name can’t use the reserved `/aws/bedrock-agentcore/evaluations/` prefix, except for this configuration’s own service-managed default group.
+
+```
+# Write results back to the trace source log group
+outputConfig={"cloudWatchConfig": {"resultDestination": "SOURCE_LOG_GROUP"}}
+
+# Write results to a custom dedicated log group
+outputConfig={"cloudWatchConfig": {"resultDestination": "DEDICATED_LOG_GROUP", "logGroupName": "/my/team/evaluation-results"}}
+```
+
+## Publish metrics to a custom namespace
+
+Evaluation scores are also published as CloudWatch metrics. By default, the service uses the `Bedrock-AgentCore/Evaluations` namespace. To publish metrics under your own namespace, for example to separate results by team or tenant, set `metricsNamespace` in `outputConfig.cloudWatchConfig`. The value can’t begin with `AWS/`.
+
+```
+outputConfig={"cloudWatchConfig": {"metricsNamespace": "MyTeam/Evaluations"}}
+```
+
+## Result format
+
+Evaluation results follow OpenTelemetry semantic conventions for GenAI evaluation result events. When possible, each event is parented to the original span ID and includes the original trace ID and session ID.
+
+You can use CloudWatch Logs Insights to query and analyze your evaluation results, and CloudWatch Metrics to monitor evaluation trends over time.
+
+## Viewing results in CloudWatch Observability Console
+
+You can view and analyze your evaluation results using the CloudWatch Observability Console. The console provides visualizations, metrics, and detailed logs of your agent evaluations.
+
+**To view evaluation results**
+
+1. Open the CloudWatch console at [https://console.aws.amazon.com/cloudwatch/](https://console.aws.amazon.com/cloudwatch/ "https://console.aws.amazon.com/cloudwatch/")
+2. In the navigation pane, choose **GenAI Observability** > **Bedrock AgentCore**
+3. Under the **Agents** section, select the agent and endpoint associated with your evaluation configuration
+4. Navigate to the **Evaluations** tab for detailed results
+
+For more details, see [AWS CloudWatch session trace evaluations documentation](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/session-traces-evaluations.html "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/session-traces-evaluations.html").
+
+## Viewing evaluation scores in CloudWatch Metrics
+
+Evaluation scores are published as CloudWatch metrics. By default, they appear in the `Bedrock-AgentCore/Evaluations` namespace. If you set `metricsNamespace`, look for that custom namespace instead when you browse metrics in CloudWatch.
+
+**To view evaluation scores**
+
+1. Open the CloudWatch console at [https://console.aws.amazon.com/cloudwatch/](https://console.aws.amazon.com/cloudwatch/ "https://console.aws.amazon.com/cloudwatch/")
+2. In the navigation pane, choose **Metrics** > **All Metrics**
+3. In the **Browse** tab, select **Bedrock-AgentCore/Evaluations** or the custom namespace that you configured in `outputConfig.cloudWatchConfig.metricsNamespace`
+4. Select dimension combinations to optionally narrow down results by evaluator type or evaluation label
+
+For more details, see [AWS CloudWatch session trace evaluations documentation](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/session-traces-evaluations.html "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/session-traces-evaluations.html").
+
+====================================================================================================
+### [10/12] read_documentation :: 5.1.7 tipos de evaluacion de AgentCore
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations-types.html:
+
+# Evaluation types
+
+AgentCore Evaluations provides three evaluation types, which differ in when and how the evaluation is performed:
+
+###### Topics
+
+* [Online evaluation](#online-evaluation-type "#online-evaluation-type")
+* [On-demand evaluation](#on-demand-evaluation-type "#on-demand-evaluation-type")
+* [Batch evaluation](#batch-evaluation-type "#batch-evaluation-type")
+
+## Online evaluation
+
+Online evaluation continuously monitors the quality of deployed agents using live production traffic. Unlike one-off evaluation in development environments, it provides continuous performance assessment across multiple criteria, enabling persistent monitoring in production.
+
+Online evaluation consists of three main components. First, session sampling and filtering allows you to configure specific rules to evaluate agent interactions. You can set percentage-based sampling to evaluate a portion of all sessions (for example, 10%) or define conditional filters for more targeted evaluation. Second, you can choose from multiple evaluation methods including creating new [Custom evaluators](./custom-evaluators.html "./custom-evaluators.html") , using existing custom evaluators, or selecting from [Built-in evaluators](./evaluators.html#built-in-evaluators "./evaluators.html#built-in-evaluators") . Finally, the monitoring and analysis capabilities lets you view aggregated scores in dashboards, track quality trends over time, investigate low-scoring sessions, and analyze complete interaction flows from input to output.
+
+## On-demand evaluation
+
+On-demand evaluation provides a flexible way to evaluate specific agent interactions by directly analyzing a chosen set of spans. Unlike online evaluation which continuously monitors production traffic, on-demand evaluation lets you perform targeted assessments of selected interactions at any time.
+
+With on-demand evaluation, you specify the exact spans or traces you want to evaluate by providing their span or trace IDs. You can then apply the same comprehensive evaluation methods available in online evaluation, including [Custom evaluators](./custom-evaluators.html "./custom-evaluators.html") or [Built-in evaluators](./evaluators.html#built-in-evaluators "./evaluators.html#built-in-evaluators") . This evaluation type is particularly useful when you need to try out your own custom evaluator, investigate specific customer interactions, validate fixes for reported issues, or analyze historical data for quality improvements. Once you submit the evaluation request, the service processes only the spans and traces you specify and returns detailed results for your analysis.
+
+This evaluation type complements online evaluation by offering precise control over which interactions to assess, making it an effective tool for focused quality analysis and issue investigation. It is also well suited for early stages of the agent development lifecycle, such as build-time testing.
+
+## Batch evaluation
+
+Batch evaluation runs evaluators against multiple agent sessions in a single asynchronous job. Unlike on-demand evaluation where you collect spans and call the Evaluate API per session, batch evaluation handles session discovery, span collection, and scoring entirely on the service side. You submit a job specifying the CloudWatch Logs location of your agent sessions and which evaluators to run. The service processes all matching sessions and returns aggregate results with per-evaluator average scores.
+
+Batch evaluation supports ground truth through session metadata, enabling reference-based scoring with expected responses, assertions, and expected tool trajectories. Results include both aggregate summaries (per-evaluator averages and session counts) and per-session detail written to CloudWatch Logs.
+
+This evaluation type is designed for baseline measurement before making changes, pre/post comparison after applying prompt or model updates, regression testing across curated session sets, and periodic quality audits across production traffic from a specific time window.
+
+====================================================================================================
+### [11/12] read_documentation :: 5.2.2 model invocation logging
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html:
+
+# Monitor model invocation using CloudWatch Logs and Amazon S3
+
+You can use model invocation logging to collect invocation logs,
+model input data, and model output data for all invocations in your AWS account used
+in Amazon Bedrock in a Region.
+
+With invocation logging, you can collect the full request data, response data, and
+metadata associated with supported calls performed in your account in a Region. Logging can be configured
+to provide the destination resources where the log data will be published. Supported
+destinations include Amazon CloudWatch Logs and Amazon Simple Storage Service (Amazon S3). Only destinations from the same account
+and Region are supported.
+
+Model invocation logging is disabled by default. After model invocation logging is enabled, logs are stored until the logging configuration is deleted.
+
+The following operations can log model invocations.
+
+* [Converse](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html")
+* [ConverseStream](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ConverseStream.html "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ConverseStream.html")
+* [InvokeModel](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModel.html "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModel.html")
+* [InvokeModelWithResponseStream](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModelWithResponseStream.html "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModelWithResponseStream.html")
+
+###### Note
+
+Model invocation logging is only supported for calls made through the
+`bedrock-runtime` endpoint. This includes the OpenAI-compatible
+Responses and Chat Completions APIs on that endpoint. Calls made through
+other endpoints, such as the same APIs on `bedrock-mantle`, are
+not currently captured by invocation logging.
+
+When [using the Converse API](./conversation-inference-call.html "./conversation-inference-call.html"), any image or document data that you pass is logged in Amazon S3
+(if you have [enabled](#model-invocation-logging-console "#model-invocation-logging-console") delivery and
+image logging in Amazon S3).
+
+Before you can enable invocation logging, you need to set up an Amazon S3 or CloudWatch Logs destination.
+You can enable invocation logging through either the console or the API.
+
+###### Topics
+
+* [Set up an Amazon S3 destination](#setup-s3-destination "#setup-s3-destination")
+* [Set up an CloudWatch Logs destination](#setup-cloudwatch-logs-destination "#setup-cloudwatch-logs-destination")
+* [Model invocation logging using the console](#model-invocation-logging-console "#model-invocation-logging-console")
+* [Model invocation logging using the API](#using-apis-logging "#using-apis-logging")
+* [Log entry format](#model-invocation-log-format "#model-invocation-log-format")
+
+## Set up an Amazon S3 destination
+
+###### Note
+
+When using Amazon S3 as a logging destination, the bucket must be in the same
+AWS account and AWS Region as the one where you're creating the model invocation
+logging configuration.
+
+You can set up an S3 destination for logging in Amazon Bedrock with these steps:
+
+1. Create an S3 bucket where the logs will be delivered.
+2. Add a bucket policy to it like the one below (Replace values for
+   `accountId`, `region`,
+   `bucketName`, and optionally
+   `prefix`):
+
+   ###### Note
+
+   A bucket policy is automatically attached to the bucket on your behalf when you configure
+   logging with the permissions `S3:GetBucketPolicy` and `S3:PutBucketPolicy`.
+
+   JSON
+   :   :   ```
+           {
+               "Version":"2012-10-17",
+               "Statement": [
+                   {
+                       "Sid": "AmazonBedrockLogsWrite",
+                       "Effect": "Allow",
+                       "Principal": {
+                           "Service": "bedrock.amazonaws.com"
+                       },
+                       "Action": [
+                           "s3:PutObject"
+                       ],
+                       "Resource": [
+                           "arn:aws:s3:::bucketName/prefix/AWSLogs/123456789012/BedrockModelInvocationLogs/*"
+                       ],
+                       "Condition": {
+                           "StringEquals": {
+                               "aws:SourceAccount": "123456789012"
+                           },
+                           "ArnLike": {
+                               "aws:SourceArn": "arn:aws:bedrock:us-east-1:123456789012:*"
+                           }
+                       }
+                   }
+               ]
+           }
+           ```
+3. (Optional) If configuring SSE-KMS on the bucket, add the following policy on the KMS key:
+
+   ```
+   {
+       "Effect": "Allow",
+       "Principal": {
+           "Service": "bedrock.amazonaws.com"
+       },
+       "Action": "kms:GenerateDataKey",
+       "Resource": "*",
+       "Condition": {
+           "StringEquals": {
+             "aws:SourceAccount": "accountId" 
+           },
+           "ArnLike": {
+              "aws:SourceArn": "arn:aws:bedrock:region:accountId:*"
+           }
+       }
+   }
+   ```
+
+For more information on S3 SSE-KMS configurations, see [Specifying KMS Encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/specifying-kms-encryption.html "https://docs.aws.amazon.com/AmazonS3/latest/userguide/specifying-kms-encryption.html").
+
+###### Note
+
+The bucket ACL must be disabled in order for the bucket policy to take effect.
+For more information, see [Disabling ACLs for all new buckets and enforcing Object Ownership](AmazonS3/latest/userguide/ensure-object-ownership.html "AmazonS3/latest/userguide/ensure-object-ownership.html").
+
+## Set up an CloudWatch Logs destination
+
+You can set up a Amazon CloudWatch Logs destination for logging in Amazon Bedrock with the following steps:
+
+1. Creat
+
+<e>Content truncated. Call the read_documentation tool with start_index=6000 to get more content.</e>
+
+====================================================================================================
+### [12/12] read_documentation :: 5.2.5 metricas de anomalias en logs
+====================================================================================================
+AWS Documentation from https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/LogsAnomalyDetection.html:
+
+# Log anomaly detection
+
+You can detect anomalies in your log data in two ways: by creating a *log anomaly
+detector* for continuous monitoring, or by using the [anomaly detection](./CWL_QuerySyntax-Anomaly.html "./CWL_QuerySyntax-Anomaly.html") command in CloudWatch Logs
+Insights queries for on-demand analysis.
+
+A log anomaly detector scans the log events ingested into a log group and finds anomalies
+in the log data automatically. Anomaly detection uses machine-learning and pattern
+recognition to establish baselines of typical log content. For on-demand analysis, you can
+use the `anomaly detection` command in CloudWatch Logs Insights queries to identify unusual
+patterns in time-series data. For more information about query-based anomaly detection, see
+[Using anomaly detection in CloudWatch Logs Insights](./LogsAnomalyDetection-Insights.html "./LogsAnomalyDetection-Insights.html").
+
+After you create an anomaly detector for a log group, it trains using the past two weeks
+of log events in the log group for training. The training period can take up to 15 minutes.
+After the training is complete, it begins to analyze incoming logs to identify anomalies,
+and the anomalies are displayed in the CloudWatch Logs console for you to examine.
+
+CloudWatch Logs pattern recognition extracts log patterns by identifying static and dynamic content
+in your logs. Patterns are useful for analyzing large log sets because a large number of log
+events can often be compressed into a few patterns.
+
+For example, see the following sample of three log events.
+
+```
+2023-01-01 19:00:01 [INFO] Calling DynamoDB to store for ResourceID: 12342342k124-12345
+2023-01-01 19:00:02 [INFO] Calling DynamoDB to store for ResourceID: 324892398123-1234R
+2023-01-01 19:00:03 [INFO] Calling DynamoDB to store for ResourceID: 3ff231242342-12345
+```
+
+In the previous sample, all three log events follow one pattern:
+
+```
+<Date-1> <Time-2> [INFO] Calling DynamoDB to store for resource id <ResourceID-3>
+```
+
+Fields within a pattern are called *tokens*. Fields that vary within a
+pattern, such as a request ID or timestamp, are referred to as *dynamic
+tokens*. Each different value found for a dynamic token is called a
+*token value*.
+
+If CloudWatch Logs can infer the type of data that a dynamic token represents, it displays the token
+as `<string-number>`.
+The `string` is a description of the type of data that the token
+represents. The `number` shows where in the pattern this token
+appears, compared to the other dynamic tokens.
+
+CloudWatch Logs assigns the string part of the name based on analyzing the content of the log events
+that contain it.
+
+If CloudWatch Logs can't infer the type of data that a dynamic token represents, it displays the
+token as <Token-`number`>, and
+`number` indicates where in the pattern this token appears,
+compared to the other dynamic tokens.
+
+Common examples of dynamic tokens include error codes, IP addresses, timestamps, and
+request IDs.
+
+Logs anomaly detection uses these patterns to find anomalies. After the anomaly detector
+model training period, logs are evaluated against known trends. The anomaly detector flags
+significant fluctuations as anomalies.
+
+This chapter describes how to enable anomaly detection, view anomalies, create alarms for
+log anomaly detectors, and metrics that log anomaly detectors publish. It also describes how
+to encrypt anomaly detector and its results with AWS Key Management Service.
+
+Creating log anomaly detectors doesn't incur charges.
+
+## Severity and priority of anomalies and patterns
+
+Each anomaly found by a log anomaly detector is assigned a
+*priority*. Each pattern found is assigned a
+*severity*.
+
+* *Priority* is automatically computed, and is based on both
+  the severity level of the pattern and the amount of deviation from expected
+  values. For example, if a certain token value suddenly increases by 500%, that
+  anomaly might be designated as `HIGH` priority even if its severity
+  is `NONE`.
+* *Severity* is based only on keywords found in the patterns
+  such as `FATAL`, `ERROR`, and `WARN`. If none
+  of these keywords are found, the severity of a pattern is marked as
+  `NONE`.
+
+## Anomaly visibility time
+
+When you create an anomaly detector, you specify the maximum anomaly visibility period
+for it. This is the number of days that the anomaly is displayed in the console and is
+returned by the [ListAnomalies](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_ListAnomalies.html "https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_ListAnomalies.html") API operation. After this time period has elapsed for an
+anomaly, if it continues to happen, it's automatically accepted as regular behavior and
+the anomaly detector model stops flagging it as an anomaly.
+
+If you don't adjust the visibility time when you create an anomaly detector, 21 days
+is used as the default.
+
+## Suppressing an anomaly
+
+After an anomaly has been found, you can choose to suppress it temporarily or
+permanently. Suppressing an anomaly causes the anomaly detector to stop flagging this
+occurrence as an anomaly for the amount of time that you specify. When you suppress an
+anomaly, you can choose to suppress only that specific anomaly, or suppress all
+anomalies related to the pattern that the anomaly was found in.
+
+You can still view suppressed anomalies in the console. You can also choose to stop
+suppressing them.
+
+## Frequently asked questions
+
+**Does AWS use my data to train machine-learning algorithms for
+AWS use or for other customers?**
+
+No. The anomaly detection model created by the training is based on the log events in
+a log group and is used only within that log group and that AWS account.
+
+**What types of log events work well with anomaly
+detection?**
+
+**Log anomaly detection is well-suited for:** Application
+logs and other types of logs where most log entries fit typical patterns. Log groups
+with events that contain a log level or severity keywords such as
+**INFO**, **ERROR**
+
+<e>Content truncated. Call the read_documentation tool with start_index=6000 to get more content.</e>
